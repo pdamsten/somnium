@@ -1,0 +1,3 @@
+Debug mode
+----------
+defaults write com.adobe.CSXS.8.plist LogLevel 6 && killall -u `whoami` cfprefsd
