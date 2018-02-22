@@ -38,7 +38,14 @@ var themeManager = (function () {
         return hex;
     }
 
-
+    function hexColor(v) {
+        return '#' + toHex({
+            red: v,
+            green: v,
+            blue: v
+        }, 0);
+    }
+  
     function reverseColor(color, delta) {
         return toHex({
             red: Math.abs(255 - color.red),
@@ -51,7 +58,6 @@ var themeManager = (function () {
 
     function addRule(stylesheetId, selector, rule) {
         var stylesheet = document.getElementById(stylesheetId);
-        
         if (stylesheet) {
             stylesheet = stylesheet.sheet;
             if (stylesheet.addRule) {
@@ -62,13 +68,13 @@ var themeManager = (function () {
         }
     }
         
-        
-                
     /**
      * Update the theme with the AppSkinInfo retrieved from the host product.
      */
     function updateThemeWithAppSkinInfo(appSkinInfo) {
-        
+        var pscolors = {50: [41, 214, 38], 83: [69, 221, 66], 184: [209, 37, 163], 240: [252, 43, 219]};
+                
+        //console.dir(appSkinInfo);
         var panelBgColor = appSkinInfo.panelBackgroundColor.color;
         var bgdColor = toHex(panelBgColor);
        
@@ -82,14 +88,14 @@ var themeManager = (function () {
                 
         var styleId = "hostStyle";
         
-        addRule(styleId, ".hostElt", "background-color:" + "#" + bgdColor);
+        //addRule(styleId, ".hostElt", "background-color:" + "#" + bgdColor);
         addRule(styleId, ".hostElt", "font-size:" + appSkinInfo.baseFontSize + "px;");
         addRule(styleId, ".hostElt", "font-family:" + appSkinInfo.baseFontFamily);
-        addRule(styleId, ".hostElt", "color:" + "#" + fontColor);
+        //addRule(styleId, ".hostElt", "color:" + "#" + fontColor);
 
-        addRule(styleId, ".hostBgd", "background-color:" + "#" + bgdColor);
+        /*addRule(styleId, ".hostBgd", "background-color:" + "#" + bgdColor);
         addRule(styleId, ".hostBgdDark", "background-color: " + "#" + darkBgdColor);
-        addRule(styleId, ".hostBgdLight", "background-color: " + "#" + lightBgdColor);
+        addRule(styleId, ".hostBgdLight", "background-color: " + "#" + lightBgdColor);*/
         addRule(styleId, ".hostFontSize", "font-size:" + appSkinInfo.baseFontSize + "px;");
         addRule(styleId, ".hostFontFamily", "font-family:" + appSkinInfo.baseFontFamily);
         addRule(styleId, ".hostFontColor", "color:" + "#" + fontColor);
@@ -97,11 +103,25 @@ var themeManager = (function () {
         addRule(styleId, ".hostFont", "font-size:" + appSkinInfo.baseFontSize + "px;");
         addRule(styleId, ".hostFont", "font-family:" + appSkinInfo.baseFontFamily);
         addRule(styleId, ".hostFont", "color:" + "#" + fontColor);
-        
+        /*
         addRule(styleId, ".hostButton", "background-color:" + "#" + darkBgdColor);
         addRule(styleId, ".hostButton:hover", "background-color:" + "#" + bgdColor);
         addRule(styleId, ".hostButton:active", "background-color:" + "#" + darkBgdColor);
         addRule(styleId, ".hostButton", "border-color: " + "#" + lightBgdColor);        
+        */
+
+        var bg = hexColor(appSkinInfo.panelBackgroundColor.color.red);
+        var bgw = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][0]);
+        var bgh = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][2]);
+        var txt = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][1]);
+        var txtp = pscolors[appSkinInfo.panelBackgroundColor.color.red][1] / 255.0;
+        addRule(styleId, ".cc", "background-color:" + bg);        
+        addRule(styleId, ".cc", "color:" + txt);        
+        addRule(styleId, ".ccwidget", "background-color:" + bgw);        
+        addRule(styleId, ".ccwidget", "color:" + txt);        
+        addRule(styleId, ".ccheader", "background-color:" + bgh);        
+        addRule(styleId, ".ccheader", "color:" + txt);        
+        addRule(styleId, ".svg", "filter:brightness(" + txtp + ')');        
 
     }
     

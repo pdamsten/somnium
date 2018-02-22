@@ -20,7 +20,6 @@
 }
 
 #footer {
-  background-color: #3e3e3e;
   text-align: right;
   width:100%;
   position: absolute;
@@ -35,7 +34,6 @@
 
 #header {
   text-align: center;
-  background-color: #3e3e3e;
   width:100%;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -44,6 +42,12 @@
 #TestButton{
     width: 100%;
 }
+
+/* cc colors placeholders */
+.cc{}
+.ccwidget{}
+.ccheader{}
+.svg{}
 
 /*
 Those classes will be edited at runtime with values specified
