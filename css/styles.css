@@ -1,24 +1,46 @@
 /*Your styles*/
 
  body {
-    margin: 10px;
+    margin: 0px;
 }
 
 
 #content {
-    margin-right:auto;
-    margin-left:auto;
-    vertical-align:middle;
-    width:100%;
+  margin: 10px;
 }
 
+#helpers {
+  margin-right:auto;
+  margin-left:auto;
+  vertical-align:middle;
+  width:100%;
+}
+
+#footer {
+  background-color: #3e3e3e;
+  text-align: right;
+  width:100%;
+  position: absolute;
+  bottom: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#footer img {
+  vertical-align:middle;
+}
+
+#header {
+  text-align: center;
+  background-color: #3e3e3e;
+  width:100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 
 #btn_test{
     width: 100%;
 }
-
-
-
 
 /*
 Those classes will be edited at runtime with values specified
@@ -41,11 +63,11 @@ by the settings of the CC application
 
 
 .hostButton{
-    border:1px solid;
-    border-radius:2px;
-    height:20px;
-    vertical-align:bottom;
-    font-family:inherit;
-    color:inherit;
-    font-size:inherit;
+  border:1px solid;
+  border-radius:2px;
+  height:20px;
+  vertical-align:bottom;
+  font-family:inherit;
+  color:inherit;
+  font-size:inherit;
 }
