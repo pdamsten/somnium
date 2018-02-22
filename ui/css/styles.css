@@ -4,6 +4,9 @@
     margin: 0px;
 }
 
+.clickable {
+  cursor: pointer; 
+}
 
 #content {
   margin: 10px;
@@ -38,7 +41,7 @@
   padding-bottom: 5px;
 }
 
-#btn_test{
+#TestButton{
     width: 100%;
 }
 

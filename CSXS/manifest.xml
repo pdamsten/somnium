@@ -21,7 +21,7 @@
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./ui/main.html</MainPath>
-				<ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+				<ScriptPath>./jsx/main.jsx</ScriptPath>
 				</Resources>
 				<Lifecycle>
 					<AutoVisible>true</AutoVisible>
