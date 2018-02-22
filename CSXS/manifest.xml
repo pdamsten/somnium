@@ -20,7 +20,7 @@
 		<Extension Id="com.petridamsten.somnium.panel">
 			<DispatchInfo >
 				<Resources>
-				<MainPath>./index.html</MainPath>
+				<MainPath>./ui/main.html</MainPath>
 				<ScriptPath>./jsx/hostscript.jsx</ScriptPath>
 				</Resources>
 				<Lifecycle>
@@ -44,11 +44,11 @@
                         </MaxSize>-->
 					</Geometry>
 					<Icons>
-						<Icon Type="Normal">./icons/iconNormal.png</Icon>
-						<Icon Type="RollOver">./icons/iconRollover.png</Icon>
-						<Icon Type="Disabled">./icons/iconDisabled.png</Icon>
-						<Icon Type="DarkNormal">./icons/iconDarkNormal.png</Icon>
-						<Icon Type="DarkRollOver">./icons/iconDarkRollover.png</Icon>
+						<Icon Type="Normal">./ui/img/iconNormal.png</Icon>
+						<Icon Type="RollOver">./ui/img/iconRollover.png</Icon>
+						<Icon Type="Disabled">./ui/img/iconDisabled.png</Icon>
+						<Icon Type="DarkNormal">./ui/img/iconDarkNormal.png</Icon>
+						<Icon Type="DarkRollOver">./ui/img/iconDarkRollover.png</Icon>
 					</Icons>					
 				</UI>
 			</DispatchInfo>
