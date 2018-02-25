@@ -5,10 +5,10 @@
 var themeManager = (function () {
   'use strict';
      
-  var pscolors = {50: [41, 214, 38], 
-                  83: [69, 221, 66], 
-                  184: [209, 37, 163], 
-                  240: [252, 43, 219]};
+  var pscolors = {50: [41, 214, 38, 125, 225], 
+                  83: [69, 221, 66, 125, 240], 
+                  184: [209, 37, 163, 135, 15], 
+                  240: [252, 43, 219, 173, 41]};
 
   // Convert the Color object to string in hexadecimal format;
   function toHex(color, delta) 
@@ -72,9 +72,25 @@ var themeManager = (function () {
       var widgetBg = hexColor(pscolors[clr][0]);
       var txt = hexColor(pscolors[clr][1]);
       var darkerBg = hexColor(pscolors[clr][2]);
+      var buttonPressed = hexColor(pscolors[clr][3]);
+      var widgetTxt = hexColor(pscolors[clr][4]);
       var brightnessFilter = pscolors[clr][1] / 255.0;
       addRule(styleId, ".cc", "background-color:" + bg);
       addRule(styleId, ".cc", "color:" + txt);
+      addRule(styleId, ".cc", "font-size:" + fs);
+      addRule(styleId, ".cc", "font-family:" + ff);
+      addRule(styleId, ".ccbutton", "border-color:" + buttonPressed);
+      addRule(styleId, ".ccbutton", "background:" + bg);
+      addRule(styleId, ".ccbutton", "color:" + widgetTxt);
+      addRule(styleId, ".ccbutton:active", "border-color:" + buttonPressed);
+      addRule(styleId, ".ccbutton:active", "background:" + buttonPressed);
+      addRule(styleId, ".ccbutton:active", "color:" + darkerBg);
+      addRule(styleId, ".ccbuttondefault", "border-color:" + widgetTxt);
+      addRule(styleId, ".ccbuttondefault", "background:" + bg);
+      addRule(styleId, ".ccbuttondefault", "color:" + widgetTxt);
+      addRule(styleId, ".ccbuttondefault:active", "border-color:" + widgetTxt);
+      addRule(styleId, ".ccbuttondefault:active", "background:" + widgetTxt);
+      addRule(styleId, ".ccbuttondefault:active", "color:" + darkerBg);
       addRule(styleId, ".cc", "font-size:" + fs);
       addRule(styleId, ".cc", "font-family:" + ff);
       addRule(styleId, ".ccwidget", "background-color:" + widgetBg);

@@ -1,4 +1,16 @@
 .cc{}
 .ccwidget{}
 .ccheader{}
+.ccbutton, .ccbuttondefault{
+  border-radius: 30px;
+  border-width: 1px;
+  border-style: solid;
+  height: 27px;
+  font-size: 1.18em;
+  margin-bottom: 10px;
+}
+.ccbutton{}
+.ccbutton:active{}
+.ccbuttondefault{}
+.ccbuttondefault:active{}
 .ccsvg{}
