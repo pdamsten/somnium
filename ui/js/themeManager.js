@@ -95,6 +95,7 @@ var themeManager = (function () {
       addRule(styleId, ".ccwidget", "background-color:" + widgetBg);
       addRule(styleId, ".ccwidget", "color:" + txt);
       addRule(styleId, ".ccheader", "background-color:" + darkerBg);
+      addRule(styleId, ".ccheader", "border-color:" + darkerBg);
       addRule(styleId, ".ccheader", "color:" + txt);
       addRule(styleId, ".ccsvg", "filter:brightness(" + brightnessFilter + ');');
     } catch(err) {

@@ -1,7 +1,18 @@
 /*Your styles*/
 
  body {
-    margin: 0px;
+  margin: 0px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 140%;
+  font-weight: normal;
+}
+
+hr {
+  height: 1px;
+  border: none;
 }
 
 .clickable {
@@ -33,6 +44,7 @@
 
 #content {
   margin: 10px;
+  text-align: center;
 }
 
 #helpers {
@@ -60,8 +72,4 @@
   width:100%;
   padding-top: 5px;
   padding-bottom: 5px;
-}
-
-#TestButton{
-    width: 100%;
 }
