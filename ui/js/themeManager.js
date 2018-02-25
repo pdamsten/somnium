@@ -29,11 +29,12 @@ var themeManager = (function () {
 
   function hexColor(v) 
   {
-    return '#' + toHex({red: v, green: v, blue: v}, 0);
+    return '#' + toHex({red: v, green: v, blue: v}, 0) + ';';
   }
   
   function addRule(stylesheetId, selector, rule) 
   {
+    console.log(stylesheetId, selector, rule);
     var stylesheet = document.getElementById(stylesheetId);
     if (stylesheet) {
       stylesheet = stylesheet.sheet;
@@ -66,8 +67,8 @@ var themeManager = (function () {
     try {
       var styleId = "ccstyles";
       var clr = nearest(appSkinInfo.panelBackgroundColor);
-      var fs = appSkinInfo.baseFontSize + "px;";
-      var ff = appSkinInfo.baseFontFamily;
+      var fs = appSkinInfo.baseFontSize + 'px;';
+      var ff = appSkinInfo.baseFontFamily.replace('.', '') + ',-apple-system,system-ui,sans-serif;';
       var bg = hexColor(appSkinInfo.panelBackgroundColor.color.red);
       var widgetBg = hexColor(pscolors[clr][0]);
       var txt = hexColor(pscolors[clr][1]);
@@ -91,13 +92,11 @@ var themeManager = (function () {
       addRule(styleId, ".ccbuttondefault:active", "border-color:" + widgetTxt);
       addRule(styleId, ".ccbuttondefault:active", "background:" + widgetTxt);
       addRule(styleId, ".ccbuttondefault:active", "color:" + darkerBg);
-      addRule(styleId, ".cc", "font-size:" + fs);
-      addRule(styleId, ".cc", "font-family:" + ff);
       addRule(styleId, ".ccwidget", "background-color:" + widgetBg);
       addRule(styleId, ".ccwidget", "color:" + txt);
       addRule(styleId, ".ccheader", "background-color:" + darkerBg);
       addRule(styleId, ".ccheader", "color:" + txt);
-      addRule(styleId, ".ccsvg", "filter:brightness(" + brightnessFilter + ')');
+      addRule(styleId, ".ccsvg", "filter:brightness(" + brightnessFilter + ');');
     } catch(err) {
       alert(err.message);
     }
