@@ -26,8 +26,8 @@
   
   function initJsx() 
   {
-    var jsxPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/jsx/';
-    console.log(jsxPath);
+    var jsxPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/cc/';
+    //console.log(jsxPath);
     csInterface.evalScript('init("' + jsxPath + '")');
   }
   
