@@ -8,6 +8,7 @@
   height: 27px;
   font-size: 1.18em;
   margin-bottom: 10px;
+  outline: none;
 }
 .ccbutton{}
 .ccbutton:active{}

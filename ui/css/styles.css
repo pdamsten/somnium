@@ -8,15 +8,38 @@
   cursor: pointer; 
 }
 
+.fullbtn {
+  width: 100%; 
+}
+
+.table{
+  display: table;
+  width: 100%;
+}
+.row {
+  display: table-row;
+  width: 100%; 
+}
+.cellleft {
+  display: table-cell;
+  padding-right: 5px;
+  width: 50%;
+}
+.cellright {
+  display: table-cell;
+  padding-left: 5px;
+  width: 50%;
+}
+
 #content {
   margin: 10px;
 }
 
 #helpers {
-  margin-right:auto;
-  margin-left:auto;
-  vertical-align:middle;
+  margin: 0;
+  padding: 0;
   width:100%;
+  display: block;
 }
 
 #footer {
