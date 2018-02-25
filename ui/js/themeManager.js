@@ -86,7 +86,7 @@ var themeManager = (function () {
         }
         var lightBgdColor = toHex(panelBgColor, -100);
                 
-        var styleId = "hostStyle";
+        var styleId = "ccstyles";
         
         //addRule(styleId, ".hostElt", "background-color:" + "#" + bgdColor);
         addRule(styleId, ".hostElt", "font-size:" + appSkinInfo.baseFontSize + "px;");
@@ -109,19 +109,22 @@ var themeManager = (function () {
         addRule(styleId, ".hostButton:active", "background-color:" + "#" + darkBgdColor);
         addRule(styleId, ".hostButton", "border-color: " + "#" + lightBgdColor);        
         */
-
+        var fs = appSkinInfo.baseFontSize + "px;";
+        var ff = appSkinInfo.baseFontFamily;
         var bg = hexColor(appSkinInfo.panelBackgroundColor.color.red);
         var bgw = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][0]);
         var bgh = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][2]);
         var txt = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][1]);
         var txtp = pscolors[appSkinInfo.panelBackgroundColor.color.red][1] / 255.0;
-        addRule(styleId, ".cc", "background-color:" + bg);        
-        addRule(styleId, ".cc", "color:" + txt);        
-        addRule(styleId, ".ccwidget", "background-color:" + bgw);        
-        addRule(styleId, ".ccwidget", "color:" + txt);        
-        addRule(styleId, ".ccheader", "background-color:" + bgh);        
-        addRule(styleId, ".ccheader", "color:" + txt);        
-        addRule(styleId, ".svg", "filter:brightness(" + txtp + ')');        
+        addRule(styleId, ".cc", "background-color:" + bg);
+        addRule(styleId, ".cc", "color:" + txt);
+        addRule(styleId, ".cc", "font-size:" + fs);
+        addRule(styleId, ".cc", "font-family:" + ff);
+        addRule(styleId, ".ccwidget", "background-color:" + bgw);
+        addRule(styleId, ".ccwidget", "color:" + txt);
+        addRule(styleId, ".ccheader", "background-color:" + bgh);
+        addRule(styleId, ".ccheader", "color:" + txt);
+        addRule(styleId, ".svg", "filter:brightness(" + txtp + ')');
 
     }
     
