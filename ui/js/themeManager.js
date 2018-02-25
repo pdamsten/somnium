@@ -5,6 +5,11 @@
 var themeManager = (function () {
   'use strict';
      
+  var pscolors = {50: [41, 214, 38], 
+                  83: [69, 221, 66], 
+                  184: [209, 37, 163], 
+                  240: [252, 43, 219]};
+
   // Convert the Color object to string in hexadecimal format;
   function toHex(color, delta) 
   {
@@ -39,31 +44,47 @@ var themeManager = (function () {
       }
     }
   }
+  
+  function nearest(bg)
+  {
+    var v = bg.color.red;
+    var d = 255;
+    var k = 0;
+    
+    for (var i in pscolors) {
+      if (Math.abs(i - v) < d) {
+        d = Math.abs(i - v);
+        k = i;
+      }
+    }
+    return k;
+  }
         
   // Update the theme with the AppSkinInfo retrieved from the host product.
   function updateThemeWithAppSkinInfo(appSkinInfo) 
   {
-    var pscolors = {50: [41, 214, 38], 
-                    83: [69, 221, 66], 
-                    184: [209, 37, 163], 
-                    240: [252, 43, 219]};
-    var styleId = "ccstyles";
-    var fs = appSkinInfo.baseFontSize + "px;";
-    var ff = appSkinInfo.baseFontFamily;
-    var bg = hexColor(appSkinInfo.panelBackgroundColor.color.red);
-    var bgw = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][0]);
-    var bgh = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][2]);
-    var txt = hexColor(pscolors[appSkinInfo.panelBackgroundColor.color.red][1]);
-    var txtp = pscolors[appSkinInfo.panelBackgroundColor.color.red][1] / 255.0;
-    addRule(styleId, ".cc", "background-color:" + bg);
-    addRule(styleId, ".cc", "color:" + txt);
-    addRule(styleId, ".cc", "font-size:" + fs);
-    addRule(styleId, ".cc", "font-family:" + ff);
-    addRule(styleId, ".ccwidget", "background-color:" + bgw);
-    addRule(styleId, ".ccwidget", "color:" + txt);
-    addRule(styleId, ".ccheader", "background-color:" + bgh);
-    addRule(styleId, ".ccheader", "color:" + txt);
-    addRule(styleId, ".svg", "filter:brightness(" + txtp + ')');
+    try {
+      var styleId = "ccstyles";
+      var clr = nearest(appSkinInfo.panelBackgroundColor);
+      var fs = appSkinInfo.baseFontSize + "px;";
+      var ff = appSkinInfo.baseFontFamily;
+      var bg = hexColor(appSkinInfo.panelBackgroundColor.color.red);
+      var widgetBg = hexColor(pscolors[clr][0]);
+      var txt = hexColor(pscolors[clr][1]);
+      var darkerBg = hexColor(pscolors[clr][2]);
+      var brightnessFilter = pscolors[clr][1] / 255.0;
+      addRule(styleId, ".cc", "background-color:" + bg);
+      addRule(styleId, ".cc", "color:" + txt);
+      addRule(styleId, ".cc", "font-size:" + fs);
+      addRule(styleId, ".cc", "font-family:" + ff);
+      addRule(styleId, ".ccwidget", "background-color:" + widgetBg);
+      addRule(styleId, ".ccwidget", "color:" + txt);
+      addRule(styleId, ".ccheader", "background-color:" + darkerBg);
+      addRule(styleId, ".ccheader", "color:" + txt);
+      addRule(styleId, ".ccsvg", "filter:brightness(" + brightnessFilter + ')');
+    } catch(err) {
+      alert(err.message);
+    }
   }
 
   function onAppThemeColorChanged(event) 
