@@ -60,6 +60,59 @@ checkGroup = function(name)
   app.activeDocument.activeLayer = group;
 }
 
+groupSelected = function(name)
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(sTID("layerSection"));
+    desc1.putReference(cTID("null"), ref1);
+    var ref2 = new ActionReference();
+    ref2.putEnumerated(cTID("Lyr "), cTID("Ordn"), cTID("Trgt"));
+    desc1.putReference(cTID("From"), ref2);
+    executeAction(cTID("Mk  "), desc1, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
+  } catch (err) {
+    return null;
+  }
+}
+
+selectLayers = function(layers)
+{
+  try {
+    var indexes = [];
+
+    for (var i = 0; i < layers.length; ++i) {
+      indexes.push(layerIndex(layers[i]));
+    }
+    for (var i = 0; i < indexes.length; ++i) {
+      var desc1 = new ActionDescriptor();
+      var ref1 = new ActionReference();
+      ref1.putIndex(cTID('Lyr '), indexes[i]);
+      desc1.putReference(cTID('null'), ref1);
+      desc1.putEnumerated(sTID('selectionModifier'), sTID('selectionModifierType'),
+                          sTID('addToSelection'));
+      desc1.putBoolean(cTID('MkVs'), false);
+      executeAction(cTID('slct'), desc1, DialogModes.NO);
+    }
+  } catch (err) {
+    alert(err.message);
+    return false;
+  }
+  return true;
+}
+
+groupLayers = function(name, layers)
+{
+  try {
+    selectLayers(layers);
+    return groupSelected(name);
+  } catch (err) {
+    return null;
+  }
+}
+
 createLayer = function(name, layer)
 {
   var layer = activateLayer(layer);
@@ -70,6 +123,22 @@ createLayer = function(name, layer)
     newLayer.move(layer, ElementPlacement.INSIDE);
   }
   return newLayer;
+}
+
+layerIndex = function(layer)
+{
+  try {
+    app.activeDocument.activeLayer = layer;
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Prpr'), cTID('ItmI'));
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    var index = executeActionGet(ref1).getInteger(cTID('ItmI'));
+    var bg = app.activeDocument.layers[app.activeDocument.layers.length-1].isBackgroundLayer;
+    return (bg) ? index - 1 : index;
+  } catch (err) {
+    alert(err.message);
+    return -1;
+  }
 }
 
 deleteLayerMask = function(layer)
@@ -112,5 +181,29 @@ rotateLayer = function(layer, angle)
   } catch (err) {
    return false;
  }
-return true;
+  return true;
+}
+
+scaleLayer = function(layer, scale)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putEnumerated(cTID('FTcs'), cTID('QCSt'), sTID("QCSAverage"));
+    var desc2 = new ActionDescriptor();
+    desc2.putUnitDouble(cTID('Hrzn'), cTID('#Pxl'), 0);
+    desc2.putUnitDouble(cTID('Vrtc'), cTID('#Pxl'), 0);
+    desc1.putObject(cTID('Ofst'), cTID('Ofst'), desc2);
+    desc1.putUnitDouble(cTID('Wdth'), cTID('#Prc'), scale * 100);
+    desc1.putUnitDouble(cTID('Hght'), cTID('#Prc'), scale * 100);
+    desc1.putBoolean(cTID('Lnkd'), true);
+    desc1.putEnumerated(cTID('Intr'), cTID('Intp'), cTID('Bcbc'));
+    executeAction(cTID('Trnf'), desc1, DialogModes.NO);
+  } catch (err) {
+    return false;
+  }
+  return true;
 }
