@@ -9,6 +9,25 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+setLayerBlendingMode = function(layer, mode)
+{
+  var modes = {'color': 'Clr ', 'luminosity': 'Lmns'};
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID(modes[mode]));
+    desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log('setLayerBlendingMode', e.message);
+    return null;
+  }
+}
+
 activateLayer = function(layer)
 {
   if (typeof layer !== 'undefined') {
