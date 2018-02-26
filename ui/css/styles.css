@@ -16,11 +16,11 @@ hr {
 }
 
 .clickable {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .fullbtn {
-  width: 100%; 
+  width: 100%;
 }
 
 .table{
@@ -29,7 +29,7 @@ hr {
 }
 .row {
   display: table-row;
-  width: 100%; 
+  width: 100%;
 }
 .cellleft {
   display: table-cell;
@@ -42,16 +42,34 @@ hr {
   width: 50%;
 }
 
+.help {
+  backdrop-filter: blur(10px);
+  opacity: 0.9;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 20px;
+  margin: 7px;
+  padding: 10px;
+  z-index: 10;
+  display: none;
+  filter: brightness(80%);
+}
+
+#Info {
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  float: left;
+}
+
 #content {
   margin: 10px;
   text-align: center;
-}
-
-#helpers {
-  margin: 0;
-  padding: 0;
-  width:100%;
-  display: block;
 }
 
 #footer {
