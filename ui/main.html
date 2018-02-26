@@ -4,20 +4,21 @@
 <link rel="stylesheet" href="css/styles.css"/>
 <title>Somnium</title>
 </head>
-<body class="cc"><div id="header" class="ccheader">        
+<body class="cc"><div id="header" class="ccheader">
     <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="50">
   </div>
-  <h1>Help Layers</h1>
-  <hr class="ccheader"/>
-  <div id="content">
-    <div id="helpers">
+
+  <div id="helpers">
+    <h1>Help Layers</h1>
+    <hr class="ccheader"/>
+    <div id="content">
       <button id="MakeAll" class="fullbtn clickable ccbuttondefault">Make All</button>
       <div class="table"><div class="row">
         <div class="cellleft">
           <button id="MakeMemo" class="fullbtn clickable ccbutton">Memo</button>
         </div>
         <div class="cellright">
-          <button id="" class="fullbtn clickable ccbutton">Perspective Lines</button>
+          <button id="MakePerspectiveLines" class="fullbtn clickable ccbutton">Perspective Lines</button>
         </div>
       </div><div class="row">
         <div class="cellleft">
@@ -40,16 +41,24 @@
         <div class="cellright">
         </div>
       </div></div>
-    </div>   
+    </div>
+    <div class="help ccheader" id="helpers-help">
+      <h1>Help Layers</h1>
+      <ul>
+        <li>...</li>
+      </ul>
+    </div>
   </div>
-  <div id="footer" class="ccheader">by<img class="ccsvg" id="Logo" class="clickable" src="img/logo.svg" height="20">
+  <div id="footer" class="ccheader">
+    <img id="Info" class="ccsvg clickable" src="img/ic_info_outline_white_48px.svg" height="20">
+    by<img id="Logo" class="ccsvg clickable" src="img/logo.svg" height="20">
   </div>
-    
+
   <script src="js/libs/CSInterface.js"></script>
-  <script src="js/libs/jquery-2.0.2.min.js"></script>
+  <script src="js/libs/jquery-3.3.1.min.js"></script>
 
   <script src="js/themeManager.js"></script>
   <script src="js/main.js"></script>
-  
+
 </body>
 </html>

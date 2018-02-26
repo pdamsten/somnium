@@ -42,6 +42,9 @@
       console.log(fn);
       csInterface.evalScript(fn);
     });
+    $("#Info").click(function () {
+      $('.help').toggle(400);
+    });
   }
   
   init();
