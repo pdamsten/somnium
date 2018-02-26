@@ -22,7 +22,7 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
-createCurveAdjustment = function()
+createCurveAdjustment = function(name)
 {
   try {
     var desc1 = new ActionDescriptor();
@@ -35,11 +35,12 @@ createCurveAdjustment = function()
     desc2.putObject(cTID('Type'), cTID('Crvs'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
   } catch (err) {
     alert(err.message);
-    return undefined;
+    return null;
   }
-  return app.activeDocument.activeLayer;
 }
 
 setCurveAdjustment = function(layer, data)
