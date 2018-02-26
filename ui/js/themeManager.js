@@ -1,24 +1,23 @@
-// Responsible for overwriting CSS at runtime according to CC app
-// settings as defined by the end user.
-// modified from Creative Cloud Extension Builder for Brackets boilerplate
+// Responsible for overwriting CSS at runtime according to CC app settings as defined by the
+// end user. Modified from Creative Cloud Extension Builder for Brackets boilerplate.
 
 var themeManager = (function () {
   'use strict';
-     
-  var pscolors = {50: [41, 214, 38, 125, 225], 
-                  83: [69, 221, 66, 125, 240], 
-                  184: [209, 37, 163, 135, 15], 
+
+  var pscolors = {50: [41, 214, 38, 125, 225],
+                  83: [69, 221, 66, 125, 240],
+                  184: [209, 37, 163, 135, 15],
                   240: [252, 43, 219, 173, 41]};
 
   // Convert the Color object to string in hexadecimal format;
-  function toHex(color, delta) 
+  function toHex(color, delta)
   {
-    function computeValue(value) 
+    function computeValue(value)
     {
       value = value.toString(16);
       return value.length === 1 ? "0" + value : value;
     }
-    
+
     var hex = "";
     if (color) {
       hex = computeValue(color.red, delta) + computeValue(color.green, delta) +
@@ -27,12 +26,12 @@ var themeManager = (function () {
     return hex;
   }
 
-  function hexColor(v) 
+  function hexColor(v)
   {
     return '#' + toHex({red: v, green: v, blue: v}, 0) + ';';
   }
-  
-  function addRule(stylesheetId, selector, rule) 
+
+  function addRule(stylesheetId, selector, rule)
   {
     console.log(stylesheetId, selector, rule);
     var stylesheet = document.getElementById(stylesheetId);
@@ -45,13 +44,13 @@ var themeManager = (function () {
       }
     }
   }
-  
+
   function nearest(bg)
   {
     var v = bg.color.red;
     var d = 255;
     var k = 0;
-    
+
     for (var i in pscolors) {
       if (Math.abs(i - v) < d) {
         d = Math.abs(i - v);
@@ -60,9 +59,9 @@ var themeManager = (function () {
     }
     return k;
   }
-        
+
   // Update the theme with the AppSkinInfo retrieved from the host product.
-  function updateThemeWithAppSkinInfo(appSkinInfo) 
+  function updateThemeWithAppSkinInfo(appSkinInfo)
   {
     try {
       var styleId = "ccstyles";
@@ -103,20 +102,20 @@ var themeManager = (function () {
     }
   }
 
-  function onAppThemeColorChanged(event) 
+  function onAppThemeColorChanged(event)
   {
     var skinInfo = JSON.parse(window.__adobe_cep__.getHostEnvironment()).appSkinInfo;
     updateThemeWithAppSkinInfo(skinInfo);
   }
 
-  function init() 
+  function init()
   {
     var csInterface = new CSInterface();
-    
+
     updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
     csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
   }
-    
+
   return {
     init: init
   };
