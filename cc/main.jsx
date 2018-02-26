@@ -6,11 +6,6 @@
 //
 //**************************************************************************
 
-function log(msg)
-{
-  alert(msg);
-}
-
 function include(path)
 {
   try {
@@ -22,9 +17,15 @@ function include(path)
 
 function init(jsxPath)
 {
-  include(jsxPath + 'util.jsx');
-  include(jsxPath + 'adjustment.jsx');
-  include(jsxPath + 'layer.jsx');
+  try {
+    include(jsxPath + 'log.jsx');
+    initLog(jsxPath + '../log.txt');
+    include(jsxPath + 'util.jsx');
+    include(jsxPath + 'adjustment.jsx');
+    include(jsxPath + 'layer.jsx');
+  } catch (e) {
+    log('init', e.message);
+  }
 }
 
 var helpGroupName = 'Help Layers';
@@ -35,8 +36,8 @@ function onMakeAllClick()
     //onMakeSolarisationClick();
     onMakePerspectiveLinesClick();
     //onMemoClick();
-  } catch (err) {
-    log(err.message);
+  } catch (e) {
+    log('onMakeAllClick', e.message);
   }
 }
 

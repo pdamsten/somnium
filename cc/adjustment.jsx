@@ -26,7 +26,7 @@ createCurveAdjustment = function(name, layer)
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
   } catch (err) {
-    alert(err.message);
+    log('createCurveAdjustment', e.message);
     return null;
   }
 }
@@ -58,6 +58,7 @@ setCurveAdjustment = function(layer, data)
     desc1.putObject(cTID('T   '), cTID('Crvs'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
   } catch (err) {
+    log('setCurveAdjustment', e.message);
      return false;
   }
   return true;

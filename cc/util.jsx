@@ -71,7 +71,8 @@ drawLine = function(name, x1, y1, x2, y2, w)
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
-     return null;
+  } catch (e) {
+    log('drawLine', e.message);
+    return null;
   }
 }

@@ -73,7 +73,8 @@ groupSelected = function(name)
     executeAction(cTID("Mk  "), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
+  } catch (e) {
+    log('groupSelected', e.message);
     return null;
   }
 }
@@ -96,8 +97,8 @@ selectLayers = function(layers)
       desc1.putBoolean(cTID('MkVs'), false);
       executeAction(cTID('slct'), desc1, DialogModes.NO);
     }
-  } catch (err) {
-    alert(err.message);
+  } catch (e) {
+    log('selectLayers', e.message);
     return false;
   }
   return true;
@@ -108,7 +109,8 @@ groupLayers = function(name, layers)
   try {
     selectLayers(layers);
     return groupSelected(name);
-  } catch (err) {
+  } catch (e) {
+    log('groupLayers', e.message);
     return null;
   }
 }
@@ -135,8 +137,8 @@ layerIndex = function(layer)
     var index = executeActionGet(ref1).getInteger(cTID('ItmI'));
     var bg = app.activeDocument.layers[app.activeDocument.layers.length-1].isBackgroundLayer;
     return (bg) ? index - 1 : index;
-  } catch (err) {
-    alert(err.message);
+  } catch (e) {
+    log('layerIndex', e.message);
     return -1;
   }
 }
@@ -157,7 +159,8 @@ deleteLayerMask = function(layer)
     ref1.putEnumerated(cTID('Chnl'), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     executeAction(cTID('Dlt '), desc1, DialogModes.NO);
-  } catch (err) {
+  } catch (e) {
+    log('deleteLayerMask', e.message);
      return false;
   }
   return true;
@@ -178,8 +181,9 @@ rotateLayer = function(layer, angle)
     desc1.putObject(cTID('Ofst'), cTID('Ofst'), desc2);
     desc1.putUnitDouble(cTID('Angl'), cTID('#Ang'), angle);
     executeAction(cTID('Trnf'), desc1, DialogModes.NO);
-  } catch (err) {
-   return false;
+  } catch (e) {
+    log('rotateLayer', e.message);
+    return false;
  }
   return true;
 }
@@ -202,7 +206,8 @@ scaleLayer = function(layer, scale)
     desc1.putBoolean(cTID('Lnkd'), true);
     desc1.putEnumerated(cTID('Intr'), cTID('Intp'), cTID('Bcbc'));
     executeAction(cTID('Trnf'), desc1, DialogModes.NO);
-  } catch (err) {
+  } catch (e) {
+    log('scaleLayer', e.message);
     return false;
   }
   return true;
