@@ -9,9 +9,10 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
-createCurveAdjustment = function(name)
+createCurveAdjustment = function(name, layer)
 {
   try {
+    activateLayer(layer);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -33,7 +34,7 @@ createCurveAdjustment = function(name)
 setCurveAdjustment = function(layer, data)
 {
   try {
-    app.activeDocument.activeLayer = layer;
+    activateLayer(layer);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));

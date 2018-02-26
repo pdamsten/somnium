@@ -6,12 +6,17 @@
 //
 //**************************************************************************
 
+function log(msg)
+{
+  alert(msg);
+}
+
 function include(path)
 {
   try {
     $.evalFile(path);
   } catch (e) {
-    alert("Exception:" + e);
+    log(e.message);
   }
 }
 
@@ -28,8 +33,10 @@ function onMakeAllClick()
 {
   try {
     onMakeSolarisationClick();
+    onMakePerspectiveLinesClick();
+    onMemoClick();
   } catch (err) {
-    alert(err.message);
+    log(err.message);
   }
 }
 
@@ -37,8 +44,8 @@ function onMakeSolarisationClick()
 {
   var c = [[0, 0], [26,225], [73,30], [109, 225], [145, 30], [182, 225], [219, 30], [255, 255]];
 
-  checkGroup(helpGroupName);
-  l = createCurveAdjustment('Solarisation');
+  group = checkGroup(helpGroupName);
+  l = createCurveAdjustment('Solarisation', group);
   setCurveAdjustment(l, c);
   deleteLayerMask(l);
   l.visible = false;
@@ -46,12 +53,25 @@ function onMakeSolarisationClick()
 
 function onMemoClick()
 {
-  drawLine('Line 1', 0, 0, 2000, 2000, 4);
+  group = checkGroup(helpGroupName);
+  createLayer('Memo', group);
 }
 
 function onMakePerspectiveLinesClick()
 {
-  drawLine('Line 1', 0, 0, 2000, 2000, 4);
+  var v = Math.max(app.activeDocument.width, app.activeDocument.height);
+  var a = 15;
+  var l;
+  var group = checkGroup(helpGroupName);
+  var perspective = createGroup('Perspective Lines', group);
+  
+  for (var i = 0; i < 12; ++i) {
+    var n = 'Line ' + (i + 1);
+    l = drawLine(n, 0, v/2, v, v/2, 1);
+    rotateLayer(l, i * 15.0);
+    l.move(perspective, ElementPlacement.INSIDE);
+  }
+
 }
 
 function onLogoClick()
