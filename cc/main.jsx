@@ -33,9 +33,13 @@ var helpGroupName = 'Help Layers';
 function onMakeAllClick()
 {
   try {
-    //onMakeSolarisationClick();
+    onMakeSaturationMapClick();
+    onMatchTonesClick();
+    onMakeLightnessClick();
+    onMakeSkinCheckerClick();
+    onMakeSolarisationClick();
     onMakePerspectiveLinesClick();
-    //onMemoClick();
+    onMemoClick();
   } catch (e) {
     log('onMakeAllClick', e.message);
   }
@@ -58,6 +62,15 @@ function onMemoClick()
   createLayer('Memo', group);
 }
 
+function onMakeSkinCheckerClick()
+{
+  group = checkGroup(helpGroupName);
+  l = createChannelMixer('Skin Checker', group);
+  setChannelMixer(l, [-46, -4, 200], 0, true);
+  deleteLayerMask(l);
+  l.visible = false;
+}
+
 function onMakePerspectiveLinesClick()
 {
   var v = Math.max(app.activeDocument.width, app.activeDocument.height);
@@ -75,6 +88,51 @@ function onMakePerspectiveLinesClick()
   }
   var perspective = groupLayers('Perspective Lines', layers);
   perspective.visible = false;
+}
+
+function onMakeLightnessClick()
+{
+  var percentage = 0.1;
+  var group = checkGroup(helpGroupName);
+  var l1 = createSolidColorAdjustment('Lightness Check', group, [128, 128, 128]);
+  var l2 = createCurveAdjustment('Enhance', group);
+  setLayerBlendingMode(l1, 'color');
+  setCurveAdjustment(l2, [[0, 0], [64, 64 - 255 * percentage],
+                         [192, 192 + 255 * percentage], [255, 255]]);
+  deleteLayerMask(l1);
+  deleteLayerMask(l2);
+  group = groupLayers('Lightness', [l1, l2]);
+  group.visible = false;
+}
+
+function onMatchTonesClick()
+{
+  var group = checkGroup(helpGroupName);
+  var l1 = createSolidColorAdjustment('Luminosity', group, [128, 128, 128]);
+  var l2 = createHueSaturationAdjustment('Enhance', group);
+  setLayerBlendingMode(l1, 'luminosity');
+  setHueSaturationAdjustment(l2, 0, 100, 0);
+  deleteLayerMask(l1);
+  deleteLayerMask(l2);
+  group = groupLayers('Match Tones', [l1, l2]);
+  group.visible = false;
+}
+
+function onMakeSaturationMapClick()
+{
+  var group = checkGroup(helpGroupName);
+  var l = createSelectiveColorAdjustment('Saturation Map', group);
+  setSelectiveColorAdjustment(l, 'reds', [0, 0, 0, -100]);
+  setSelectiveColorAdjustment(l, 'yellows', [0, 0, 0, -100]);
+  setSelectiveColorAdjustment(l, 'greens', [0, 0, 0, -100]);
+  setSelectiveColorAdjustment(l, 'cyans', [0, 0, 0, -100]);
+  setSelectiveColorAdjustment(l, 'blues', [0, 0, 0, -100]);
+  setSelectiveColorAdjustment(l, 'magentas', [0, 0, 0, -100]);
+  setSelectiveColorAdjustment(l, 'whites', [0, 0, 0, 100]);
+  setSelectiveColorAdjustment(l, 'neutrals', [0, 0, 0, 100]);
+  setSelectiveColorAdjustment(l, 'blacks', [0, 0, 0, 100]);
+  deleteLayerMask(l);
+  l.visible = false;
 }
 
 function onLogoClick()
