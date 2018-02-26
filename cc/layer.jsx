@@ -22,6 +22,40 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+findGroup = function(name)
+{
+  var len = app.activeDocument.layers.length;
+  var group = null;
+  
+  for (var i = len -1; i >= 0; --i) {
+    var layer = app.activeDocument.layers[i];
+    if (layer.typename == 'LayerSet' && layer.name == name) {
+      return layer;
+    }
+  }
+  return null;
+}
+
+createGroup = function(name, layer)
+{
+  if (typeof layer !== 'undefined') {
+    app.activeDocument.activeLayer = layer;
+  }
+  var group = app.activeDocument.layerSets.add();
+  group.name = name;
+  app.activeDocument.activeLayer = group;
+  return group;
+}
+
+checkGroup = function(name)
+{
+  var group = findGroup(name);
+  if (group == null) {
+    createGroup(name, app.activeDocument.layers[0]);
+  }
+  app.activeDocument.activeLayer = group;
+}
+
 deleteLayerMask = function(layer)
 {
   try {
