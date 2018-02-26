@@ -35,25 +35,7 @@ function init(jsxPath)
   include(jsxPath + 'layer.jsx');
 }
 
-function checkLayerGroup()
-{
-  var len = app.activeDocument.layers.length;
-  var group = null;
-  
-  for (var i = len -1; i >= 0; --i) {
-    var layer = app.activeDocument.layers[i];
-    if (layer.typename == 'LayerSet' && layer.name == 'Help Layers') {
-      group = layer;
-      break;
-    }
-  }
-  if (group == null) {
-    app.activeDocument.activeLayer = app.activeDocument.layers[0];
-    group = app.activeDocument.layerSets.add();
-    group.name = 'Help Layers';
-  }
-  app.activeDocument.activeLayer = group;
-}
+var helpGroupName = 'Help Layers';
 
 function onMakeAllClick()
 {
@@ -68,12 +50,16 @@ function onMakeSolarisationClick()
 {
   var c = [[0, 0], [26,225], [73,30], [109, 225], [145, 30], [182, 225], [219, 30], [255, 255]];
 
-  checkLayerGroup();
-  l = createCurveAdjustment();
+  checkGroup(helpGroupName);
+  l = createCurveAdjustment('Solarisation');
   setCurveAdjustment(l, c);
   deleteLayerMask(l);
-  l.name = 'Solarisation';
   l.visible = false;
+}
+
+function onMakePerspectiveLinesClick()
+{
+  drawLine('Line 1', 0, 0, 2000, 2000, 4);
 }
 
 function onLogoClick()
