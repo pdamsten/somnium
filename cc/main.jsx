@@ -32,9 +32,9 @@ var helpGroupName = 'Help Layers';
 function onMakeAllClick()
 {
   try {
-    onMakeSolarisationClick();
+    //onMakeSolarisationClick();
     onMakePerspectiveLinesClick();
-    onMemoClick();
+    //onMemoClick();
   } catch (err) {
     log(err.message);
   }
@@ -63,15 +63,17 @@ function onMakePerspectiveLinesClick()
   var a = 15;
   var l;
   var group = checkGroup(helpGroupName);
-  var perspective = createGroup('Perspective Lines', group);
-  
+  var layers = [];
+
   for (var i = 0; i < 12; ++i) {
     var n = 'Line ' + (i + 1);
-    l = drawLine(n, 0, v/2, v, v/2, 1);
+    l = drawLine(n, 0, v/2, v, v/2, 0.2);
     rotateLayer(l, i * 15.0);
-    l.move(perspective, ElementPlacement.INSIDE);
+    scaleLayer(l, 5);
+    layers.push(l);
   }
-
+  var perspective = groupLayers('Perspective Lines', layers);
+  perspective.visible = false;
 }
 
 function onLogoClick()
