@@ -19,7 +19,7 @@
 //
 //**************************************************************************
 
-function include(path) 
+function include(path)
 {
   try {
     $.evalFile(path);
@@ -28,7 +28,7 @@ function include(path)
   }
 }
 
-function init(jsxPath) 
+function init(jsxPath)
 {
   include(jsxPath + 'util.jsx');
   include(jsxPath + 'adjustment.jsx');
@@ -55,6 +55,11 @@ function onMakeSolarisationClick()
   setCurveAdjustment(l, c);
   deleteLayerMask(l);
   l.visible = false;
+}
+
+function onMemoClick()
+{
+  drawLine('Line 1', 0, 0, 2000, 2000, 4);
 }
 
 function onMakePerspectiveLinesClick()

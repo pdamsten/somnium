@@ -10,9 +10,19 @@ h1 {
   font-weight: normal;
 }
 
+.help h1 {
+  margin: 0;
+  padding: 0;
+}
+
 hr {
   height: 1px;
   border: none;
+}
+
+ul {
+  margin: 0;
+  padding: 15px;
 }
 
 .clickable {
@@ -51,13 +61,13 @@ hr {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 20px;
+  top: 1;
+  bottom: 0;
   margin: 7px;
   padding: 10px;
-  z-index: 10;
+  margin-bottom: 30px;
   display: none;
-  filter: brightness(80%);
+  filter: brightness(90%);
 }
 
 #Info {
@@ -79,6 +89,7 @@ hr {
   bottom: 0;
   padding-top: 5px;
   padding-bottom: 5px;
+  z-index: 10;
 }
 
 #footer img {
