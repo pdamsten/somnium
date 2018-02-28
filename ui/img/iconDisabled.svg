@@ -17,7 +17,7 @@
    id="svg8"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="iconDisabled.svg"
-   inkscape:export-filename="/Users/damu/Documents/Photoshop/extensions/com.petridamsten.somnium/icons/iconDisabled.png"
+   inkscape:export-filename="/Users/damu/Documents/Photoshop/extensions/com.petridamsten.somnium/ui/img/iconDisabled.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
   <defs
@@ -337,6 +337,204 @@
            id="feMergeNode4587-6" />
       </feMerge>
     </filter>
+    <filter
+       id="filter4575-024"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25">
+      <feGaussianBlur
+         id="feGaussianBlur4577-8"
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix4579-3"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.75 0 " />
+      <feOffset
+         id="feOffset4581-9"
+         in="bluralpha"
+         dx="2"
+         dy="2"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge4583-0">
+        <feMergeNode
+           id="feMergeNode4585-5"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode4587-22"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       id="filter4575-5-0"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25">
+      <feGaussianBlur
+         id="feGaussianBlur4577-1-2"
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix4579-7-3"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.75 0 " />
+      <feOffset
+         id="feOffset4581-5-9"
+         in="bluralpha"
+         dx="2"
+         dy="2"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge4583-6-97">
+        <feMergeNode
+           id="feMergeNode4585-0-0"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode4587-6-3"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       y="-0.25"
+       x="-0.25"
+       height="1.5"
+       width="1.5"
+       inkscape:label="Drop shadow"
+       id="filter4575-02">
+      <feGaussianBlur
+         result="blur"
+         stdDeviation="1"
+         in="SourceAlpha"
+         id="feGaussianBlur4577-4" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.75 0 "
+         type="matrix"
+         result="bluralpha"
+         id="feColorMatrix4579-8" />
+      <feOffset
+         result="offsetBlur"
+         dy="2"
+         dx="2"
+         in="bluralpha"
+         id="feOffset4581-3" />
+      <feMerge
+         id="feMerge4583-9">
+        <feMergeNode
+           in="offsetBlur"
+           id="feMergeNode4585-05" />
+        <feMergeNode
+           in="SourceGraphic"
+           id="feMergeNode4587-2" />
+      </feMerge>
+    </filter>
+    <filter
+       y="-0.25"
+       x="-0.25"
+       height="1.5"
+       width="1.5"
+       inkscape:label="Drop shadow"
+       id="filter4575-5-9">
+      <feGaussianBlur
+         result="blur"
+         stdDeviation="1"
+         in="SourceAlpha"
+         id="feGaussianBlur4577-1-0" />
+      <feColorMatrix
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.75 0 "
+         type="matrix"
+         result="bluralpha"
+         id="feColorMatrix4579-7-2" />
+      <feOffset
+         result="offsetBlur"
+         dy="2"
+         dx="2"
+         in="bluralpha"
+         id="feOffset4581-5-3" />
+      <feMerge
+         id="feMerge4583-6-9">
+        <feMergeNode
+           in="offsetBlur"
+           id="feMergeNode4585-0-9" />
+        <feMergeNode
+           in="SourceGraphic"
+           id="feMergeNode4587-6-7" />
+      </feMerge>
+    </filter>
+    <filter
+       id="filter4575-0"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25">
+      <feGaussianBlur
+         id="feGaussianBlur4577-2"
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix4579-4"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.75 0 " />
+      <feOffset
+         id="feOffset4581-8"
+         in="bluralpha"
+         dx="2"
+         dy="2"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge4583-3">
+        <feMergeNode
+           id="feMergeNode4585-9"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode4587-0"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter
+       id="filter4575-5-3"
+       inkscape:label="Drop shadow"
+       width="1.5"
+       height="1.5"
+       x="-0.25"
+       y="-0.25">
+      <feGaussianBlur
+         id="feGaussianBlur4577-1-7"
+         in="SourceAlpha"
+         stdDeviation="1"
+         result="blur" />
+      <feColorMatrix
+         id="feColorMatrix4579-7-9"
+         result="bluralpha"
+         type="matrix"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.75 0 " />
+      <feOffset
+         id="feOffset4581-5-0"
+         in="bluralpha"
+         dx="2"
+         dy="2"
+         result="offsetBlur" />
+      <feMerge
+         id="feMerge4583-6-2">
+        <feMergeNode
+           id="feMergeNode4585-0-3"
+           in="offsetBlur" />
+        <feMergeNode
+           id="feMergeNode4587-6-9"
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -346,12 +544,18 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="25.282609"
-     inkscape:cx="23"
+     inkscape:cx="8.5631995"
      inkscape:cy="23"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px" />
+     showgrid="true"
+     units="px">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1177"
+       spacingx="2"
+       spacingy="2" />
+  </sodipodi:namedview>
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -360,7 +564,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -369,23 +573,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-284.82917)">
-    <g
-       transform="matrix(0.16258877,0,0,0.16258877,-18.622725,179.42674)"
-       id="layer1-9"
-       inkscape:label="Layer 1"
-       style="fill:#808080;fill-opacity:1;stroke-width:6.15048599">
-      <g
-         transform="translate(1421.9974,701.59429)"
-         style="fill:#808080;fill-opacity:1;stroke-width:246.01945496;stroke-miterlimit:4;stroke-dasharray:none"
-         id="g3895" />
-      <path
-         inkscape:export-ydpi="173.72853"
-         inkscape:export-xdpi="173.72853"
-         inkscape:export-filename="/Users/damu/tmp/camera_logo.png"
-         id="path5140"
-         d="m 291.36794,683.64081 c -8.3059,0 -16.71627,0.11212 -23.94625,0.73173 -5.52938,0.54817 -14.41558,4.24403 -18.78706,12.46204 -4.3805,8.23491 -7.63831,18.58738 -15.47415,23.82315 -16.8096,11.23202 -36.10078,9.3917 -59.67761,10.99196 -23.57685,1.60195 -59.21071,12.25218 -58.94255,46.91115 0.26804,34.65915 0,58.63641 0,105.54621 0,5.52758 6.23129,11.72691 11.78853,11.72691 h 259.34372 c 5.55722,0 11.78861,-6.19933 11.78861,-11.72691 V 778.56084 c 0,-14.09573 -9.27671,-27.98747 -20.26067,-35.18087 -11.83437,-7.74862 -25.63539,-9.9908 -33.15352,-23.82314 -3.91338,-7.2014 -5.73392,-11.93492 -11.05343,-22.72225 -3.00049,-6.08557 -9.92887,-10.62876 -18.04858,-12.09285 -6.95792,-0.84871 -15.27098,-1.07359 -23.57704,-1.09739 v 0 z m -1.43253,50.99693 c 32.81113,0 59.41096,26.59969 59.41096,59.41098 0,12.10498 -3.68545,23.25472 -9.90124,32.64411 v 26.76685 h -19.80594 v 19.80249 h -59.40753 v -19.80249 h -19.80252 v -26.76685 c -6.21592,-9.38939 -9.90126,-20.53913 -9.90126,-32.64411 0,-32.81129 26.59648,-59.41098 59.40753,-59.41098 z m -24.75309,49.50967 c -10.93701,0 -19.80252,8.86516 -19.80252,19.80247 0,10.93684 8.86546,19.80263 19.80252,19.80263 10.93683,0 19.80249,-8.86579 19.80249,-19.80263 0,-10.93731 -8.86552,-19.80247 -19.80249,-19.80247 z m 49.50627,0 c -10.93722,0 -19.80251,8.86516 -19.80251,19.80247 0,10.93684 8.86529,19.80263 19.80251,19.80263 10.93693,0 19.80591,-8.86579 19.80591,-19.80263 0,-10.93731 -8.86893,-19.80247 -19.80591,-19.80247 z"
-         style="fill:#808080;fill-opacity:1;stroke:none;stroke-width:6.15048599"
-         inkscape:connector-curvature="0" />
-    </g>
+    <path
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.39999962px;line-height:125%;font-family:'Poiret One';-inkscape-font-specification:'Poiret One';text-align:center;letter-spacing:-2.11666656px;word-spacing:0px;text-anchor:middle;fill:#808080;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 23.058878,284.94738 c -6.32986,0 -11.75526,2.26096 -16.276594,6.78228 C 2.260953,296.21167 2e-6,301.53881 2e-6,307.71141 c 0,6.1333 2.221821,11.49955 6.664523,16.09951 4.482013,4.59996 9.770023,6.90004 15.863993,6.90004 h 0.88453 c 6.1726,0 11.47973,-2.28007 15.92243,-6.84072 4.4427,-4.59995 6.66452,-9.98622 6.66452,-16.15883 0,-6.21191 -2.24094,-11.55906 -6.72296,-16.04109 -4.48202,-4.482 -9.88829,-6.72295 -16.21816,-6.72294 z m -0.0593,1.70972 c 5.81876,0 10.77285,2.08444 14.8617,6.25194 4.12818,4.12817 6.19259,9.10138 6.19259,14.92012 0,5.77945 -2.06441,10.75265 -6.19259,14.92015 -4.12817,4.16748 -9.08226,6.25191 -14.8617,6.25191 -5.77944,0 -10.73264,-2.08443 -14.86082,-6.25191 -4.12817,-4.1675 -6.192593,-9.1407 -6.192593,-14.92015 0,-5.81875 2.064423,-10.79195 6.192593,-14.92012 4.12818,-4.16749 9.08138,-6.25194 14.86082,-6.25194 z m -13.93645,14.17207 v 1.94527 h 27.87377 v -1.94527 z m 0,6.02783 v 1.94437 h 27.87377 V 306.857 Z m 0,6.02692 v 1.94525 h 27.87377 v -1.94525 z"
+       id="path832-8"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccscsscsccscscscscsccccccccccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
 </svg>
