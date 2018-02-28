@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 <ExtensionList>
     <Extension Id="com.petridamsten.somnium.panel">
         <HostList>
@@ -7,4 +7,3 @@
         </HostList>
     </Extension>
 </ExtensionList>
- 
