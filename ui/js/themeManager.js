@@ -33,7 +33,7 @@ var themeManager = (function () {
 
   function addRule(stylesheetId, selector, rule)
   {
-    console.log(stylesheetId, selector, rule);
+    //console.log(stylesheetId, selector, rule);
     var stylesheet = document.getElementById(stylesheetId);
     if (stylesheet) {
       stylesheet = stylesheet.sheet;
