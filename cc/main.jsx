@@ -20,13 +20,27 @@ function init(jsxPath)
   try {
     include(jsxPath + 'log.jsx');
     initLog(jsxPath + '../log.txt');
+    // libs
     include(jsxPath + 'util.jsx');
     include(jsxPath + 'adjustment.jsx');
     include(jsxPath + 'layer.jsx');
+    // tabs
+    include(jsxPath + 'tab_helpers.jsx');
   } catch (e) {
     log('init', e.message);
   }
 }
+
+function onLogoClick()
+{
+  openURL('http://petridamsten.com/');
+}
+
+//**************************************************************************
+//
+//   Helpers tab code
+//
+//**************************************************************************
 
 var helpGroupName = 'Help Layers';
 
@@ -92,13 +106,11 @@ function onMakePerspectiveLinesClick()
 
 function onMakeLightnessClick()
 {
-  var percentage = 0.1;
   var group = checkGroup(helpGroupName);
   var l1 = createSolidColorAdjustment('Lightness Check', group, [128, 128, 128]);
   var l2 = createCurveAdjustment('Enhance', group);
   setLayerBlendingMode(l1, 'color');
-  setCurveAdjustment(l2, [[0, 0], [64, 64 - 255 * percentage],
-                         [192, 192 + 255 * percentage], [255, 255]]);
+  setCurveAdjustment(l2, scurve(10));
   deleteLayerMask(l1);
   deleteLayerMask(l2);
   group = groupLayers('Lightness', [l1, l2]);
@@ -135,7 +147,10 @@ function onMakeSaturationMapClick()
   l.visible = false;
 }
 
-function onLogoClick()
+function onDeleteAllClick()
 {
-  openURL('http://petridamsten.com/');
+  var group = findGroup(helpGroupName)
+  if (group != null) {
+    group.remove();
+  }
 }

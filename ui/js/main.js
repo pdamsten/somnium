@@ -26,7 +26,6 @@
     // Handle all clickable elements
     $(".clickable").click(function () {
       var fn = 'on' + $(this).attr('id') + 'Click()';
-      console.log(fn);
       csInterface.evalScript(fn);
     });
     $("#Info").click(function () {
