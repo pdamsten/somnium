@@ -51,7 +51,7 @@ function onMakeAllClick()
     onMakeSkinCheckerClick();
     onMakeSolarisationClick();
     onMakePerspectiveLinesClick();
-    onMemoClick();
+    onMakeMemoClick();
   } catch (e) {
     log(e);
   }
