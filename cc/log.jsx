@@ -8,7 +8,7 @@
 
 var logFile = '~/log.txt';
 
-timeStamp = function()
+isoDate = function()
 {
   var date = new Date();
   var yy = date.getYear();
@@ -23,7 +23,7 @@ timeStamp = function()
   hours = (hours < 10) ? "0" + hours : hours;
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
-  return yy + '-' + m + '-' + d + '_' + hours + ':' + minutes + ':' + seconds;
+  return yy + '-' + m + '-' + d + 'T' + hours + ':' + minutes + ':' + seconds;
 }
 
 initLog = function(path)
@@ -34,14 +34,14 @@ initLog = function(path)
 log = function()
 {
   try {
-    var s = timeStamp();
+    var s = isoDate();
     for (var i = 0; i < arguments.length; ++i) {
       s += ' ' + arguments[i];
     }
     var f = new File(logFile);
     f.open('a');
-    f.encoding = "UTF8"
-    f.writeln(s);
+    f.encoding = "BINARY"; // For proper line ending
+    f.write(s + '\n');
     f.close();
   } catch (e) {
     alert(e.message);
