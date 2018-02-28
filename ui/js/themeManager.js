@@ -79,6 +79,7 @@ var themeManager = (function () {
       addRule(styleId, ".cc", "color:" + txt);
       addRule(styleId, ".cc", "font-size:" + fs);
       addRule(styleId, ".cc", "font-family:" + ff);
+      addRule(styleId, ".cc", "border-color:" + bg);
       addRule(styleId, ".ccbutton", "border-color:" + buttonPressed);
       addRule(styleId, ".ccbutton", "background:" + bg);
       addRule(styleId, ".ccbutton", "color:" + widgetTxt);
@@ -94,7 +95,7 @@ var themeManager = (function () {
       addRule(styleId, ".ccwidget", "background-color:" + widgetBg);
       addRule(styleId, ".ccwidget", "color:" + txt);
       addRule(styleId, ".ccheader", "background-color:" + darkerBg);
-      addRule(styleId, ".ccheader", "border-color:" + darkerBg);
+      addRule(styleId, ".ccheader", "border-color:" + widgetTxt);
       addRule(styleId, ".ccheader", "color:" + txt);
       addRule(styleId, ".ccsvg", "filter:brightness(" + brightnessFilter + ');');
     } catch(err) {

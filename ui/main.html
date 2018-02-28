@@ -4,58 +4,83 @@
 <link rel="stylesheet" href="css/styles.css"/>
 <title>Somnium</title>
 </head>
-<body class="cc"><div id="header" class="ccheader">
+<body class="cc">
+  <div id="header" class="ccheader">
     <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="50">
   </div>
 
-  <div id="helpers">
-    <h1>Help Layers</h1>
-    <hr class="ccheader"/>
-    <div id="content">
-      <button id="MakeAll" class="fullbtn clickable ccbuttondefault">Make All</button>
-      <div class="table"><div class="row">
-        <div class="cellleft">
-          <button id="MakeMemo" class="fullbtn clickable ccbutton">Memo</button>
-        </div>
-        <div class="cellright">
-          <button id="MakePerspectiveLines" class="fullbtn clickable ccbutton">Perspective Lines</button>
-        </div>
-      </div><div class="row">
-        <div class="cellleft">
-          <button id="MakeSolarisation" class="fullbtn clickable ccbutton">Solarisation</button>
-        </div>
-        <div class="cellright">
-          <button id="MakeSkinChecker" class="fullbtn clickable ccbutton">Skin Checker</button>
-        </div>
-      </div><div class="row">
-        <div class="cellleft">
-          <button id="MakeLightness" class="fullbtn clickable ccbutton">Lightness</button>
-        </div>
-        <div class="cellright">
-          <button id="MakeSaturationMap" class="fullbtn clickable ccbutton">Saturation Map</button>
-        </div>
-      </div><div class="row">
-        <div class="cellleft">
-          <button id="MatchTones" class="fullbtn clickable ccbutton">Match Tones</button>
-        </div>
-        <div class="cellright">
-          <button id="DeleteAll" class="fullbtn clickable ccbuttondefault">Delete All</button>
-        </div>
-      </div></div>
+  <div id="content">
+    <div id="tabs" class="ccheader">
+      <div id="Helpers" class="tabbtn">
+        <img class="ccsvg clickable" src="img/ic_healing_white_48px.svg" height="32">
+        <div class="cc tabindicator"></div>
+      </div>
+      <div id="LayersSaver" class="tabbtn">
+        <img class="ccsvg clickable" src="img/ic_save_white_48px.svg" height="32">
+        <div class="cc tabindicator"></div>
+      </div>
     </div>
-    <div class="help ccheader" id="helpers-help">
+
+    <div id="HelpersTab" class="tab">
       <h1>Help Layers</h1>
-      <ul>
-        <li>Make All - Makes all the help layers.</li>
-        <li>Memo - Makes layer for writing notes.</li>
-        <li>Perspective Lines -</li>
-        <li>Solarisation -</li>
-        <li>Skin Checker -</li>
-        <li>Lightness -</li>
-        <li>Saturation Map -</li>
-        <li>Match Tones -</li>
-      </ul>
+      <div class="tabcontent">
+        <button id="MakeAll" class="fullbtn clickable ccbuttondefault">Make All</button>
+        <div class="table"><div class="row">
+          <div class="cellleft">
+            <button id="MakeMemo" class="fullbtn clickable ccbutton">Memo</button>
+          </div>
+          <div class="cellright">
+            <button id="MakePerspectiveLines" class="fullbtn clickable ccbutton">Perspective Lines</button>
+          </div>
+        </div><div class="row">
+          <div class="cellleft">
+            <button id="MakeSolarisation" class="fullbtn clickable ccbutton">Solarisation</button>
+          </div>
+          <div class="cellright">
+            <button id="MakeSkinChecker" class="fullbtn clickable ccbutton">Skin Checker</button>
+          </div>
+        </div><div class="row">
+          <div class="cellleft">
+            <button id="MakeLightness" class="fullbtn clickable ccbutton">Lightness</button>
+          </div>
+          <div class="cellright">
+            <button id="MakeSaturationMap" class="fullbtn clickable ccbutton">Saturation Map</button>
+          </div>
+        </div><div class="row">
+          <div class="cellleft">
+            <button id="MatchTones" class="fullbtn clickable ccbutton">Match Tones</button>
+          </div>
+          <div class="cellright">
+            <button id="DeleteAll" class="fullbtn clickable ccbuttondefault">Delete All</button>
+          </div>
+        </div></div>
+      </div>
+      <div class="help ccheader" id="Helpers-help">
+        <h1>Help Layers</h1>
+        <ul>
+          <li>Make All - Makes all the help layers.</li>
+          <li>Memo - Makes layer for writing notes.</li>
+          <li>Perspective Lines - Lines to check perspective.</li>
+          <li>Solarisation - For finding dust spots and composition errors.</li>
+          <li>Skin Checker - For finding skin imperfections.</li>
+          <li>Lightness - For finding lumonosity differences eg. in dodging & burning.</li>
+          <li>Saturation Map - For finding saturation differences.</li>
+          <li>Match Tones - For finding tone differences.</li>
+        </ul>
+      </div>
     </div>
+
+    <div id="LayersSaverTab" class="tab">
+      <h1>Layers Saver</h1>
+      <div class="tabcontent">
+        Coming soon...
+      </div>
+      <div class="help ccheader" id="LayerSaver-help">
+        <h1>Layers Saver</h1>
+        Blah blah...
+      </div>
+    </div>
+
   </div>
   <div id="footer" class="ccheader">
     <img id="Info" class="ccsvg clickable" src="img/ic_info_outline_white_48px.svg" height="20">
