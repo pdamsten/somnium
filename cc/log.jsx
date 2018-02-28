@@ -8,6 +8,40 @@
 
 var logFile = '~/log.txt';
 
+objectToString = function(obj)
+{
+  var s = '';
+  for (var o in obj) {
+    if (obj.hasOwnProperty(o)) {
+      s += o + ' = ' + obj[o] + '\n';
+    }
+  }
+  return s;
+}
+
+exceptionToString = function(obj)
+{
+  var a = obj.source.split('\n');
+  var fn = '';
+  var line = a[obj.line - 1].replace(/^\s+|\s+$/g, '');
+  for (var i = obj.line; i >= 0; --i) {
+    if (a[i].indexOf('function') >= 0) {
+      fn = a[i];
+      fn = fn.replace('function', '');
+      fn = fn.replace('{', '');
+      fn = fn.replace(/\(.*\)/, '');
+      fn = fn.replace(/^\s+|\s+$/g, ''); // Trim
+      break;
+    }
+  }
+  return line + ' (' + fn + ':' + (obj.line) + ') ' + obj.message;
+}
+
+isException = function(obj)
+{
+  return obj.hasOwnProperty('source') && obj.hasOwnProperty('line');
+}
+
 isoDate = function()
 {
   var date = new Date();
@@ -36,7 +70,15 @@ log = function()
   try {
     var s = isoDate();
     for (var i = 0; i < arguments.length; ++i) {
-      s += ' ' + arguments[i];
+      if (typeof arguments[i] == 'object') {
+        if (isException(arguments[i])) {
+          s += ' ' + exceptionToString(arguments[i]);
+        } else {
+          s += ' ' + objectToString(arguments[i]);
+        }
+      } else {
+        s += ' ' + arguments[i];
+      }
     }
     var f = new File(logFile);
     f.open('a');

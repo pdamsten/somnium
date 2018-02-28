@@ -25,8 +25,8 @@ createCurveAdjustment = function(name, layer)
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
-    log('createCurveAdjustment', e.message);
+  } catch (e) {
+    log(e);
     return null;
   }
 }
@@ -58,9 +58,9 @@ setCurveAdjustment = function(layer, data)
     desc1.putObject(cTID('T   '), cTID('Crvs'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
-  } catch (err) {
-    log('setCurveAdjustment', e.message);
-     return false;
+  } catch (e) {
+    log(e);
+    return false;
   }
 }
 
@@ -97,8 +97,8 @@ createChannelMixer = function(name, layer)
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
-    log('createChannelMixer', e.message);
+  } catch (e) {
+    log(e);
     return null;
   }
 }
@@ -123,8 +123,8 @@ setChannelMixer = function(layer, color, cnst, mono)
     desc1.putObject(cTID('T   '), cTID('ChnM'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
-  } catch (err) {
-    log('setChannelMixer', e.message);
+  } catch (e) {
+    log(e);
      return false;
   }
 }
@@ -149,8 +149,8 @@ createSolidColorAdjustment = function(name, layer, color)
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
-    log('createSolidColorAdjustment', e.message);
+  } catch (e) {
+    log(e);
      return null;
   }
 };
@@ -172,8 +172,8 @@ createHueSaturationAdjustment = function(name, layer)
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
-    log('createHueSaturationAdjustment', e.message);
+  } catch (e) {
+    log(e);
     return null;
   }
 }
@@ -198,8 +198,8 @@ setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
     desc1.putObject(cTID('T   '), cTID('HStr'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
-  } catch (err) {
-    log('setHueSaturationAdjustment', e.message);
+  } catch (e) {
+    log(e);
     return false;
   }
 }
@@ -220,8 +220,8 @@ createSelectiveColorAdjustment = function(name, layer)
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
-  } catch (err) {
-    log('createSelectiveColorAdjustment', e.message);
+  } catch (e) {
+    log(e);
     return null;
   }
 }
@@ -250,8 +250,8 @@ setSelectiveColorAdjustment = function(layer, color, values)
     desc1.putObject(cTID('T   '), cTID('SlcC'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
-  } catch (err) {
-    log('setSelectiveColorAdjustment', e.message);
+  } catch (e) {
+    log(e);
     return false;
   }
 }

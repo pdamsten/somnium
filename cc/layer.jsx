@@ -23,7 +23,7 @@ setLayerBlendingMode = function(layer, mode)
     desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
   } catch (e) {
-    log('setLayerBlendingMode', e.message);
+    log(e);
     return null;
   }
 }
@@ -93,7 +93,7 @@ groupSelected = function(name)
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
   } catch (e) {
-    log('groupSelected', e.message);
+    log(e);
     return null;
   }
 }
@@ -117,7 +117,7 @@ selectLayers = function(layers)
       executeAction(cTID('slct'), desc1, DialogModes.NO);
     }
   } catch (e) {
-    log('selectLayers', e.message);
+    log(e);
     return false;
   }
   return true;
@@ -129,7 +129,7 @@ groupLayers = function(name, layers)
     selectLayers(layers);
     return groupSelected(name);
   } catch (e) {
-    log('groupLayers', e.message);
+    log(e);
     return null;
   }
 }
@@ -157,7 +157,7 @@ layerIndex = function(layer)
     var bg = app.activeDocument.layers[app.activeDocument.layers.length-1].isBackgroundLayer;
     return (bg) ? index - 1 : index;
   } catch (e) {
-    log('layerIndex', e.message);
+    log(e);
     return -1;
   }
 }
@@ -179,7 +179,7 @@ deleteLayerMask = function(layer)
     desc1.putReference(cTID('null'), ref1);
     executeAction(cTID('Dlt '), desc1, DialogModes.NO);
   } catch (e) {
-    log('deleteLayerMask', e.message);
+    log(e);
      return false;
   }
   return true;

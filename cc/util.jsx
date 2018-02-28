@@ -72,7 +72,7 @@ drawLine = function(name, x1, y1, x2, y2, w)
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
   } catch (e) {
-    log('drawLine', e.message);
+    log(e);
     return null;
   }
 }

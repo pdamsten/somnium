@@ -11,7 +11,7 @@ function include(path)
   try {
     $.evalFile(path);
   } catch (e) {
-    log(e.message);
+    log(e);
   }
 }
 
@@ -24,10 +24,8 @@ function init(jsxPath)
     include(jsxPath + 'util.jsx');
     include(jsxPath + 'adjustment.jsx');
     include(jsxPath + 'layer.jsx');
-    // tabs
-    include(jsxPath + 'tab_helpers.jsx');
   } catch (e) {
-    log('init', e.message);
+    log(e);
   }
 }
 
@@ -55,7 +53,7 @@ function onMakeAllClick()
     onMakePerspectiveLinesClick();
     onMemoClick();
   } catch (e) {
-    log('onMakeAllClick', e.message);
+    log(e);
   }
 }
 
