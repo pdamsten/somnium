@@ -59,6 +59,7 @@ function onMakeAllClick()
 
 function onMakeSolarisationClick()
 {
+  if (checkLayer('Solarisation', helpGroupName) != null) return;
   var c = [[0, 0], [26,225], [73,30], [109, 225], [145, 30], [182, 225], [219, 30], [255, 255]];
 
   group = checkGroup(helpGroupName);
@@ -68,14 +69,16 @@ function onMakeSolarisationClick()
   l.visible = false;
 }
 
-function onMemoClick()
+function onMakeMemoClick()
 {
+  if (checkLayer('Memo', helpGroupName) != null) return;
   group = checkGroup(helpGroupName);
   createLayer('Memo', group);
 }
 
 function onMakeSkinCheckerClick()
 {
+  if (checkLayer('Skin Checker', helpGroupName) != null) return;
   group = checkGroup(helpGroupName);
   l = createChannelMixer('Skin Checker', group);
   setChannelMixer(l, [-46, -4, 200], 0, true);
@@ -85,10 +88,11 @@ function onMakeSkinCheckerClick()
 
 function onMakePerspectiveLinesClick()
 {
+  if (checkLayer('Perspective Lines', helpGroupName) != null) return;
+  var group = checkGroup(helpGroupName);
   var v = Math.max(app.activeDocument.width, app.activeDocument.height);
   var a = 15;
   var l;
-  var group = checkGroup(helpGroupName);
   var layers = [];
 
   for (var i = 0; i < 12; ++i) {
@@ -104,6 +108,7 @@ function onMakePerspectiveLinesClick()
 
 function onMakeLightnessClick()
 {
+  if (checkLayer('Lightness', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l1 = createSolidColorAdjustment('Lightness Check', group, [128, 128, 128]);
   var l2 = createCurveAdjustment('Enhance', group);
@@ -117,6 +122,7 @@ function onMakeLightnessClick()
 
 function onMatchTonesClick()
 {
+  if (checkLayer('Match Tones', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l1 = createSolidColorAdjustment('Luminosity', group, [128, 128, 128]);
   var l2 = createHueSaturationAdjustment('Enhance', group);
@@ -130,6 +136,7 @@ function onMatchTonesClick()
 
 function onMakeSaturationMapClick()
 {
+  if (checkLayer('Saturation Map', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l = createSelectiveColorAdjustment('Saturation Map', group);
   setSelectiveColorAdjustment(l, 'reds', [0, 0, 0, -100]);

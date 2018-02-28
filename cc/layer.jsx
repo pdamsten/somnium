@@ -28,6 +28,34 @@ setLayerBlendingMode = function(layer, mode)
   }
 }
 
+var _layersList = [];
+var _lindex = 0;
+
+layersList = function(player, pindex, reverse)
+{
+  try {
+    if (typeof player === 'undefined') {
+      player = app.activeDocument;
+      _layersList = [];
+      _lindex = 0;
+    }
+    pindex = (typeof pindex !== 'undefined') ? -1 : pindex;
+    var len = player.layers.length;
+
+    for (var i = len - 1; i >= 0; --i) {
+      var layer = player.layers[i];
+      _layersList[_lindex++] = {'parent': pindex, 'layer': layer, 'visible': layer.visible};
+      if (layer.typename == 'LayerSet') {
+        layersList(layer, _lindex - 1);
+      }
+    }
+    return _layersList;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
 activateLayer = function(layer)
 {
   if (typeof layer !== 'undefined') {
@@ -42,18 +70,44 @@ activateLayer = function(layer)
   return app.activeDocument.activeLayer;
 }
 
-findGroup = function(name)
+findLayer = function(name, parent, type)
 {
-  var len = app.activeDocument.layers.length;
-  var group = null;
+  try {
+    layers = layersList();
 
-  for (var i = len -1; i >= 0; --i) {
-    var layer = app.activeDocument.layers[i];
-    if (layer.typename == 'LayerSet' && layer.name == name) {
-      return layer;
+    for (var i = 0; i < layers.length; ++i) {
+      if (layers[i].layer.name == name) {
+        if (typeof parent !== 'undefined' && layers[i].parent != -1 &&
+            layers[layers[i].parent].layer.name != parent) {
+          continue;
+        }
+        if (typeof type !== 'undefined' && layers[i].layer.typename != type) {
+          continue;
+        }
+        return layers[i].layer;
+      }
     }
+  } catch (e) {
+    log(e);
   }
   return null;
+}
+
+checkLayer = function(name, parent)
+{
+  var layer = findLayer(name, parent);
+  if (layer != null) {
+    var v = layer.visible;
+    app.activeDocument.activeLayer = layer;
+    app.activeDocument.activeLayer.visible = v;
+    return layer;
+  }
+  return null;
+}
+
+findGroup = function(name, parent)
+{
+  return findLayer(name, parent, 'LayerSet');
 }
 
 createGroup = function(name, layer)
