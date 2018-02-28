@@ -32,7 +32,7 @@
 					<Geometry>
 						<Size>
 							<Height>500</Height>
-							<Width>300</Width>
+							<Width>350</Width>
 						</Size>
                     <!--<MinSize>
                             <Height>550</Height>
@@ -49,7 +49,7 @@
 						<Icon Type="Disabled">./ui/img/iconDisabled.png</Icon>
 						<Icon Type="DarkNormal">./ui/img/iconDarkNormal.png</Icon>
 						<Icon Type="DarkRollOver">./ui/img/iconDarkRollover.png</Icon>
-					</Icons>					
+					</Icons>
 				</UI>
 			</DispatchInfo>
 		</Extension>
