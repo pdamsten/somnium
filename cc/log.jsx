@@ -34,7 +34,7 @@ exceptionToString = function(obj)
       break;
     }
   }
-  return line + ' (' + fn + ':' + (obj.line) + ') ' + obj.message;
+  return '(' + fn + ':' + (obj.line) + ') ' + line + ' : ' + obj.message;
 }
 
 isException = function(obj)
