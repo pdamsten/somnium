@@ -1,2 +1,4 @@
 - On activating group or layer don't make it visible or open group. Use action code?
 - Make icon pixel perfect.
+- ini handling. Save current tab on change.
+- Experimental mode which shows experimental/personal features.
