@@ -159,3 +159,127 @@ function onDeleteAllClick()
     group.remove();
   }
 }
+
+//**************************************************************************
+//
+//   Save Layer tab code
+//
+//**************************************************************************
+
+//layer.visible = true;
+//saveJpg(output('p', n, '.jpg'), 3840, 2160);
+
+onSaveLayersClick = function()
+{
+  var layers = listLayers();
+  layers = layers.reverse();
+  //takeScreenshotsFromLayers();
+  saveLayersAsJpgs();
+}
+
+saveLayersAsJpgs = function()
+{
+  hideAllLayers();
+  handleLayers(saveJpg);
+}
+
+pad = function(num, size)
+{
+  var s = '000000000' + num;
+  return s.substr(s.length - size);
+}
+
+output = function(prefix, n, suffix)
+{
+  return '~/tmp/' + prefix + '-' + fname + '-' + pad(n + 1, 4) + suffix;
+}
+
+handleLayers = function(func)
+{
+  handleMain(func);
+
+  var len = layers.length;
+
+  for (var i = 0; i < len; ++i) {
+    var layer = layers[i].layer;
+    if (i == lmain || !layers[i].visible) {
+      continue;
+    }
+    if (layer.typename == 'LayerSet') {
+      if (masks) {
+        if (enableLayerMask(layer, false)) {
+          func.apply(this, [pindex++, layer]);
+          enableLayerMask(layer, true);
+        }
+      }
+    } else {
+      if (masks) {
+        if (enableLayerMask(layer, false)) {
+          func.apply(this, [pindex++, layer]);
+          enableLayerMask(layer, true);
+        }
+      }
+      func.apply(this, [pindex++, layer]);
+    }
+  }
+}
+
+handleMain = function(func)
+{
+  if (lmain != -1) {
+    var mainLayer = layers[lmain].layer;
+    var i = lmain;
+    var thereWasAMask = false;
+    var thereWasSmartFilters = false;
+    var mainCopy = null;
+    while (i != -1) {
+      if (enableLayerMask(layers[i].layer, false)) {
+        thereWasAMask = true;
+      }
+      i = layers[i].parent;
+    }
+    thereWasSmartFilters = enableSmartFilters(mainLayer, false);
+    if (mainLayer.kind == LayerKind.SMARTOBJECT) {
+      if (newSmartObjectViaCopy(mainLayer)) {
+        mainCopy = app.activeDocument.activeLayer;
+        deleteLayerMask(mainCopy);
+        deleteSmartFilters(mainCopy);
+        editSmartObjectContents(mainCopy);
+        mainCopy.visible = true;
+        mainCopy.opacity = 100;
+        func.apply(this, [pindex++, mainCopy]);
+        mainCopy.visible = false;
+      }
+    }
+    func.apply(this, [pindex++, mainLayer]);
+    if (thereWasSmartFilters) {
+      enableSmartFilters(mainLayer, true);
+      func.apply(this, [pindex++, mainLayer]);
+    }
+    if (thereWasAMask) {
+      i = lmain;
+      while (i != -1) {
+        enableLayerMask(layers[i].layer, true);
+        i = layers[i].parent;
+      }
+      func.apply(this, [pindex++, mainLayer]);
+    }
+  }
+}
+// Experimental
+takeScreenshot = function(n, layer)
+{
+  layer.visible = true;
+  app.activeDocument.activeLayer = layer;
+  app.refresh();
+  app.system("/usr/sbin/screencapture -x -m -T 0 " + output('s', n, '.png'));
+}
+
+takeScreenshotsFromLayers = function()
+{
+  hideAllLayers();
+  app.refresh();
+  waitForRedraw();
+  //alert('Waiting...');
+  handleLayers(takeScreenshot);
+}
