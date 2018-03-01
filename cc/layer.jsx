@@ -9,6 +9,69 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+enableSmartFilters = function(layer, enable)
+{
+  try {
+    activateLayer(layer);
+    if (enable) {
+      cmd = cTID('Shw ');
+    } else {
+      cmd = cTID('Hd  ');
+    }
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(sTID("filterFX"));
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    executeAction(cmd, desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false; // No smart filter
+  }
+}
+
+deleteSmartFilters = function(layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(sTID("filterFX"));
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    executeAction(cTID('Dlt '), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
+newSmartObjectViaCopy = function(layer)
+{
+  try {
+    activateLayer(layer);
+    executeAction(sTID('placedLayerMakeCopy'), undefined, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
+editSmartObjectContents = function(layer)
+{
+  try {
+    activateLayer(layer);
+    executeAction(sTID('placedLayerEditContents'), undefined, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
 setLayerBlendingMode = function(layer, mode)
 {
   var modes = {'color': 'Clr ', 'luminosity': 'Lmns'};
@@ -22,29 +85,41 @@ setLayerBlendingMode = function(layer, mode)
     desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID(modes[mode]));
     desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
+    return true;
   } catch (e) {
     log(e);
-    return null;
+    return false;
+  }
+}
+
+hideAllLayers = function()
+{
+  var len = layers.length;
+
+  for (var i = 0; i < len; ++i) {
+    if (!(layers[i].layer.typename == 'LayerSet')) {
+      layers[i].layer.visible = false;
+    }
   }
 }
 
 var _layersList = [];
 var _lindex = 0;
 
-layersList = function(player, pindex, reverse)
+layersList = function(player, _pindex)
 {
   try {
-    if (typeof player === 'undefined') {
-      player = app.activeDocument;
+    if (typeof pindex === 'undefined') {
+      _pindex = -1;
       _layersList = [];
       _lindex = 0;
     }
-    pindex = (typeof pindex !== 'undefined') ? -1 : pindex;
+    player = (typeof player !== 'undefined') ? app.activeDocument : player;
     var len = player.layers.length;
 
     for (var i = len - 1; i >= 0; --i) {
       var layer = player.layers[i];
-      _layersList[_lindex++] = {'parent': pindex, 'layer': layer, 'visible': layer.visible};
+      _layersList[_lindex++] = {'parent': _pindex, 'layer': layer, 'visible': layer.visible};
       if (layer.typename == 'LayerSet') {
         layersList(layer, _lindex - 1);
       }
@@ -213,6 +288,33 @@ layerIndex = function(layer)
   } catch (e) {
     log(e);
     return -1;
+  }
+}
+
+enableLayerMask = function(layer, enable)
+{
+  try {
+    activateLayer(layer);
+    var idsetd = cTID("setd");
+    var desc9 = new ActionDescriptor();
+    var idnull = cTID("null");
+    var ref4 = new ActionReference();
+    var idLyr = cTID("Lyr ");
+    var idOrdn = cTID("Ordn");
+    var idTrgt = cTID("Trgt");
+    ref4.putEnumerated(idLyr, idOrdn, idTrgt);
+    desc9.putReference(idnull, ref4);
+    var idT = cTID("T   ");
+    var desc10 = new ActionDescriptor();
+    var idUsrM = cTID("UsrM");
+    desc10.putBoolean(idUsrM, enable);
+    var idLyr = cTID("Lyr ");
+    desc9.putObject(idT, idLyr, desc10);
+    executeAction(idsetd, desc9, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false; // No mask
   }
 }
 
