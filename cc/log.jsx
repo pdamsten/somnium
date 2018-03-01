@@ -8,12 +8,22 @@
 
 var logFile = '~/log.txt';
 
-objectToString = function(obj)
+objectToString = function(obj, prefix)
 {
   var s = '';
+  prefix = (typeof prefix === 'undefined') ? '' : prefix;
+  if (prefix.length > 2) return;
+
   for (var o in obj) {
     if (obj.hasOwnProperty(o)) {
-      s += o + ' = ' + obj[o] + '\n';
+      try {
+        s += prefix + o + ' = ' + obj[o] + '\n';
+        if (typeof obj[o] === 'object') {
+          s += objectToString(obj[o], prefix + '  ');
+        }
+      } catch (e) {
+        s += prefix + o + ' = ' + e.message + '\n';
+      }
     }
   }
   return s;
@@ -86,6 +96,7 @@ log = function()
     f.write(s + '\n');
     f.close();
   } catch (e) {
+    //log(e);
     alert(e.message);
   }
 }
