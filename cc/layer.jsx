@@ -92,36 +92,24 @@ setLayerBlendingMode = function(layer, mode)
   }
 }
 
-hideAllLayers = function()
-{
-  var len = layers.length;
-
-  for (var i = 0; i < len; ++i) {
-    if (!(layers[i].layer.typename == 'LayerSet')) {
-      layers[i].layer.visible = false;
-    }
-  }
-}
-
 var _layersList = [];
 var _lindex = 0;
 
-layersList = function(player, _pindex)
+listLayers = function(player, _pindex)
 {
   try {
-    if (typeof pindex === 'undefined') {
+    if (typeof _pindex === 'undefined') {
       _pindex = -1;
       _layersList = [];
       _lindex = 0;
     }
-    player = (typeof player !== 'undefined') ? app.activeDocument : player;
-    var len = player.layers.length;
+    player = (typeof player === 'undefined') ? app.activeDocument : player;
 
-    for (var i = len - 1; i >= 0; --i) {
+    for (var i = player.layers.length - 1; i >= 0; --i) {
       var layer = player.layers[i];
       _layersList[_lindex++] = {'parent': _pindex, 'layer': layer, 'visible': layer.visible};
       if (layer.typename == 'LayerSet') {
-        layersList(layer, _lindex - 1);
+        listLayers(layer, _lindex - 1);
       }
     }
     return _layersList;
@@ -148,7 +136,7 @@ activateLayer = function(layer)
 findLayer = function(name, parent, type)
 {
   try {
-    layers = layersList();
+    layers = listLayers();
 
     for (var i = 0; i < layers.length; ++i) {
       if (layers[i].layer.name == name) {
