@@ -50,7 +50,7 @@ waitForRedraw = function()
 randomString = function(length)
 {
   var s = '';
-  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-,.;_&%#!';
+  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   length = (typeof length !== 'undefined') ? 8 : length;
 
   for (var i = 0; i < length; ++i) {
