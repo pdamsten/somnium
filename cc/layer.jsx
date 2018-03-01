@@ -105,7 +105,7 @@ listLayers = function(player, _pindex)
     }
     player = (typeof player === 'undefined') ? app.activeDocument : player;
 
-    for (var i = player.layers.length - 1; i >= 0; --i) {
+    for (var i = 0; i < player.layers.length; ++i) {
       var layer = player.layers[i];
       _layersList[_lindex++] = {'parent': _pindex, 'layer': layer, 'visible': layer.visible};
       if (layer.typename == 'LayerSet') {

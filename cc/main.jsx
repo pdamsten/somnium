@@ -170,7 +170,6 @@ onSaveLayersClick = function()
 {
   try {
     var layers = listLayers();
-    layers = layers.reverse();
     //takeScreenshotsFromLayers(layers);
     saveLayersAsJpgs(layers);
   } catch (e) {
@@ -220,7 +219,7 @@ handleLayers = function(layers, func)
   if (lmain != -1) {
     handleMain(lmain, layers, func);
   }
-  for (var i = 0; i < layers.length; ++i) {
+  for (var i = layers.length - 1; i >= 0; --i) {
     var layer = layers[i].layer;
     if (i == lmain || !layers[i].visible) {
       continue;
