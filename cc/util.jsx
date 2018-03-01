@@ -6,6 +6,9 @@
 //
 //**************************************************************************
 
+cTID = function(s) { return app.charIDToTypeID(s); };
+sTID = function(s) { return app.stringIDToTypeID(s); };
+
 openURL = function(url)
 {
   var link = new File(Folder.temp + '/open.url');
@@ -13,6 +16,95 @@ openURL = function(url)
   link.write('[InternetShortcut]\nURL=' + url + '\n\n');
   link.close();
   link.execute();
+}
+
+fitWindow = function()
+{
+  var idinvokeCommand = sTID("invokeCommand");
+  var desc125 = new ActionDescriptor();
+  var idcommandID = sTID("commandID");
+  desc125.putInteger( idcommandID, 1192);
+  var idkcanDispatchWhileModal = sTID("kcanDispatchWhileModal");
+  desc125.putBoolean( idkcanDispatchWhileModal, true);
+  executeAction(idinvokeCommand, desc125, DialogModes.NO);
+  app.refresh();
+}
+
+waitForRedraw = function()
+{
+  var eventWait = cTID("Wait")
+  var enumRedrawComplete = cTID("RdCm")
+  var typeState = cTID("Stte")
+  var keyState = cTID("Stte")
+  var desc = new ActionDescriptor()
+  desc.putEnumerated(keyState, typeState, enumRedrawComplete)
+  executeAction(eventWait, desc, DialogModes.NO)
+}
+
+randomString = function(length)
+{
+  var s = '';
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-,.;_&%#!';
+  length = (typeof length !== 'undefined') ? 8 : length;
+
+  for (var i = 0; i < length; ++i) {
+    s += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return s;
+}
+
+saveJpg = function(filepath, x, y)
+{
+  var active = app.activeDocument;
+  var newDoc = app.activeDocument.duplicate(randomString(8));
+
+  newDoc.flatten();
+
+  if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
+    newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
+  } else {
+    newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+  }
+
+  newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
+  newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
+
+  var file = File(filepath);
+  var options = new JPEGSaveOptions();
+  options.embedColorProfile = true;
+  options.formatOptions = FormatOptions.STANDARDBASELINE;
+  options.matte = MatteType.NONE;
+  options.quality = 11;
+  newDoc.saveAs(file, options, true, Extension.LOWERCASE);
+
+  newDoc.close(SaveOptions.DONOTSAVECHANGES);
+  app.activeDocument = active;
+}
+
+savePng = function(filepath, x, y)
+{
+  var active = app.activeDocument;
+  var newDoc = app.activeDocument.duplicate(randomString(8));
+
+  newDoc.flatten();
+
+  if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
+    newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
+  } else {
+    newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+  }
+
+  newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
+  newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
+
+  var file = File(filepath);
+  var options = new PNGSaveOptions();
+  options.compression = 9;
+  options.interlaced = false;
+  newDoc.saveAs(file, options, true, Extension.LOWERCASE);
+
+  newDoc.close(SaveOptions.DONOTSAVECHANGES);
+  app.activeDocument = active;
 }
 
 drawLine = function(name, x1, y1, x2, y2, w)
