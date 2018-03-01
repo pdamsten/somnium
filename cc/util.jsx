@@ -9,6 +9,12 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+padNum = function(num, size)
+{
+  var s = '0000000000000000' + num;
+  return s.substr(s.length - size);
+}
+
 openURL = function(url)
 {
   var link = new File(Folder.temp + '/open.url');
@@ -53,7 +59,7 @@ randomString = function(length)
   return s;
 }
 
-saveJpg = function(filepath, x, y)
+saveAsJpeg = function(filepath, x, y)
 {
   var active = app.activeDocument;
   var newDoc = app.activeDocument.duplicate(randomString(8));
@@ -81,7 +87,7 @@ saveJpg = function(filepath, x, y)
   app.activeDocument = active;
 }
 
-savePng = function(filepath, x, y)
+saveAsPng = function(filepath, x, y)
 {
   var active = app.activeDocument;
   var newDoc = app.activeDocument.duplicate(randomString(8));
