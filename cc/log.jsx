@@ -28,7 +28,7 @@ exceptionToString = function(obj)
     if (a[i].indexOf('function') >= 0) {
       fn = a[i];
       fn = fn.replace('function', '');
-      fn = fn.replace('{', '');
+      fn = fn.replace(/[{}=]/g, '');
       fn = fn.replace(/\(.*\)/, '');
       fn = fn.replace(/^\s+|\s+$/g, ''); // Trim
       break;
