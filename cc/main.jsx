@@ -166,41 +166,61 @@ function onDeleteAllClick()
 //
 //**************************************************************************
 
-//layer.visible = true;
-//saveJpg(output('p', n, '.jpg'), 3840, 2160);
-
 onSaveLayersClick = function()
 {
-  var layers = listLayers();
-  layers = layers.reverse();
-  //takeScreenshotsFromLayers();
-  saveLayersAsJpgs();
+  try {
+    var layers = listLayers();
+    layers = layers.reverse();
+    //takeScreenshotsFromLayers(layers);
+    saveLayersAsJpgs(layers);
+  } catch (e) {
+    log(e);
+  }
 }
 
-saveLayersAsJpgs = function()
+saveLayersAsJpgs = function(layers)
 {
-  hideAllLayers();
-  handleLayers(saveJpg);
+  hideAllLayers(layers);
+  handleLayers(layers, saveJpg);
 }
 
-pad = function(num, size)
+saveJpg = function(n, layer)
 {
-  var s = '000000000' + num;
-  return s.substr(s.length - size);
+  layer.visible = true;
+  saveAsJpeg(output('p', n, '.jpg'), 3840, 2160);
+}
+
+hideAllLayers = function(layers)
+{
+  var len = layers.length;
+
+  for (var i = 0; i < len; ++i) {
+    if (!(layers[i].layer.typename == 'LayerSet')) {
+      layers[i].layer.visible = false;
+    }
+  }
 }
 
 output = function(prefix, n, suffix)
 {
-  return '~/tmp/' + prefix + '-' + fname + '-' + pad(n + 1, 4) + suffix;
+  var parts = app.activeDocument.name.split(".");
+  var fname = parts[0];
+  return '~/tmp/' + prefix + '-' + fname + '-' + padNum(n + 1, 4) + suffix;
 }
 
-handleLayers = function(func)
+var pindex = 0;
+
+handleLayers = function(layers, func)
 {
-  handleMain(func);
+  var lmain = findMain(layers);
+  var masks = false;
 
-  var len = layers.length;
+  pindex = 0;
 
-  for (var i = 0; i < len; ++i) {
+  if (lmain != -1) {
+    handleMain(lmain, layers, func);
+  }
+  for (var i = 0; i < layers.length; ++i) {
     var layer = layers[i].layer;
     if (i == lmain || !layers[i].visible) {
       continue;
@@ -224,48 +244,59 @@ handleLayers = function(func)
   }
 }
 
-handleMain = function(func)
+findMain = function(layers)
 {
-  if (lmain != -1) {
-    var mainLayer = layers[lmain].layer;
-    var i = lmain;
-    var thereWasAMask = false;
-    var thereWasSmartFilters = false;
-    var mainCopy = null;
-    while (i != -1) {
-      if (enableLayerMask(layers[i].layer, false)) {
-        thereWasAMask = true;
-      }
-      i = layers[i].parent;
-    }
-    thereWasSmartFilters = enableSmartFilters(mainLayer, false);
-    if (mainLayer.kind == LayerKind.SMARTOBJECT) {
-      if (newSmartObjectViaCopy(mainLayer)) {
-        mainCopy = app.activeDocument.activeLayer;
-        deleteLayerMask(mainCopy);
-        deleteSmartFilters(mainCopy);
-        editSmartObjectContents(mainCopy);
-        mainCopy.visible = true;
-        mainCopy.opacity = 100;
-        func.apply(this, [pindex++, mainCopy]);
-        mainCopy.visible = false;
-      }
-    }
-    func.apply(this, [pindex++, mainLayer]);
-    if (thereWasSmartFilters) {
-      enableSmartFilters(mainLayer, true);
-      func.apply(this, [pindex++, mainLayer]);
-    }
-    if (thereWasAMask) {
-      i = lmain;
-      while (i != -1) {
-        enableLayerMask(layers[i].layer, true);
-        i = layers[i].parent;
-      }
-      func.apply(this, [pindex++, mainLayer]);
+  for (var i = layers.length - 1; i >= 0; --i) {
+    if (layers[i].layer.name[0] == '#') {
+      return i;
     }
   }
+  return -1;
 }
+
+handleMain = function(lmain, layers, func)
+{
+  var mainLayer = layers[lmain].layer;
+  var i = lmain;
+  var thereWasAMask = false;
+  var thereWasSmartFilters = false;
+  var mainCopy = null;
+
+  while (i != -1) {
+    if (enableLayerMask(layers[i].layer, false)) {
+      thereWasAMask = true;
+    }
+    i = layers[i].parent;
+  }
+  thereWasSmartFilters = enableSmartFilters(mainLayer, false);
+  if (mainLayer.kind == LayerKind.SMARTOBJECT) {
+    if (newSmartObjectViaCopy(mainLayer)) {
+      mainCopy = app.activeDocument.activeLayer;
+      deleteLayerMask(mainCopy);
+      deleteSmartFilters(mainCopy);
+      editSmartObjectContents(mainCopy);
+      mainCopy.visible = true;
+      mainCopy.opacity = 100;
+      func.apply(this, [pindex++, mainCopy]);
+      mainCopy.visible = false;
+      mainCopy.remove();
+    }
+  }
+  func.apply(this, [pindex++, mainLayer]);
+  if (thereWasSmartFilters) {
+    enableSmartFilters(mainLayer, true);
+    func.apply(this, [pindex++, mainLayer]);
+  }
+  if (thereWasAMask) {
+    i = lmain;
+    while (i != -1) {
+      enableLayerMask(layers[i].layer, true);
+      i = layers[i].parent;
+    }
+    func.apply(this, [pindex++, mainLayer]);
+  }
+}
+
 // Experimental
 takeScreenshot = function(n, layer)
 {
@@ -275,9 +306,9 @@ takeScreenshot = function(n, layer)
   app.system("/usr/sbin/screencapture -x -m -T 0 " + output('s', n, '.png'));
 }
 
-takeScreenshotsFromLayers = function()
+takeScreenshotsFromLayers = function(layers)
 {
-  hideAllLayers();
+  hideAllLayers(layers);
   app.refresh();
   waitForRedraw();
   //alert('Waiting...');
