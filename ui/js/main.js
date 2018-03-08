@@ -29,7 +29,7 @@
   {
     initJsx();
     themeManager.init();
-    showTab('Helpers');
+    showTab('Retouch');
 
     // Handle all clickable elements
     $(".clickable").click(function () {
