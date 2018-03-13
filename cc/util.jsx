@@ -9,10 +9,28 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+mkdir = function(dir)
+{
+  var folder = Folder(dir);
+
+  if(!folder.exists) {
+    folder.create();
+  }
+}
+
 padNum = function(num, size)
 {
   var s = '0000000000000000' + num;
   return s.substr(s.length - size);
+}
+
+writeTextFile = function(fname, txt)
+{
+  var tfile = new File(fname);
+  tfile.encoding = "BINARY"; // For proper line ending
+  tfile.open('w');
+  tfile.write(txt);
+  tfile.close();
 }
 
 openURL = function(url)
@@ -57,6 +75,18 @@ randomString = function(length)
     s += chars[Math.floor(Math.random() * chars.length)];
   }
   return s;
+}
+
+exportAsJpeg = function(filepath, x, y) // export does not support res?
+{
+  exportOptionsSaveForWeb = new ExportOptionsSaveForWeb();
+  exportOptionsSaveForWeb.quality = 95;
+  exportOptionsSaveForWeb.includeProfile = true;
+  exportOptionsSaveForWeb.optimised = true;
+  exportOptionsSaveForWeb.format = SaveDocumentType.JPEG;
+
+  var saveFile = new File(filepath);
+  datRef.exportDocument(saveFile, ExportType.SAVEFORWEB, exportOptionsSaveForWeb);
 }
 
 saveAsJpeg = function(filepath, x, y)
