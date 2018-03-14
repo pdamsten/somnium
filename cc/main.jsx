@@ -49,7 +49,8 @@ msg = function(s)
 onDefringeMaskClick = function()
 {
   if (selectLayerMask(app.activeDocument.activeLayer)) {
-
+    doGaussianBlur(app.activeDocument.activeLayer, 2.0);
+    doLevels(app.activeDocument.activeLayer, [[180, 255, 1.0], [0, 255]]);
   } else {
     msg('No Layer mask.');
   }
