@@ -23,7 +23,11 @@
     $("#" + name + "Tab").show();
     $(".tabbtnselected").removeClass('tabbtnselected');
     $("#" + name).addClass('tabbtnselected');
+
     localStorage.setItem('currentTab', name);
+    $('select').each(function(index, obj) {
+      $(this).val(localStorage.getItem($(this).attr('id') + 'Value') || 'normal');
+    });
   }
 
   function init()
@@ -40,6 +44,10 @@
       });
       var fn = 'on' + $(this).attr('id') + 'Click(' + params.join(',') + ')';
       csInterface.evalScript(fn);
+    });
+
+    $('select').on('change', function() {
+      localStorage.setItem($(this).attr('id') + 'Value', this.value);
     });
 
     $(".tabbtn").click(function () {
