@@ -16,13 +16,14 @@ stampVisible = function(name)
     desc1.putBoolean(cTID('Dplc'), true);
     executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
-    return false;
+    return null;
   }
 }
 
-mergeCurrentAndBelow = function(layer, name)
+stampCurrentAndBelow = function(layer, name)
 {
   try {
     layer = activateLayer(layer);
@@ -36,7 +37,7 @@ mergeCurrentAndBelow = function(layer, name)
       layers[i].layer.visible = false;
     }
 
-    stampVisible(name);
+    layer = stampVisible(name);
 
     // return visible state of layers
     for (i = 0; i < layers.length; ++i) {
@@ -45,10 +46,10 @@ mergeCurrentAndBelow = function(layer, name)
       }
       layers[i].layer.visible = layers[i].visible;
     }
-    return true;
+    return layer;
   } catch (e) {
     log(e);
-    return false;
+    return null;
   }
 }
 
@@ -117,7 +118,8 @@ editSmartObjectContents = function(layer)
 
 setLayerBlendingMode = function(layer, mode)
 {
-  var modes = {'color': 'Clr ', 'luminosity': 'Lmns'};
+  var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'vividLight': 'vividLight'};
+
   try {
     activateLayer(layer);
     var desc1 = new ActionDescriptor();
@@ -125,7 +127,11 @@ setLayerBlendingMode = function(layer, mode)
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID(modes[mode]));
+    if (modes[mode].length > 4) {
+      desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), sTID(modes[mode]));
+    } else {
+      desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID(modes[mode]));
+    }
     desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
@@ -326,6 +332,27 @@ layerIndex = function(layer)
   }
 }
 
+addLayerMask = function(layer, hidden)
+{
+  try {
+    hidden = (typeof hidden === 'undefined') ? false : hidden;
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    desc1.putClass(cTID('Nw  '), cTID('Chnl'));
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
+    desc1.putReference(cTID('At  '), ref1);
+    if (hidden) {
+      desc1.putEnumerated(cTID('Usng'), cTID('UsrM'), cTID('HdAl'));
+    }
+    executeAction(cTID('Mk  '), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false; // No mask
+  }
+}
+
 enableLayerMask = function(layer, enable)
 {
   try {
@@ -371,7 +398,7 @@ deleteLayerMask = function(layer)
     executeAction(cTID('Dlt '), desc1, DialogModes.NO);
   } catch (e) {
     log(e);
-     return false;
+    return false;
   }
   return true;
 }
@@ -388,7 +415,36 @@ selectLayerMask = function(layer)
     executeAction(cTID('slct'), desc1, DialogModes.NO);
   } catch (e) {
     log(e);
-     return false; // No mask
+    return false; // No mask
+  }
+  return true;
+}
+
+selectLayerRGB = function(layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('RGB'));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putBoolean(cTID('MkVs'), false);
+    executeAction(cTID('slct'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+invertLayer = function(layer)
+{
+  try {
+    activateLayer(layer);
+    executeAction(cTID('Invr'), undefined, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
   }
   return true;
 }
