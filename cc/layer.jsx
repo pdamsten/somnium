@@ -118,8 +118,6 @@ editSmartObjectContents = function(layer)
 
 setLayerBlendingMode = function(layer, mode)
 {
-  var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'vividLight': 'vividLight'};
-
   try {
     activateLayer(layer);
     var desc1 = new ActionDescriptor();
@@ -127,11 +125,7 @@ setLayerBlendingMode = function(layer, mode)
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    if (modes[mode].length > 4) {
-      desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), sTID(modes[mode]));
-    } else {
-      desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID(modes[mode]));
-    }
+    desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), blendingMode(mode));
     desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
@@ -324,11 +318,24 @@ layerIndex = function(layer)
     ref1.putProperty(cTID('Prpr'), cTID('ItmI'));
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
     var index = executeActionGet(ref1).getInteger(cTID('ItmI'));
-    var bg = app.activeDocument.layers[app.activeDocument.layers.length-1].isBackgroundLayer;
+    var bg = app.activeDocument.layers[app.activeDocument.layers.length - 1].isBackgroundLayer;
     return (bg) ? index - 1 : index;
   } catch (e) {
     log(e);
     return -1;
+  }
+}
+
+duplicateLayer = function(layer, name)
+{
+  try {
+    activateLayer(layer);
+    executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
   }
 }
 
