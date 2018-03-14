@@ -9,6 +9,49 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+stampVisible = function(name)
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    desc1.putBoolean(cTID('Dplc'), true);
+    executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
+mergeCurrentAndBelow = function(layer, name)
+{
+  try {
+    layer = activateLayer(layer);
+    log(layer.name);
+    var layers = listLayers();
+    // Hide layers up this layer
+    for (i = 0; i < layers.length; ++i) {
+      if (layers[i].layer == layer) {
+        break;
+      }
+      layers[i].layer.visible = false;
+    }
+
+    stampVisible(name);
+
+    // return visible state of layers
+    for (i = 0; i < layers.length; ++i) {
+      if (layers[i].layer == layer) {
+        break;
+      }
+      layers[i].layer.visible = layers[i].visible;
+    }
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
 enableSmartFilters = function(layer, enable)
 {
   try {
@@ -124,6 +167,8 @@ activateLayer = function(layer)
   if (typeof layer !== 'undefined') {
     if (typeof layer === 'string' && layer == 'first') {
       app.activeDocument.activeLayer = app.activeDocument.layers[0];
+    } else if (typeof layer === 'string' && layer == 'current') {
+        return app.activeDocument.activeLayer;
     } else if (typeof layer === 'string' && layer == 'last') {
       app.activeDocument.activeLayer = app.activeDocument.layers[app.activeDocument.layers.length - 1];
     } else {
