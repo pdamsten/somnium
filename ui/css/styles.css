@@ -46,6 +46,10 @@ body {
   align-items: stretch;
 }
 
+.experimental {
+  display: none;
+}
+
 .multicolumn {
   display: flex;
   flex-direction: row;
