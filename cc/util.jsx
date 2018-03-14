@@ -9,6 +9,18 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+blendingMode = function(mode)
+{
+  var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'subtract': 'Sbtr',
+               'vividLight': 'vividLight', 'linearLight': 'linearLight'};
+
+  if (modes[mode].length > 4) {
+    return sTID(modes[mode]);
+  } else {
+    return cTID(modes[mode]);
+  }
+}
+
 mkdir = function(dir)
 {
   var folder = Folder(dir);
