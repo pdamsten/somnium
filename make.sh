@@ -21,7 +21,7 @@ mkdir com.petridamsten.somnium/ui/css
 cp ../com.petridamsten.somnium/ui/css/*.css com.petridamsten.somnium/ui/css/
 mkdir com.petridamsten.somnium/ui/img
 cp ../com.petridamsten.somnium/ui/img/*.png com.petridamsten.somnium/ui/img/
-cp ../com.petridamsten.somnium/ui/img/ic_*.svg com.petridamsten.somnium/ui/img/
+cp ../com.petridamsten.somnium/ui/img/icon-*.svg com.petridamsten.somnium/ui/img/
 cp ../com.petridamsten.somnium/ui/img/*logo.svg com.petridamsten.somnium/ui/img/
 mkdir com.petridamsten.somnium/ui/js
 cp ../com.petridamsten.somnium/ui/js/*.js com.petridamsten.somnium/ui/js/
