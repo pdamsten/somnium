@@ -41,34 +41,34 @@
     <div id="HelpersTab" class="tab">
       <h1>Help Layers</h1>
       <div class="tabcontent">
-        <button id="MakeAll" class="fullbtn clickable ccbuttondefault">Make All</button>
+        <button id="MakeAll" class="clickable ccbuttondefault">Make All</button>
         <div class="table"><div class="row">
           <div class="cellleft">
-            <button id="MakeMemo" class="fullbtn clickable ccbutton">Memo</button>
+            <button id="MakeMemo" class="clickable ccbutton">Memo</button>
           </div>
           <div class="cellright">
-            <button id="MakePerspectiveLines" class="fullbtn clickable ccbutton">Perspective Lines</button>
+            <button id="MakePerspectiveLines" class="clickable ccbutton">Perspective Lines</button>
           </div>
         </div><div class="row">
           <div class="cellleft">
-            <button id="MakeSolarisation" class="fullbtn clickable ccbutton">Solarisation</button>
+            <button id="MakeSolarisation" class="clickable ccbutton">Solarisation</button>
           </div>
           <div class="cellright">
-            <button id="MakeSkinChecker" class="fullbtn clickable ccbutton">Skin Checker</button>
+            <button id="MakeSkinChecker" class="clickable ccbutton">Skin Checker</button>
           </div>
         </div><div class="row">
           <div class="cellleft">
-            <button id="MakeLightness" class="fullbtn clickable ccbutton">Lightness</button>
+            <button id="MakeLightness" class="clickable ccbutton">Lightness</button>
           </div>
           <div class="cellright">
-            <button id="MakeSaturationMap" class="fullbtn clickable ccbutton">Saturation Map</button>
+            <button id="MakeSaturationMap" class="clickable ccbutton">Saturation Map</button>
           </div>
         </div><div class="row">
           <div class="cellleft">
-            <button id="MatchTones" class="fullbtn clickable ccbutton">Match Tones</button>
+            <button id="MatchTones" class="clickable ccbutton">Match Tones</button>
           </div>
           <div class="cellright">
-            <button id="DeleteAll" class="fullbtn clickable ccbuttondefault">Delete All</button>
+            <button id="DeleteAll" class="clickable ccbuttondefault">Delete All</button>
           </div>
         </div></div>
       </div>
@@ -92,8 +92,14 @@
       <div class="tabcontent">
         NOTE: Although this tries to be non destructive SAVE FIRST! It does go through the whole
         document and something can ALWAYS go wrong.<br/><br/>
-        <button id="SaveLayers" class="fullbtn clickable ccbuttondefault">Save Layers as Jpgs</button><br/>
-        Currently files are saved in ~/tmp/
+
+        <div class="multicolumn"><div class="column greedy">
+          <input id="SaveLayersParam1" class="ccwidget" value="~/tmp/">
+        </div><div class="column">
+          <button id="SaveLayers_Browse" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>
+        </div></div>
+
+        <button id="SaveLayers" class="clickable ccbuttondefault">Save Layers as Jpgs</button><br/>
       </div>
       <div class="help ccheader" id="LayerSaver-help">
         <h1>Layers Saver</h1>
@@ -107,21 +113,21 @@
       <h1>Retouch</h1>
       <div class="tabcontent">
         <h2>Layers</h2>
-        <button id="MakeCleaning" class="fullbtn clickable ccbuttondefault">Cleaning Layer</button><br/>
+        <button id="MakeCleaning" class="clickable ccbuttondefault">Cleaning Layer</button><br/>
         <div class="multicolumn"><div class="column">
-          <select id="MakeFSParam1" class="ccselect ccwidget">
+          <select id="MakeFSParam1" class="ccwidget ccselect">
             <option value="normal">Normal</option>
             <option value="simple">Simple</option>
           </select>
-        </div><div class="column">
-          <button id="MakeFS" class="fullbtn clickable ccbuttondefault">Frequence Separation</button><br/>
+        </div><div class="column greedy">
+          <button id="MakeFS" class="clickable ccbuttondefault">Frequence Separation</button><br/>
         </div></div>
         <h2>Tools</h2>
-        <button id="DefringeMask" class="fullbtn clickable ccbuttondefault">Defringe Mask</button><br/>
+        <button id="DefringeMask" class="clickable ccbuttondefault">Defringe Mask</button><br/>
         <div class="experimental">
         <h2>Smart Objects</h2>
-        <button id="SmartFromUnder" class="fullbtn clickable ccbuttondefault">Smart Object From Underlying Layers</button><br/>
-        <button id="UpdateFromUnder" class="fullbtn clickable ccbuttondefault">Update Smart Object</button><br/>
+        <button id="SmartFromUnder" class="clickable ccbuttondefault">Smart Object From Underlying Layers</button><br/>
+        <button id="UpdateFromUnder" class="clickable ccbuttondefault">Update Smart Object</button><br/>
         </div>
       </div>
       <div class="help ccheader" id="Retouch-help">
@@ -133,13 +139,13 @@
     <div id="LightTab" class="tab">
       <h1>Finish - Light</h1>
       <div class="tabcontent">
-        <button id="MakeCookie" class="fullbtn clickable ccbuttondefault">Cookie Light</button><br/>
-        <button id="MakeVignette" class="fullbtn clickable ccbuttondefault">Vignette</button><br/>
-        <button id="WashOut" class="fullbtn clickable ccbuttondefault">Wash Out / Contrast</button><br/>
+        <button id="MakeCookie" class="clickable ccbuttondefault">Cookie Light</button><br/>
+        <button id="MakeVignette" class="clickable ccbuttondefault">Vignette</button><br/>
+        <button id="WashOut" class="clickable ccbuttondefault">Wash Out / Contrast</button><br/>
         <hr/>
-        <button id="MakeDBCurves" class="fullbtn clickable ccbuttondefault">Dodge & Burn Curves</button><br/>
-        <button id="MakeDBGray" class="fullbtn clickable ccbuttondefault">Dodge & Burn Gray Layer</button><br/>
-        <button id="Highlight" class="fullbtn clickable ccbuttondefault">Highlight</button><br/>
+        <button id="MakeDBCurves" class="clickable ccbuttondefault">Dodge & Burn Curves</button><br/>
+        <button id="MakeDBGray" class="clickable ccbuttondefault">Dodge & Burn Gray Layer</button><br/>
+        <button id="Highlight" class="clickable ccbuttondefault">Highlight</button><br/>
       </div>
       <div class="help ccheader" id="Light-help">
         <h1>Finish Light</h1>
@@ -150,11 +156,11 @@
     <div id="ColorTab" class="tab">
       <h1>Finish - Color</h1>
       <div class="tabcontent">
-        <button id="Saturation" class="fullbtn clickable ccbuttondefault">Saturation</button><br/>
-        <button id="Color" class="fullbtn clickable ccbuttondefault">Color</button><br/>
-        <button id="Tint" class="fullbtn clickable ccbuttondefault">Tint</button><br/>
-        <button id="SplitToning" class="fullbtn clickable ccbuttondefault">Split Toning</button><br/>
-        <button id="OrangeTeal" class="fullbtn clickable ccbuttondefault">Orange Teal Color</button><br/>
+        <button id="Saturation" class="clickable ccbuttondefault">Saturation</button><br/>
+        <button id="Color" class="clickable ccbuttondefault">Color</button><br/>
+        <button id="Tint" class="clickable ccbuttondefault">Tint</button><br/>
+        <button id="SplitToning" class="clickable ccbuttondefault">Split Toning</button><br/>
+        <button id="OrangeTeal" class="clickable ccbuttondefault">Orange Teal Color</button><br/>
       </div>
       <div class="help ccheader" id="Color-help">
         <h1>Finish Color</h1>
@@ -165,8 +171,8 @@
     <div id="FinishTab" class="tab">
       <h1>Finish</h1>
       <div class="tabcontent">
-        <button id="HighPassSharpening" class="fullbtn clickable ccbuttondefault">High Pass Sharpening</button><br/>
-        <button id="Export" class="fullbtn clickable ccbuttondefault">Export</button><br/>
+        <button id="HighPassSharpening" class="clickable ccbuttondefault">High Pass Sharpening</button><br/>
+        <button id="Export" class="clickable ccbuttondefault">Export</button><br/>
       </div>
       <div class="help ccheader" id="Finish-help">
         <h1>Finish</h1>

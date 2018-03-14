@@ -15,6 +15,13 @@
   {
     var jsxPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/cc/';
     csInterface.evalScript('init("' + jsxPath + '")');
+
+    $('select, input').each(function(index, obj) {
+      var s = localStorage.getItem($(this).attr('id') + 'Value');
+      if (s) {
+        $(this).val(s);
+      }
+    });
   }
 
   function showTab(name)
@@ -25,9 +32,6 @@
     $("#" + name).addClass('tabbtnselected');
 
     localStorage.setItem('currentTab', name);
-    $('select').each(function(index, obj) {
-      $(this).val(localStorage.getItem($(this).attr('id') + 'Value') || 'normal');
-    });
   }
 
   function init()
@@ -39,14 +43,26 @@
     // Handle all clickable elements
     $(".clickable").click(function () {
       var params = [];
-      $("[id^=" + $(this).attr('id') + "Param]").each(function(index, obj) {
+      var id = $(this).attr('id');
+      var n = id.indexOf('_');
+      if (n > 0) {
+        id = id.substring(0, n);
+      }
+      $("[id^=" + id + "Param]").each(function(index, obj) {
         params.push('"' + $(this).val() + '"');
       });
       var fn = 'on' + $(this).attr('id') + 'Click(' + params.join(',') + ')';
-      csInterface.evalScript(fn);
+      csInterface.evalScript(fn, function(result) {
+        if (result) {
+          $("[id^=" + id + "Param]").each(function(index, obj) {
+            $(this).val(result);
+            localStorage.setItem($(this).attr('id') + 'Value', this.value);
+          });
+        }
+      });
     });
 
-    $('select').on('change', function() {
+    $('select, input').on('change', function() {
       localStorage.setItem($(this).attr('id') + 'Value', this.value);
     });
 

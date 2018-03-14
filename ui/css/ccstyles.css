@@ -16,25 +16,35 @@
   outline: none;
 }
 
-.ccselect {
+.ccwidget, .ccselect, .ccbuttonsmall {
   -webkit-appearance: none;
-  background-position: 97% center;
-  background-repeat: no-repeat;
   border-width: 1px;
   border-style: solid;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background-image: url(../img/icon-down.svg);
   border-radius: 4px;
   height: 22px;
   margin-top: 4px;
   padding-left: 4px;
   outline: none;
   font-size: 1.18em;
+  margin-bottom: 5px;
 }
 
-.ccselect option {
+.ccbuttonsmall {
+  height: 26px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ccselect {
+  background-position: 97% center;
+  background-repeat: no-repeat;
+  background-image: url(../img/icon-down.svg);
+}
+
+.ccwidget option {
   background-color: #c4c4c4;
   color: black;
 }

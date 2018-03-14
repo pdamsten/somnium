@@ -224,20 +224,30 @@ var pindex = 0;
 var mogrify = '';
 var ffmpeg = '';
 var ffmpeglast = '';
+var mainPath;
 
 var minLength = 3.5 // seconds
 var maxLength = 10.0 // seconds
 var defaultFps = 3.0
 
-onSaveLayersClick = function()
+onSaveLayers_BrowseClick = function(path)
+{
+  var save = new Folder(File(path).fsName);
+  var folder = save.selectDlg('Folder for layer saver', '', false);
+  return folder;
+}
+
+onSaveLayersClick = function(path)
 {
   try {
+    mainPath = File(path).fsName + '/';
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
     saveLayersAsJpgs(layers);
   } catch (e) {
     log(e);
   }
+  return '';
 }
 
 saveLayersAsJpgs = function(layers)
@@ -277,7 +287,7 @@ checkDir = function()
 {
   var parts = app.activeDocument.name.split(".");
   var fname = parts[0];
-  var s = File('~/tmp/' + fname).fsName + '/';
+  var s = File(mainPath + fname).fsName + '/';
   mkdir(s);
   return s;
 }
