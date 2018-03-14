@@ -340,7 +340,7 @@ selectLayerMask = function(layer)
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
     desc1.putReference(cTID('null'), ref1);
     desc1.putBoolean(cTID('MkVs'), false);
-    executeAction(cTID('Dlt '), desc1, DialogModes.NO);
+    executeAction(cTID('slct'), desc1, DialogModes.NO);
   } catch (e) {
     log(e);
      return false; // No mask
