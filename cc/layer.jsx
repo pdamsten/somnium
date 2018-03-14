@@ -168,6 +168,20 @@ checkLayer = function(name, parent)
   return null;
 }
 
+createLayer = function(name, layer)
+{
+  var layer = activateLayer(layer);
+  var newLayer = app.activeDocument.artLayers.add();
+  newLayer.name = name;
+  app.activeDocument.activeLayer = newLayer;
+  if (layer.typename == 'LayerSet') {
+    newLayer.move(layer, ElementPlacement.INSIDE);
+  } else {
+    newLayer.move(layer, ElementPlacement.PLACEBEFORE);
+  }
+  return newLayer;
+}
+
 findGroup = function(name, parent)
 {
   return findLayer(name, parent, 'LayerSet');
@@ -251,18 +265,6 @@ groupLayers = function(name, layers)
   }
 }
 
-createLayer = function(name, layer)
-{
-  var layer = activateLayer(layer);
-  var newLayer = app.activeDocument.artLayers.add();
-  newLayer.name = name;
-  app.activeDocument.activeLayer = newLayer;
-  if (layer.typename == 'LayerSet') {
-    newLayer.move(layer, ElementPlacement.INSIDE);
-  }
-  return newLayer;
-}
-
 layerIndex = function(layer)
 {
   try {
@@ -325,6 +327,23 @@ deleteLayerMask = function(layer)
   } catch (e) {
     log(e);
      return false;
+  }
+  return true;
+}
+
+selectLayerMask = function(layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putBoolean(cTID('MkVs'), false);
+    executeAction(cTID('Dlt '), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+     return false; // No mask
   }
   return true;
 }

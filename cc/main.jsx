@@ -34,6 +34,31 @@ function onLogoClick()
   openURL('http://petridamsten.com/');
 }
 
+msg = function(s)
+{
+  alert(s);
+}
+
+//**************************************************************************
+//
+//   Retouch tab code
+//
+//**************************************************************************
+
+onDefringeMaskClick = function()
+{
+  if (selectLayerMask(app.activeDocument.activeLayer)) {
+
+  } else {
+    msg('No Layer mask.');
+  }
+}
+
+onMakeCleaningClick = function()
+{
+  var layer = createLayer('Cleaning');
+}
+
 //**************************************************************************
 //
 //   Helpers tab code
