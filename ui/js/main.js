@@ -23,13 +23,14 @@
     $("#" + name + "Tab").show();
     $(".tabbtnselected").removeClass('tabbtnselected');
     $("#" + name).addClass('tabbtnselected');
+    localStorage.setItem('currentTab', name);
   }
 
   function init()
   {
     initJsx();
     themeManager.init();
-    showTab('Retouch');
+    showTab(localStorage.getItem('currentTab') || 'Retouch');
 
     // Handle all clickable elements
     $(".clickable").click(function () {
