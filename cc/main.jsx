@@ -61,6 +61,20 @@ onMakeCleaningClick = function()
   var layer = createLayer('Cleaning');
 }
 
+onMakeFSClick = function(type)
+{
+  if (type = 'simple') {
+    var layer = stampCurrentAndBelow('current', 'Simple Frequence Separation');
+    invertLayer(layer);
+    setLayerBlendingMode(layer, 'vividLight');
+    doHighPass(layer, 24);
+    doGaussianBlur(layer, 4);
+    addLayerMask(layer, true);
+  } else {
+
+  }
+}
+
 //**************************************************************************
 //
 //   Helpers tab code
