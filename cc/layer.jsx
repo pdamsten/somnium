@@ -12,6 +12,7 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 stampVisible = function(name)
 {
   try {
+    createLayer(randomString()); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
     executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
