@@ -34,7 +34,11 @@
 
     // Handle all clickable elements
     $(".clickable").click(function () {
-      var fn = 'on' + $(this).attr('id') + 'Click()';
+      var params = [];
+      $("[id^=" + $(this).attr('id') + "Param]").each(function(index, obj) {
+        params.push('"' + $(this).val() + '"');
+      });
+      var fn = 'on' + $(this).attr('id') + 'Click(' + params.join(',') + ')';
       csInterface.evalScript(fn);
     });
 
