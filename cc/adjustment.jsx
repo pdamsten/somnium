@@ -226,27 +226,42 @@ createSelectiveColorAdjustment = function(name, layer)
   }
 }
 
-setSelectiveColorAdjustment = function(layer, color, values)
+setSelectiveColorAdjustment = function(layer, values, absolute)
 {
   var colors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns', 'cyans': 'Cyns',
                 'blues': 'Bls ', 'magentas': 'Mgnt', 'whites': 'Whts', 'neutrals': 'Ntrl',
                 'blacks': 'Blks'}
   try {
     activateLayer(layer);
+    for (v in values) {
+      var desc1 = new ActionDescriptor();
+      var ref1 = new ActionReference();
+      ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
+      desc1.putReference(cTID('null'), ref1);
+      var desc2 = new ActionDescriptor();
+      var list1 = new ActionList();
+      var desc3 = new ActionDescriptor();
+      desc3.putEnumerated(cTID('Clrs'), cTID('Clrs'), cTID(colors[values[v][0]]));
+      desc3.putUnitDouble(cTID('Cyn '), cTID('#Prc'), values[v][1][0]);
+      desc3.putUnitDouble(cTID('Mgnt'), cTID('#Prc'), values[v][1][1]);
+      desc3.putUnitDouble(cTID('Ylw '), cTID('#Prc'), values[v][1][2]);
+      desc3.putUnitDouble(cTID('Blck'), cTID('#Prc'), values[v][1][3]);
+      list1.putObject(cTID('ClrC'), desc3);
+      desc2.putList(cTID('ClrC'), list1);
+      desc1.putObject(cTID('T   '), cTID('SlcC'), desc2);
+      executeAction(cTID('setd'), desc1, DialogModes.NO);
+    }
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    var list1 = new ActionList();
-    var desc3 = new ActionDescriptor();
-    desc3.putEnumerated(cTID('Clrs'), cTID('Clrs'), cTID(colors[color]));
-    desc3.putUnitDouble(cTID('Cyn '), cTID('#Prc'), values[0]);
-    desc3.putUnitDouble(cTID('Mgnt'), cTID('#Prc'), values[1]);
-    desc3.putUnitDouble(cTID('Ylw '), cTID('#Prc'), values[2]);
-    desc3.putUnitDouble(cTID('Blck'), cTID('#Prc'), values[3]);
-    list1.putObject(cTID('ClrC'), desc3);
-    desc2.putList(cTID('ClrC'), list1);
+    if (absolute) {
+      desc2.putEnumerated(sTID("presetKind"), sTID("presetKindType"), sTID("presetKindCustom"));
+      desc2.putEnumerated(cTID('Mthd'), cTID('CrcM'), cTID('Absl'));
+    } else {
+      desc2.putEnumerated(cTID('Mthd'), cTID('CrcM'), cTID('Rltv'));
+    }
     desc1.putObject(cTID('T   '), cTID('SlcC'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;

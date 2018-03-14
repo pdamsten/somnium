@@ -139,15 +139,12 @@ function onMakeSaturationMapClick()
   if (checkLayer('Saturation Map', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l = createSelectiveColorAdjustment('Saturation Map', group);
-  setSelectiveColorAdjustment(l, 'reds', [0, 0, 0, -100]);
-  setSelectiveColorAdjustment(l, 'yellows', [0, 0, 0, -100]);
-  setSelectiveColorAdjustment(l, 'greens', [0, 0, 0, -100]);
-  setSelectiveColorAdjustment(l, 'cyans', [0, 0, 0, -100]);
-  setSelectiveColorAdjustment(l, 'blues', [0, 0, 0, -100]);
-  setSelectiveColorAdjustment(l, 'magentas', [0, 0, 0, -100]);
-  setSelectiveColorAdjustment(l, 'whites', [0, 0, 0, 100]);
-  setSelectiveColorAdjustment(l, 'neutrals', [0, 0, 0, 100]);
-  setSelectiveColorAdjustment(l, 'blacks', [0, 0, 0, 100]);
+  var values = [['reds',   [0, 0, 0, -100]], ['yellows',  [0, 0, 0, -100]],
+                ['greens', [0, 0, 0, -100]], ['cyans',    [0, 0, 0, -100]],
+                ['blues',  [0, 0, 0, -100]], ['magentas', [0, 0, 0, -100]],
+                ['whites', [0, 0, 0,  100]], ['neutrals', [0, 0, 0, 100]],
+                ['blacks', [0, 0, 0,  100]]];
+  setSelectiveColorAdjustment(l, values, true);
   deleteLayerMask(l);
   l.visible = false;
 }
