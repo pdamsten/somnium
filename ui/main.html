@@ -108,8 +108,14 @@
       <div class="tabcontent">
         <h2>Layers</h2>
         <button id="MakeCleaning" class="fullbtn clickable ccbuttondefault">Cleaning Layer</button><br/>
-        <button id="MakeFS" class="fullbtn clickable ccbuttondefault">Frequence Separation</button><br/>
-        <button id="MakeSimpleFS" class="fullbtn clickable ccbuttondefault">Frequence Separation (Simple)</button><br/>
+        <div class="multicolumn"><div class="column">
+          <select class="ccselect ccwidget">
+            <option value="simple">Simple</option>
+            <option value="normal">Normal</option>
+          </select>
+        </div><div class="column">
+          <button id="MakeFS" class="fullbtn clickable ccbuttondefault">Frequence Separation</button><br/>
+        </div></div>
         <h2>Tools</h2>
         <button id="DefringeMask" class="fullbtn clickable ccbuttondefault">Defringe Mask</button><br/>
         <h2>Smart Objects</h2>

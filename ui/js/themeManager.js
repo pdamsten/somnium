@@ -94,6 +94,8 @@ var themeManager = (function () {
       addRule(styleId, ".ccbuttondefault:active", "color:" + darkerBg);
       addRule(styleId, ".ccwidget", "background-color:" + widgetBg);
       addRule(styleId, ".ccwidget", "color:" + txt);
+      addRule(styleId, ".ccwidget", "border-color:" + buttonPressed);
+      addRule(styleId, ".ccwidget", "font-family:" + ff);
       addRule(styleId, ".ccheader", "background-color:" + darkerBg);
       addRule(styleId, ".ccheader", "border-color:" + widgetTxt);
       addRule(styleId, ".ccheader", "color:" + txt);

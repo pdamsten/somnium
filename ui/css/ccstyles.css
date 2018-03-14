@@ -6,9 +6,6 @@
 //
 //*************************************************************************/
 
-.cc{}
-.ccwidget{}
-.ccheader{}
 .ccbutton, .ccbuttondefault{
   border-radius: 30px;
   border-width: 1px;
@@ -18,6 +15,33 @@
   margin-bottom: 10px;
   outline: none;
 }
+
+.ccselect {
+  -webkit-appearance: none;
+  background-position: 97% center;
+  background-repeat: no-repeat;
+  border-width: 1px;
+  border-style: solid;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-image: url(../img/icon-down.svg);
+  border-radius: 4px;
+  height: 22px;
+  margin-top: 4px;
+  padding-left: 4px;
+  outline: none;
+  font-size: 1.18em;
+}
+
+.ccselect option {
+  background-color: #c4c4c4;
+  color: black;
+}
+
+.cc{}
+.ccwidget{}
+.ccheader{}
 .ccbutton{}
 .ccbutton:active{}
 .ccbuttondefault{}
