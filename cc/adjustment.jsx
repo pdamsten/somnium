@@ -50,3 +50,16 @@ doLevels = function(layer, value, withDialog)
     log(e);
   }
 }
+
+doHighPass = function(layer, value, withDialog)
+{
+  try {
+    activateLayer(layer);
+    var dialogMode = (withDialog ? DialogModes.ALL : DialogModes.NO);
+    var desc1 = new ActionDescriptor();
+    desc1.putUnitDouble(cTID('Rds '), cTID('#Pxl'), value);
+    executeAction(sTID('highPass'), desc1, dialogMode);
+  } catch (e) {
+    log(e);
+  }
+}
