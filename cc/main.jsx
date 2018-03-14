@@ -23,6 +23,7 @@ function init(jsxPath)
     // libs
     include(jsxPath + 'util.jsx');
     include(jsxPath + 'adjustment.jsx');
+    include(jsxPath + 'adjustmentlayer.jsx');
     include(jsxPath + 'layer.jsx');
   } catch (e) {
     log(e);
