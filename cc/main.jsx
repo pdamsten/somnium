@@ -32,6 +32,7 @@ function init(jsxPath)
     include(jsxPath + 'helpers.jsx');
     include(jsxPath + 'savelayers.jsx');
     include(jsxPath + 'light.jsx');
+    include(jsxPath + 'color.jsx');
   } catch (e) {
     log(e);
   }
