@@ -12,7 +12,8 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 blendingMode = function(mode)
 {
   var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'subtract': 'Sbtr',
-               'vividLight': 'vividLight', 'linearLight': 'linearLight'};
+               'vividLight': 'vividLight', 'linearLight': 'linearLight',
+               'overlay': 'Ovrl'};
 
   if (modes[mode].length > 4) {
     return sTID(modes[mode]);
@@ -64,6 +65,37 @@ fitWindow = function()
   desc125.putBoolean( idkcanDispatchWhileModal, true);
   executeAction(idinvokeCommand, desc125, DialogModes.NO);
   app.refresh();
+}
+
+selectTool = function(tool)
+{
+  tools = {'brush': cTID('PbTl'), 'burn': cTID('BrTl')};
+  try {
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(tools[tool]);
+    desc1.putReference(cTID('null'), ref1);
+    executeAction(cTID('slct'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e.message);
+    return false;
+  }
+  return true;
+}
+
+setDefaultColors = function()
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Clr '), cTID('Clrs'));
+    desc1.putReference(cTID('null'), ref1);
+    executeAction(cTID('Rset'), desc1, dialogMode);
+  } catch (e) {
+    log(e.message);
+    return false;
+  }
+  return true;
 }
 
 waitForRedraw = function()
