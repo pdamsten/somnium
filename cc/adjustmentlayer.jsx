@@ -64,12 +64,19 @@ setCurveAdjustment = function(layer, data)
   }
 }
 
+curvePoint = function(pos, percentage)
+{
+  var p = (typeof percentage !== 'undefined') ?  percentage : 0;
+  var v = pos + (p / 100.0 * 255);
+  v = Math.max(v, 0);
+  v = Math.min(v, 255);
+  return [pos, v];
+}
+
 scurve = function(percentage, dark, light)
 {
-  var adjust = percentage / 100.0 * 255;
-  var darkgain = (typeof dark !== 'undefined') ?  dark / 100.0 * 255 : 0;
-  var lightdrop = (typeof light !== 'undefined') ?  light / 100.0 * 255 : 0;
-  return [[0, darkgain], [64, 64 - adjust], [192, 192 + adjust], [255, 255 - lightdrop]];
+  return [curvePoint(0, dark), curvePoint(64, -1 * percentage),
+          curvePoint(192, percentage), curvePoint(255, light)];
 }
 
 createChannelMixer = function(name, layer)
