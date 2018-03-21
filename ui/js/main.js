@@ -54,7 +54,7 @@
       });
       var fn = 'on' + $(this).attr('id') + 'Click(' + params.join(',') + ')';
       csInterface.evalScript(fn, function(result) {
-        if (result) {
+        if (result != 'undefined') {
           $("[id^=" + id + "Param]").each(function(index, obj) {
             $(this).val(result);
             localStorage.setItem($(this).attr('id') + 'Value', this.value);
