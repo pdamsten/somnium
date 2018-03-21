@@ -138,8 +138,22 @@
     <div id="LightTab" class="tab">
       <h1>Finish - Light</h1>
       <div class="tabcontent">
-        <button id="MakeCookie" class="clickable ccbuttondefault">Cookie Light</button><br/>
-        <button id="MakeVignette" class="clickable ccbuttondefault">Vignette</button><br/>
+        <div class="multicolumn"><div class="column">
+          <select id="MakeCookieParam1" class="ccwidget ccselect">
+            <option value="darken">Darken Rest</option>
+            <option value="lighten">Lighten Cookie</option>
+          </select>
+        </div><div class="column greedy">
+          <button id="MakeCookie" class="clickable ccbuttondefault">Cookie Lighting</button><br/>
+        </div></div>
+        <div class="multicolumn"><div class="column">
+          <select id="MakeVignetteParam1" class="ccwidget ccselect">
+            <option value="round">Round</option>
+            <option value="square">Square</option>
+          </select>
+        </div><div class="column greedy">
+          <button id="MakeVignette" class="clickable ccbuttondefault">Vignette</button><br/>
+        </div></div>
         <button id="WashOut" class="clickable ccbuttondefault">Wash Out / Contrast</button><br/>
         <hr/>
         <button id="MakeDBCurves" class="clickable ccbuttondefault">Dodge & Burn Curves</button><br/>
