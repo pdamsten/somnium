@@ -36,6 +36,7 @@
 
   function init()
   {
+    $(".experimental").css("display", "initial"); // TODO from ini
     initJsx();
     themeManager.init();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
