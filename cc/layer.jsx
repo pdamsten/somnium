@@ -197,6 +197,24 @@ activateLayer = function(layer)
   return app.activeDocument.activeLayer;
 }
 
+cmpLayers = function(layer1, layer2)
+{
+  if (typeof layer1 === 'undefined' || typeof layer2 === 'undefined') {
+    return false;
+  }
+  if (typeof layer1 !== 'string' || typeof layer2 !== 'string') {
+    return (layer1 == layer2);
+  }
+  if (typeof layer1 !== 'string') {
+    return (layer1 == layer2.name);
+  }
+  if (typeof layer2 !== 'string') {
+    return (layer1.name == layer2);
+  }
+  log(layer1.name, layer2.name, (layer1 == layer2));
+  return (layer1 == layer2);
+}
+
 findLayer = function(name, parent, type)
 {
   try {
@@ -205,7 +223,7 @@ findLayer = function(name, parent, type)
     for (var i = 0; i < layers.length; ++i) {
       if (layers[i].layer.name == name) {
         if (typeof parent !== 'undefined' && layers[i].parent != -1 &&
-            layers[layers[i].parent].layer.name != parent) {
+            !cmpLayers(layers[layers[i].parent].layer, parent)) {
           continue;
         }
         if (typeof type !== 'undefined' && layers[i].layer.typename != type) {
@@ -266,7 +284,7 @@ createGroup = function(name, layer)
   var group = app.activeDocument.layerSets.add();
   group.name = name;
   app.activeDocument.activeLayer = group;
-  if (typeof layer !== 'string' &&  layerActive.typename == 'LayerSet') {
+  if (typeof layer === 'object' &&  layerActive.typename == 'LayerSet') {
     moveToGroup(group, layerActive)
   }
   return group;
@@ -274,25 +292,28 @@ createGroup = function(name, layer)
 
 checkGroup = function(name, parent, after)
 {
-  var groupParent = null;
-
-  if (parent !== undefined) {
-    groupParent = checkGroup(parent);
-  }
-  var group = findGroup(name, parent);
-  if (group == null) {
-    group = createGroup(name, 'first');
-    if (after !== undefined) {
-      after = findLayer(after);
-      if (groupParent && after) {
-        groupParent.move(after, ElementPlacement.PLACEAFTER);
-      } else if (group && after) {
-        group.move(after, ElementPlacement.PLACEAFTER);
+  try {
+    if (parent !== undefined) {
+      parent = checkGroup(parent);
+    }
+    var group = findGroup(name, parent);
+    if (group == null) {
+      group = createGroup(name, parent);
+      if (after !== undefined) {
+        after = findLayer(after);
+        if (parent && after) {
+          parent.move(after, ElementPlacement.PLACEAFTER);
+        } else if (group && after) {
+          group.move(after, ElementPlacement.PLACEAFTER);
+        }
       }
     }
+    app.activeDocument.activeLayer = group;
+    return group;
+  } catch (e) {
+    log(e);
+    return null;
   }
-  app.activeDocument.activeLayer = group;
-  return group;
 }
 
 groupSelected = function(name)
