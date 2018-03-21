@@ -156,8 +156,14 @@
         </div></div>
         <button id="WashOut" class="clickable ccbuttondefault">Wash Out / Contrast</button><br/>
         <hr/>
-        <button id="MakeDBCurves" class="clickable ccbuttondefault">Dodge & Burn Curves</button><br/>
-        <button id="MakeDBGray" class="clickable ccbuttondefault">Dodge & Burn Gray Layer</button><br/>
+        <div class="multicolumn"><div class="column">
+          <select id="MakeDBParam1" class="ccwidget ccselect">
+            <option value="gray">Gray Layer</option>
+            <option value="curves">Curves</option>
+          </select>
+        </div><div class="column greedy">
+          <button id="MakeDB" class="clickable ccbuttondefault">Dodge & Burn</button><br/>
+        </div></div>
         <button id="Highlight" class="clickable ccbuttondefault">Highlight</button><br/>
       </div>
       <div class="help ccheader" id="Light-help">

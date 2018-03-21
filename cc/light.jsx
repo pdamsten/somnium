@@ -53,17 +53,33 @@ onWashOutClick = function()
   setLayerBlendingMode(l, 'luminosity');
 }
 
-onMakeDBCurves = function()
+onMakeDBClick = function(type)
 {
   var group = checkGroup('Light', 'Finish', 'Help Layers');
+
+  if (type == 'curves') {
+    group = createGroup('Dodge & Burn', group);
+    var b = [curvePoint(0, 0), curvePoint(128, -30), curvePoint(255, 0)];
+    var d = [curvePoint(0, 0), curvePoint(128, 30), curvePoint(255, 0)];
+    var dl = createCurveAdjustment('Dodge', group);
+    var bl = createCurveAdjustment('Burn', group);
+    setCurveAdjustment(dl, d);
+    setCurveAdjustment(bl, b);
+    invertLayerMask(dl);
+    invertLayerMask(bl);
+    setLayerBlendingMode(dl, 'luminosity');
+    setLayerBlendingMode(bl, 'luminosity');
+    setDefaultColors();
+    selectTool('brush'); // TODO brush preset?
+  } else {
+    var l = createLayer('Dodge & Burn', group);
+    fillLayer(l, 'gray');
+    setLayerBlendingMode(l, 'overlay');
+    selectTool('burn');
+  }
 }
 
-onMakeDBGray = function()
-{
-  var group = checkGroup('Light', 'Finish', 'Help Layers');
-}
-
-onHighlight = function()
+onHighlightClick = function()
 {
   var group = checkGroup('Light', 'Finish', 'Help Layers');
 }
