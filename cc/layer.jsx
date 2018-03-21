@@ -429,6 +429,23 @@ invertLayer = function(layer)
   return true;
 }
 
+fillLayer = function(layer, color)
+{
+  colors = {'gray': cTID('Gry ')};
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    desc1.putEnumerated(cTID('Usng'), cTID('FlCn'), colors[color]);
+    desc1.putUnitDouble(cTID('Opct'), cTID('#Prc'), 100);
+    desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
+    executeAction(cTID('Fl  '), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e.message);
+    return false;
+ }
+  return true;
+}
+
 rotateLayer = function(layer, angle)
 {
   try {
@@ -445,9 +462,9 @@ rotateLayer = function(layer, angle)
     desc1.putUnitDouble(cTID('Angl'), cTID('#Ang'), angle);
     executeAction(cTID('Trnf'), desc1, DialogModes.NO);
   } catch (e) {
-    log('rotateLayer', e.message);
+    log(e.message);
     return false;
- }
+  }
   return true;
 }
 
