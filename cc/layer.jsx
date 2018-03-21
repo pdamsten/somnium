@@ -508,7 +508,19 @@ selectLayerRGB = function(layer)
 invertLayer = function(layer)
 {
   try {
-    activateLayer(layer);
+    selectLayerRGB(layer);
+    executeAction(cTID('Invr'), undefined, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+invertLayerMask = function(layer)
+{
+  try {
+    selectLayerMask(layer);
     executeAction(cTID('Invr'), undefined, DialogModes.NO);
   } catch (e) {
     log(e);
