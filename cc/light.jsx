@@ -7,7 +7,7 @@
 //**************************************************************************
 
 
-onMakeCookie = function()
+onMakeCookieClick = function()
 {
   var group = checkGroup('Light', 'Finish', 'Help Layers')
 }
