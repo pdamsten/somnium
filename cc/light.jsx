@@ -6,7 +6,6 @@
 //
 //**************************************************************************
 
-
 onMakeCookieClick = function(type)
 {
   var group = checkGroup('Light', 'Finish', 'Help Layers');
@@ -19,12 +18,28 @@ onMakeCookieClick = function(type)
     l = createCurveAdjustment('Cookie', group);
     setCurveAdjustment(l, c);
     invertLayerMask(l);
+    setLayerBlendingMode(l, 'luminosity');
   }
 }
 
-onMakeVignetteClick = function()
+onMakeVignetteClick = function(type)
 {
-  var group = checkGroup('Light', 'Finish', 'Help Layers');
+  try {
+    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    var p = 0.1;
+    var c = [app.activeDocument.height * p, app.activeDocument.width * p,
+             app.activeDocument.height - app.activeDocument.height * p,
+             app.activeDocument.width - app.activeDocument.width * p];
+    makeSelection('new', type, c, 0.5);
+    var c = [curvePoint(0, 0), curvePoint(128, -20), curvePoint(255, 0)];
+    l = createCurveAdjustment('Vignette', group);
+    setCurveAdjustment(l, c);
+    invertLayerMask(l);
+    setLayerMaskFeather(l, app.activeDocument.width * 0.1);
+    setLayerBlendingMode(l, 'luminosity');
+  } catch (e) {
+    log(e);
+  }
 }
 
 onWashOutClick = function()
@@ -35,6 +50,7 @@ onWashOutClick = function()
   l = createCurveAdjustment('Wash Out', group);
   setCurveAdjustment(l, c);
   deleteLayerMask(l);
+  setLayerBlendingMode(l, 'luminosity');
 }
 
 onMakeDBCurves = function()
