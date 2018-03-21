@@ -488,6 +488,44 @@ selectLayerMask = function(layer)
   return true;
 }
 
+setLayerMaskFeather = function(layer, feather)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    desc2.putUnitDouble(sTID("userMaskFeather"), cTID('#Pxl'), feather);
+    desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+return true;
+}
+
+setLayerMaskDensity = function(layer, density)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    desc2.putUnitDouble(sTID("userMaskDensity"), cTID('#Prc'), density);
+    desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+return true;
+}
+
 selectLayerRGB = function(layer)
 {
   try {
