@@ -251,27 +251,48 @@ findGroup = function(name, parent)
   return findLayer(name, parent, 'LayerSet');
 }
 
+moveToGroup = function(layer, group)
+{
+  if (group.typename == 'LayerSet') {
+    var before = group.layerSets.add();
+    layer.move(before, ElementPlacement.PLACEBEFORE); // Does not support ElementPlacement.INSIDE
+    before.remove();
+  }
+}
+
 createGroup = function(name, layer)
 {
-  var layer = activateLayer(layer);
+  var layerActive = activateLayer(layer);
   var group = app.activeDocument.layerSets.add();
   group.name = name;
   app.activeDocument.activeLayer = group;
-  if (layer.typename == 'LayerSet') {
-    var before = layer.layerSets.add();
-    group.move(before, ElementPlacement.PLACEBEFORE); // Does not support ElementPlacement.INSIDE
-    before.remove();
+  if (typeof layer !== 'string' &&  layerActive.typename == 'LayerSet') {
+    moveToGroup(group, layerActive)
   }
   return group;
 }
 
-checkGroup = function(name)
+checkGroup = function(name, parent, after)
 {
-  var group = findGroup(name);
+  var groupParent = null;
+
+  if (parent !== undefined) {
+    groupParent = checkGroup(parent);
+  }
+  var group = findGroup(name, parent);
   if (group == null) {
     group = createGroup(name, 'first');
+    if (after !== undefined) {
+      after = findLayer(after);
+      if (groupParent && after) {
+        groupParent.move(after, ElementPlacement.PLACEAFTER);
+      } else if (group && after) {
+        group.move(after, ElementPlacement.PLACEAFTER);
+      }
+    }
   }
   app.activeDocument.activeLayer = group;
+  return group;
 }
 
 groupSelected = function(name)
