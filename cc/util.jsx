@@ -13,7 +13,7 @@ blendingMode = function(mode)
 {
   var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'subtract': 'Sbtr',
                'vividLight': 'vividLight', 'linearLight': 'linearLight',
-               'overlay': 'Ovrl'};
+               'overlay': 'Ovrl', 'softLight': 'SftL'};
 
   if (modes[mode].length > 4) {
     return sTID(modes[mode]);

@@ -82,4 +82,9 @@ onMakeDBClick = function(type)
 onHighlightClick = function()
 {
   var group = checkGroup('Light', 'Finish', 'Help Layers');
+
+  var l = createSolidColorAdjustment('Hightlight', group, [255, 255, 255])
+  setLayerBlendingMode(l, 'softLight');
+  addLayerMask(l);
+  invertLayerMask(l);
 }
