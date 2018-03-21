@@ -29,6 +29,7 @@ function init(jsxPath)
     include(jsxPath + 'retouch.jsx');
     include(jsxPath + 'helpers.jsx');
     include(jsxPath + 'savelayers.jsx');
+    include(jsxPath + 'light.jsx');
   } catch (e) {
     log(e);
   }
