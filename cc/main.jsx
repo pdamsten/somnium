@@ -25,6 +25,7 @@ function init(jsxPath)
     include(jsxPath + 'layer.jsx');
     include(jsxPath + 'adjustment.jsx');
     include(jsxPath + 'adjustmentlayer.jsx');
+    include(jsxPath + 'selection.jsx');
     // tabs
     include(jsxPath + 'retouch.jsx');
     include(jsxPath + 'helpers.jsx');
