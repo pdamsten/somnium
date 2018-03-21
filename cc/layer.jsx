@@ -93,15 +93,33 @@ deleteSmartFilters = function(layer)
   }
 }
 
-newSmartObjectViaCopy = function(layer)
+convertToSmartObject = function(layer, name)
+{
+  try {
+    activateLayer(layer);
+    executeAction(sTID('newPlacedLayer'), undefined, DialogModes.NO);
+    if (name !== undefined && name != '') {
+      app.activeDocument.activeLayer.name = name;
+    }
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
+newSmartObjectViaCopy = function(layer, name)
 {
   try {
     activateLayer(layer);
     executeAction(sTID('placedLayerMakeCopy'), undefined, DialogModes.NO);
-    return true;
+    if (name !== undefined && name != '') {
+      app.activeDocument.activeLayer.name = name;
+    }
+    return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
-    return false;
+    return null;
   }
 }
 
