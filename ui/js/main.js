@@ -16,12 +16,25 @@
     var jsxPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/cc/';
     csInterface.evalScript('init("' + jsxPath + '")');
 
-    $('select, input').each(function(index, obj) {
+    $('select, input, .colorPicker').each(function(index, obj) {
       var s = localStorage.getItem($(this).attr('id') + 'Value');
       if (s) {
-        $(this).val(s);
+        if ($(this).hasClass("colorPicker")) {
+          $(this).css('background-color', s);
+        } else {
+          $(this).val(s);
+        }
       }
     });
+  }
+
+  function getValue(item)
+  {
+    if ($(item).hasClass("colorPicker")) {
+      return $(item).css('background-color');
+    } else {
+      return $(item).val();
+    }
   }
 
   function showTab(name)
@@ -49,15 +62,30 @@
       if (n > 0) {
         id = id.substring(0, n);
       }
-      $("[id^=" + id + "Param]").each(function(index, obj) {
-        params.push('"' + $(this).val() + '"');
-      });
-      var fn = 'on' + $(this).attr('id') + 'Click(' + params.join(',') + ')';
+      var fn = '';
+      if ($(this).hasClass("colorPicker")) {
+        fn = 'ColorPicker';
+        params.push('"' + getValue(this) + '"');
+      } else {
+        $("[id^=" + id + "Param]").each(function(index, obj) {
+          params.push('"' + getValue(this) + '"');
+        });
+        fn = $(this).attr('id');
+      }
+      fn = 'on' + fn + 'Click(' + params.join(',') + ')';
+
       csInterface.evalScript(fn, function(result) {
-        if (result != 'undefined') {
-          $("[id^=" + id + "Param]").each(function(index, obj) {
-            $(this).val(result);
-            localStorage.setItem($(this).attr('id') + 'Value', this.value);
+        if (result != 'undefined') { // Yes string after eval
+          if (id.indexOf('Param') < 0) {
+            id += 'Param';
+          }
+          $("[id^=" + id + "]").each(function(index, obj) {
+            if ($(this).hasClass("colorPicker")) {
+              $(this).css('background-color', result);
+            } else {
+              $(this).val(result);
+            }
+            localStorage.setItem($(this).attr('id') + 'Value', result);
           });
         }
       });

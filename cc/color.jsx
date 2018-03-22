@@ -6,7 +6,7 @@
 //
 //**************************************************************************
 
-onSaturationClick = function(type)
+onSaturationClick = function()
 {
   try {
     var group = checkGroup('Color', 'Finish', 'Help Layers');
@@ -17,7 +17,7 @@ onSaturationClick = function(type)
   }
 }
 
-onColorClick = function(type)
+onColorClick = function()
 {
   try {
     var group = checkGroup('Color', 'Finish', 'Help Layers');
@@ -28,11 +28,12 @@ onColorClick = function(type)
   }
 }
 
-onTintClick = function(type)
+onTintClick = function(color)
 {
   try {
+    var rgb = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
     var group = checkGroup('Color', 'Finish', 'Help Layers');
-    var l = createSolidColorAdjustment('Tint', group, [0, 0, 128]);
+    var l = createSolidColorAdjustment('Tint', group, rgb);
     l.opacity = 15;
     setLayerBlendingMode(l, 'color');
     deleteLayerMask(l);
