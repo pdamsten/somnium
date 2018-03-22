@@ -10,11 +10,12 @@
   'use strict';
 
   var csInterface = new CSInterface();
+  var pluginPath = '';
 
   function initJsx()
   {
-    var jsxPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/cc/';
-    csInterface.evalScript('init("' + jsxPath + '")');
+    pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
+    csInterface.evalScript('init("' + pluginPath + '")');
 
     $('select, input, .colorPicker').each(function(index, obj) {
       var s = localStorage.getItem($(this).attr('id') + 'Value');
@@ -54,8 +55,12 @@
 
   function init()
   {
-    $(".experimental").css("display", "initial"); // TODO from ini
     initJsx();
+    csInterface.evalScript('isDebug()', function(result) {
+      if (result == 'true') { // Yes string after eval
+        $(".experimental").css("display", "initial");
+      }
+    });
     themeManager.init();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
 

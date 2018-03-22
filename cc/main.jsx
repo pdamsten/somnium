@@ -6,6 +6,8 @@
 //
 //**************************************************************************
 
+var pluginPath = '';
+
 function include(path)
 {
   try {
@@ -15,9 +17,11 @@ function include(path)
   }
 }
 
-function init(jsxPath)
+function init(path)
 {
   try {
+    pluginPath = path;
+    var jsxPath = pluginPath + 'cc/';
     include(jsxPath + 'log.jsx');
     initLog(jsxPath + '../log.txt');
     // libs
@@ -42,6 +46,15 @@ function init(jsxPath)
 function onLogoClick()
 {
   openURL('http://petridamsten.com/');
+}
+
+isDebug = function(color)
+{
+  var d = new File(pluginPath + 'debug.sh');
+  if (d.exists) { // We are in developing environment
+    return true;
+  }
+  return false;
 }
 
 onColorPickerClick = function(color)
