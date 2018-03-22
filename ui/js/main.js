@@ -19,13 +19,18 @@
     $('select, input, .colorPicker').each(function(index, obj) {
       var s = localStorage.getItem($(this).attr('id') + 'Value');
       if (s) {
-        if ($(this).hasClass("colorPicker")) {
-          $(this).css('background-color', s);
-        } else {
-          $(this).val(s);
-        }
+        setValue(this, s);
       }
     });
+  }
+
+  function setValue(item, v)
+  {
+    if ($(item).hasClass("colorPicker")) {
+      $(item).css('background-color', v);
+    } else {
+      $(item).val(v);
+    }
   }
 
   function getValue(item)
@@ -80,11 +85,7 @@
             id += 'Param';
           }
           $("[id^=" + id + "]").each(function(index, obj) {
-            if ($(this).hasClass("colorPicker")) {
-              $(this).css('background-color', result);
-            } else {
-              $(this).val(result);
-            }
+            setValue(this, result);
             localStorage.setItem($(this).attr('id') + 'Value', result);
           });
         }
