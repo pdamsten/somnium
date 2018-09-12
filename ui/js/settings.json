@@ -43,5 +43,73 @@ var Settings = {
     "group": "Helpers",
     "title": "Delete All",
     "help": "Delete help layers group."
+  },
+
+  "MakeCleaning": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+  "MakeFS": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+  "DefringeMask": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+  "FillEmpty": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+  "StampUnder": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+  "SmartFromUnder": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+  "UpdateFromUnder": {
+    "group": "Retouch",
+    "title": "",
+    "help": ""
+  },
+
+  "MakeCookie": {
+    "group": "Light",
+    "title": "",
+    "help": ""
+  },
+  "MakeVignette": {
+    "group": "Light",
+    "title": "",
+    "help": ""
+  },
+  "MakeWashOut": {
+    "group": "Light",
+    "title": "",
+    "help": ""
+  },
+  "MakeDB": {
+    "group": "Light",
+    "title": "",
+    "help": ""
+  },
+  "MakeHighlight": {
+    "group": "Light",
+    "title": "",
+    "help": ""
+  },
+
+  "MakeHighPassSharpening": {
+    "group": "Finnish",
+    "title": "",
+    "help": ""
   }
 }
