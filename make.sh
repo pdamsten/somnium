@@ -10,7 +10,12 @@ mkdir ../tmp &>/dev/null
 cd ../tmp
 rm -fR com.petridamsten.somnium &>/dev/null
 
+rm -f actions/*.jsx
+./fill_actions.py
+
 mkdir com.petridamsten.somnium
+mkdir com.petridamsten.somnium/actions
+cp ../com.petridamsten.somnium/actions/*.jsx com.petridamsten.somnium/actions/
 mkdir com.petridamsten.somnium/cc
 cp ../com.petridamsten.somnium/cc/*.jsx com.petridamsten.somnium/cc/
 mkdir com.petridamsten.somnium/CSXS

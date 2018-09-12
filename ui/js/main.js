@@ -102,8 +102,8 @@
 
     $('.iconButton').contextmenu(function() {
       var id = $(this).attr('id');
-      $('#helpHeader').html(Settings[id].title);
-      $('#helpText').html(Settings[id].help);
+      $('#helpHeader').html(Settings[id]['title']);
+      $('#helpText').html(Settings[id]['help']);
       // TODO fill the settings widgets
       if (!$("#helpSettings").is(":visible")) {
         $('#helpSettings').slideToggle();
