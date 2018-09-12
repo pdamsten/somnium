@@ -58,7 +58,7 @@
     initJsx();
     csInterface.evalScript('isDebug()', function(result) {
       if (result == 'true') { // Yes string after eval
-        $(".experimental").css("display", "initial");
+        $(".experimental").css("display", "inline-block");
       }
     });
     themeManager.init();

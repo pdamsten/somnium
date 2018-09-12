@@ -22,6 +22,7 @@ body {
 
 #header {
   text-align: center;
+  padding-left: 45px;
   padding-top: 5px;
   padding-bottom: 5px;
   flex-grow: auto;
@@ -126,7 +127,6 @@ body {
 
 #tabs {
   min-width: 50px;
-  padding-top: 10px;
   flex-grow: auto;
 }
 
@@ -139,32 +139,17 @@ body {
   border-width: 0;
   border-style: solid;
   position: relative;
+  padding-top: 7px;
+  padding-bottom: 7px;
   padding-right: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   border-left-width: 1px;
   border-left-color: transparent;
 }
 
 .tabbtnselected {
   border-left-color: inherit;
-}
-
-.tabindicator {
-  width: 0;
-  height: 0;
-  border-width: 7px;
-  background-color: transparent;
-  border-left-color: transparent;
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-  border-style: solid;
-  position: absolute;
-  right: 0;
-  top: 9px;
-}
-
-:not(.tabbtnselected) > .tabindicator {
-  border-right-color: transparent;
+  background-color: var(--background-color);
 }
 
 .help h1 {
@@ -176,7 +161,7 @@ h1 {
   padding: 0;
   margin: 0;
   margin-top: 5px;
-  font-size: 175%;
+  font-size: 145%;
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -187,6 +172,7 @@ h2 {
   font-size: 125%;
   font-weight: normal;
   text-transform: uppercase;
+  letter-spacing: 10px;
 }
 
 hr {

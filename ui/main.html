@@ -6,35 +6,31 @@
 </head>
 <body class="cc">
   <div id="header" class="ccheader">
-    <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="50">
+    <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="40">
   </div>
 
   <div id="content">
     <div id="tabs" class="ccheader">
       <div id="Retouch" class="tabbtn">
         <img class="ccsvg clickable" src="img/icon-retouch.svg" height="32">
-        <div class="cc tabindicator"></div>
       </div>
       <div id="Light" class="tabbtn">
         <img class="ccsvg clickable" src="img/icon-bulb.svg" height="32">
-        <div class="cc tabindicator"></div>
       </div>
+      <!--
       <div id="Color" class="tabbtn">
         <img class="ccsvg clickable" src="img/icon-palette.svg" height="32">
-        <div class="cc tabindicator"></div>
       </div>
+      -->
       <div id="Finish" class="tabbtn">
         <img class="ccsvg clickable" src="img/icon-finish.svg" height="32">
-        <div class="cc tabindicator"></div>
       </div>
 
       <div id="Helpers" class="tabbtn">
         <img class="ccsvg clickable" src="img/icon-life-saver.svg" height="32">
-        <div class="cc tabindicator"></div>
       </div>
       <div id="LayersSaver" class="tabbtn">
         <img class="ccsvg clickable" src="img/icon-save.svg" height="32">
-        <div class="cc tabindicator"></div>
       </div>
     </div>
 
@@ -119,65 +115,65 @@
       <h1>Retouch</h1>
       <div class="tabcontent">
         <h2>Layers</h2>
-        <button id="MakeCleaning" class="clickable ccbuttondefault">Cleaning Layer</button><br/>
-        <div class="multicolumn"><div class="column">
-          <select id="MakeFSParam1" class="ccwidget ccselect">
-            <option value="normal">Normal</option>
-            <option value="simple">Simple</option>
-          </select>
-        </div><div class="column greedy">
-          <button id="MakeFS" class="clickable ccbuttondefault">Frequence Separation</button><br/>
-        </div></div>
+        <div id="MakeCleaning" class="iconButton">
+          <img src="img/icon-default.svg">
+          Cleaning Layer
+        </div>
         <h2>Tools</h2>
-        <button id="DefringeMask" class="clickable ccbuttondefault">Defringe Mask</button><br/>
+        <div id="MakeFS" class="iconButton">
+          <img src="img/icon-default.svg">
+          Frequence Separation
+        </div>
+        <div id="DefringeMask" class="iconButton">
+          <img src="img/icon-default.svg">
+          Defringe Mask
+        </div>
+        <div id="FillEmpty" class="iconButton experimental">
+          <img src="img/icon-default.svg">
+          Fill Empty
+        </div>
         <h2>Smart Objects</h2>
-        <button id="StampUnder" class="clickable ccbuttondefault">Stamp Current & Below</button><br/>
-        <button id="SmartFromUnder" class="clickable ccbuttondefault">Smart Object From Current & Below</button><br/>
-        <button id="UpdateFromUnder" class="clickable ccbuttondefault experimental">Update Smart Object</button><br/>
-      </div>
-      <div class="help ccheader" id="Retouch-help">
-        <h1>Retouch</h1>
-        ...
+        <div id="StampUnder" class="iconButton">
+          <img src="img/icon-default.svg">
+          Stamp<br/>C &amp; B
+        </div>
+        <div id="SmartFromUnder" class="iconButton">
+          <img src="img/icon-default.svg">
+          <br/>C &amp; B -> Smart
+        </div>
+        <div id="UpdateFromUnder" class="iconButton experimental">
+          <img src="img/icon-default.svg">
+          Update Smart
+        </div>
       </div>
     </div>
 
     <div id="LightTab" class="tab">
       <h1>Finish - Light</h1>
       <div class="tabcontent">
-        <div class="multicolumn"><div class="column">
-          <select id="MakeCookieParam1" class="ccwidget ccselect">
-            <option value="darken">Darken Rest</option>
-            <option value="lighten">Lighten Cookie</option>
-          </select>
-        </div><div class="column greedy">
-          <button id="MakeCookie" class="clickable ccbuttondefault">Cookie Lighting</button><br/>
-        </div></div>
-        <div class="multicolumn"><div class="column">
-          <select id="MakeVignetteParam1" class="ccwidget ccselect">
-            <option value="elliptical">Elliptical</option>
-            <option value="rectangular">Rectangular</option>
-          </select>
-        </div><div class="column greedy">
-          <button id="MakeVignette" class="clickable ccbuttondefault">Vignette</button><br/>
-        </div></div>
-        <button id="WashOut" class="clickable ccbuttondefault">Wash Out / Contrast</button><br/>
-        <hr/>
-        <div class="multicolumn"><div class="column">
-          <select id="MakeDBParam1" class="ccwidget ccselect">
-            <option value="gray">Gray Layer</option>
-            <option value="curves">Curves</option>
-          </select>
-        </div><div class="column greedy">
-          <button id="MakeDB" class="clickable ccbuttondefault">Dodge & Burn</button><br/>
-        </div></div>
-        <button id="Highlight" class="clickable ccbuttondefault">Highlight</button><br/>
-      </div>
-      <div class="help ccheader" id="Light-help">
-        <h1>Finish Light</h1>
-        ...
+        <div id="MakeCookie" class="iconButton ">
+          <img src="img/icon-default.svg">
+          Cookie Lighting
+        </div>
+        <div id="MakeVignette" class="iconButton ">
+          <img src="img/icon-default.svg">
+          Vignette
+        </div>
+        <div id="MakeWashOut" class="iconButton ">
+          <img src="img/icon-default.svg">
+          Wash Out / Contrast
+        </div>
+        <div id="MakeDB" class="iconButton">
+          <img src="img/icon-default.svg">
+          Dodge & Burn
+        </div>
+        <div id="MakeHighlight" class="iconButton">
+          <img src="img/icon-default.svg">
+          Highlight
+        </div>
       </div>
     </div>
-
+    <!--
     <div id="ColorTab" class="tab">
       <h1>Finish - Color</h1>
       <div class="tabcontent">
@@ -192,28 +188,19 @@
         <button id="SplitToning" class="clickable ccbuttondefault experimental">Split Toning</button><br/>
         <button id="OrangeTeal" class="clickable ccbuttondefault experimental">Orange Teal Color</button><br/>
       </div>
-      <div class="help ccheader" id="Color-help">
-        <h1>Finish Color</h1>
-        ...
-      </div>
     </div>
-
+    -->
     <div id="FinishTab" class="tab">
       <h1>Finish</h1>
       <div class="tabcontent">
-        <button id="HighPassSharpening" class="clickable ccbuttondefault">High Pass Sharpening</button><br/>
-        <button id="Export" class="clickable ccbuttondefault experimental">Export</button><br/>
-      </div>
-      <div class="help ccheader" id="Finish-help">
-        <h1>Finish</h1>
-        ...
+        <div id="MakeHighPassSharpening" class="iconButton">
+          <img src="img/icon-default.svg">
+          High Pass Sharpening
+        </div>
+        <!--<button id="Export" class="clickable ccbuttondefault experimental">Export</button><br/>-->
       </div>
     </div>
 
-  </div>
-  <div id="footer" class="ccheader">
-    <img id="Info" class="ccsvg clickable" src="img/icon-help.svg" height="20">
-    by<img id="Logo" class="ccsvg clickable" src="img/pd-logo.svg" height="20">
   </div>
 
   <script src="js/libs/CSInterface.js"></script>
