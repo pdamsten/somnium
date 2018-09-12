@@ -47,6 +47,26 @@ body {
   align-items: stretch;
 }
 
+#helpSettings {
+  backdrop-filter: blur(10px);
+  opacity: 0.9;
+  border-top-right-radius: 10px;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1;
+  bottom: 0;
+  padding: 10px;
+  margin: 0;
+  margin-right: 7px;
+  display: none;
+  filter: brightness(90%);
+  background-color: var(--background-color-darker);
+  border-color: var(--widget-txt-color);
+  color: var(--txt-color);
+}
+
 .iconButton {
   text-transform: uppercase;
   font-size: 10px;
@@ -152,7 +172,7 @@ body {
   background-color: var(--background-color);
 }
 
-.help h1 {
+#helpSettings h1 {
   margin: 0;
   padding: 0;
 }
@@ -215,29 +235,4 @@ ul {
   display: table-cell;
   padding-left: 5px;
   width: 50%;
-}
-
-.help {
-  backdrop-filter: blur(10px);
-  opacity: 0.9;
-  border-top-right-radius: 10px;
-  text-align: left;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 1;
-  bottom: 0;
-  padding: 10px;
-  margin: 0;
-  margin-right: 7px;
-  margin-bottom: 30px;
-  display: none;
-  filter: brightness(90%);
-}
-
-#Info {
-  margin: 0;
-  padding: 0;
-  margin-left: 15px;
-  float: left;
 }

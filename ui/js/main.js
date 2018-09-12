@@ -66,6 +66,9 @@
 
     // Handle all clickable elements
     $(".clickable, .iconButton").click(function () {
+      if ($("#helpSettings").is(":visible")) {
+        $('#helpSettings').slideToggle();
+      }
       var params = [];
       var id = $(this).attr('id');
       var n = id.indexOf('_');
@@ -97,16 +100,27 @@
       });
     });
 
+    $('.iconButton').contextmenu(function() {
+      var id = $(this).attr('id');
+      $('#helpHeader').html(Settings[id].title);
+      $('#helpText').html(Settings[id].help);
+      // TODO fill the settings widgets
+      if (!$("#helpSettings").is(":visible")) {
+        $('#helpSettings').slideToggle();
+      }
+      return false;
+    });
+
+    $('#helpSettings').click(function() {
+      $('#helpSettings').slideToggle();
+    });
+
     $('select, input').on('change', function() {
       localStorage.setItem($(this).attr('id') + 'Value', this.value);
     });
 
     $(".tabbtn").click(function () {
       showTab($(this).attr('id'));
-    });
-
-    $("#Info").click(function () {
-      $('.help').slideToggle();
     });
   }
 

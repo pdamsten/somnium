@@ -4,9 +4,14 @@
 <link rel="stylesheet" href="css/styles.css"/>
 <title>Somnium</title>
 </head>
-<body class="cc">
+<body class="cc" oncontextmenu="return false;">
   <div id="header" class="ccheader">
     <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="40">
+  </div>
+  <div id="helpSettings">
+    <h1 id="helpHeader"></h1>
+    <p id="helpText"></p>
+    <p id="helpSettings"></p>
   </div>
 
   <div id="content">
@@ -45,6 +50,10 @@
           <img src="img/icon-default.svg">
           Memo
         </div>
+        <div id="MakePerspectiveLines" class="iconButton">
+          <img src="img/icon-default.svg">
+          Make Perspective
+        </div>
         <div id="MakeSolarisation" class="iconButton">
           <img src="img/icon-default.svg">
           Solar- isation
@@ -74,19 +83,14 @@
         <button id="BlendIf" class="clickable ccbuttondefault experimental">Blend If Helper</button><br/>
         -->
       </div>
-      <div class="help ccheader" id="Helpers-help">
-        <h1>Help Layers</h1>
-        <ul>
-          <li>Make All - Makes all the help layers.</li>
-          <li>Memo - Makes layer for writing notes.</li>
-          <li>Perspective Lines - Lines to check perspective.</li>
-          <li>Solarisation - For finding dust spots and composition errors.</li>
-          <li>Skin Checker - For finding skin imperfections.</li>
-          <li>Lightness - For finding lumonosity differences eg. in dodging & burning.</li>
-          <li>Saturation Map - For finding saturation differences.</li>
-          <li>Match Tones - For finding tone differences.</li>
-        </ul>
+      <!--
+      <div class="help ccheader" id="LayerSaver-help">
+        <h1>Layers Saver</h1>
+        This makes layers animation from bottom to top which shows how editing progresses.
+        You can mark the main layer with # and it will be saved first. If main layer is a smart
+        object it is copied and opened so you can reset eg. lightroom settings.
       </div>
+      -->
     </div>
 
     <div id="LayersSaverTab" class="tab">
@@ -102,12 +106,6 @@
         </div></div>
 
         <button id="SaveLayers" class="clickable ccbuttondefault">Save Layers as Jpgs</button><br/>
-      </div>
-      <div class="help ccheader" id="LayerSaver-help">
-        <h1>Layers Saver</h1>
-        This makes layers animation from bottom to top which shows how editing progresses.
-        You can mark the main layer with # and it will be saved first. If main layer is a smart
-        object it is copied and opened so you can reset eg. lightroom settings.
       </div>
     </div>
 
@@ -208,6 +206,7 @@
 
   <script src="js/themeManager.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/settings.js"></script>
 
 </body>
 </html>

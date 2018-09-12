@@ -105,6 +105,7 @@ var themeManager = (function () {
       addRule(styleId, ":root", "--background-color:" + bg);
       addRule(styleId, ":root", "--background-color-darker:" + darkerBg);
       addRule(styleId, ":root", "--txt-color:" + txt);
+      addRule(styleId, ":root", "--widget-txt-color:" + widgetBg);
       addRule(styleId, ":root", "--font-size:" + fs);
       addRule(styleId, ":root", "--font-family:" + ff);
       addRule(styleId, ":root", "--border-color:" + buttonPressed);
