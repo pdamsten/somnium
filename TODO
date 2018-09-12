@@ -3,3 +3,5 @@
 - Experimental mode which shows experimental/personal features.
 - Fixaa saturation map - absolute
 - tool tips to left icons
+- remove reflection from skin using darken layer mode
+- When adding layer and group is selected does it go inside or outside. Stamp should go out.
