@@ -65,7 +65,7 @@
     showTab(localStorage.getItem('currentTab') || 'Retouch');
 
     // Handle all clickable elements
-    $(".clickable").click(function () {
+    $(".clickable, .iconButton").click(function () {
       var params = [];
       var id = $(this).attr('id');
       var n = id.indexOf('_');

@@ -75,6 +75,7 @@ var themeManager = (function () {
       var buttonPressed = hexColor(pscolors[clr][3]);
       var widgetTxt = hexColor(pscolors[clr][4]);
       var brightnessFilter = pscolors[clr][1] / 255.0;
+      var brightnessFilterBg = appSkinInfo.panelBackgroundColor.color.red / 255.0;
       addRule(styleId, ".cc", "background-color:" + bg);
       addRule(styleId, ".cc", "color:" + txt);
       addRule(styleId, ".cc", "font-size:" + fs);
@@ -100,6 +101,16 @@ var themeManager = (function () {
       addRule(styleId, ".ccheader", "border-color:" + widgetTxt);
       addRule(styleId, ".ccheader", "color:" + txt);
       addRule(styleId, ".ccsvg", "filter:brightness(" + brightnessFilter + ');');
+
+      addRule(styleId, ":root", "--background-color:" + bg);
+      addRule(styleId, ":root", "--background-color-darker:" + darkerBg);
+      addRule(styleId, ":root", "--txt-color:" + txt);
+      addRule(styleId, ":root", "--font-size:" + fs);
+      addRule(styleId, ":root", "--font-family:" + ff);
+      addRule(styleId, ":root", "--border-color:" + buttonPressed);
+      addRule(styleId, ":root", "--svg-color: " + brightnessFilter + ";");
+      addRule(styleId, ":root", "--svg-color-bg: " + brightnessFilterBg + ";");
+
     } catch(err) {
       alert(err.message);
     }

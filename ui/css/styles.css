@@ -46,6 +46,46 @@ body {
   align-items: stretch;
 }
 
+.iconButton {
+  text-transform: uppercase;
+  font-size: 10px;
+  width: 62px;
+  height: 80px;
+  cursor: pointer;
+  border-radius: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  padding-top: 0px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.iconButton img {
+  height: 42px;
+  width: 42px;
+  border: 5px solid transparent;
+  filter: brightness(var(--svg-color));'
+}
+
+.iconButton:hover {
+  background-color: var(--txt-color);
+  color: var(--background-color);
+}
+
+.iconButton:hover img {
+  filter: brightness(var(--svg-color-bg));'
+}
+
+.iconButton:active {
+  color: var(--txt-color);
+  background-color: var(--background-color-darker);
+}
+
+.iconButton:active img {
+  filter: brightness(var(--svg-color));'
+}
+
 .experimental {
   display: none;
   background-color: rgba(255, 0, 0, 0.1);
