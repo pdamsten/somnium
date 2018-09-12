@@ -133,6 +133,20 @@ exportAsJpeg = function(filepath, x, y) // export does not support res?
   datRef.exportDocument(saveFile, ExportType.SAVEFORWEB, exportOptionsSaveForWeb);
 }
 
+saveAsFlatPSB = function(filepath)
+{
+  var desc1 = new ActionDescriptor();
+  var desc2 = new ActionDescriptor();
+  desc2.putBoolean(sTID("maximizeCompatibility"), false);
+  desc1.putObject(cTID('As  '), sTID("largeDocumentFormat"), desc2);
+  desc1.putPath(cTID('In  '), new File(filepath));
+  desc1.putInteger(cTID('DocI'), 1077);
+  desc1.putBoolean(cTID('Cpy '), true);
+  desc1.putBoolean(cTID('LwCs'), true);
+  desc1.putBoolean(cTID('Lyrs'), false);
+  executeAction(cTID('save'), desc1, DialogModes.NO);
+};
+
 saveAsJpeg = function(filepath, x, y)
 {
   var active = app.activeDocument;
