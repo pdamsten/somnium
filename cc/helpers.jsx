@@ -76,13 +76,13 @@ onMakeLightnessClick = function()
 {
   if (checkLayer('Luminosity Check', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
-  var l1 = createSolidColorAdjustment('Lightness Check', group, [128, 128, 128]);
+  var l1 = createSolidColorAdjustment('Luminosity', group, [128, 128, 128]);
   var l2 = createCurveAdjustment('Enhance', group);
   setLayerBlendingMode(l1, 'color');
   setCurveAdjustment(l2, scurve(10));
   deleteLayerMask(l1);
   deleteLayerMask(l2);
-  group = groupLayers('Lightness', [l1, l2]);
+  group = groupLayers('Luminosity Check', [l1, l2]);
   group.visible = false;
 }
 
@@ -90,13 +90,13 @@ onMatchTonesClick = function()
 {
   if (checkLayer('Hue Check', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
-  var l1 = createSolidColorAdjustment('Luminosity', group, [128, 128, 128]);
+  var l1 = createSolidColorAdjustment('Hue', group, [128, 128, 128]);
   var l2 = createHueSaturationAdjustment('Enhance', group);
   setLayerBlendingMode(l1, 'luminosity');
   setHueSaturationAdjustment(l2, 0, 100, 0);
   deleteLayerMask(l1);
   deleteLayerMask(l2);
-  group = groupLayers('Match Tones', [l1, l2]);
+  group = groupLayers('Hue Check', [l1, l2]);
   group.visible = false;
 }
 
@@ -104,7 +104,7 @@ onMakeSaturationMapClick = function()
 {
   if (checkLayer('Saturation Check', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
-  var l = createSelectiveColorAdjustment('Saturation Map', group);
+  var l = createSelectiveColorAdjustment('Saturation Check', group);
   var values = [['reds',   [0, 0, 0, -100]], ['yellows',  [0, 0, 0, -100]],
                 ['greens', [0, 0, 0, -100]], ['cyans',    [0, 0, 0, -100]],
                 ['blues',  [0, 0, 0, -100]], ['magentas', [0, 0, 0, -100]],
