@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733336"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   sodipodi:docname="icon-solarisation.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#525252"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.5429688"
+     inkscape:cx="128"
+     inkscape:cy="128"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     guidecolor="#ff004a"
+     guideopacity="0.49803922"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid992"
+       empspacing="10"
+       spacingx="0.26458334"
+       spacingy="0.26458334"
+       empcolor="#1d00ff"
+       empopacity="0.25098039"
+       color="#ff0031"
+       opacity="0.1254902" />
+    <sodipodi:guide
+       position="8.2020833,13.493751"
+       orientation="1,0"
+       id="guide1183"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="37.041667,50.270836"
+       orientation="0,1"
+       id="guide2597"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="29.104167,18.520834"
+       orientation="0,1"
+       id="guide2599"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-229.26665)">
+    <circle
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#fefefe;stroke-width:2.64583336;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+       id="path2587"
+       cx="3.96875"
+       cy="293.03122"
+       r="2.6458333" />
+    <circle
+       r="2.6458333"
+       cy="233.2354"
+       cx="63.764584"
+       id="circle2589"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#fefefe;stroke-width:2.64583336;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#fefefe;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 7.9375002,293.03122 H 66.391576"
+       id="path2593"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#fefefe;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 63.764584,295.65823 0,-59.51241"
+       id="path2595"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#fefefe;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 3.9687501,289.32707 c 0,0 3.9273447,-42.48144 9.2190119,-42.48144 5.291667,0 7.036739,31.65437 12.333269,31.64394 5.286803,-0.0104 7.045116,-31.76042 12.333269,-31.76488 5.295181,-0.004 7.041602,31.69622 12.333269,31.69622 5.291667,0 13.577016,-42.27509 13.577016,-42.27509"
+       id="path2601"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssssc" />
+  </g>
+</svg>
