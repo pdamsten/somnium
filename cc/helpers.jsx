@@ -44,7 +44,7 @@ onMakeMemoClick = function()
 
 onMakeSkinCheckerClick = function()
 {
-  if (checkLayer('Skin Checker', helpGroupName) != null) return;
+  if (checkLayer('Skin Check', helpGroupName) != null) return;
   group = checkGroup(helpGroupName);
   l = createChannelMixer('Skin Checker', group);
   setChannelMixer(l, [-46, -4, 200], 0, true);
@@ -74,7 +74,7 @@ onMakePerspectiveLinesClick = function()
 
 onMakeLightnessClick = function()
 {
-  if (checkLayer('Lightness', helpGroupName) != null) return;
+  if (checkLayer('Luminosity Check', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l1 = createSolidColorAdjustment('Lightness Check', group, [128, 128, 128]);
   var l2 = createCurveAdjustment('Enhance', group);
@@ -88,7 +88,7 @@ onMakeLightnessClick = function()
 
 onMatchTonesClick = function()
 {
-  if (checkLayer('Match Tones', helpGroupName) != null) return;
+  if (checkLayer('Hue Check', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l1 = createSolidColorAdjustment('Luminosity', group, [128, 128, 128]);
   var l2 = createHueSaturationAdjustment('Enhance', group);
@@ -102,7 +102,7 @@ onMatchTonesClick = function()
 
 onMakeSaturationMapClick = function()
 {
-  if (checkLayer('Saturation Map', helpGroupName) != null) return;
+  if (checkLayer('Saturation Check', helpGroupName) != null) return;
   var group = checkGroup(helpGroupName);
   var l = createSelectiveColorAdjustment('Saturation Map', group);
   var values = [['reds',   [0, 0, 0, -100]], ['yellows',  [0, 0, 0, -100]],
