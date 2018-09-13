@@ -7,6 +7,7 @@
 <body class="cc" oncontextmenu="return false;">
   <div id="header" class="ccheader">
     <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="40">
+    <h1 id="tabTitle"></h1>
   </div>
   <div id="helpSettings">
     <h1 id="helpHeader"></h1>
@@ -16,31 +17,30 @@
 
   <div id="content">
     <div id="tabs" class="ccheader">
-      <div id="Retouch" class="tabbtn">
-        <img class="ccsvg clickable" src="img/icon-retouch.svg" height="32">
+      <div id="Retouch" class="tabbtn clickable" data-title="Retouch">
+        <img class="ccsvg" src="img/icon-retouch.svg" height="32">
       </div>
-      <div id="Light" class="tabbtn">
-        <img class="ccsvg clickable" src="img/icon-bulb.svg" height="32">
+      <div id="Light" class="tabbtn clickable" data-title="Finish - Light">
+        <img class="ccsvg" src="img/icon-bulb.svg" height="32">
       </div>
       <!--
-      <div id="Color" class="tabbtn">
-        <img class="ccsvg clickable" src="img/icon-palette.svg" height="32">
+      <div id="Color" class="tabbtn clickable" data-title="Finish Color">
+        <img class="ccsvg" src="img/icon-palette.svg" height="32">
       </div>
       -->
-      <div id="Finish" class="tabbtn">
-        <img class="ccsvg clickable" src="img/icon-finish.svg" height="32">
+      <div id="Finish" class="tabbtn clickable" data-title="Finish">
+        <img class="ccsvg" src="img/icon-finish.svg" height="32">
       </div>
 
-      <div id="Helpers" class="tabbtn">
-        <img class="ccsvg clickable" src="img/icon-life-saver.svg" height="32">
+      <div id="Helpers" class="tabbtn clickable" data-title="Help Layers">
+        <img class="ccsvg" src="img/icon-life-saver.svg" height="32">
       </div>
-      <div id="LayersSaver" class="tabbtn">
-        <img class="ccsvg clickable" src="img/icon-save.svg" height="32">
+      <div id="LayersSaver" class="tabbtn clickable" data-title="Export">
+        <img class="ccsvg" src="img/icon-save.svg" height="32">
       </div>
     </div>
 
     <div id="HelpersTab" class="tab">
-      <h1>Help Layers</h1>
       <div class="tabcontent">
         <div id="MakeAll" class="iconButton">
           <img src="img/icon-make_all.svg">
@@ -94,7 +94,6 @@
     </div>
 
     <div id="LayersSaverTab" class="tab">
-      <h1>Layers Saver</h1>
       <div class="tabcontent">
         NOTE: Although this tries to be non destructive SAVE FIRST! It does go through the whole
         document and something can ALWAYS go wrong.<br/><br/>
@@ -110,7 +109,6 @@
     </div>
 
     <div id="RetouchTab" class="tab">
-      <h1>Retouch</h1>
       <div class="tabcontent">
         <h2>Layers</h2>
         <div id="MakeCleaning" class="iconButton">
@@ -147,7 +145,6 @@
     </div>
 
     <div id="LightTab" class="tab">
-      <h1>Finish - Light</h1>
       <div class="tabcontent">
         <div id="MakeCookie" class="iconButton ">
           <img src="img/icon-default.svg">
@@ -189,7 +186,6 @@
     </div>
     -->
     <div id="FinishTab" class="tab">
-      <h1>Finish</h1>
       <div class="tabcontent">
         <div id="MakeHighPassSharpening" class="iconButton">
           <img src="img/icon-default.svg">

@@ -49,7 +49,7 @@
     $("#" + name + "Tab").show();
     $(".tabbtnselected").removeClass('tabbtnselected');
     $("#" + name).addClass('tabbtnselected');
-
+    $("#tabTitle").html($("#" + name).attr('data-title'));
     localStorage.setItem('currentTab', name);
   }
 
