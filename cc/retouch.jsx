@@ -21,6 +21,45 @@ onMakeCleaningClick = function()
   var layer = createLayer('Cleaning');
 }
 
+onFillEmptyClick = function()
+{
+  try {
+    var current = app.activeDocument.activeLayer;
+    var stamp = stampCurrentAndBelow(current, randomString(10));
+    selectLayer(current);
+    inverseSelection();
+    expandSelection(2);
+    app.activeDocument.activeLayer = stamp;
+    contentAwareFill();
+    duplicateLayer(stamp, 'Fill');
+    stamp.remove();
+  } catch (e) {
+    log(e);
+  }
+}
+
+onMakeMatchClick = function()
+{
+  try {
+    var layer;
+    layer = createCurveAdjustment('Luminosity');
+    deleteLayerMask(layer);
+    clipBelow(layer);
+    layer = createSelectiveColorAdjustment('Hue');
+    deleteLayerMask(layer);
+    clipBelow(layer);
+    layer = createHueSaturationAdjustment('Saturation');
+    deleteLayerMask(layer);
+    clipBelow(layer);
+    // Helpers
+    onMakeLightnessClick();
+    onMatchTonesClick();
+    onMakeSaturationMapClick();
+  } catch (e) {
+    log(e);
+  }
+}
+
 onMakeFSClick = function(type)
 {
   try {
