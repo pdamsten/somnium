@@ -49,3 +49,62 @@ clearSelection = function()
     return false;
   }
 }
+
+selectLayerMask = function(layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putBoolean(cTID('MkVs'), false);
+    executeAction(cTID('slct'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false; // No mask
+  }
+  return true;
+}
+
+selectLayer = function(layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Chnl'), sTID("selection"));
+    desc1.putReference(cTID('null'), ref1);
+    var ref2 = new ActionReference();
+    ref2.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Trsp'));
+    desc1.putReference(cTID('T   '), ref2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
+inverseSelection = function() {
+  try {
+    executeAction(cTID('Invs'), undefined, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
+expandSelection = function(pixels) {
+  try {
+    var desc1 = new ActionDescriptor();
+    desc1.putUnitDouble(cTID('By  '), cTID('#Pxl'), pixels);
+    desc1.putBoolean(sTID("selectionModifyEffectAtCanvasBounds"), false);
+    executeAction(cTID('Expn'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
