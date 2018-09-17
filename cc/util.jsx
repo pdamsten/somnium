@@ -67,6 +67,22 @@ fitWindow = function()
   app.refresh();
 }
 
+contentAwareFill = function(tool)
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    desc1.putEnumerated(cTID('Usng'), cTID('FlCn'), sTID("contentAware"));
+    desc1.putBoolean(sTID("contentAwareColorAdaptationFill"), true);
+    desc1.putUnitDouble(cTID('Opct'), cTID('#Prc'), 100);
+    desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
+    executeAction(cTID('Fl  '), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e.message);
+    return false;
+  }
+  return true;
+}
+
 selectTool = function(tool)
 {
   tools = {'brush': cTID('PbTl'), 'burn': cTID('BrTl')};
