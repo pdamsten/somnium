@@ -57,7 +57,12 @@ onMakeDBClick = function(type)
 {
   var group = checkGroup('Light', 'Finish', 'Help Layers');
 
-  if (type == 'curves') {
+  if (type == 'grey') {
+    var l = createLayer('Dodge & Burn', group);
+    fillLayer(l, 'gray');
+    setLayerBlendingMode(l, 'overlay');
+    selectTool('burn');
+  } else {
     group = createGroup('Dodge & Burn', group);
     var b = [curvePoint(0, 0), curvePoint(128, -30), curvePoint(255, 0)];
     var d = [curvePoint(0, 0), curvePoint(128, 30), curvePoint(255, 0)];
@@ -71,11 +76,6 @@ onMakeDBClick = function(type)
     setLayerBlendingMode(bl, 'luminosity');
     setDefaultColors();
     selectTool('brush'); // TODO brush preset?
-  } else {
-    var l = createLayer('Dodge & Burn', group);
-    fillLayer(l, 'gray');
-    setLayerBlendingMode(l, 'overlay');
-    selectTool('burn');
   }
 }
 
