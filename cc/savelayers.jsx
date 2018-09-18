@@ -26,10 +26,16 @@ onSaveLayers_BrowseClick = function(path)
 onSaveLayersClick = function(path)
 {
   try {
+    var active = app.activeDocument;
+    var newDoc = app.activeDocument.duplicate(randomString(8));
+
     mainPath = File(path).fsName + '/';
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
     saveLayersAsJpgs(layers);
+
+    newDoc.close(SaveOptions.DONOTSAVECHANGES);
+    app.activeDocument = active;
   } catch (e) {
     log(e);
   }
