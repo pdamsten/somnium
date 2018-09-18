@@ -38,6 +38,9 @@ function init(path)
     include(jsxPath + 'light.jsx');
     include(jsxPath + 'color.jsx');
     include(jsxPath + 'finish.jsx');
+
+    include(jsxPath + 'atn.jsx');
+    writeAtn('/Users/damu/tmp/somnium.atn');
   } catch (e) {
     log(e);
   }
