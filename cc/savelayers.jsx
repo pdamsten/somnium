@@ -154,6 +154,12 @@ findMain = function(layers)
       return i;
     }
   }
+  for (var i = layers.length - 1; i >= 0; --i) {
+    var info = smartObjectInfo(layers[i].layer);
+    if (info != false && endsWith(info['fileref'], ".dng")) { // TODO how to check if RAW smart object
+      return i;
+    }
+  }
   return -1;
 }
 
