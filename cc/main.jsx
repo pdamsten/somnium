@@ -23,7 +23,7 @@ function init(path)
     pluginPath = path;
     var jsxPath = pluginPath + 'cc/';
     include(jsxPath + 'log.jsx');
-    initLog(jsxPath + '../log.txt');
+    initLog(pluginPath + 'log.txt');
     // libs
     include(jsxPath + 'util.jsx');
     include(jsxPath + 'layer.jsx');
@@ -31,6 +31,9 @@ function init(path)
     include(jsxPath + 'adjustment.jsx');
     include(jsxPath + 'adjustmentlayer.jsx');
     include(jsxPath + 'selection.jsx');
+    include(jsxPath + 'atn.jsx');
+    include(pluginPath + 'ui/js/libs/json2.js');
+
     // tabs
     include(jsxPath + 'retouch.jsx');
     include(jsxPath + 'helpers.jsx');
@@ -39,8 +42,7 @@ function init(path)
     include(jsxPath + 'color.jsx');
     include(jsxPath + 'finish.jsx');
 
-    include(jsxPath + 'atn.jsx');
-    writeAtn('/Users/damu/tmp/somnium.atn');
+    checkAtn(pluginPath);
   } catch (e) {
     log(e);
   }
@@ -51,7 +53,7 @@ function onLogoClick()
   openURL('http://petridamsten.com/');
 }
 
-isDebug = function(color)
+isDebug = function()
 {
   var d = new File(pluginPath + 'debug.sh');
   if (d.exists) { // We are in developing environment
