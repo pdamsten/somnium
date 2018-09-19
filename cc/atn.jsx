@@ -6,38 +6,41 @@
 //
 //**************************************************************************
 
-var data = [0,  0,  0,  0,  1,  20,  0,  2,  0,  0,  12,  77,  97,  99,  105,  110,  116,  111,  115,  104,  32,  72,  68,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  66,  68,  0,  1,  255,  255,  255,  255,  6,  48,  50,  46,  106,  115,  120,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  255,  255,  255,  255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  2,  0,  0,  10,  32,  99,  117,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  116,  109,  112,  0,  0,  2,  0,  23,  47,  58,  85,  115,  101,  114,  115,  58,  100,  97,  109,  117,  58,  116,  109,  112,  58,  48,  50,  46,  106,  115,  120,  0,  0,  14,  0,  14,  0,  6,  0,  48,  0,  50,  0,  46,  0,  106,  0,  115,  0,  120,  0,  15,  0,  26,  0,  12,  0,  77,  0,  97,  0,  99,  0,  105,  0,  110,  0,  116,  0,  111,  0,  115,  0,  104,  0,  32,  0,  72,  0,  68,  0,  18,  0,  21,  85,  115,  101,  114,  115,  47,  100,  97,  109,  117,  47,  116,  109,  112,  47,  48,  50,  46,  106,  115,  120,  0,  0,  19,  0,  1,  47,  0,  0,  21,  0,  2,  0,  11,  255,  255,  0,  0];
+writeArray = function(f, array)
+{
+  for (var i = 0; i < array.length; ++i) {
+    f.write(String.fromCharCode(array[i]));
+  }
+}
 
-writeBytes = function(f, number, bytes)
+writeNumber = function(f, number, bytes)
 {
   var array = [];
   for (var i = bytes - 1; i >= 0; --i) {
     array[i] = number & 255;
     number = number >> 8;
   }
-  for (var i = 0; i < bytes; ++i) {
-    f.write(String.fromCharCode(array[i]));
-  }
+  writeArray(f, array);
 }
 
 writeLong = function(f, number)
 {
-  writeBytes(f, number, 4);
+  writeNumber(f, number, 4);
 }
 
 writeShort = function(f, number)
 {
-  writeBytes(f, number, 2);
+  writeNumber(f, number, 2);
 }
 
 writeBoolean = function(f, number)
 {
-  writeBytes(f, number, 1);
+  writeNumber(f, number, 1);
 }
 
 writeByte = function(f, number)
 {
-  writeBytes(f, number, 1);
+  writeNumber(f, number, 1);
 }
 
 writeUnicodeString = function(f, str)
@@ -85,17 +88,92 @@ writeClass = function(f)
   writeCharID(f, 'null');
 }
 
+// alis
+
+writeAlisByteString = function(f, str)
+{
+  var length = str.length;
+  writeShort(f, length);
+  for (var j = 0; j < length; ++j) {
+    writeByte(f, str.charCodeAt(j));
+  }
+  writeByte(f, 0);
+}
+
+writeAlisUnicodeString = function(f, str)
+{
+  var length = str.length;
+  writeShort(f, length); // name length
+  for (var j = 0; j < length; ++j) {
+    writeShort(f, str.charCodeAt(j));
+  }
+}
+
+writePaddedByteString = function(f, str, total)
+{
+  var length = str.length;
+  writeByte(f, length);
+  for (var j = 0; j < length; ++j) {
+    writeByte(f, str.charCodeAt(j));
+  }
+  for (var j = length; j < total; ++j) {
+    writeByte(f, 0);
+  }
+}
+
+var volume = 'Macintosh HD';
+var data1 = [0,  0,  0,  0,  66,  68,  0,  1,  255,  255,  255,  255];
+var data2 = [255,  255,  255,  255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  2,
+             0,  0,  10,  32,  99,  117,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0];
+var data3 = [0,  19,  0,  1,  47,  0,  0,  21,  0,  2,  0,  11,  255,  255,  0,  0];
+var script = '/Users/damu/tmp/02.jsx';
+
+alisLength = function(script)
+{
+  var file = File(script);
+  var folder = File(file.path);
+
+  return 193 + folder.name.length + script.length + 1 + file.name.length * 2 +
+         volume.length * 2 + script.length - 1;
+}
+
+writeAlis = function(f, script)
+{
+  var file = File(script);
+  var folder = File(file.path);
+
+  var length = alisLength(script);
+
+  writeShort(f, 0); // ?
+  writeLong(f, length); // length of all data
+  writeShort(f, 2); // ?
+  writeShort(f, 0); // ?
+  writePaddedByteString(f, volume, 27); // Volume name
+  writeArray(f, data1); // Some volume specific shit. Works with Macintosh HD only.
+  writePaddedByteString(f, file.name, 63); // Script name
+  writeArray(f, data2); // Again some volume specific shit.
+  writeAlisByteString(f, folder.name); // Containing folder name (not path)
+  writeShort(f, 2); // ?
+  writeAlisByteString(f, '/' + script.replace("/", ":"));
+  writeShort(f, 14); // ?
+  writeShort(f, (file.name.length + 1) * 2); // data length ?
+  writeAlisUnicodeString(f, file.name);
+  writeShort(f, 15); // ?
+  writeShort(f, 26); // ?
+  writeAlisUnicodeString(f, volume);
+  writeShort(f, 18); // ?
+  writeAlisByteString(f, script.substring(1));
+  writeArray(f, data3); // end shit
+}
+
 writePair = function(f, type, data)
 {
   write4ByteID(f, type);
   if (type == 'TEXT') {
     writeUnicodeString(f, data);
   } else if (type == 'alis') {
-    writeLong(f, data.length);
-    log(data.length);
-    for (var j = 0; j < data.length; ++j) {
-      f.write(String.fromCharCode(data[j]));
-    }
+    writeLong(f, alisLength(data));
+    writeAlis(f, data);
   }
 }
 
@@ -104,7 +182,7 @@ writeDescriptor = function(f)
   writeClass(f);
   writeLong(f, 2); // Items
   writeCharID(f, 'jsCt');
-  writePair(f, 'alis', data);
+  writePair(f, 'alis', script);
   writeCharID(f, 'jsMs');
   writePair(f, 'TEXT', 'undefined');
 }
@@ -112,7 +190,7 @@ writeDescriptor = function(f)
 writeCommand = function(f)
 {
   writeBoolean(f, 0); // Expanded
-  writeBoolean(f, 0); // Enabled
+  writeBoolean(f, 1); // Enabled
   writeBoolean(f, 0); // Dialog
   writeByte(f, 0); // Dialog options
   writeStringID(f, 'AdobeScriptAutomation Scripts'); // ID
@@ -151,7 +229,6 @@ writeAtn = function(filename)
     writeActionSet(f);
     f.close();
   } catch (e) {
-    //log(e);
-    alert(e.message);
+    log(e);
   }
 }
