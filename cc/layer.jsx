@@ -6,17 +6,60 @@
 //
 //**************************************************************************
 
-cTID = function(s) { return app.charIDToTypeID(s); };
-sTID = function(s) { return app.stringIDToTypeID(s); };
+duplicateLayerToDoc = function(layer, destDoc) {
+  try {
+    layer = activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var ref2 = new ActionReference();
+    ref2.putName(cTID('Dcmn'), destDoc);
+    desc1.putReference(cTID('T   '), ref2);
+    desc1.putInteger(cTID('Vrsn'), 5);
+    var list1 = new ActionList();
+    list1.putInteger(59);
+    desc1.putList(cTID('Idnt'), list1);
+    executeAction(cTID('Dplc'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+  }
+  return false;
+};
+
+smartObjectInfo = function(layer)
+{
+  var info = {};
+  try {
+    layer = activateLayer(layer);
+    if (layer.kind == LayerKind.SMARTOBJECT) {
+      var ref = new ActionReference();
+      ref.putEnumerated( charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt") );
+      var layerDesc = executeActionGet(ref);
+
+      var desc = layerDesc.getObjectValue(stringIDToTypeID('smartObject'));
+      info['fileref'] = desc.getString(stringIDToTypeID('fileReference'));
+      info['docid'] = desc.getString(stringIDToTypeID('documentID'));
+      /*
+      var more = layerDesc.getObjectValue(stringIDToTypeID('smartObjectMore'));
+      var size = more.getObjectValue(stringIDToTypeID('size'));
+      */
+      return info;
+    }
+  } catch (e) {
+    log(e);
+  }
+  return false;
+}
 
 stampVisible = function(name, layer)
 {
   try {
-    createLayer(randomString(), layer, false); // This way stamnp works also with one layer
+    createLayer(name, layer, false); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
     executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -42,7 +85,7 @@ stampCurrentAndBelow = function(layer, name)
 {
   try {
     var active = activateLayer(layer);
-    var group = layer
+    var group = layer;
     var layers = listLayers();
     // Hide layers up this layer
     for (i = 0; i < layers.length; ++i) {
@@ -271,7 +314,6 @@ checkLayer = function(name, parent)
 createLayer = function(name, layer, insideGroup)
 {
   insideGroup = typeof insideGroup !== 'undefined' ? insideGroup : true;
-  log(layer);
   var layer = activateLayer(layer);
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
