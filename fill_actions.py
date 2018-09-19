@@ -12,5 +12,5 @@ with open('./ui/js/settings.json', "r") as f:
   settings = json.loads(f.read()[15:])
 
 for key in settings:
-    with open('./actions/' + settings[key]['group'] + '-' + key + '.jsx', 'w') as f:
+    with open('./actions/' + settings[key]['group'].replace(' ', '') + '-' + settings[key]['title'].replace(' ', '') + '.jsx', 'w') as f:
         f.write(s1 + key + s2);
