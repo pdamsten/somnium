@@ -25,6 +25,7 @@ onSaveLayers_BrowseClick = function(path)
 
 onSaveLayersClick = function(path)
 {
+  path = (typeof path === 'undefined') ? '~/tmp/' : path;
   try {
     var active = app.activeDocument;
     var parts = active.name.split(".");
