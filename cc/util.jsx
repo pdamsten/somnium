@@ -9,6 +9,16 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+fileVersion = function(filename)
+{
+  var s = '';
+  var f = File(filename);
+  var m = f.modified.year;
+  log(m);
+
+  return s;
+}
+
 blendingMode = function(mode)
 {
   var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'subtract': 'Sbtr',
