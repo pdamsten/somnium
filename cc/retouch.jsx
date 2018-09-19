@@ -107,3 +107,37 @@ onSmartFromUnderClick = function(type)
     log(e);
   }
 }
+
+onUpdateFromUnderClick = function(type)
+{
+  try {
+    var info = smartObjectInfo(app.activeDocument.activeLayer);
+    if (info != false) {
+      if (endsWith(info['fileref'], ".psb")) {
+        var orgDoc = app.activeDocument;
+        var orgLayer = app.activeDocument.activeLayer;
+        orgLayer.visible = false;
+        var stamp = stampCurrentAndBelow(orgLayer, 'update');
+        if (editSmartObjectContents(orgLayer)) {
+          var newDoc = app.activeDocument;
+          var newLayer = app.activeDocument.activeLayer;
+          if (newDoc.layers.length == 1) {
+            app.activeDocument = orgDoc;
+            duplicateLayerToDoc(stamp, newDoc.name);
+            stamp.remove();
+            app.activeDocument = newDoc;
+            newLayer.remove();
+            newDoc.close(SaveOptions.SAVECHANGES);
+            app.activeDocument = orgDoc;
+          } else {
+            newDoc.close();
+            app.activeDocument = orgDoc;
+            stamp.remove();
+          }
+        }
+      }
+    }
+  } catch (e) {
+    log(e);
+  }
+}
