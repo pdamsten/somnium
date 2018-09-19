@@ -9,6 +9,11 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+endsWith = function(str, suf)
+{
+  return (str.indexOf(suf, str.length - suf.length) !== -1);
+}
+
 dicLength = function(dic)
 {
   var n = 0;
