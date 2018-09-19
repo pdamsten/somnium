@@ -16,7 +16,7 @@ var Settings = {
   },
   "MakeSolarisation": {
     "group": "Helpers",
-    "title": "Make Solarisation",
+    "title": "Solarisation",
     "help": "For finding dust spots and composition errors."
   },
   "MakeSkinChecker": {
@@ -47,69 +47,69 @@ var Settings = {
 
   "MakeCleaning": {
     "group": "Retouch",
-    "title": "",
+    "title": "Cleaning",
     "help": ""
   },
   "MakeFS": {
     "group": "Retouch",
-    "title": "",
+    "title": "Frequense Separation",
     "help": ""
   },
   "DefringeMask": {
     "group": "Retouch",
-    "title": "",
+    "title": "Defringe Mask",
     "help": ""
   },
   "FillEmpty": {
     "group": "Retouch",
-    "title": "",
+    "title": "Fill Empty Areas",
     "help": ""
   },
   "StampUnder": {
     "group": "Retouch",
-    "title": "",
+    "title": "Stamp Current And Below",
     "help": ""
   },
   "SmartFromUnder": {
     "group": "Retouch",
-    "title": "",
+    "title": "Smart Object from Current And Below",
     "help": ""
   },
   "UpdateFromUnder": {
     "group": "Retouch",
-    "title": "",
+    "title": "Update Smart Object",
     "help": ""
   },
 
   "MakeCookie": {
     "group": "Light",
-    "title": "",
+    "title": "Cookie Light",
     "help": ""
   },
   "MakeVignette": {
     "group": "Light",
-    "title": "",
+    "title": "Vignette",
     "help": ""
   },
   "MakeWashOut": {
     "group": "Light",
-    "title": "",
+    "title": "Wash Out Curve",
     "help": ""
   },
   "MakeDB": {
     "group": "Light",
-    "title": "",
+    "title": "Dodge And Burn",
     "help": ""
   },
   "MakeHighlight": {
     "group": "Light",
-    "title": "",
+    "title": "Highlight",
     "help": ""
   },
 
   "MakeHighPassSharpening": {
     "group": "Finnish",
-    "title": "",
+    "title": "High Pass Sharpening",
     "help": ""
   }
 }
