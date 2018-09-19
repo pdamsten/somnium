@@ -9,13 +9,21 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+dicLength = function(dic)
+{
+  var n = 0;
+  for(var key in dic) {
+    ++n;
+  }
+  return n;
+}
+
 fileVersion = function(filename)
 {
   var s = '';
   var f = File(filename);
-  var m = f.modified.year;
-  log(m);
-
+  s = '' + f.modified.getFullYear() + padNum(f.modified.getMonth(), 2) +
+      padNum(f.modified.getDate(), 2);
   return s;
 }
 
