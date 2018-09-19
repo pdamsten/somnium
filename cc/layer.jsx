@@ -9,10 +9,10 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
-stampVisible = function(name)
+stampVisible = function(name, layer)
 {
   try {
-    createLayer(randomString()); // This way stamnp works also with one layer
+    createLayer(randomString(), layer, false); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
     executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
@@ -41,25 +41,29 @@ clipBelow = function(layer)
 stampCurrentAndBelow = function(layer, name)
 {
   try {
-    layer = activateLayer(layer);
-    log(layer.name);
+    var active = activateLayer(layer);
+    var group = layer
     var layers = listLayers();
     // Hide layers up this layer
     for (i = 0; i < layers.length; ++i) {
-      if (layers[i].layer == layer) {
+      if (layers[i].layer == active) {
         break;
       }
-      layers[i].layer.visible = false;
+      if (layers[i].layer.typename != 'LayerSet') {
+        layers[i].layer.visible = false;
+      }
     }
 
-    layer = stampVisible(name);
+    layer = stampVisible(name, active);
 
     // return visible state of layers
     for (i = 0; i < layers.length; ++i) {
-      if (layers[i].layer == layer) {
+      if (layers[i].layer == active) {
         break;
       }
-      layers[i].layer.visible = layers[i].visible;
+      if (layers[i].layer.typename != 'LayerSet') {
+        layers[i].layer.visible = layers[i].visible;
+      }
     }
     return layer;
   } catch (e) {
@@ -264,13 +268,15 @@ checkLayer = function(name, parent)
   return null;
 }
 
-createLayer = function(name, layer)
+createLayer = function(name, layer, insideGroup)
 {
+  insideGroup = typeof insideGroup !== 'undefined' ? insideGroup : true;
+  log(layer);
   var layer = activateLayer(layer);
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
   app.activeDocument.activeLayer = newLayer;
-  if (layer.typename == 'LayerSet') {
+  if (layer.typename == 'LayerSet' && insideGroup == true) {
     newLayer.move(layer, ElementPlacement.INSIDE);
   } else {
     newLayer.move(layer, ElementPlacement.PLACEBEFORE);
