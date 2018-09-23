@@ -193,23 +193,27 @@ saveAsJpeg = function(filepath, x, y, minx, miny, color)
 
   newDoc.flatten();
 
-  if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
-    newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
-  } else {
-    newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+  if (x > 0 || y > 0) {
+    if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
+      newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
+    } else {
+      newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+    }
   }
 
-  var clr = new SolidColor(color[0]);
-  clr.rgb.red = color[0];
-  clr.rgb. green = color[1];
-  clr.rgb.blue = color[2];
-  app.backgroundColor = clr;
+  if (minx > 0 || miny > 0) {
+    var clr = new SolidColor(color[0]);
+    clr.rgb.red = color[0];
+    clr.rgb. green = color[1];
+    clr.rgb.blue = color[2];
+    app.backgroundColor = clr;
 
-  if (newDoc.width < minx) {
-    newDoc.resizeCanvas(minx, newDoc.height);
-  }
-  if (newDoc.height < miny) {
-    newDoc.resizeCanvas(newDoc.width, miny);
+    if (newDoc.width < minx) {
+      newDoc.resizeCanvas(minx, newDoc.height);
+    }
+    if (newDoc.height < miny) {
+      newDoc.resizeCanvas(newDoc.width, miny);
+    }
   }
 
   newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
