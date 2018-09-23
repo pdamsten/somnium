@@ -53,7 +53,15 @@ var Settings = {
   "MakeFS": {
     "group": "Retouch",
     "title": "Frequense Separation",
-    "help": ""
+    "help": "",
+    "config": {
+      "style": {
+        "title": "Style:",
+        "type": "selection",
+        "value": "1",
+        "values": ["Simple", "Normal"],
+      }
+    }
   },
   "DefringeMask": {
     "group": "Retouch",

@@ -16,13 +16,6 @@
   {
     pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
     csInterface.evalScript('init("' + pluginPath + '")');
-
-    $('select, input, .colorPicker').each(function(index, obj) {
-      var s = localStorage.getItem($(this).attr('id') + 'Value');
-      if (s) {
-        setValue(this, s);
-      }
-    });
   }
 
   var setValue = function(id, key, type)
@@ -42,6 +35,8 @@
         var a = result.split('x');
         $('#' + data['id'] + '-' + data['key'] + '_x').val(a[0]);
         $('#' + data['id'] + '-' + data['key'] + '_y').val(a[1]);
+      } else if (data['type'] == 'selection') {
+        $('#' + data['id'] + '-' + data['key']).val(result);
       }
     }
   }
@@ -125,7 +120,7 @@
       e.stopPropagation();
     });
 
-    $("#settingsText").on('change', "input", function(e) {
+    $("#settingsText").on('change', "input, select", function(e) {
       var a = $(this).attr('id').split('-');
       if ($(this).data('type') == 'pixelsize') {
         a[1] = a[1].slice(0, -2);
@@ -134,7 +129,6 @@
         var v = this.value;
       }
       var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + v + '");'
-      console.log(fn);
       csInterface.evalScript(fn);
     });
 
@@ -184,6 +178,14 @@
           } else if (type == 'color') {
             html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
             html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker"></div>';
+          } else if (type == 'selection') {
+            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
+            html += '<select id="' + id + '-' + key + '" class="ccwidget ccselect">';
+            for (var i in Settings[id]['config'][key]['values']) {
+              var v = Settings[id]['config'][key]['values'][i];
+              html += '<option value="' + i + '">' + v + '</option>';
+            }
+            html += '</select><br/><br/><br/><br/>';
           }
           var fn = 'settings.value("' + id + '","' + key + '");'
           csInterface.evalScript(fn, setValue(id, key, type));
