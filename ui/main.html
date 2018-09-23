@@ -9,10 +9,14 @@
     <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="40">
     <h1 id="tabTitle"></h1>
   </div>
+
   <div id="helpSettings">
     <h1 id="helpHeader"></h1>
+    <hr/>
     <p id="helpText"></p>
-    <p id="helpSettings"></p>
+    <h2 id="settingsHeader">Settings</h2>
+    <hr/>
+    <p id="settings"></p>
   </div>
 
   <div id="content">
@@ -82,19 +86,7 @@
           <img src="img/icon-blendif.svg">
           Blend If
         </div>
-        <!--
-        <hr/>
-        <button id="BlendIf" class="clickable ccbuttondefault experimental">Blend If Helper</button><br/>
-        -->
       </div>
-      <!--
-      <div class="help ccheader" id="LayerSaver-help">
-        <h1>Layers Saver</h1>
-        This makes layers animation from bottom to top which shows how editing progresses.
-        You can mark the main layer with # and it will be saved first. If main layer is a smart
-        object it is copied and opened so you can reset eg. lightroom settings.
-      </div>
-      -->
     </div>
 
     <div id="LayersSaverTab" class="tab">
@@ -135,15 +127,6 @@
           <img src="img/icon-save.svg">
           Save Layers
         </div>
-        <!--
-        <div class="multicolumn"><div class="column greedy">
-          <input id="SaveLayersParam1" class="ccwidget" value="~/tmp/">
-        </div><div class="column">
-          <button id="SaveLayers_Browse" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>
-        </div></div>
-
-        <button id="SaveLayers" class="clickable ccbuttondefault">Save Layers as Jpgs</button><br/>
-        -->
       </div>
     </div>
 
@@ -234,7 +217,6 @@
           <img src="img/icon-highpass_sharpening.svg">
           High Pass Sharpening
         </div>
-        <!--<button id="Export" class="clickable ccbuttondefault experimental">Export</button><br/>-->
       </div>
     </div>
 
@@ -242,7 +224,6 @@
 
   <script src="js/libs/CSInterface.js"></script>
   <script src="js/libs/jquery-3.3.1.min.js"></script>
-  <script src="js/libs/json2.js"></script>
 
   <script src="js/themeManager.js"></script>
   <script src="js/settings.json"></script>

@@ -64,55 +64,86 @@
     themeManager.init();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
 
+    $('#helpSettings').click(function() {
+      $('#helpSettings').slideToggle();
+    });
+
     // Handle all clickable elements
-    $(".clickable, .iconButton").click(function () {
-      if ($("#helpSettings").is(":visible")) {
-        $('#helpSettings').slideToggle();
-      }
+    $("#settings").on("click", ".clickable", function (e) {
+      var type = $(this).data("type");
+      var fn;
+      var id;
       var params = [];
-      var id = $(this).attr('id');
-      var n = id.indexOf('_');
-      if (n > 0) {
-        id = id.substring(0, n);
-      }
-      var fn = '';
-      if ($(this).hasClass("colorPicker")) {
-        fn = 'ColorPicker';
-        params.push('"' + getValue(this) + '"');
-      } else {
-        $("[id^=" + id + "Param]").each(function(index, obj) {
-          params.push('"' + getValue(this) + '"');
-        });
-        fn = $(this).attr('id');
+
+      if (type == "folderBrowse") {
+        fn = 'BrowseFolder';
+        params.push('"' + $(this).data("title") + '"');
+        id = $(this).data("id");
+        params.push('"' + $('#' + id).val() + '"');
       }
       fn = 'on' + fn + 'Click(' + params.join(',') + ')';
 
       csInterface.evalScript(fn, function(result) {
+        if (result != 'null') {
+          $('#' + id).val(result);
+        }
+      });
+      e.stopPropagation();
+    });
+
+    // Handle icon buttons
+    $(".iconButton").click(function () {
+      if ($("#helpSettings").is(":visible")) {
+        $('#helpSettings').slideToggle();
+      }
+      fn = 'on' + fn + 'Click()';
+
+      csInterface.evalScript(fn, function(result) {
         if (result != 'undefined') { // Yes string after eval
-          if (id.indexOf('Param') < 0) {
-            id += 'Param';
-          }
-          $("[id^=" + id + "]").each(function(index, obj) {
-            setValue(this, result);
-            localStorage.setItem($(this).attr('id') + 'Value', result);
-          });
+          $('#helpSettings').slideToggle();
+          $('#helpHeader').html('Message');
+          $('#helpText').html(result);
+          $('#settingsHeader').hide();
+          $('#settings').hide();
         }
       });
     });
 
+    // Handle icon button right click
     $('.iconButton').contextmenu(function() {
       var id = $(this).attr('id');
       $('#helpHeader').html(Settings[id]['title']);
       $('#helpText').html(Settings[id]['help']);
-      // TODO fill the settings widgets
+
+      if ('config' in Settings[id]) {
+        $('#settingsHeader').show();
+        $('#settings').show();
+        var html = '';
+        for (var key in Settings[id]['config']) {
+          if (Settings[id]['config'][key]['type'] == 'folder') {
+            var fn = 'settings.value("' + id + '","' + key + '");'
+            csInterface.evalScript(fn, function(result) {
+              var value = result;
+              html += Settings[id]['config'][key]['title'] + '<br/>';
+              html += '<div class="multicolumn"><div class="column greedy">';
+              html += '<input id="' + id + '-' + key + '" class="ccwidget" value="' + value + '">';
+              html += '</div><div class="column">';
+              html += '<button data-title="' + Settings[id]['config'][key]['title'] +
+                      '" data-type="folderBrowse" data-id="' + id + '-' + key +
+                      '" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>';
+              html += '</div></div>';
+              $('#settings').html(html);
+            });
+          }
+        }
+      } else {
+        $('#settingsHeader').hide();
+        $('#settings').hide();
+      }
       if (!$("#helpSettings").is(":visible")) {
         $('#helpSettings').slideToggle();
       }
       return false;
-    });
-
-    $('#helpSettings').click(function() {
-      $('#helpSettings').slideToggle();
     });
 
     $('select, input').on('change', function() {

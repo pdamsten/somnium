@@ -255,21 +255,14 @@ unloadActionsSet = function(actionSet) {
   return true;
 }
 
-checkAtn = function(path)
+checkAtn = function(path, settings)
 {
-  var jsonFile = path + 'ui/js/settings.json'
-  var atnFile = path + 'somnium-' + fileVersion(jsonFile) + '.atn';
+  var atnFile = path + 'somnium-' + settings.version() + '.atn';
   var actions = path + 'actions/';
-  var actions = '/Users/damu/Documents/Photoshop/extensions/com.petridamsten.somnium/actions/';
   var f = File(atnFile);
 
   if (!f.exists) {
-    var f = File(jsonFile);
-    f.open('r');
-    var content = f.read();
-    f.close();
-    settings = JSON.parse(content.substring(15));
-    writeAtn(atnFile, settings, actions);
+    writeAtn(atnFile, settings.constantData(), actions);
 
     unloadActionsSet('Somnium');
     app.load(new File(atnFile));

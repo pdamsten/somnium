@@ -7,6 +7,7 @@
 //**************************************************************************
 
 var pluginPath = '';
+var settings;
 
 function include(path)
 {
@@ -32,7 +33,7 @@ function init(path)
     include(jsxPath + 'adjustmentlayer.jsx');
     include(jsxPath + 'selection.jsx');
     include(jsxPath + 'atn.jsx');
-    include(pluginPath + 'ui/js/libs/json2.js');
+    include(jsxPath + 'settings.jsx');
 
     // tabs
     include(jsxPath + 'retouch.jsx');
@@ -42,7 +43,8 @@ function init(path)
     include(jsxPath + 'color.jsx');
     include(jsxPath + 'finish.jsx');
 
-    checkAtn(pluginPath);
+    settings = new Settings(pluginPath);
+    checkAtn(pluginPath, settings);
   } catch (e) {
     log(e);
   }
@@ -75,7 +77,21 @@ onColorPickerClick = function(color)
   } catch (e) {
     log(e);
   }
+  return 'rgb(0,0,0)'
 }
+
+onBrowseFolderClick = function(title, path)
+{
+  try {
+    var save = new Folder(File(path).fsName);
+    var folder = save.selectDlg(title, '', false);
+    return folder;
+  } catch (e) {
+    log(e);
+  }
+  return '~/';
+}
+
 
 msg = function(s)
 {

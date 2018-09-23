@@ -111,5 +111,58 @@ var Settings = {
     "group": "Finnish",
     "title": "High Pass Sharpening",
     "help": ""
+  },
+
+  "SaveFb": {
+    "group": "Export",
+    "title": "Save to Facebook",
+    "help": ""
+  },
+  "SaveInsta": {
+    "group": "Export",
+    "title": "Save to Instagram",
+    "help": ""
+  },
+  "SaveTwitter": {
+    "group": "Export",
+    "title": "Save to Twitter",
+    "help": ""
+  },
+  "Save4K": {
+    "group": "Export",
+    "title": "Save 4K Resolution",
+    "help": ""
+  },
+  "Export1": {
+    "group": "Export",
+    "title": "Custom Export 1",
+    "help": ""
+  },
+  "Export2": {
+    "group": "Export",
+    "title": "Custom Export 2",
+    "help": ""
+  },
+  "Export3": {
+    "group": "Export",
+    "title": "Custom Export 3",
+    "help": ""
+  },
+  "Export4": {
+    "group": "Export",
+    "title": "Custom Export 4",
+    "help": ""
+  },
+  "SaveLayers": {
+    "group": "Export",
+    "title": "Save Layers",
+    "help": "This makes layers animation from bottom to top which shows how editing progresses. You can mark the main layer with # and it will be saved first. If main layer is a smart object it is copied and opened so you can reset eg. lightroom settings.",
+    "config": {
+      "path": {
+        "title": "Save folder:",
+        "type": "folder",
+        "value": "~/tmp/",
+      }
+    }
   }
 }

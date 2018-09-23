@@ -74,6 +74,13 @@ body {
   background-color: var(--background-color-darker);
   border-color: var(--widget-txt-color);
   color: var(--txt-color);
+  font-size: 12px;
+  z-index: 100;
+}
+
+#settings {
+  text-transform: uppercase;
+  font-size: 10px;
 }
 
 .iconButton {
@@ -186,6 +193,10 @@ body {
   padding: 0;
 }
 
+#helpSettings #settings {
+  z-index: 1000;
+}
+
 h1 {
   padding: 0;
   margin: 0;
@@ -204,17 +215,11 @@ h2 {
 }
 
 hr {
-	border: 0;
-  height: 0;
-	text-align: center;
-}
-hr:after {
-	content: '●';
-	display: inline-block;
-	position: relative;
-	top: -12px;
-	padding: 0 10px;
-	font-size: 8px;
+	border: 1;
+  height: 1;
+  border-color: var(--txt-color);
+  margin: 10px;
+  margin-left: 0px;
 }
 
 ul {
