@@ -87,7 +87,6 @@ var themeManager = (function () {
       addRule(styleId, ":root", "--border-color:" + buttonPressed);
       addRule(styleId, ":root", "--svg-color: " + brightnessFilter + ";");
       addRule(styleId, ":root", "--svg-color-bg: " + brightnessFilterBg + ";");
-      console.log(appSkinInfo.baseFontSize * 1.18);
     } catch(err) {
       alert(err.message);
     }
