@@ -8,6 +8,7 @@
 
 Settings = function(path)
 {
+  this.config = {};
   this.mainPath = path;
   include(path + 'cc/json2.js');
 
@@ -17,7 +18,6 @@ Settings = function(path)
   var content = f.read();
   f.close();
   this.constant = JSON.parse(content.substring(15));
-
   this.loadConfig();
 }
 
@@ -37,6 +37,15 @@ Settings.prototype.value = function(group, key, value)
     return '';
   } else {
     // Set value
+    if (!(group in this.config)) {
+      this.config[group] = {};
+    }
+    if (!('config' in this.config[group])) {
+      this.config[group]['config'] = {};
+    }
+    if (!(key in this.config[group]['config'])) {
+      this.config[group]['config'][key] = {};
+    }
     this.config[group]['config'][key]['value'] = value;
     this.saveConfig();
   }
@@ -55,7 +64,7 @@ Settings.prototype.version = function()
 Settings.prototype.loadConfig = function()
 {
   try {
-    var f = File(path + 'config.json');
+    var f = File(this.mainPath + 'config.json');
     f.open('r');
     var content = f.read();
     f.close();
@@ -67,7 +76,7 @@ Settings.prototype.loadConfig = function()
 Settings.prototype.saveConfig = function()
 {
   try {
-    var f = File(path + 'config.json');
+    var f = File(this.mainPath + 'config.json');
     f.open('w');
     f.write(JSON.stringify(this.config));
     f.close();

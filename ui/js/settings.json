@@ -121,7 +121,29 @@ var Settings = {
   "SaveInsta": {
     "group": "Export",
     "title": "Save to Instagram",
-    "help": ""
+    "help": "Save image with correct size for Instagram",
+    "config": {
+      "path": {
+        "title": "Save Instagram images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "1080x1350",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "1080x566",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(255,255,255)",
+      }
+    }
   },
   "SaveTwitter": {
     "group": "Export",
@@ -159,7 +181,7 @@ var Settings = {
     "help": "This makes layers animation from bottom to top which shows how editing progresses. You can mark the main layer with # and it will be saved first. If main layer is a smart object it is copied and opened so you can reset eg. lightroom settings.",
     "config": {
       "path": {
-        "title": "Save folder:",
+        "title": "Save layers output folder:",
         "type": "folder",
         "value": "~/tmp/",
       }

@@ -25,21 +25,18 @@
     });
   }
 
-  function setValue(item, v)
+  var setValue = function(id, key, type)
   {
-    if ($(item).hasClass("colorPicker")) {
-      $(item).css('background-color', v);
-    } else {
-      $(item).val(v);
-    }
-  }
+    var data = {
+      'id': id,
+      'key': key,
+      'type': type
+    };
 
-  function getValue(item)
-  {
-    if ($(item).hasClass("colorPicker")) {
-      return $(item).css('background-color');
-    } else {
-      return $(item).val();
+    return function(result) {
+      if (data['type'] == 'folder') {
+        $('#' + data['id'] + '-' + data['key']).val(result);
+      }
     }
   }
 
@@ -88,10 +85,24 @@
       csInterface.evalScript(fn, function(result) {
         if (result != 'null') {
           $('#' + id).val(result);
+          var a = id.split('-');
+          var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + $('#' + id).val() + '");'
+          csInterface.evalScript(fn);
         }
       });
       e.stopPropagation();
     });
+
+    $("#helpSettings").on("click", "*", function (e) {
+      e.stopPropagation();
+    });
+
+    $("#settings").on('change', "input", function(e) {
+      var a = $(this).attr('id').split('-');
+      var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + this.value + '");'
+      csInterface.evalScript(fn);
+    });
+
 
     // Handle icon buttons
     $(".iconButton").click(function () {
@@ -105,7 +116,6 @@
           $('#helpSettings').slideToggle();
           $('#helpHeader').html('Message');
           $('#helpText').html(result);
-          $('#settingsHeader').hide();
           $('#settings').hide();
         }
       });
@@ -118,38 +128,35 @@
       $('#helpText').html(Settings[id]['help']);
 
       if ('config' in Settings[id]) {
-        $('#settingsHeader').show();
         $('#settings').show();
         var html = '';
         for (var key in Settings[id]['config']) {
-          if (Settings[id]['config'][key]['type'] == 'folder') {
+          var type = Settings[id]['config'][key]['type'];
+          if (type == 'folder') {
+            html += Settings[id]['config'][key]['title'] + '<br/>';
+            html += '<div class="multicolumn"><div class="column greedy">';
+            html += '<input id="' + id + '-' + key + '" class="ccwidget" value="">';
+            html += '</div><div class="column">';
+            html += '<button data-title="' + Settings[id]['config'][key]['title'] +
+                    '" data-type="folderBrowse" data-id="' + id + '-' + key +
+                    '" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>';
+            html += '</div></div>';
             var fn = 'settings.value("' + id + '","' + key + '");'
-            csInterface.evalScript(fn, function(result) {
-              var value = result;
-              html += Settings[id]['config'][key]['title'] + '<br/>';
-              html += '<div class="multicolumn"><div class="column greedy">';
-              html += '<input id="' + id + '-' + key + '" class="ccwidget" value="' + value + '">';
-              html += '</div><div class="column">';
-              html += '<button data-title="' + Settings[id]['config'][key]['title'] +
-                      '" data-type="folderBrowse" data-id="' + id + '-' + key +
-                      '" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>';
-              html += '</div></div>';
-              $('#settings').html(html);
-            });
+            csInterface.evalScript(fn, setValue(id, key, type));
+          } else if (type == 'pixelsize') {
+            html += Settings[id]['config'][key]['title'] + '<br/>';
+          } else if (type == 'color') {
+            html += Settings[id]['config'][key]['title'] + '<br/>';
           }
         }
+        $('#settingsText').html(html);
       } else {
-        $('#settingsHeader').hide();
         $('#settings').hide();
       }
       if (!$("#helpSettings").is(":visible")) {
         $('#helpSettings').slideToggle();
       }
       return false;
-    });
-
-    $('select, input').on('change', function() {
-      localStorage.setItem($(this).attr('id') + 'Value', this.value);
     });
 
     $(".tabbtn").click(function () {
