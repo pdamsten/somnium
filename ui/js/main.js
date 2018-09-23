@@ -64,8 +64,10 @@
     themeManager.init();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
 
-    $('#helpSettings').click(function() {
-      $('#helpSettings').slideToggle();
+    $('body').click(function() {
+      if ($("#helpSettings").is(":visible")) {
+        $('#helpSettings').slideToggle();
+      }
     });
 
     // Handle all clickable elements
