@@ -36,6 +36,12 @@
     return function(result) {
       if (data['type'] == 'folder') {
         $('#' + data['id'] + '-' + data['key']).val(result);
+      } else if (data['type'] == 'color') {
+        $('#' + data['id'] + '-' + data['key']).css('background-color', result);
+      } else if (data['type'] == 'pixelsize') {
+        var a = result.split('x');
+        $('#' + data['id'] + '-' + data['key'] + '_x').val(a[0]);
+        $('#' + data['id'] + '-' + data['key'] + '_y').val(a[1]);
       }
     }
   }
@@ -48,6 +54,13 @@
     $("#" + name).addClass('tabbtnselected');
     $("#tabTitle").html($("#" + name).attr('data-title'));
     localStorage.setItem('currentTab', name);
+  }
+
+  function input(id, cls, type)
+  {
+    cls = (cls == undefined) ? '': ', ' + cls;
+    type = (type == undefined) ? '': ' data-type="' + type + '" ';
+    return '<input id="' + id + '" cls="ccwidget' + cls + '" value=""' + type + '>';
   }
 
   function init()
@@ -68,7 +81,7 @@
     });
 
     // Handle all clickable elements
-    $("#settings").on("click", ".clickable", function (e) {
+    $("#settingsText").on("click", ".clickable", function (e) {
       var type = $(this).data("type");
       var fn;
       var id;
@@ -79,14 +92,23 @@
         params.push('"' + $(this).data("title") + '"');
         id = $(this).data("id");
         params.push('"' + $('#' + id).val() + '"');
+      } else if (type == "color") {
+        fn = 'ColorPicker';
+        id = $(this).attr('id');
+        params.push('"' + $(this).css('background-color') + '"');
       }
+
       fn = 'on' + fn + 'Click(' + params.join(',') + ')';
 
       csInterface.evalScript(fn, function(result) {
         if (result != 'null') {
-          $('#' + id).val(result);
           var a = id.split('-');
-          var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + $('#' + id).val() + '");'
+          if (type == "folderBrowse") {
+            $('#' + id).val(result);
+          } else if (type == "color") {
+            $('#' + id).css('background-color', result)
+          }
+          var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + result + '");'
           csInterface.evalScript(fn);
         }
       });
@@ -97,9 +119,16 @@
       e.stopPropagation();
     });
 
-    $("#settings").on('change', "input", function(e) {
+    $("#settingsText").on('change', "input", function(e) {
       var a = $(this).attr('id').split('-');
-      var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + this.value + '");'
+      if ($(this).data('type') == 'pixelsize') {
+        a[1] = a[1].slice(0, -2);
+        var v = $('#' + a[0] + '-' + a[1] + '_x').val() + 'x' + $('#' + a[0] + '-' + a[1] + '_y').val()
+      } else {
+        var v = this.value;
+      }
+      var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + v + '");'
+      console.log(fn);
       csInterface.evalScript(fn);
     });
 
@@ -133,21 +162,25 @@
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
           if (type == 'folder') {
-            html += Settings[id]['config'][key]['title'] + '<br/>';
+            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
             html += '<div class="multicolumn"><div class="column greedy">';
-            html += '<input id="' + id + '-' + key + '" class="ccwidget" value="">';
+            html += input(id + '-' + key);
             html += '</div><div class="column">';
             html += '<button data-title="' + Settings[id]['config'][key]['title'] +
                     '" data-type="folderBrowse" data-id="' + id + '-' + key +
                     '" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>';
             html += '</div></div>';
-            var fn = 'settings.value("' + id + '","' + key + '");'
-            csInterface.evalScript(fn, setValue(id, key, type));
           } else if (type == 'pixelsize') {
-            html += Settings[id]['config'][key]['title'] + '<br/>';
+            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
+            html += input(id + '-' + key + '_x', 'coordinate', type);
+            html += ' x ';
+            html += input(id + '-' + key + '_y', 'coordinate', type);
           } else if (type == 'color') {
-            html += Settings[id]['config'][key]['title'] + '<br/>';
+            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
+            html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker"></div>';
           }
+          var fn = 'settings.value("' + id + '","' + key + '");'
+          csInterface.evalScript(fn, setValue(id, key, type));
         }
         $('#settingsText').html(html);
       } else {

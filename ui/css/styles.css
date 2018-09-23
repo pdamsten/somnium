@@ -45,6 +45,14 @@ body {
   flex-grow: auto;
 }
 
+.colorPicker {
+  max-width: 100px;
+}
+
+.coordinate {
+  max-width: 75px;
+}
+
 #footer img {
   vertical-align: middle;
 }
@@ -76,6 +84,19 @@ body {
   color: var(--txt-color);
   font-size: 12px;
   z-index: 100;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.close {
+  width: 16px;
+  height: 16px;
 }
 
 #settings {
@@ -189,8 +210,17 @@ body {
 }
 
 #helpSettings h1 {
+  font-size: 110%;
   margin: 0;
   padding: 0;
+}
+#helpSettings h2 {
+  font-size: 110%;
+}
+#helpSettings h3 {
+  font-size: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #helpSettings #settings {
@@ -220,6 +250,8 @@ hr {
   border-color: var(--txt-color);
   margin: 10px;
   margin-left: 0px;
+  margin-right: 0px;
+  clear: both;
 }
 
 ul {
