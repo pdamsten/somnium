@@ -6,6 +6,57 @@
 //
 //**************************************************************************
 
+exportFile = function(key)
+{
+  var path = settings.value(key, 'path');
+  var size = settings.value(key, 'maxsize').split('x');
+  var minsize = settings.value(key, 'minsize').split('x');
+  var color = settings.value(key, 'paddingcolor');
+  color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
+  saveAsJpeg(path + '/' + app.activeDocument.name + '.jpg', parseInt(size[0]), parseInt(size[1]),
+             parseInt(minsize[0]), parseInt(minsize[1]), color);
+}
+
+onSaveFbClick = function()
+{
+  exportFile('SaveFb');
+}
+
+onSaveInstaClick = function()
+{
+  exportFile('SaveInsta');
+}
+
+onSaveTwitterClick = function()
+{
+  exportFile('SaveTwitter');
+}
+
+onSave4KClick = function()
+{
+  exportFile('Save4K');
+}
+
+onExport1Click = function()
+{
+  exportFile('SaveExport1');
+}
+
+onExport2Click = function()
+{
+  exportFile('SaveExport2');
+}
+
+onExport3Click = function()
+{
+  exportFile('SaveExport3');
+}
+
+onExport4Click = function()
+{
+  exportFile('SaveExport4');
+}
+
 var pindex = 0;
 var mogrify = '';
 var ffmpeg = '';
@@ -16,16 +67,9 @@ var minLength = 3.5 // seconds
 var maxLength = 10.0 // seconds
 var defaultFps = 3.0
 
-onSaveLayers_BrowseClick = function(path)
+onSaveLayersClick = function()
 {
-  var save = new Folder(File(path).fsName);
-  var folder = save.selectDlg('Folder for layer saver', '', false);
-  return folder;
-}
-
-onSaveLayersClick = function(path)
-{
-  path = (typeof path === 'undefined') ? '~/tmp/' : path;
+  path = settings.value('SaveLayers', 'path');
   try {
     var active = app.activeDocument;
     var parts = active.name.split(".");

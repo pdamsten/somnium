@@ -138,7 +138,7 @@
       if ($("#helpSettings").is(":visible")) {
         $('#helpSettings').slideToggle();
       }
-      fn = 'on' + fn + 'Click()';
+      var fn = 'on' + $(this).attr('id') + 'Click()';
 
       csInterface.evalScript(fn, function(result) {
         if (result != 'undefined') { // Yes string after eval

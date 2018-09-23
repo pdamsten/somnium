@@ -186,7 +186,7 @@ saveAsFlatPSB = function(filepath)
   executeAction(cTID('save'), desc1, DialogModes.NO);
 };
 
-saveAsJpeg = function(filepath, x, y)
+saveAsJpeg = function(filepath, x, y, minx, miny, color)
 {
   var active = app.activeDocument;
   var newDoc = app.activeDocument.duplicate(randomString(8));
@@ -197,6 +197,19 @@ saveAsJpeg = function(filepath, x, y)
     newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
   } else {
     newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+  }
+
+  var clr = new SolidColor(color[0]);
+  clr.rgb.red = color[0];
+  clr.rgb. green = color[1];
+  clr.rgb.blue = color[2];
+  app.backgroundColor = clr;
+
+  if (newDoc.width < minx) {
+    newDoc.resizeCanvas(minx, newDoc.height);
+  }
+  if (newDoc.height < miny) {
+    newDoc.resizeCanvas(newDoc.width, miny);
   }
 
   newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);

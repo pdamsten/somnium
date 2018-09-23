@@ -124,7 +124,29 @@ var Settings = {
   "SaveFb": {
     "group": "Export",
     "title": "Save to Facebook",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Save Facebook images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "2048x2048",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "SaveInsta": {
     "group": "Export",
@@ -156,32 +178,164 @@ var Settings = {
   "SaveTwitter": {
     "group": "Export",
     "title": "Save to Twitter",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Save Instagram images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "1024x1024",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "Save4K": {
     "group": "Export",
     "title": "Save 4K Resolution",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Save 4K images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "3840x2160",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "3840x2160",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "Export1": {
     "group": "Export",
     "title": "Custom Export 1",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Export images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "3072x3072",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "Export2": {
     "group": "Export",
     "title": "Custom Export 2",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Export images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "4096x4096",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "Export3": {
     "group": "Export",
     "title": "Custom Export 3",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Export images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "512x512",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "Export4": {
     "group": "Export",
     "title": "Custom Export 4",
-    "help": ""
+    "help": "",
+    "config": {
+      "path": {
+        "title": "Export images to:",
+        "type": "folder",
+        "value": "~/tmp/",
+      },
+      "maxsize": {
+        "title": "Maximum size:",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "minsize": {
+        "title": "Minimum Size (with padding):",
+        "type": "pixelsize",
+        "value": "x",
+      },
+      "paddingcolor": {
+        "title": "Padding color:",
+        "type": "color",
+        "value": "rgb(0,0,0)",
+      }
+    }
   },
   "SaveLayers": {
     "group": "Export",
