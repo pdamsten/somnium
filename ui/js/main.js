@@ -115,6 +115,12 @@
       e.stopPropagation();
     });
 
+    $("#helpSettings").on("click", "#helpHeader, #closeDlg", function (e) {
+      if ($("#helpSettings").is(":visible")) {
+        $('#helpSettings').slideToggle();
+      }
+    });
+
     $("#helpSettings").on("click", "*", function (e) {
       e.stopPropagation();
     });

@@ -97,6 +97,7 @@ body {
 .close {
   width: 16px;
   height: 16px;
+  cursor: pointer;
 }
 
 #settings {
@@ -213,9 +214,12 @@ body {
   font-size: 110%;
   margin: 0;
   padding: 0;
+  padding-bottom: 10px;
+  cursor: pointer;
 }
 #helpSettings h2 {
   font-size: 110%;
+  padding-top: 10px;
 }
 #helpSettings h3 {
   font-size: 100%;
@@ -245,9 +249,9 @@ h2 {
 }
 
 hr {
-	border: 1;
-  height: 1;
-  border-color: var(--txt-color);
+	border: 0;
+  height: 1px;
+  background-color: var(--txt-color);
   margin: 10px;
   margin-left: 0px;
   margin-right: 0px;
