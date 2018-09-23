@@ -82,11 +82,12 @@ var themeManager = (function () {
       addRule(styleId, ":root", "--widget-background-color:" + widgetBg);
       addRule(styleId, ":root", "--widget-txt-color:" + widgetTxt);
       addRule(styleId, ":root", "--font-size:" + fs);
+      addRule(styleId, ":root", "--font-size-widget:" + (appSkinInfo.baseFontSize * 1.18) + 'px;');
       addRule(styleId, ":root", "--font-family:" + ff);
       addRule(styleId, ":root", "--border-color:" + buttonPressed);
       addRule(styleId, ":root", "--svg-color: " + brightnessFilter + ";");
       addRule(styleId, ":root", "--svg-color-bg: " + brightnessFilterBg + ";");
-
+      console.log(appSkinInfo.baseFontSize * 1.18);
     } catch(err) {
       alert(err.message);
     }

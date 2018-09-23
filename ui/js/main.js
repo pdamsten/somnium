@@ -58,9 +58,9 @@
 
   function input(id, cls, type)
   {
-    cls = (cls == undefined) ? '': ', ' + cls;
+    cls = (cls == undefined) ? '': ' ' + cls;
     type = (type == undefined) ? '': ' data-type="' + type + '" ';
-    return '<input id="' + id + '" cls="ccwidget' + cls + '" value=""' + type + '>';
+    return '<input id="' + id + '" class="ccwidget ' + cls + '" value=""' + type + '>';
   }
 
   function init()
