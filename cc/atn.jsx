@@ -282,10 +282,10 @@ unloadActionsSet = function(actionSet) {
   return true;
 }
 
-checkAtn = function(path, settings)
+checkAtn = function(path, pluginPath, settings)
 {
   var atnFile = path + 'somnium-' + settings.version() + '.atn';
-  var actions = path + 'actions/';
+  var actions = pluginPath + 'actions/';
   var f = File(atnFile);
 
   if (!f.exists) {

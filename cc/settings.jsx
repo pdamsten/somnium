@@ -6,13 +6,12 @@
 //
 //**************************************************************************
 
-Settings = function(path)
+Settings = function(path, pluginPath)
 {
   this.config = {};
   this.mainPath = path;
-  include(path + 'cc/json2.js');
 
-  this.jsonFile = path + 'ui/js/settings.json';
+  this.jsonFile = pluginPath + 'ui/js/settings.json';
   var f = File(this.jsonFile);
   f.open('r');
   var content = f.read();

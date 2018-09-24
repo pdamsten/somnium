@@ -23,8 +23,11 @@ function init(path)
   try {
     pluginPath = path;
     var jsxPath = pluginPath + 'cc/';
+    var userDataPath = Folder.userData.fsName + '/somnium/':
+    mkdir(userDataPath);
     include(jsxPath + 'log.jsx');
-    initLog(pluginPath + 'log.txt');
+    initLog(userDataPath + 'log.txt');
+
     // libs
     include(jsxPath + 'util.jsx');
     include(jsxPath + 'layer.jsx');
@@ -34,6 +37,7 @@ function init(path)
     include(jsxPath + 'selection.jsx');
     include(jsxPath + 'atn.jsx');
     include(jsxPath + 'settings.jsx');
+    include(jsxPath + 'json2.js');
 
     // tabs
     include(jsxPath + 'retouch.jsx');
@@ -43,8 +47,8 @@ function init(path)
     include(jsxPath + 'color.jsx');
     include(jsxPath + 'finish.jsx');
 
-    settings = new Settings(pluginPath);
-    checkAtn(pluginPath, settings);
+    settings = new Settings(userDataPath, pluginPath);
+    checkAtn(userDataPath, pluginPath, settings);
   } catch (e) {
     log(e);
   }
