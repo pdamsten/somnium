@@ -22,7 +22,6 @@ makeSelection = function(mode, type, coords, feather)
     desc2.putUnitDouble(cTID('Left'), cTID('#Pxl'), coords[1]);
     desc2.putUnitDouble(cTID('Btom'), cTID('#Pxl'), coords[2]);
     desc2.putUnitDouble(cTID('Rght'), cTID('#Pxl'), coords[3]);
-    log(types[type], type);
     desc1.putObject(cTID('T   '), types[type], desc2);
     desc1.putUnitDouble(cTID('Fthr'), cTID('#Pxl'), feather);
     desc1.putBoolean(cTID('AntA'), true);
