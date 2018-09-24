@@ -2,17 +2,17 @@ var Settings = {
   "MakeCleaning": {
     "group": "Retouch",
     "title": "Cleaning Layer",
-    "help": ""
+    "help": "Just an empty layer for retouching. This plugin is also a TODO list and this way layers are consistently named."
   },
-  "Match": {
+  "MakeMatch": {
     "group": "Retouch",
     "title": "Match",
-    "help": ""
+    "help": "Make luminosity, saturation and hue check and adjustment layers for matching layer to background (or other way around)."
   },
   "MakeFS": {
     "group": "Retouch",
     "title": "Frequense Separation",
-    "help": "",
+    "help": "Frequense separation layers. Two options simple for quick smoothing and normal for better results.",
     "config": {
       "style": {
         "title": "Style:",
@@ -25,27 +25,27 @@ var Settings = {
   "DefringeMask": {
     "group": "Retouch",
     "title": "Defringe Mask",
-    "help": ""
+    "help": "Layer mask edges are often a little bit of. Defringe layer mask can adjust that."
   },
   "FillEmpty": {
     "group": "Retouch",
     "title": "Fill Empty Areas",
-    "help": ""
+    "help": "If layer has empty (opaque) areas this can fill them with content aware fill quickly."
   },
   "StampUnder": {
     "group": "Retouch",
     "title": "Stamp Current And Below",
-    "help": ""
+    "help": "Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers."
   },
   "SmartFromUnder": {
     "group": "Retouch",
     "title": "Stamp Current And Below to Smart Object",
-    "help": ""
+    "help": "Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers. Merged layer is then converted to a smart object."
   },
   "UpdateFromUnder": {
     "group": "Retouch",
     "title": "Update Smart Object",
-    "help": ""
+    "help": "Smart object is updated to contents below. Works with 'Stamp Current And Below to Smart Object' (needs psb smart object with only one layer)."
   },
 
   "MakeCookie": {
