@@ -46,7 +46,7 @@
         $('#dlgHeader').html(msg['title']);
         $('#msgText').html(msg['msg']);
         if (msg['type'] < WARNING) { // Just a message
-          timer = setTimeout(closeDialog, 2000);
+          timer = setTimeout(closeDialog, 3000);
         }
       }
       $('#msgText').show();
