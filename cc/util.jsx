@@ -241,7 +241,7 @@ saveAsJpeg = function(filepath, x, y, minx, miny, color)
     }
 
     if (minx > 0 || miny > 0) {
-      var clr = new SolidColor(color[0]);
+      var clr = new SolidColor();
       clr.rgb.red = color[0];
       clr.rgb.green = color[1];
       clr.rgb.blue = color[2];
