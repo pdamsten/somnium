@@ -44,13 +44,13 @@ onMakeVignetteClick = function()
   }
 }
 
-onWashOutClick = function()
+onMakeWashOutClick = function()
 {
   try {
     var group = checkGroup('Light', 'Finish', 'Help Layers');
     var c = [curvePoint(0, 5), curvePoint(32, 0), curvePoint(224, 0), curvePoint(255, -2.5)];
 
-    l = createCurveAdjustment('Wash Out', group);
+    l = createCurveAdjustment('Faded / Contrast', group);
     setCurveAdjustment(l, c);
     deleteLayerMask(l);
     setLayerBlendingMode(l, 'luminosity');
@@ -90,7 +90,7 @@ onMakeDBClick = function()
   }
 }
 
-onHighlightClick = function()
+onMakeHighlightClick = function()
 {
   try {
     var group = checkGroup('Light', 'Finish', 'Help Layers');
