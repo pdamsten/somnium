@@ -12,7 +12,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Raleway', sans-serif;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 body, html {
@@ -24,6 +24,7 @@ body, html {
   color: var(--txt-color);
   border-color: var(--background-color);
   font-size: var(--font-size);
+  color: white;
 }
 
 body {
@@ -161,7 +162,7 @@ select {
   font-size: 10px;
 }
 
-.iconButton {
+.iconButton, .iconButtonBig {
   text-transform: uppercase;
   font-size: 10px;
   width: 62px;
@@ -176,18 +177,28 @@ select {
   vertical-align: top;
 }
 
-.iconButton img {
+.iconButtonBig {
+  width: 80px;
+  height: 100px;
+}
+
+.iconButton img, .iconButtonBig img {
   height: 42px;
   width: 42px;
   border: 5px solid transparent;
   filter: brightness(var(--svg-color));
 }
 
+.iconButtonBig img {
+  height: 60px;
+  width: 60px;
+}
+
 .orb {
   background-image: url(../img/orb.svg);
-  background-size: 38px 38px;
+  background-size: 54px 54px;
   background-repeat: no-repeat;
-  background-position: 2px 2px;
+  background-position: 3px 3px;
 }
 
 .iconButton:hover {
