@@ -11,7 +11,7 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 
 isMac = function()
 {
-  $.os.toLowerCase().indexOf('mac');
+  return ($.os.toLowerCase().indexOf('mac') >= 0);
 }
 
 addPathSep = function(path)
