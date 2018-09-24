@@ -68,7 +68,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.5429688"
-     inkscape:cx="128"
+     inkscape:cx="87.828032"
      inkscape:cy="128"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -117,7 +117,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -126,107 +126,11 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-229.26665)">
-    <g
-       id="g3416"
-       transform="translate(0,-14.685308)">
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="path2268"
-         d="m 25.929175,253.20321 7.937493,-7.92839 7.937492,7.92839"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path3412"
-         d="m 33.866667,246.72915 0,21.62439"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         sodipodi:nodetypes="cc" />
-      <path
-         sodipodi:nodetypes="cc"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 33.866667,246.72915 0,21.62439"
-         id="path3430"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
-       transform="rotate(180,33.866669,270.47597)"
-       id="g3428">
-      <path
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 25.929175,253.20321 7.937493,-7.92839 7.937492,7.92839"
-         id="path3424"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccc" />
-      <path
-         sodipodi:nodetypes="cc"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 33.866667,246.72915 v 21.62439"
-         id="path3426"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
-       id="g3436"
-       transform="rotate(180,33.866669,270.47597)">
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="path3432"
-         d="m 25.929175,253.20321 7.937493,-7.92839 7.937492,7.92839"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path3434"
-         d="m 33.866667,246.72915 v 21.62439"
-         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         sodipodi:nodetypes="cc" />
-    </g>
-    <g
-       id="g3459"
-       transform="rotate(90,33.866669,263.13332)">
-      <g
-         id="g3444"
-         transform="translate(0,-14.685308)">
-        <path
-           sodipodi:nodetypes="ccc"
-           inkscape:connector-curvature="0"
-           id="path3438"
-           d="m 25.929175,253.20321 7.937493,-7.92839 7.937492,7.92839"
-           style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-        <path
-           inkscape:connector-curvature="0"
-           id="path3440"
-           d="m 33.866667,246.72915 v 21.62439"
-           style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           sodipodi:nodetypes="cc" />
-        <path
-           sodipodi:nodetypes="cc"
-           style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m 33.866667,246.72915 v 21.62439"
-           id="path3442"
-           inkscape:connector-curvature="0" />
-      </g>
-      <g
-         id="g3450"
-         transform="rotate(180,33.866669,270.47597)">
-        <path
-           sodipodi:nodetypes="ccc"
-           inkscape:connector-curvature="0"
-           id="path3446"
-           d="m 25.929175,253.20321 7.937493,-7.92839 7.937492,7.92839"
-           style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-        <path
-           inkscape:connector-curvature="0"
-           id="path3448"
-           d="m 33.866667,246.72915 v 21.62439"
-           style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.64583325;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           sodipodi:nodetypes="cc" />
-      </g>
-    </g>
     <circle
-       style="opacity:1;fill:none;fill-opacity:0.50196078;stroke:#ffffff;stroke-width:2.64583349;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-       id="path3461"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.64583349;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       id="path2549"
        cx="33.866669"
        cy="263.13333"
-       r="1.3229166" />
+       r="32.543751" />
   </g>
 </svg>

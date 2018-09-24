@@ -16,7 +16,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="icon-prevs.svg">
+   sodipodi:docname="icon-prev.svg">
   <defs
      id="defs2">
     <linearGradient
@@ -68,7 +68,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.5429688"
-     inkscape:cx="128"
+     inkscape:cx="87.828032"
      inkscape:cy="128"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -117,7 +117,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -147,6 +147,6 @@
        id="path3489"
        cx="33.866669"
        cy="263.13333"
-       r="32.543751" />
+       r="25.135416" />
   </g>
 </svg>
