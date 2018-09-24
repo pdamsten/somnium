@@ -98,7 +98,7 @@ var Settings = {
     "help": "Layer which enables you to draw higlights to an image."
   },
 
-  "MakeHighPassSharpening": {
+  "HighPassSharpening": {
     "group": "Finnish",
     "title": "High Pass Sharpening",
     "help": "Make high pass harpening"
@@ -149,7 +149,7 @@ var Settings = {
     "title": "Delete All",
     "help": "Delete help layers group."
   },
-  "DeleteAll": {
+  "BlendIf": {
     "group": "Helpers",
     "title": "Blend If",
     "help": "Makes blend if helper layer which shows you where the blend if affects"
