@@ -3,3 +3,7 @@ This is a Somnium Photoshop panel by Petri Damstén.
 Panel is located:
 Macos: /Users/user/Library/Application Support/Adobe/CEP/extensions/com.petridamsten.somnium
 Windows: C:\Program Files\Common Files\Adobe\CEP\extensions\com.petridamsten.somnium
+
+Data is located:
+Macos: /Users/user/Library/Application Support/somnium
+Windows: C:\Users\user\AppData\Roaming\somnium
