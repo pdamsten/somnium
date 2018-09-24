@@ -8,18 +8,22 @@
 
 onMakeCookieClick = function()
 {
-  var type = settings.value('MakeCookie', 'type');
-  var group = checkGroup('Light', 'Finish', 'Help Layers');
-  if (type == 0) {
-    var c = [curvePoint(0, 0), curvePoint(128, -15), curvePoint(255, 0)];
-    l = createCurveAdjustment('Cookie', group);
-    setCurveAdjustment(l, c);
-  } else {
-    var c = [curvePoint(0, 0), curvePoint(128, 15), curvePoint(255, 0)];
-    l = createCurveAdjustment('Cookie', group);
-    setCurveAdjustment(l, c);
-    invertLayerMask(l);
-    setLayerBlendingMode(l, 'luminosity');
+  try {
+    var type = settings.value('MakeCookie', 'type');
+    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    if (type == 0) {
+      var c = [curvePoint(0, 0), curvePoint(128, -15), curvePoint(255, 0)];
+      l = createCurveAdjustment('Cookie', group);
+      setCurveAdjustment(l, c);
+    } else {
+      var c = [curvePoint(0, 0), curvePoint(128, 15), curvePoint(255, 0)];
+      l = createCurveAdjustment('Cookie', group);
+      setCurveAdjustment(l, c);
+      invertLayerMask(l);
+      setLayerBlendingMode(l, 'luminosity');
+    }
+  } catch (e) {
+    log(e);
   }
 }
 
