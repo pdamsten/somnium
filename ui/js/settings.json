@@ -51,33 +51,57 @@ var Settings = {
   "MakeCookie": {
     "group": "Light",
     "title": "Cookie Light",
-    "help": ""
+    "help": "Cookie light means poking light 'spots' to a image. It can be used to rise certain part of images.",
+    "config": {
+      "type": {
+        "title": "Style:",
+        "type": "selection",
+        "value": "1",
+        "values": ["Darken, then mask off", "Lighten"],
+      }
+    }
   },
   "MakeVignette": {
     "group": "Light",
     "title": "Vignette",
-    "help": ""
+    "help": "Applies vignette to a image.",
+    "config": {
+      "type": {
+        "title": "Style:",
+        "type": "selection",
+        "value": "0",
+        "values": ["Elliptical", "Rectangular"],
+      }
+    }
   },
   "MakeWashOut": {
     "group": "Light",
     "title": "Faded and Contrast",
-    "help": ""
+    "help": "Makes contrast faded look layer."
   },
   "MakeDB": {
     "group": "Light",
     "title": "Dodge And Burn",
-    "help": ""
+    "help": "There are two options for dodge and burn. Using curves and drawing in masks or using neutral grey layer and using dodge and burn tools. Both can get you similar results but are a bit different to use.",
+    "config": {
+      "type": {
+        "title": "Style:",
+        "type": "selection",
+        "value": "0",
+        "values": ["Separate Curves", "Neutral Grey"],
+      }
+    }
   },
   "MakeHighlight": {
     "group": "Light",
     "title": "Highlight",
-    "help": ""
+    "help": "Layer which enables you to draw higlights to an image."
   },
 
   "MakeHighPassSharpening": {
     "group": "Finnish",
     "title": "High Pass Sharpening",
-    "help": ""
+    "help": "Make high pass harpening"
   },
 
   "MakeAll": {
@@ -128,13 +152,13 @@ var Settings = {
   "DeleteAll": {
     "group": "Helpers",
     "title": "Blend If",
-    "help": ""
+    "help": "Makes blend if helper layer which shows you where the blend if affects"
   },
 
   "SaveFb": {
     "group": "Export",
     "title": "Save to Facebook",
-    "help": "",
+    "help": "Save image with correct size to Facebook.",
     "config": {
       "path": {
         "title": "Save Facebook images to:",
@@ -188,7 +212,7 @@ var Settings = {
   "SaveTwitter": {
     "group": "Export",
     "title": "Save to Twitter",
-    "help": "",
+    "help": "Save image with correct size to Twitter.",
     "config": {
       "path": {
         "title": "Save Instagram images to:",
@@ -214,7 +238,7 @@ var Settings = {
   },
   "Save4K": {
     "group": "Export",
-    "title": "Save 4K Resolution",
+    "title": "Save in 4K Resolution",
     "help": "",
     "config": {
       "path": {
@@ -242,7 +266,7 @@ var Settings = {
   "Export1": {
     "group": "Export",
     "title": "Custom Export 1",
-    "help": "",
+    "help": "User definable export button.",
     "config": {
       "path": {
         "title": "Export images to:",
@@ -269,7 +293,7 @@ var Settings = {
   "Export2": {
     "group": "Export",
     "title": "Custom Export 2",
-    "help": "",
+    "help": "User definable export button.",
     "config": {
       "path": {
         "title": "Export images to:",
@@ -296,7 +320,7 @@ var Settings = {
   "Export3": {
     "group": "Export",
     "title": "Custom Export 3",
-    "help": "",
+    "help": "User definable export button.",
     "config": {
       "path": {
         "title": "Export images to:",
@@ -323,7 +347,7 @@ var Settings = {
   "Export4": {
     "group": "Export",
     "title": "Custom Export 4",
-    "help": "",
+    "help": "User definable export button.",
     "config": {
       "path": {
         "title": "Export images to:",
