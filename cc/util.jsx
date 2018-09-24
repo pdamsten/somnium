@@ -11,7 +11,7 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 
 uniqueFilename = function(path, name, ext)
 {
-  path = File(path).fsName; // absolute path
+  path = addPathSep(File(path).fsName); // absolute path
   if (name.indexOf('.') > 0) {
     name = name.split('.').slice(0, -1).join('.'); // remove extension
   }
@@ -19,7 +19,7 @@ uniqueFilename = function(path, name, ext)
     var add = '';
     var n = 0;
     while (1) {
-      var filename = addPathSep(path) + name + add + ext;
+      var filename = path + name + add + ext;
       var f = File(filename);
       if(!f.exists) {
         return filename;
