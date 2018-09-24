@@ -25,7 +25,7 @@ isMac = function()
 
 sep = function()
 {
-  return (isMac) ? '/' : '\\';
+  return (isMac()) ? '/' : '\\';
 }
 
 addPathSep = function(path)
