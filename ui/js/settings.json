@@ -18,7 +18,7 @@ var Settings = {
         "title": "Style:",
         "type": "selection",
         "value": "1",
-        "values": ["Simple", "Normal"],
+        "values": ["Simple", "Normal"]
       }
     }
   },
@@ -57,7 +57,7 @@ var Settings = {
         "title": "Style:",
         "type": "selection",
         "value": "1",
-        "values": ["Darken, then mask off", "Lighten"],
+        "values": ["Darken, then mask off", "Lighten"]
       }
     }
   },
@@ -70,7 +70,7 @@ var Settings = {
         "title": "Style:",
         "type": "selection",
         "value": "0",
-        "values": ["Elliptical", "Rectangular"],
+        "values": ["Elliptical", "Rectangular"]
       }
     }
   },
@@ -88,7 +88,7 @@ var Settings = {
         "title": "Style:",
         "type": "selection",
         "value": "0",
-        "values": ["Separate Curves", "Neutral Grey"],
+        "values": ["Separate Curves", "Neutral Grey"]
       }
     }
   },
@@ -163,22 +163,22 @@ var Settings = {
       "path": {
         "title": "Save Facebook images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "2048x2048",
+        "value": "2048x2048"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -190,22 +190,22 @@ var Settings = {
       "path": {
         "title": "Save Instagram images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "1080x1350",
+        "value": "1080x1350"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "1080x566",
+        "value": "1080x566"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(255,255,255)",
+        "value": "rgb(255,255,255)"
       }
     }
   },
@@ -217,22 +217,22 @@ var Settings = {
       "path": {
         "title": "Save Instagram images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "1024x1024",
+        "value": "1024x1024"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -244,22 +244,22 @@ var Settings = {
       "path": {
         "title": "Save 4K images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "3840x2160",
+        "value": "3840x2160"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "3840x2160",
+        "value": "3840x2160"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -271,22 +271,22 @@ var Settings = {
       "path": {
         "title": "Export images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "3072x3072",
+        "value": "3072x3072"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -298,22 +298,22 @@ var Settings = {
       "path": {
         "title": "Export images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "4096x4096",
+        "value": "4096x4096"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -325,22 +325,22 @@ var Settings = {
       "path": {
         "title": "Export images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "512x512",
+        "value": "512x512"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -352,22 +352,22 @@ var Settings = {
       "path": {
         "title": "Export images to:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       },
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x",
+        "value": "x"
       },
       "paddingcolor": {
         "title": "Padding color:",
         "type": "color",
-        "value": "rgb(0,0,0)",
+        "value": "rgb(0,0,0)"
       }
     }
   },
@@ -379,7 +379,7 @@ var Settings = {
       "path": {
         "title": "Save layers output folder:",
         "type": "folder",
-        "value": "~/tmp/",
+        "value": "~/tmp/"
       }
     }
   }
