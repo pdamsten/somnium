@@ -52,22 +52,22 @@ onSave4KClick = function()
 
 onExport1Click = function()
 {
-  return exportFile('SaveExport1');
+  return exportFile('Export1');
 }
 
 onExport2Click = function()
 {
-  return exportFile('SaveExport2');
+  return exportFile('Export2');
 }
 
 onExport3Click = function()
 {
-  return exportFile('SaveExport3');
+  return exportFile('Export3');
 }
 
 onExport4Click = function()
 {
-  return exportFile('SaveExport4');
+  return exportFile('Export4');
 }
 
 var pindex = 0;
