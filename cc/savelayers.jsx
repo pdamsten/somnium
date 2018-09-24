@@ -8,53 +8,61 @@
 
 exportFile = function(key)
 {
-  var path = settings.value(key, 'path');
-  var size = settings.value(key, 'maxsize').split('x');
-  var minsize = settings.value(key, 'minsize').split('x');
-  var color = settings.value(key, 'paddingcolor');
-  color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
-  saveAsJpeg(path + '/' + app.activeDocument.name + '.jpg', parseInt(size[0]), parseInt(size[1]),
-             parseInt(minsize[0]), parseInt(minsize[1]), color);
+  try {
+    var path = settings.value(key, 'path');
+    var size = settings.value(key, 'maxsize').split('x');
+    var minsize = settings.value(key, 'minsize').split('x');
+    var color = settings.value(key, 'paddingcolor');
+    color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
+    var filename = path + '/' + app.activeDocument.name + '.jpg';
+    saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
+               parseInt(minsize[0]), parseInt(minsize[1]), color);
+    var s = msg(INFO, 'Export', filename + ' saved succesfully.');
+    log(s);
+    return s;
+  } catch (e) {
+    log(e);
+  }
 }
 
 onSaveFbClick = function()
 {
-  exportFile('SaveFb');
+  return exportFile('SaveFb');
 }
 
 onSaveInstaClick = function()
 {
-  exportFile('SaveInsta');
+  return exportFile('SaveInsta');
 }
 
 onSaveTwitterClick = function()
 {
-  exportFile('SaveTwitter');
+  return exportFile('SaveTwitter');
 }
 
 onSave4KClick = function()
 {
-  exportFile('Save4K');
+  return exportFile('Save4K');
 }
 
 onExport1Click = function()
 {
-  exportFile('SaveExport1');
+  return exportFile('SaveExport1');
 }
 
 onExport2Click = function()
 {
-  exportFile('SaveExport2');
+  return exportFile('SaveExport2');
 }
 
 onExport3Click = function()
 {
-  exportFile('SaveExport3');
+  return exportFile('SaveExport3');
 }
 
 onExport4Click = function()
 {
-  exportFile('SaveExport4');
+  return exportFile('SaveExport4');
 }
 
 var pindex = 0;
@@ -69,8 +77,8 @@ var defaultFps = 3.0
 
 onSaveLayersClick = function()
 {
-  path = settings.value('SaveLayers', 'path');
   try {
+    var path = settings.value('SaveLayers', 'path');
     var active = app.activeDocument;
     var parts = active.name.split(".");
     var fname = parts[0];

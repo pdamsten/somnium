@@ -19,21 +19,37 @@
   }
 
   const HELP = 0, MSG = 1;
+  const INFO = 1, WARNING = 2, ERROR = 3;
+  var timer = 0;
 
   var openDlg = function(type, title, text, arg1, arg2)
   {
-    $('#dlgHeader').html(title);
+    clearTimeout(timer);
     $('#settings').hide();
     $('#helpText').hide();
     $('#msgText').hide();
     if (type == HELP) {
+      $('#dlgHeader').html(title);
       $('#helpText').html(text);
-      $('#helpText').show();
       if (arg2) {
-        $('#settings').show();
         $('#settingsHeader').html(arg1);
         $('#settingsText').html(arg2);
+        $('#settings').show();
       }
+      $('#helpText').show();
+    } else if (type == MSG) {
+      if (text) {
+        $('#dlgHeader').html(title);
+        $('#msgText').html(text);
+      } else {
+        var msg = JSON.parse(title);
+        $('#dlgHeader').html(msg['title']);
+        $('#msgText').html(msg['msg']);
+        if (msg['type'] < WARNING) { // Just a message
+          timer = setTimeout(closeDialog, 2000);
+        }
+      }
+      $('#msgText').show();
     }
     if (!$("#dialog").is(":visible")) {
       $('#dialog').slideToggle();
@@ -41,8 +57,9 @@
   }
 
   var closeDialog = function() {
-    if ($("#helpSettings").is(":visible")) {
-      $('#helpSettings').slideToggle();
+    timer = 0;
+    if ($("#dialog").is(":visible")) {
+      $('#dialog').slideToggle();
     }
   }
 
@@ -164,7 +181,7 @@
 
       csInterface.evalScript(fn, function(result) {
         if (result != 'undefined') { // Yes string after eval
-          openDlg(MSG, 'Message', result);
+          openDlg(MSG, result);
         }
       });
     });

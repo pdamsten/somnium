@@ -9,6 +9,15 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+INFO = 1, WARNING = 2, ERROR = 3;
+
+msg = function(type, title, txt)
+{
+  var msg = {'type': type, 'title': title, 'msg': txt};
+  var s = JSON.stringify(msg);
+  return  s;
+}
+
 endsWith = function(str, suf)
 {
   return (str.indexOf(suf, str.length - suf.length) !== -1);

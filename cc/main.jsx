@@ -91,9 +91,3 @@ onBrowseFolderClick = function(title, path)
   }
   return '~/';
 }
-
-
-msg = function(s)
-{
-  alert(s);
-}
