@@ -23,6 +23,18 @@ onMakeAllClick = function()
   }
 }
 
+onBlendIfClick = function()
+{
+  try {
+    var l = createSolidColorAdjustment('Blend If Helper', 'current', [255, 0, 0])
+    l.opacity = 50;
+    deleteLayerMask(l);
+    clipBelow(l);
+  } catch (e) {
+    log(e);
+  }
+}
+
 onMakeSolarisationClick = function()
 {
   if (checkLayer('Solarisation', helpGroupName) != null) return;
