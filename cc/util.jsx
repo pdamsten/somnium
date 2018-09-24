@@ -9,15 +9,23 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+addPathSep = function(path)
+{
+  if (path.slice(-1) != '/') {
+    return path + '/';
+  }
+  return path;
+}
+
 uniqueFilename = function(path, name, ext)
 {
   if (mkdir(path)) {
     var add = '';
     var n = 0;
     while (1) {
-      var filename = path + '/' + name + add + ext;
+      var filename = addPathSep(path) + name + add + ext;
       var f = File(filename);
-      if(f.exists) {
+      if(!f.exists) {
         return filename;
       }
       ++n;
