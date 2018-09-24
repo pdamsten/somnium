@@ -18,7 +18,12 @@ onDefringeMaskClick = function()
 
 onMakeCleaningClick = function()
 {
-  var layer = createLayer('Cleaning');
+  try {
+    var layer = createLayer('Cleaning');
+    applyLocking(layer, false, false, true, false);
+  } catch (e) {
+    log(e);
+  }
 }
 
 onFillEmptyClick = function()

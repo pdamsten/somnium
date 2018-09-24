@@ -6,6 +6,39 @@
 //
 //**************************************************************************
 
+applyLocking = function(layer, transparency, composite, position, artboard)
+{
+  try {
+    layer = activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    if (transparency && composite && position && artboard) {
+      desc2.putBoolean(sTID("protectAll"), true);
+    }
+    if (transparency) {
+      desc2.putBoolean(sTID("protectTransparency"), transparency);
+    }
+    if (composite) {
+      desc2.putBoolean(sTID("protectComposite"), composite);
+    }
+    if (position) {
+      desc2.putBoolean(sTID("protectPosition"), position);
+    }
+    if (artboard) {
+      desc2.putBoolean(sTID("protectArtboardAutonest"), artboard);
+    }
+    desc1.putObject(sTID("layerLocking"), sTID("layerLocking"), desc2);
+    executeAction(sTID('applyLocking'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+  }
+  return false;
+};
+
 duplicateLayerToDoc = function(layer, destDoc) {
   try {
     layer = activateLayer(layer);

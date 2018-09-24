@@ -2,7 +2,7 @@ var Settings = {
   "MakeCleaning": {
     "group": "Retouch",
     "title": "Cleaning Layer",
-    "help": "Just an empty layer for retouching. This plugin is also a TODO list and this way layers are consistently named."
+    "help": "Just an empty layer for retouching. This way layers are consistently named. It's also locked so you won't accidentally move it."
   },
   "MakeMatch": {
     "group": "Retouch",
