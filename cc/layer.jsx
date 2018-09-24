@@ -305,7 +305,7 @@ cmpLayers = function(layer1, layer2)
   if (typeof layer2 !== 'string') {
     return (layer1.name == layer2);
   }
-  log(layer1.name, layer2.name, (layer1 == layer2));
+  //log(layer1.name, layer2.name, (layer1 == layer2));
   return (layer1 == layer2);
 }
 
@@ -535,7 +535,7 @@ fillLayer = function(layer, color)
     desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
     executeAction(cTID('Fl  '), desc1, DialogModes.NO);
   } catch (e) {
-    log(e.message);
+    log(e);
     return false;
  }
   return true;
@@ -557,7 +557,7 @@ rotateLayer = function(layer, angle)
     desc1.putUnitDouble(cTID('Angl'), cTID('#Ang'), angle);
     executeAction(cTID('Trnf'), desc1, DialogModes.NO);
   } catch (e) {
-    log(e.message);
+    log(e);
     return false;
   }
   return true;
