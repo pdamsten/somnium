@@ -24,6 +24,7 @@ addPathSep = function(path)
 
 uniqueFilename = function(path, name, ext)
 {
+  path = File(path).fsName;
   if (mkdir(path)) {
     var add = '';
     var n = 0;
