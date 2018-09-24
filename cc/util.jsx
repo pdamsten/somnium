@@ -9,6 +9,11 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+isMac = function()
+{
+  $.os.toLowerCase().indexOf('mac');
+}
+
 addPathSep = function(path)
 {
   if (path.slice(-1) != '/') {

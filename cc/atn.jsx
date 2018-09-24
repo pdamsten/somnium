@@ -211,8 +211,7 @@ writeDescriptor = function(f, script)
   writeClass(f);
   writeLong(f, 2); // Items
   writeCharID(f, 'jsCt');
-  log($.os.toLowerCase());
-  if ($.os.toLowerCase().indexOf('mac') >= 0) {
+  if (isMac() >= 0) {
     writePair(f, 'alis', script);
   } else {
     writePair(f, 'Pth ', script);
