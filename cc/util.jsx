@@ -243,15 +243,15 @@ saveAsJpeg = function(filepath, x, y, minx, miny, color)
     if (minx > 0 || miny > 0) {
       var clr = new SolidColor(color[0]);
       clr.rgb.red = color[0];
-      clr.rgb. green = color[1];
+      clr.rgb.green = color[1];
       clr.rgb.blue = color[2];
       app.backgroundColor = clr;
 
       if (newDoc.width < minx) {
-        newDoc.resizeCanvas(minx, newDoc.height);
+        newDoc.resizeCanvas(UnitValue(minx, "px"), null, AnchorPosition.MIDDLECENTER);
       }
       if (newDoc.height < miny) {
-        newDoc.resizeCanvas(newDoc.width, miny);
+        newDoc.resizeCanvas(null, UnitValue(miny, "px"), AnchorPosition.MIDDLECENTER);
       }
     }
 
