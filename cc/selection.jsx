@@ -10,7 +10,7 @@ makeSelection = function(mode, type, coords, feather)
 {
   var modes = {'new': cTID('setd'), 'add': sTID('addTo'),
                'subtract': sTID('subtractFrom'), 'intersect': sTID('interfaceWhite')};
-  var types = {'elliptical': cTID('Elps'), 'rectangular': cTID('Rctn')};
+  var types = [cTID('Elps'), cTID('Rctn')];
 
   try {
     var desc1 = new ActionDescriptor();
