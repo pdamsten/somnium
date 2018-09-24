@@ -18,10 +18,30 @@ function include(path)
   }
 }
 
+isMac = function()
+{
+  return ($.os.toLowerCase().indexOf('mac') >= 0);
+}
+
+sep = function()
+{
+  return (isMac) ? '/' : '\\';
+}
+
+addPathSep = function(path)
+{
+  var s = sep();
+  if (path.slice(-1) != s) {
+    return path + s;
+  }
+  return path;
+}
+
 function init(path)
 {
   try {
     pluginPath = path;
+
     var jsxPath = addPathSep(pluginPath + 'cc');
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
 
@@ -52,6 +72,7 @@ function init(path)
     settings = new Settings(userDataPath, pluginPath);
     checkAtn(userDataPath, pluginPath, settings);
   } catch (e) {
+    //alert(e);
     log(e);
   }
 }

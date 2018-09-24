@@ -9,28 +9,12 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
-isMac = function()
-{
-  return ($.os.toLowerCase().indexOf('mac') >= 0);
-}
-
-sep = function()
-{
-  return (isMac) ? '/' : '\\';
-}
-
-addPathSep = function(path)
-{
-  var s = sep();
-  if (path.slice(-1) != s) {
-    return path + s;
-  }
-  return path;
-}
-
 uniqueFilename = function(path, name, ext)
 {
-  path = File(path).fsName;
+  path = File(path).fsName; // absolute path
+  if (name.indexOf('.') > 0) {
+    name = name.split('.').slice(0, -1).join('.'); // remove extension
+  }
   if (mkdir(path)) {
     var add = '';
     var n = 0;
