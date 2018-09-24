@@ -13,24 +13,31 @@ writeArray = function(f, array)
   }
 }
 
-writeNumber = function(f, number, bytes)
+writeNumber = function(f, number, bytes, littleendian)
 {
   var array = [];
-  for (var i = bytes - 1; i >= 0; --i) {
-    array[i] = number & 255;
-    number = number >> 8;
+  if (littleendian) {
+    for (var i = 0; i < bytes; ++i) {
+      array[i] = number & 255;
+      number = number >> 8;
+    }
+  } else {
+    for (var i = bytes - 1; i >= 0; --i) {
+      array[i] = number & 255;
+      number = number >> 8;
+    }
   }
   writeArray(f, array);
 }
 
-writeLong = function(f, number)
+writeLong = function(f, number, littleendian)
 {
-  writeNumber(f, number, 4);
+  writeNumber(f, number, 4, littleendian);
 }
 
-writeShort = function(f, number)
+writeShort = function(f, number, littleendian)
 {
-  writeNumber(f, number, 2);
+  writeNumber(f, number, 2, littleendian);
 }
 
 writeBoolean = function(f, number)
@@ -43,12 +50,12 @@ writeByte = function(f, number)
   writeNumber(f, number, 1);
 }
 
-writeUnicodeString = function(f, str)
+writeUnicodeString = function(f, str, littleendian)
 {
   var length = str.length;
-  writeLong(f, length + 1);
+  writeLong(f, length + 1, littleendian);
   for (var j = 0; j < length; ++j) {
-    writeShort(f, str.charCodeAt(j));
+    writeShort(f, str.charCodeAt(j), littleendian);
   }
   writeShort(f, 0);
 }
@@ -63,10 +70,16 @@ writeByteString = function(f, str)
   writeByte(f, 0);
 }
 
-write4ByteID = function(f, id)
+write4ByteID = function(f, id, littleendian)
 {
-  for (var j = 0; j < 4; ++j) {
-    f.write(id[j]);
+  if (littleendian) {
+    for (var j = 3; j >= 0; --j) {
+      f.write(id[j]);
+    }
+  } else {
+    for (var j = 0; j < 4; ++j) {
+      f.write(id[j]);
+    }
   }
 }
 
@@ -172,6 +185,13 @@ writeAlis = function(f, script)
   writeArray(f, data3); // end shit
 }
 
+writePth = function(f, script)
+{
+  write4ByteID(f, 'utxt', true);
+  writeLong(f, script.length * 2 + 12, true);
+  writeUnicodeString(f, script, true);
+}
+
 writePair = function(f, type, data)
 {
   write4ByteID(f, type);
@@ -180,6 +200,9 @@ writePair = function(f, type, data)
   } else if (type == 'alis') {
     writeLong(f, alisLength(data));
     writeAlis(f, data);
+  } else if (type == 'Pth ') {
+    writeLong(f, data.length * 2 + 12);
+    writePth(f, data);
   }
 }
 
@@ -188,7 +211,12 @@ writeDescriptor = function(f, script)
   writeClass(f);
   writeLong(f, 2); // Items
   writeCharID(f, 'jsCt');
-  writePair(f, 'alis', script);
+  log($.os.toLowerCase());
+  if ($.os.toLowerCase().indexOf('mac') >= 0) {
+    writePair(f, 'alis', script);
+  } else {
+    writePair(f, 'Pth ', script);
+  }
   writeCharID(f, 'jsMs');
   writePair(f, 'TEXT', 'undefined');
 }
