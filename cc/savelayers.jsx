@@ -10,15 +10,20 @@ exportFile = function(key)
 {
   try {
     var path = settings.value(key, 'path');
+    var filename = uniqueFilename(path, app.activeDocument.name, '.jpg');
+    if (filename === false) {
+      return LAST_MESSAGE;
+    }
     var size = settings.value(key, 'maxsize').split('x');
     var minsize = settings.value(key, 'minsize').split('x');
     var color = settings.value(key, 'paddingcolor');
     color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
-    var filename = path + '/' + app.activeDocument.name + '.jpg';
-    saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
-               parseInt(minsize[0]), parseInt(minsize[1]), color);
-    var s = msg(INFO, 'Export', filename + ' saved succesfully.');
-    log(s);
+    if (saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
+               parseInt(minsize[0]), parseInt(minsize[1]), color)} {
+      var s = msg(INFO, 'Export', filename + ' saved succesfully.');
+    } else {
+      var s = msg(ERROR, 'Export', 'Saving ' + filename + ' failed.');
+    }
     return s;
   } catch (e) {
     log(e);

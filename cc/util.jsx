@@ -9,13 +9,32 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+uniqueFilename = function(path, name, ext)
+{
+  if (mkdir(path)) {
+    var add = '';
+    var n = 0;
+    while (1) {
+      var filename = path + '/' + name + add + ext;
+      var f = File(filename);
+      if(f.exists) {
+        return filename;
+      }
+      ++n;
+      add = '-' + n;
+    }
+  }
+  return false;
+}
+
 INFO = 1, WARNING = 2, ERROR = 3;
+LAST_MESSAGE = '';
 
 msg = function(type, title, txt)
 {
   var msg = {'type': type, 'title': title, 'msg': txt};
-  var s = JSON.stringify(msg);
-  return  s;
+  LAST_MESSAGE = JSON.stringify(msg);
+  return LAST_MESSAGE;
 }
 
 endsWith = function(str, suf)
@@ -56,11 +75,17 @@ blendingMode = function(mode)
 
 mkdir = function(dir)
 {
-  var folder = Folder(dir);
+  try {
+    var folder = Folder(dir);
 
-  if(!folder.exists) {
-    folder.create();
+    if(!folder.exists) {
+      folder.create();
+    }
+  } catch(e) {
+    log(e);
+    return false;
   }
+  return true;
 }
 
 padNum = function(num, size)
@@ -109,7 +134,7 @@ contentAwareFill = function(tool)
     desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
     executeAction(cTID('Fl  '), desc1, DialogModes.NO);
   } catch (e) {
-    log(e.message);
+    log(e);
     return false;
   }
   return true;
@@ -125,7 +150,7 @@ selectTool = function(tool)
     desc1.putReference(cTID('null'), ref1);
     executeAction(cTID('slct'), desc1, DialogModes.NO);
   } catch (e) {
-    log(e.message);
+    log(e);
     return false;
   }
   return true;
@@ -140,7 +165,7 @@ setDefaultColors = function()
     desc1.putReference(cTID('null'), ref1);
     executeAction(cTID('Rset'), desc1, dialogMode);
   } catch (e) {
-    log(e.message);
+    log(e);
     return false;
   }
   return true;
@@ -197,47 +222,53 @@ saveAsFlatPSB = function(filepath)
 
 saveAsJpeg = function(filepath, x, y, minx, miny, color)
 {
-  var active = app.activeDocument;
-  var newDoc = app.activeDocument.duplicate(randomString(8));
+  try {
+    var active = app.activeDocument;
+    var newDoc = app.activeDocument.duplicate(randomString(8));
 
-  newDoc.flatten();
+    newDoc.flatten();
 
-  if (x > 0 || y > 0) {
-    if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
-      newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
-    } else {
-      newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+    if (x > 0 || y > 0) {
+      if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
+        newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
+      } else {
+        newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
+      }
     }
+
+    if (minx > 0 || miny > 0) {
+      var clr = new SolidColor(color[0]);
+      clr.rgb.red = color[0];
+      clr.rgb. green = color[1];
+      clr.rgb.blue = color[2];
+      app.backgroundColor = clr;
+
+      if (newDoc.width < minx) {
+        newDoc.resizeCanvas(minx, newDoc.height);
+      }
+      if (newDoc.height < miny) {
+        newDoc.resizeCanvas(newDoc.width, miny);
+      }
+    }
+
+    newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
+    newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
+
+    var file = File(filepath);
+    var options = new JPEGSaveOptions();
+    options.embedColorProfile = true;
+    options.formatOptions = FormatOptions.STANDARDBASELINE;
+    options.matte = MatteType.NONE;
+    options.quality = 11;
+    newDoc.saveAs(file, options, true, Extension.LOWERCASE);
+
+    newDoc.close(SaveOptions.DONOTSAVECHANGES);
+    app.activeDocument = active;
+  } catch (e) {
+    log(e);
+    return false;
   }
-
-  if (minx > 0 || miny > 0) {
-    var clr = new SolidColor(color[0]);
-    clr.rgb.red = color[0];
-    clr.rgb. green = color[1];
-    clr.rgb.blue = color[2];
-    app.backgroundColor = clr;
-
-    if (newDoc.width < minx) {
-      newDoc.resizeCanvas(minx, newDoc.height);
-    }
-    if (newDoc.height < miny) {
-      newDoc.resizeCanvas(newDoc.width, miny);
-    }
-  }
-
-  newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
-  newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
-
-  var file = File(filepath);
-  var options = new JPEGSaveOptions();
-  options.embedColorProfile = true;
-  options.formatOptions = FormatOptions.STANDARDBASELINE;
-  options.matte = MatteType.NONE;
-  options.quality = 11;
-  newDoc.saveAs(file, options, true, Extension.LOWERCASE);
-
-  newDoc.close(SaveOptions.DONOTSAVECHANGES);
-  app.activeDocument = active;
+  return true;
 }
 
 saveAsPng = function(filepath, x, y)
