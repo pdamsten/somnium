@@ -23,13 +23,15 @@ function init(path)
   try {
     pluginPath = path;
     var jsxPath = pluginPath + 'cc/';
-    var userDataPath = Folder.userData.fsName + '/somnium/':
+    var userDataPath = Folder.userData.fsName + '/somnium/';
+
+    include(jsxPath + 'util.jsx');
     mkdir(userDataPath);
+
     include(jsxPath + 'log.jsx');
     initLog(userDataPath + 'log.txt');
 
     // libs
-    include(jsxPath + 'util.jsx');
     include(jsxPath + 'layer.jsx');
     include(jsxPath + 'mask.jsx');
     include(jsxPath + 'adjustment.jsx');
