@@ -157,11 +157,11 @@
       e.stopPropagation();
     });
 
-    $("#helpSettings").on("click", "#helpHeader, #closeDlg", function (e) {
+    $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
       closeDialog();
     });
 
-    $("#helpSettings").on("click", "*", function (e) {
+    $("#dialog").on("click", "*", function (e) {
       e.stopPropagation();
     });
 
