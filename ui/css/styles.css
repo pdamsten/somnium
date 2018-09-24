@@ -54,7 +54,7 @@ body {
 }
 
 select {
-  min-width: 100px;
+  min-width: 150px;
 }
 
 .coordinate {
@@ -220,17 +220,23 @@ select {
   font-size: 110%;
   margin: 0;
   padding: 0;
-  padding-bottom: 10px;
   cursor: pointer;
+  letter-spacing: 5px;
+  padding-right: 30px;
 }
 #dialog h2 {
-  font-size: 110%;
+  font-size: 120%;
   padding-top: 10px;
+  letter-spacing: 5px;
 }
 #dialog h3 {
   font-size: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+#msgText {
+  font-size: 115%;
 }
 
 #dialog #settings {
