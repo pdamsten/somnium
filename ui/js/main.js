@@ -114,7 +114,7 @@
     themeManager.init();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
 
-    $('body').click(function() {
+    $('#header, #content').click(function() {
       closeDialog();
     });
 
