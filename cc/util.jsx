@@ -176,7 +176,7 @@ setDefaultColors = function()
     var ref1 = new ActionReference();
     ref1.putProperty(cTID('Clr '), cTID('Clrs'));
     desc1.putReference(cTID('null'), ref1);
-    executeAction(cTID('Rset'), desc1, dialogMode);
+    executeAction(cTID('Rset'), desc1, DialogModes.NO);
   } catch (e) {
     log(e);
     return false;
