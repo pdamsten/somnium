@@ -6,7 +6,21 @@
 //
 //**************************************************************************
 
-var logFile = '~/log.txt';
+var logFile = '';
+
+function sendToConsole(txt)
+{
+  try {
+    var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
+    if (xLib) {
+      var event = new CSXSEvent();
+      event.type = 'printToConsole';
+      event.data = txt;
+      event.dispatch();
+    }
+  } catch (e) {
+  }
+}
 
 objectToString = function(obj, prefix)
 {
@@ -95,6 +109,7 @@ log = function()
     f.encoding = "BINARY"; // For proper line ending
     f.write(s + '\n');
     f.close();
+    sendToConsole(s);
   } catch (e) {
     //log(e);
     alert(e.message);

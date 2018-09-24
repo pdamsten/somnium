@@ -12,6 +12,10 @@
   var csInterface = new CSInterface();
   var pluginPath = '';
 
+  csInterface.addEventListener("printToConsole", function(evt) {
+    console.log(evt.data);
+  });
+
   function initJsx()
   {
     pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
