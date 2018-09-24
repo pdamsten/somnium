@@ -6,18 +6,20 @@ if [ ! -f ~/.pspassword ]; then
 fi
 PASSWORD=$(cat ~/.pspassword)
 
+./fill_actions.py
+
 mkdir ../tmp &>/dev/null
 cd ../tmp
 rm -fR com.petridamsten.somnium &>/dev/null
 
 rm -f actions/*.jsx
-./fill_actions.py
 
 mkdir com.petridamsten.somnium
+cp ../com.petridamsten.somnium/README com.petridamsten.somnium/
 mkdir com.petridamsten.somnium/actions
 cp ../com.petridamsten.somnium/actions/*.jsx com.petridamsten.somnium/actions/
 mkdir com.petridamsten.somnium/cc
-cp ../com.petridamsten.somnium/cc/*.jsx com.petridamsten.somnium/cc/
+cp ../com.petridamsten.somnium/cc/*.js* com.petridamsten.somnium/cc/
 mkdir com.petridamsten.somnium/CSXS
 cp ../com.petridamsten.somnium/CSXS/*.xml com.petridamsten.somnium/CSXS/
 mkdir com.petridamsten.somnium/ui
@@ -26,10 +28,9 @@ mkdir com.petridamsten.somnium/ui/css
 cp ../com.petridamsten.somnium/ui/css/*.css com.petridamsten.somnium/ui/css/
 mkdir com.petridamsten.somnium/ui/img
 cp ../com.petridamsten.somnium/ui/img/*.png com.petridamsten.somnium/ui/img/
-cp ../com.petridamsten.somnium/ui/img/icon-*.svg com.petridamsten.somnium/ui/img/
-cp ../com.petridamsten.somnium/ui/img/*logo.svg com.petridamsten.somnium/ui/img/
+cp ../com.petridamsten.somnium/ui/img/*.svg com.petridamsten.somnium/ui/img/
 mkdir com.petridamsten.somnium/ui/js
-cp ../com.petridamsten.somnium/ui/js/*.js com.petridamsten.somnium/ui/js/
+cp ../com.petridamsten.somnium/ui/js/*.js* com.petridamsten.somnium/ui/js/
 mkdir com.petridamsten.somnium/ui/js/libs
 cp ../com.petridamsten.somnium/ui/js/libs/*.js com.petridamsten.somnium/ui/js/libs/
 
