@@ -14,10 +14,16 @@ isMac = function()
   return ($.os.toLowerCase().indexOf('mac') >= 0);
 }
 
+sep = function()
+{
+  return (isMac) ? '/' : '\\';
+}
+
 addPathSep = function(path)
 {
-  if (path.slice(-1) != '/') {
-    return path + '/';
+  var s = sep();
+  if (path.slice(-1) != s) {
+    return path + s;
   }
   return path;
 }

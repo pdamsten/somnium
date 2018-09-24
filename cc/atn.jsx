@@ -285,7 +285,7 @@ unloadActionsSet = function(actionSet) {
 checkAtn = function(path, pluginPath, settings)
 {
   var atnFile = path + 'somnium-' + settings.version() + '.atn';
-  var actions = pluginPath + 'actions/';
+  var actions = addPathSep(pluginPath + 'actions');
   var f = File(atnFile);
 
   if (!f.exists) {

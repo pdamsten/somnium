@@ -22,8 +22,8 @@ function init(path)
 {
   try {
     pluginPath = path;
-    var jsxPath = pluginPath + 'cc/';
-    var userDataPath = Folder.userData.fsName + '/somnium/';
+    var jsxPath = addPathSep(pluginPath + 'cc');
+    var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
 
     include(jsxPath + 'util.jsx');
     mkdir(userDataPath);
@@ -95,5 +95,5 @@ onBrowseFolderClick = function(title, path)
   } catch (e) {
     log(e);
   }
-  return '~/';
+  return addPathSep('~');
 }

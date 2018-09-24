@@ -89,7 +89,7 @@ onSaveLayersClick = function()
     var fname = parts[0];
     var newDoc = app.activeDocument.duplicate(randomString(8));
 
-    mainPath = File(path + '/' + fname).fsName + '/';
+    mainPath = addPathSep(File(addPathSep(path) + fname).fsName);
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
     saveLayersAsJpgs(layers);
@@ -137,7 +137,7 @@ output = function(prefix, n, suffix)
 
 checkDir = function()
 {
-  var s = File(mainPath).fsName + '/';
+  var s = addPathSep(File(mainPath).fsName);
   mkdir(s);
   return s;
 }
