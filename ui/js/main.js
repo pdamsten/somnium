@@ -18,6 +18,34 @@
     csInterface.evalScript('init("' + pluginPath + '")');
   }
 
+  const HELP = 0, MSG = 1;
+
+  var openDlg = function(type, title, text, arg1, arg2)
+  {
+    $('#dlgHeader').html(title);
+    $('#settings').hide();
+    $('#helpText').hide();
+    $('#msgText').hide();
+    if (type == HELP) {
+      $('#helpText').html(text);
+      $('#helpText').show();
+      if (arg2) {
+        $('#settings').show();
+        $('#settingsHeader').html(arg1);
+        $('#settingsText').html(arg2);
+      }
+    }
+    if (!$("#dialog").is(":visible")) {
+      $('#dialog').slideToggle();
+    }
+  }
+
+  var closeDialog = function() {
+    if ($("#helpSettings").is(":visible")) {
+      $('#helpSettings').slideToggle();
+    }
+  }
+
   var setValue = function(id, key, type)
   {
     var data = {
@@ -70,9 +98,7 @@
     showTab(localStorage.getItem('currentTab') || 'Retouch');
 
     $('body').click(function() {
-      if ($("#helpSettings").is(":visible")) {
-        $('#helpSettings').slideToggle();
-      }
+      closeDialog();
     });
 
     // Handle all clickable elements
@@ -111,9 +137,7 @@
     });
 
     $("#helpSettings").on("click", "#helpHeader, #closeDlg", function (e) {
-      if ($("#helpSettings").is(":visible")) {
-        $('#helpSettings').slideToggle();
-      }
+      closeDialog();
     });
 
     $("#helpSettings").on("click", "*", function (e) {
@@ -135,17 +159,12 @@
 
     // Handle icon buttons
     $(".iconButton").click(function () {
-      if ($("#helpSettings").is(":visible")) {
-        $('#helpSettings').slideToggle();
-      }
+      closeDialog();
       var fn = 'on' + $(this).attr('id') + 'Click()';
 
       csInterface.evalScript(fn, function(result) {
         if (result != 'undefined') { // Yes string after eval
-          $('#helpSettings').slideToggle();
-          $('#helpHeader').html('Message');
-          $('#helpText').html(result);
-          $('#settings').hide();
+          openDlg(MSG, 'Message', result);
         }
       });
     });
@@ -153,12 +172,9 @@
     // Handle icon button right click
     $('.iconButton').contextmenu(function() {
       var id = $(this).attr('id');
-      $('#helpHeader').html(Settings[id]['title']);
-      $('#helpText').html(Settings[id]['help']);
-
+      var html = '';
       if ('config' in Settings[id]) {
         $('#settings').show();
-        var html = '';
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
           if (type == 'folder') {
@@ -190,13 +206,8 @@
           var fn = 'settings.value("' + id + '","' + key + '");'
           csInterface.evalScript(fn, setValue(id, key, type));
         }
-        $('#settingsText').html(html);
-      } else {
-        $('#settings').hide();
       }
-      if (!$("#helpSettings").is(":visible")) {
-        $('#helpSettings').slideToggle();
-      }
+      openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
       return false;
     });
 

@@ -72,7 +72,7 @@ select {
   align-items: stretch;
 }
 
-#helpSettings {
+#dialog {
   backdrop-filter: blur(10px);
   opacity: 0.9;
   border-top-right-radius: 10px;
@@ -216,24 +216,24 @@ select {
   background-color: var(--background-color);
 }
 
-#helpSettings h1 {
+#dialog h1 {
   font-size: 110%;
   margin: 0;
   padding: 0;
   padding-bottom: 10px;
   cursor: pointer;
 }
-#helpSettings h2 {
+#dialog h2 {
   font-size: 110%;
   padding-top: 10px;
 }
-#helpSettings h3 {
+#dialog h3 {
   font-size: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-#helpSettings #settings {
+#dialog #settings {
   z-index: 1000;
 }
 
