@@ -11,8 +11,8 @@ var Settings = {
   },
   "MakeFS": {
     "group": "Retouch",
-    "title": "Frequense Separation",
-    "help": "Frequense separation layers. Two options simple for quick smoothing and normal for better results.",
+    "title": "Frequency Separation",
+    "help": "Frequency separation layers. Two options simple for quick smoothing and normal for better results.",
     "config": {
       "style": {
         "title": "Style:",
@@ -95,13 +95,13 @@ var Settings = {
   "MakeHighlight": {
     "group": "Light",
     "title": "Highlight",
-    "help": "Layer which enables you to draw higlights to an image."
+    "help": "Layer which enables you to draw highlights to an image."
   },
 
   "HighPassSharpening": {
     "group": "Finnish",
     "title": "High Pass Sharpening",
-    "help": "Make high pass harpening"
+    "help": "Make high pass Sharpening"
   },
 
   "MakeAll": {
@@ -132,7 +132,7 @@ var Settings = {
   "MakeLightness": {
     "group": "Helpers",
     "title": "Luminosity Check",
-    "help": "For finding lumonosity differences eg. in dodging & burning."
+    "help": "For finding luminosity differences eg. in dodging & burning."
   },
   "MakeSaturationMap": {
     "group": "Helpers",
