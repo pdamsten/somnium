@@ -2,9 +2,9 @@ This is a Somnium Photoshop panel by Petri Damstén.
 
 http://somnium.petridamsten.com/
 
-I needed a Photoshop Panel that mimics my workflow and speeds up making images. This powerfull panel helps me to get my retouching, light (dodging & burning), color and finishing/export done in less time.
+I needed a Photoshop panel that mimics my workflow and speeds up my making process. This powerfull panel helps me to get my retouching, light (dodging & burning), color and finishing/export done in less time.
 
-Retouch
+RETOUCH
 • Cleaning Layer - Just an empty layer for retouching. This way layers are consistently named. It's also locked so you won't accidentally move it.
 • Match - Make luminosity, saturation and hue check and adjustment layers for matching layer to background (or other way around).
 • Frequense Separation - Frequense separation layers. Two options simple for quick smoothing and normal for better results.
@@ -14,17 +14,17 @@ Retouch
 • Stamp Current And Below to Smart Object - Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers. Merged layer is then converted to a smart object.
 • Update Smart Object - Smart object is updated to contents below. Works with 'Stamp Current And Below to Smart Object' (needs psb smart object with only one layer).
 
-Light
+LIGHT
 • Cookie Light - Cookie light means poking light 'spots' to a image. It can be used to rise certain part of images.
 • Vignette - Applies vignette to a image.
 • Faded and Contrast - Makes contrast faded look layer.
 • Dodge And Burn - There are two options for dodge and burn. Using curves and drawing in masks or using neutral grey layer and using dodge and burn tools. Both can get you similar results but are a bit different to use.
 • Highlight - Layer which enables you to draw higlights to an image.
 
-Finnish
+FINNISH
 • High Pass Sharpening - Make high pass harpening
 
-Helpers
+HELPERS
 • Make All - Makes all the help layers.
 • Memo - Makes layer for writing notes.
 • Perspective Lines - Lines to check perspective.
@@ -36,7 +36,7 @@ Helpers
 • Delete All - Delete help layers group.
 • Blend If - Makes blend if helper layer which shows you where the blend if affects
 
-Export
+EXPORT
 • Save to Facebook - Save image with correct size to Facebook.
 • Save to Instagram - Save image with correct size for Instagram
 • Save to Twitter - Save image with correct size to Twitter.
