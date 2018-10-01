@@ -6,6 +6,23 @@
 //
 //**************************************************************************
 
+hasLayerMask = function(layer)
+{
+  var hasLayerMask = false;
+  try {
+    activateLayer(layer);
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Prpr'), cTID('UsrM'));
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    var desc1 = executeActionGet(ref1);
+    if (desc1.hasKey(cTID('UsrM'))) {
+      return true;
+    }
+  } catch(e) {
+  }
+  return false;
+}
+
 addLayerMask = function(layer, hidden)
 {
   try {
@@ -30,6 +47,9 @@ addLayerMask = function(layer, hidden)
 enableLayerMask = function(layer, enable)
 {
   try {
+    if (!(hasLayerMask(layer))) {
+      return false;
+    }
     activateLayer(layer);
     var idsetd = cTID("setd");
     var desc9 = new ActionDescriptor();
@@ -57,6 +77,9 @@ enableLayerMask = function(layer, enable)
 deleteLayerMask = function(layer)
 {
   try {
+    if (!(hasLayerMask(layer))) {
+      return false;
+    }
     activateLayer(layer);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
