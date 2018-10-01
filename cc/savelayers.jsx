@@ -93,6 +93,7 @@ onSaveLayersClick = function()
     mainPath = addPathSep(File(addPathSep(path) + docname).fsName);
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
+    pindex = 0;
     saveLayersAsJpgs(layers);
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
@@ -105,7 +106,6 @@ onSaveLayersClick = function()
 
 saveLayersAsJpgs = function(layers)
 {
-  hideAllLayers(layers);
   handleLayers(layers, saveJpg);
 }
 
@@ -145,7 +145,6 @@ checkDir = function()
 
 handleLayers = function(layers, func)
 {
-  pindex = 0;
   mogrify = '';
   ffmpeg = '';
   ffmpeglast = '';
@@ -153,6 +152,7 @@ handleLayers = function(layers, func)
   var lmain = findMain(layers);
   var masks = false;
 
+  hideAllLayers(layers);
   if (lmain != -1) {
     handleMain(lmain, layers, func);
   }
@@ -162,7 +162,16 @@ handleLayers = function(layers, func)
       continue;
     }
     if (layer.kind == LayerKind.SMARTOBJECT) {
-      // open it and check if multiple layers
+      var info = smartObjectInfo(layers[i].layer);
+      if (info != false && info['type'] == 'photoshop') {
+        if (editSmartObjectContents(layer)) {
+          if (app.activeDocument.layers.length > 1) {
+            var smlayers = listLayers();
+            handleLayers(smlayers, func);
+          }
+          app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+        }
+      }
     } else if (layer.typename == 'LayerSet') {
       if (masks) {
         if (enableLayerMask(layer, false)) {
@@ -216,16 +225,13 @@ findMain = function(layers)
     }
   }
   for (var i = layers.length - 1; i >= 0; --i) {
-    log(layers[i].layer.name, docname);
     if (layers[i].layer.name == docname) {
       return i;
     }
   }
   for (var i = layers.length - 1; i >= 0; --i) {
     var info = smartObjectInfo(layers[i].layer);
-    log(info['type']);
     if (info != false && info['type'] == 'raw') {
-      log('raw');
       return i;
     }
   }
@@ -286,7 +292,6 @@ takeScreenshot = function(n, layer)
 
 takeScreenshotsFromLayers = function(layers)
 {
-  hideAllLayers(layers);
   app.refresh();
   waitForRedraw();
   //alert('Waiting...');
