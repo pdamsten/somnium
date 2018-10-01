@@ -76,6 +76,7 @@ var ffmpeg = '';
 var ffmpeglast = '';
 var mainPath;
 var docname = '';
+var handledSmart = [];
 
 var minLength = 3.5 // seconds
 var maxLength = 10.0 // seconds
@@ -97,6 +98,7 @@ onSaveLayersClick = function()
     mogrify = '';
     ffmpeg = '';
     ffmpeglast = '';
+    handledSmart = [];
     saveLayersAsJpgs(layers);
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
@@ -163,12 +165,15 @@ handleLayers = function(layers, func)
     if (layer.kind == LayerKind.SMARTOBJECT) {
       var info = smartObjectInfo(layers[i].layer);
       if (info != false && info['type'] == 'photoshop') {
-        if (editSmartObjectContents(layer)) {
-          if (app.activeDocument.layers.length > 1) {
-            var smlayers = listLayers();
-            handleLayers(smlayers, func);
+        if (!(arrayContains(handledSmart, info['fileref']))) {
+          handledSmart.push(info['fileref']);
+          if (editSmartObjectContents(layer)) {
+            if (app.activeDocument.layers.length > 1) {
+              var smlayers = listLayers();
+              handleLayers(smlayers, func);
+            }
+            app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
           }
-          app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
         }
       }
     }
