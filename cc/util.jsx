@@ -9,6 +9,18 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+arrayContains = function(a, obj)
+{
+  var i = a.length;
+
+  while (i--) {
+    if (a[i] === obj) {
+      return true;
+    }
+  }
+  return false;
+}
+
 uniqueFilename = function(path, name, ext)
 {
   path = addPathSep(File(path).fsName); // absolute path
