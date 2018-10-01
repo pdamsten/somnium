@@ -75,12 +75,13 @@ smartObjectInfo = function(layer)
     layer = activateLayer(layer);
     if (layer.kind == LayerKind.SMARTOBJECT) {
       var ref = new ActionReference();
-      ref.putEnumerated( charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt") );
+      ref.putEnumerated(cTID("Lyr "), cTID("Ordn"), cTID("Trgt") );
       var layerDesc = executeActionGet(ref);
 
-      var desc = layerDesc.getObjectValue(stringIDToTypeID('smartObject'));
-      info['fileref'] = desc.getString(stringIDToTypeID('fileReference'));
-      info['docid'] = desc.getString(stringIDToTypeID('documentID'));
+      var desc = layerDesc.getObjectValue(sTID('smartObject'));
+      info['fileref'] = desc.getString(sTID('fileReference'));
+      info['docid'] = desc.getString(sTID('documentID'));
+      info['hasFX'] = desc.hasKey(sTID("filterFX"));
 
       ext = info['fileref'].substr(info['fileref'].length - 4).toLowerCase();
       if (ext == '.psb') {
@@ -167,7 +168,11 @@ stampCurrentAndBelow = function(layer, name)
 enableSmartFilters = function(layer, enable)
 {
   try {
-    activateLayer(layer);
+    layer = activateLayer(layer);
+    var info = smartObjectInfo(layer);
+    if (info == false || info['hasFX'] == false) {
+      return false;
+    }
     if (enable) {
       cmd = cTID('Shw ');
     } else {
@@ -189,7 +194,11 @@ enableSmartFilters = function(layer, enable)
 deleteSmartFilters = function(layer)
 {
   try {
-    activateLayer(layer);
+    layer = activateLayer(layer);
+    var info = smartObjectInfo(layer);
+    if (info == false || info['hasFX'] == false) {
+      return false;
+    }
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(sTID("filterFX"));
