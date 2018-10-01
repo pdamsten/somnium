@@ -94,6 +94,9 @@ onSaveLayersClick = function()
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
     pindex = 0;
+    mogrify = '';
+    ffmpeg = '';
+    ffmpeglast = '';
     saveLayersAsJpgs(layers);
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
@@ -109,10 +112,10 @@ saveLayersAsJpgs = function(layers)
   handleLayers(layers, saveJpg);
 }
 
-saveJpg = function(n, layer)
+saveJpg = function(layer)
 {
   layer.visible = true;
-  saveAsJpeg(output('layer-', n, '.jpg'), 3840, 2160);
+  saveAsJpeg(output('layer-', '.jpg'), 3840, 2160);
 }
 
 hideAllLayers = function(layers)
@@ -126,10 +129,10 @@ hideAllLayers = function(layers)
   }
 }
 
-output = function(prefix, n, suffix)
+output = function(prefix, suffix)
 {
   var dir = checkDir();
-  var name = dir + prefix + padNum(n + 1, 4) + suffix;
+  var name = dir + prefix + padNum(++pindex, 4) + suffix;
   ffmpeglast = 'file ' + name + '\n';
   ffmpeg += ffmpeglast;
   mogrify += name + '\n';
@@ -145,10 +148,6 @@ checkDir = function()
 
 handleLayers = function(layers, func)
 {
-  mogrify = '';
-  ffmpeg = '';
-  ffmpeglast = '';
-
   var lmain = findMain(layers);
   var masks = false;
 
@@ -172,21 +171,22 @@ handleLayers = function(layers, func)
           app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
         }
       }
-    } else if (layer.typename == 'LayerSet') {
+    }
+    if (layer.typename == 'LayerSet') {
       if (masks) {
         if (enableLayerMask(layer, false)) {
-          func.apply(this, [pindex++, layer]);
+          func.apply(this, [layer]);
           enableLayerMask(layer, true);
         }
       }
     } else {
       if (masks) {
         if (enableLayerMask(layer, false)) {
-          func.apply(this, [pindex++, layer]);
+          func.apply(this, [layer]);
           enableLayerMask(layer, true);
         }
       }
-      func.apply(this, [pindex++, layer]);
+      func.apply(this, [layer]);
     }
   }
 
@@ -261,15 +261,15 @@ handleMain = function(lmain, layers, func)
       editSmartObjectContents(mainCopy);
       mainCopy.visible = true;
       mainCopy.opacity = 100;
-      func.apply(this, [pindex++, mainCopy]);
+      func.apply(this, [mainCopy]);
       mainCopy.visible = false;
       mainCopy.remove();
     }
   }
-  func.apply(this, [pindex++, mainLayer]);
+  func.apply(this, [mainLayer]);
   if (thereWasSmartFilters) {
     enableSmartFilters(mainLayer, true);
-    func.apply(this, [pindex++, mainLayer]);
+    func.apply(this, [mainLayer]);
   }
   if (thereWasAMask) {
     i = lmain;
@@ -277,17 +277,17 @@ handleMain = function(lmain, layers, func)
       enableLayerMask(layers[i].layer, true);
       i = layers[i].parent;
     }
-    func.apply(this, [pindex++, mainLayer]);
+    func.apply(this, [mainLayer]);
   }
 }
 
 // Experimental
-takeScreenshot = function(n, layer)
+takeScreenshot = function(layer)
 {
   layer.visible = true;
   app.activeDocument.activeLayer = layer;
   app.refresh();
-  app.system("/usr/sbin/screencapture -x -m -T 0 " + output('screenshot-', n, '.png'));
+  app.system("/usr/sbin/screencapture -x -m -T 0 " + output('screenshot-', '.png'));
 }
 
 takeScreenshotsFromLayers = function(layers)
