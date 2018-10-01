@@ -237,8 +237,9 @@ editSmartObjectContents = function(layer)
 {
   try {
     activateLayer(layer);
+    var name = app.activeDocument.name;
     executeAction(sTID('placedLayerEditContents'), undefined, DialogModes.NO);
-    return true;
+    return (name != app.activeDocument.name);
   } catch (e) {
     log(e);
     return false;
