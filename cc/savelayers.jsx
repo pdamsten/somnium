@@ -103,10 +103,11 @@ onSaveLayersClick = function()
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
     app.activeDocument = active;
+    return msg(INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
   } catch (e) {
     log(e);
   }
-  return '';
+  return msg(ERROR, 'Save Layers', 'Saving layers failed.');
 }
 
 saveLayersAsJpgs = function(layers)
