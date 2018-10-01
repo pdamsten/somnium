@@ -10,10 +10,14 @@ hasLayerMask = function(layer)
 {
   var hasLayerMask = false;
   try {
-    layer = activateLayer(layer);
-    var save = layer.layerMaskDensity;
-    layer.layerMaskDensity = 50.0;
-    layer.layerMaskDensity = save;
+    activateLayer(layer);
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Prpr'), cTID('UsrM'));
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    var desc1 = executeActionGet(ref1);
+    if (desc1.hasKey(cTID('UsrM'))) {
+      return true;
+    }
   } catch(e) {
   }
   return false;
