@@ -63,6 +63,13 @@ duplicateLayerToDoc = function(layer, destDoc) {
 
 smartObjectInfo = function(layer)
 {
+  RAW = [
+  '.3fr', '.ari', '.arw', '.srf', '.sr2', '.bay', '.cri', '.crw', '.cr2', '.cr3', '.cap', '.iiq',
+  '.eip', '.dcs', '.dcr', '.drf', '.k25', '.kdc', '.dng', '.erf', '.fff', '.mef', '.mdc', '.mos',
+  '.mrw', '.nef', '.nrw', '.orf', '.pef', '.ptx', '.pxn', '.r3d', '.raf', '.raw', '.rw2', '.rwl',
+  '.rwz', '.srw', '.x3f'
+  ];
+
   var info = {};
   try {
     layer = activateLayer(layer);
@@ -74,6 +81,15 @@ smartObjectInfo = function(layer)
       var desc = layerDesc.getObjectValue(stringIDToTypeID('smartObject'));
       info['fileref'] = desc.getString(stringIDToTypeID('fileReference'));
       info['docid'] = desc.getString(stringIDToTypeID('documentID'));
+
+      ext = info['fileref'].substr(info['fileref'].length - 4).toLowerCase();
+      if (ext == '.psb') {
+        info['type'] = 'photoshop';
+      } else if (arrayContains(RAW, ext)) {
+        info['type'] = 'raw';
+      } else {
+        info['type'] = 'bitmap';
+      }
       /*
       var more = layerDesc.getObjectValue(stringIDToTypeID('smartObjectMore'));
       var size = more.getObjectValue(stringIDToTypeID('size'));
