@@ -75,6 +75,7 @@ var mogrify = '';
 var ffmpeg = '';
 var ffmpeglast = '';
 var mainPath;
+var docname = '';
 
 var minLength = 3.5 // seconds
 var maxLength = 10.0 // seconds
@@ -86,10 +87,10 @@ onSaveLayersClick = function()
     var path = settings.value('SaveLayers', 'path');
     var active = app.activeDocument;
     var parts = active.name.split(".");
-    var fname = parts[0];
+    docname = parts[0];
     var newDoc = app.activeDocument.duplicate(randomString(8));
 
-    mainPath = addPathSep(File(addPathSep(path) + fname).fsName);
+    mainPath = addPathSep(File(addPathSep(path) + docname).fsName);
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
     saveLayersAsJpgs(layers);
@@ -160,7 +161,9 @@ handleLayers = function(layers, func)
     if (i == lmain || !layers[i].visible) {
       continue;
     }
-    if (layer.typename == 'LayerSet') {
+    if (layer.kind == LayerKind.SMARTOBJECT) {
+      // open it and check if multiple layers
+    } else if (layer.typename == 'LayerSet') {
       if (masks) {
         if (enableLayerMask(layer, false)) {
           func.apply(this, [pindex++, layer]);
@@ -213,8 +216,16 @@ findMain = function(layers)
     }
   }
   for (var i = layers.length - 1; i >= 0; --i) {
+    log(layers[i].layer.name, docname);
+    if (layers[i].layer.name == docname) {
+      return i;
+    }
+  }
+  for (var i = layers.length - 1; i >= 0; --i) {
     var info = smartObjectInfo(layers[i].layer);
-    if (info != false && endsWith(info['fileref'], ".dng")) { // TODO how to check if RAW smart object
+    log(info['type']);
+    if (info != false && info['type'] == 'raw') {
+      log('raw');
       return i;
     }
   }
