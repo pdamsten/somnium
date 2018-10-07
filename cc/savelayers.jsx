@@ -262,6 +262,8 @@ handleMain = function(lmain, layers, func)
   if (mainLayer.kind == LayerKind.SMARTOBJECT) {
     if (newSmartObjectViaCopy(mainLayer)) {
       mainCopy = app.activeDocument.activeLayer;
+      // Move out of any groups
+      mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
       deleteLayerMask(mainCopy);
       deleteSmartFilters(mainCopy);
       editSmartObjectContents(mainCopy);

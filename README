@@ -8,7 +8,7 @@ I needed a Photoshop panel that mimics my workflow and speeds up my making proce
 RETOUCH
 • Cleaning Layer - Just an empty layer for retouching. This way layers are consistently named. It's also locked so you won't accidentally move it.
 • Match - Make luminosity, saturation and hue check and adjustment layers for matching layer to background (or other way around).
-• Frequency Separation - Frequency separation layers. Two options simple for quick smoothing and normal for better results.
+• Frequence Separation - Frequence separation layers. Two options simple for quick smoothing and normal for better results.
 • Defringe Mask - Layer mask edges are often a little bit of. Defringe layer mask can adjust that.
 • Fill Empty Areas - If layer has empty (opaque) areas this can fill them with content aware fill quickly.
 • Stamp Current And Below - Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers.

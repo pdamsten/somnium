@@ -11,8 +11,8 @@ var Settings = {
   },
   "MakeFS": {
     "group": "Retouch",
-    "title": "Frequency Separation",
-    "help": "Frequency separation layers. Two options simple for quick smoothing and normal for better results.",
+    "title": "Frequence Separation",
+    "help": "Frequence separation layers. Two options simple for quick smoothing and normal for better results.",
     "config": {
       "style": {
         "title": "Style:",

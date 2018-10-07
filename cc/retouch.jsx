@@ -69,25 +69,25 @@ onMakeFSClick = function(type)
 {
   try {
     if (type == 'simple') {
-      var layer = stampCurrentAndBelow('current', 'Simple Frequency Separation');
+      var layer = stampCurrentAndBelow('current', 'Simple Frequence Separation');
       invertLayer(layer);
       setLayerBlendingMode(layer, 'vividLight');
       doHighPass(layer, 24);
       doGaussianBlur(layer, 4);
       addLayerMask(layer, true);
     } else {
-      var lo = stampCurrentAndBelow('current', 'Low Frequency');
-      var hi = duplicateLayer(lo, 'High Frequency');
+      var lo = stampCurrentAndBelow('current', 'Low Frequence');
+      var hi = duplicateLayer(lo, 'High Frequence');
       hi.visible = false;
       doGaussianBlur(lo, 7.0);
       hi.visible = true;
-      var params = ["RGB", "Low Frequency", 'subtract', 2, 128];
+      var params = ["RGB", "Low Frequence", 'subtract', 2, 128];
       doApplyImage(hi, params, false);
       setLayerBlendingMode(hi, 'linearLight');
-      var lo2 = duplicateLayer(lo, 'Low Frequency paint');
+      var lo2 = duplicateLayer(lo, 'Low Frequence paint');
       doGaussianBlur(lo2, 9.0);
       addLayerMask(lo2, true);
-      groupLayers('Frequency Separation', [hi, lo2, lo]);
+      groupLayers('Frequence Separation', [hi, lo2, lo]);
     }
   } catch (e) {
     log(e);
