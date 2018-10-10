@@ -26,6 +26,27 @@ onMakeCleaningClick = function()
   }
 }
 
+onCombineDocumentsClick = function()
+{
+  try {
+    var doc = app.activeDocument;
+    for (var i = app.documents.length - 1; i >= 0; --i) {
+      if (app.documents[i] != doc) {
+        if (app.documents[i].layers.length == 1) {
+          app.activeDocument = app.documents[i];
+          duplicateLayerToDoc(app.documents[i].layers[0], doc.name);
+          log(app.documents[i].name, doc.name);
+          // TODO get this from settings
+          app.documents[i].close(SaveOptions.DONOTSAVECHANGES);
+        }
+      }
+    }
+    app.activeDocument = doc;
+  } catch (e) {
+    log(e);
+  }
+}
+
 onFillEmptyClick = function()
 {
   try {
