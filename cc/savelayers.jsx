@@ -260,18 +260,35 @@ handleMain = function(lmain, layers, func)
   }
   thereWasSmartFilters = enableSmartFilters(mainLayer, false);
   if (mainLayer.kind == LayerKind.SMARTOBJECT) {
-    if (newSmartObjectViaCopy(mainLayer)) {
-      mainCopy = app.activeDocument.activeLayer;
-      // Move out of any groups
-      mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
-      deleteLayerMask(mainCopy);
-      deleteSmartFilters(mainCopy);
-      editSmartObjectContents(mainCopy);
-      mainCopy.visible = true;
-      mainCopy.opacity = 100;
-      func.apply(this, [mainCopy]);
-      mainCopy.visible = false;
-      mainCopy.remove();
+    var info = smartObjectInfo(mainLayer);
+    if (info) {
+      if (info['type'] == 'photoshop') {
+        if (!(arrayContains(handledSmart, info['fileref']))) {
+          handledSmart.push(info['fileref']);
+          if (editSmartObjectContents(mainLayer)) {
+            if (app.activeDocument.layers.length > 1) {
+              var smlayers = listLayers();
+              handleLayers(smlayers, func);
+            }
+            app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+          }
+        }
+      }
+      else if (info['type'] == 'raw') {
+        if (newSmartObjectViaCopy(mainLayer)) {
+          mainCopy = app.activeDocument.activeLayer;
+          // Move out of any groups
+          mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
+          deleteLayerMask(mainCopy);
+          deleteSmartFilters(mainCopy);
+          editSmartObjectContents(mainCopy);
+          mainCopy.visible = true;
+          mainCopy.opacity = 100;
+          func.apply(this, [mainCopy]);
+          mainCopy.visible = false;
+          mainCopy.remove();
+        }
+      }
     }
   }
   func.apply(this, [mainLayer]);
