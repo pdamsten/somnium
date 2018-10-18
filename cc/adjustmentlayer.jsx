@@ -6,8 +6,80 @@
 //
 //**************************************************************************
 
-cTID = function(s) { return app.charIDToTypeID(s); };
-sTID = function(s) { return app.stringIDToTypeID(s); };
+createColorLookup = function(name, layer)
+{
+  try {
+    activateLayer(layer);
+    var desc0 = new ActionDescriptor();
+    var ref0 = new ActionReference();
+    ref0.putClass(cTID('AdjL'));
+    desc0.putReference(cTID('null'), ref0);
+    var desc1 = new ActionDescriptor();
+    desc1.putClass(cTID('Type'), sTID("colorLookup"));
+    desc0.putObject(cTID('Usng'), cTID('AdjL'), desc1);
+    executeAction(cTID('Mk  '), desc0, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
+setColorLookup = function(layer, lookup)
+{
+  try {
+    activateLayer(layer);
+    var idslct = cTID("slct");
+    var desc70 = new ActionDescriptor();
+    var idnull = cTID("null");
+    var ref50 = new ActionReference();
+    var idChnl = cTID("Chnl");
+    var idChnl = cTID("Chnl");
+    var idRGB = cTID("RGB ");
+    ref50.putEnumerated(idChnl, idChnl, idRGB);
+    desc70.putReference(idnull, ref50);
+    var idMkVs = cTID("MkVs");
+    desc70.putBoolean(idMkVs, false);
+    executeAction(idslct, desc70, DialogModes.NO);
+
+    var idsetd = cTID("setd");
+    var desc71 = new ActionDescriptor();
+    var idnull = cTID("null");
+    var ref51 = new ActionReference();
+    var idAdjL = cTID("AdjL");
+    var idOrdn = cTID("Ordn");
+    var idTrgt = cTID("Trgt");
+    ref51.putEnumerated(idAdjL, idOrdn, idTrgt);
+    desc71.putReference(idnull, ref51);
+    var idT = cTID("T   ");
+    var desc72 = new ActionDescriptor();
+    var idlookupType = sTID("lookupType");
+    var idcolorLookupType = sTID("colorLookupType");
+    var idthreeDLUT = sTID("3DLUT");
+    desc72.putEnumerated(idlookupType, idcolorLookupType, idthreeDLUT);
+    var idNm = cTID("Nm  ");
+    desc72.putString(idNm, """/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Crisp_Warm.look""");
+    var idprofile = sTID("profile");
+    // Some binary data here
+    // desc72.putData(idprofile, String.fromCharCode(0, 0, ...));
+    var idLUTFormat = sTID("LUTFormat");
+    var idLUTFormatType = sTID("LUTFormatType");
+    var idLUTFormatLOOK = sTID("LUTFormatLOOK");
+    desc72.putEnumerated(idLUTFormat, idLUTFormatType, idLUTFormatLOOK);
+    var idLUTthreeDFileData = sTID("LUT3DFileData");
+    // More binary data here
+    // desc72.putData(idLUTthreeDFileData, String.fromCharCode(60, 63, 120, ...));
+    var idLUTthreeDFileName = sTID("LUT3DFileName");
+    desc72.putString(idLUTthreeDFileName, """/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Crisp_Warm.look""");
+    var idcolorLookup = sTID("colorLookup");
+    desc71.putObject(idT, idcolorLookup, desc72);
+    executeAction(idsetd, desc71, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
 
 createCurveAdjustment = function(name, layer)
 {
