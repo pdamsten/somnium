@@ -76,16 +76,20 @@
     };
 
     return function(result) {
+      var id = '#' + data['id'] + '-' + data['key'];
+      //console.log(id, result, typeof result);
       if (data['type'] == 'folder') {
-        $('#' + data['id'] + '-' + data['key']).val(result);
+        $(id).val(result);
       } else if (data['type'] == 'color') {
-        $('#' + data['id'] + '-' + data['key']).css('background-color', result);
+        $(id).css('background-color', result);
       } else if (data['type'] == 'pixelsize') {
         var a = result.split('x');
-        $('#' + data['id'] + '-' + data['key'] + '_x').val(a[0]);
-        $('#' + data['id'] + '-' + data['key'] + '_y').val(a[1]);
+        $(id + '_x').val(a[0]);
+        $(id + '_y').val(a[1]);
+      } else if (data['type'] == 'boolean') {
+        $(id).prop('checked', (result == "true"));
       } else if (data['type'] == 'selection') {
-        $('#' + data['id'] + '-' + data['key']).val(result);
+        $(id).val(result);
       }
     }
   }
@@ -169,11 +173,15 @@
       var a = $(this).attr('id').split('-');
       if ($(this).data('type') == 'pixelsize') {
         a[1] = a[1].slice(0, -2);
-        var v = $('#' + a[0] + '-' + a[1] + '_x').val() + 'x' + $('#' + a[0] + '-' + a[1] + '_y').val()
+        var v = '"' + $('#' + a[0] + '-' + a[1] + '_x').val() + 'x' + $('#' + a[0] +
+                '-' + a[1] + '_y').val() + '"';
+      } else if ($(this).data('type') == 'boolean') {
+        var v = $(this).prop('checked');
       } else {
-        var v = this.value;
+        var v = '"' + this.value + '"';
       }
-      var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + v + '");'
+      var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
+      //console.log(fn);
       csInterface.evalScript(fn);
     });
 
@@ -215,6 +223,9 @@
           } else if (type == 'color') {
             html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
             html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker"></div>';
+          } else if (type == 'boolean') {
+            html += '<input type="checkbox" data-type="boolean" id="' + id + '-' + key + '">  ' +
+                    Settings[id]['config'][key]['title'] + '<br>';
           } else if (type == 'selection') {
             html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
             html += '<select id="' + id + '-' + key + '" class="ccwidget ccselect">';

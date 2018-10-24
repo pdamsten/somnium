@@ -380,6 +380,16 @@ var Settings = {
         "title": "Save layers output folder:",
         "type": "folder",
         "value": "~/tmp/"
+      },
+      "smartobjects": {
+        "title": "Go inside smartobjects",
+        "type": "boolean",
+        "value": true
+      },
+      "faster": {
+        "title": "Use 8bit + sRGB for faster saves (Might alter the results)",
+        "type": "boolean",
+        "value": true
       }
     }
   }
