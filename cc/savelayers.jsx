@@ -85,12 +85,20 @@ var defaultFps = 3.0
 onSaveLayersClick = function()
 {
   try {
+    var t0 = Date.now();
     var path = settings.value('SaveLayers', 'path');
     var active = app.activeDocument;
     var parts = active.name.split(".");
     docname = parts[0];
     var newDoc = app.activeDocument.duplicate(randomString(8));
 
+    if (active == newDoc) {
+      return msg(ERROR, 'Save Layers', 'Could not make a duplicate.');
+    }
+    /* if (settings.value('SaveLayers', 'faster')) {
+      newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
+      newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
+    }*/
     mainPath = addPathSep(File(addPathSep(path) + docname).fsName);
     var layers = listLayers();
     //takeScreenshotsFromLayers(layers);
@@ -103,6 +111,8 @@ onSaveLayersClick = function()
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
     app.activeDocument = active;
+    var t1 = Date.now();
+    log('SaveLayers took: ', t1 - t0);
     return msg(INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
   } catch (e) {
     log(e);
@@ -153,6 +163,7 @@ handleLayers = function(layers, func)
 {
   var lmain = findMain(layers);
   var masks = false;
+  var smart = settings.value('SaveLayers', 'smartobjects');
 
   hideAllLayers(layers);
   if (lmain != -1) {
@@ -163,7 +174,7 @@ handleLayers = function(layers, func)
     if (i == lmain || !layers[i].visible) {
       continue;
     }
-    if (layer.kind == LayerKind.SMARTOBJECT) {
+    if (smart && layer.kind == LayerKind.SMARTOBJECT) {
       var info = smartObjectInfo(layers[i].layer);
       if (info != false && info['type'] == 'photoshop') {
         if (!(arrayContains(handledSmart, info['fileref']))) {
@@ -251,6 +262,7 @@ handleMain = function(lmain, layers, func)
   var thereWasAMask = false;
   var thereWasSmartFilters = false;
   var mainCopy = null;
+  var smart = settings.value('SaveLayers', 'smartobjects');
 
   while (i != -1) {
     if (enableLayerMask(layers[i].layer, false)) {
@@ -259,7 +271,7 @@ handleMain = function(lmain, layers, func)
     i = layers[i].parent;
   }
   thereWasSmartFilters = enableSmartFilters(mainLayer, false);
-  if (mainLayer.kind == LayerKind.SMARTOBJECT) {
+  if (smart && mainLayer.kind == LayerKind.SMARTOBJECT) {
     var info = smartObjectInfo(mainLayer);
     if (info) {
       if (info['type'] == 'photoshop') {
