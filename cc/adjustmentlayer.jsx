@@ -68,7 +68,7 @@ setColorLookup = function(layer, lookup)
     var idLUTFormatLOOK = sTID("LUTFormatLOOK");
     desc72.putEnumerated(idLUTFormat, idLUTFormatType, idLUTFormatLOOK);
     var idLUTthreeDFileData = sTID("LUT3DFileData");
-    // More binary data here
+    // More binary data here. Probably just the text in .look file
     // desc72.putData(idLUTthreeDFileData, String.fromCharCode(60, 63, 120, ...));
     var idLUTthreeDFileName = sTID("LUT3DFileName");
     desc72.putString(idLUTthreeDFileName, """/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Crisp_Warm.look""");
