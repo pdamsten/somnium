@@ -6,7 +6,7 @@
 //
 //**************************************************************************
 
-var mystery_data = String.fromCharCode( 0, 0, 14, 212, 65, 68, 66, 69, 4, 0, 0, 0, 108, 105, 110, 107, 82, 71, 66, 32, 82, 71, 66, 32, 7, 226, 0, 10, 0, 28, 0, 10,
+var icc_profile = String.fromCharCode( 0, 0, 14, 212, 65, 68, 66, 69, 4, 0, 0, 0, 108, 105, 110, 107, 82, 71, 66, 32, 82, 71, 66, 32, 7, 226, 0, 10, 0, 28, 0, 10,
 0, 8, 0, 42, 97, 99, 115, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 0, 0, 0, 0, 0, 0, 246, 214, 0, 1, 0, 0, 0, 0, 211, 45, 65, 68, 66, 69, 63, 71, 183, 245, 181, 76, 89, 47, 74, 221, 208, 29,
 50, 26, 211, 137, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -150,55 +150,33 @@ setColorLookup = function(layer, lookup)
 {
   try {
     activateLayer(layer);
-    var idslct = cTID("slct");
     var desc70 = new ActionDescriptor();
-    var idnull = cTID("null");
     var ref50 = new ActionReference();
-    var idChnl = cTID("Chnl");
-    var idChnl = cTID("Chnl");
-    var idRGB = cTID("RGB ");
-    ref50.putEnumerated(idChnl, idChnl, idRGB);
-    desc70.putReference(idnull, ref50);
-    var idMkVs = cTID("MkVs");
-    desc70.putBoolean(idMkVs, false);
-    executeAction(idslct, desc70, DialogModes.NO);
+    ref50.putEnumerated(cTID("Chnl"), cTID("Chnl"), cTID("RGB "));
+    desc70.putReference(cTID("null"), ref50);
+    desc70.putBoolean(cTID("MkVs"), false);
+    executeAction(cTID("slct"), desc70, DialogModes.NO);
 
-    var idsetd = cTID("setd");
     var desc71 = new ActionDescriptor();
-    var idnull = cTID("null");
     var ref51 = new ActionReference();
-    var idAdjL = cTID("AdjL");
-    var idOrdn = cTID("Ordn");
-    var idTrgt = cTID("Trgt");
-    ref51.putEnumerated(idAdjL, idOrdn, idTrgt);
-    desc71.putReference(idnull, ref51);
-    var idT = cTID("T   ");
+    ref51.putEnumerated(cTID("AdjL"), cTID("Ordn"), cTID("Trgt"));
+    desc71.putReference(cTID("null"), ref51);
     var desc72 = new ActionDescriptor();
-    var idlookupType = sTID("lookupType");
-    var idcolorLookupType = sTID("colorLookupType");
-    var idthreeDLUT = sTID("3DLUT");
-    desc72.putEnumerated(idlookupType, idcolorLookupType, idthreeDLUT);
-    var idNm = cTID("Nm  ");
-    desc72.putString(idNm, lookup);
-    var idprofile = sTID("profile");
-    desc72.putData(idprofile, mystery_data);
-    var idLUTFormat = sTID("LUTFormat");
-    var idLUTFormatType = sTID("LUTFormatType");
-    var idLUTFormatLOOK = sTID("LUTFormatLOOK");
-    desc72.putEnumerated(idLUTFormat, idLUTFormatType, idLUTFormatLOOK);
-    var idLUTthreeDFileData = sTID("LUT3DFileData");
+    desc72.putEnumerated(sTID("lookupType"), sTID("colorLookupType"), sTID("3DLUT"));
+    desc72.putString(cTID("Nm  "), lookup);
+    desc72.putData(sTID("profile"), icc_profile);
+    // LUTFormatCUBE, LUTFormatLOOK, LUTFormat3DL
+    desc72.putEnumerated(sTID("LUTFormat"), sTID("LUTFormatType"), sTID("LUTFormatLOOK"));
 
     var f = new File(lookup);
     f.open('r');
     var ldata = f.read();
     f.close();
 
-    desc72.putData(idLUTthreeDFileData, ldata);
-    var idLUTthreeDFileName = sTID("LUT3DFileName");
-    desc72.putString(idLUTthreeDFileName, lookup);
-    var idcolorLookup = sTID("colorLookup");
-    desc71.putObject(idT, idcolorLookup, desc72);
-    executeAction(idsetd, desc71, DialogModes.NO);
+    desc72.putData(sTID("LUT3DFileData"), ldata);
+    desc72.putString(sTID("LUT3DFileName"), lookup);
+    desc71.putObject(cTID("T   "), sTID("colorLookup"), desc72);
+    executeAction(cTID("setd"), desc71, DialogModes.NO);
   } catch (e) {
     log(e);
     return null;

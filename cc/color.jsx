@@ -9,7 +9,7 @@
 onPrevColorClick = function()
 {
   try {
-    var lookup = "/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Crisp_Warm.look";
+    var lookup = "/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Bleach Bypass.look";
     var group = checkGroup('Color', 'Finish', 'Help Layers');
     var layer = createColorLookup('test');
     setColorLookup(layer, lookup);
