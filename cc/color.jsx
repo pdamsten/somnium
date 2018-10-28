@@ -9,9 +9,10 @@
 onPrevColorClick = function()
 {
   try {
+    var lookup = "/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Crisp_Warm.look";
     var group = checkGroup('Color', 'Finish', 'Help Layers');
     var layer = createColorLookup('test');
-    setColorLookup(layer);
+    setColorLookup(layer, lookup);
   } catch (e) {
     log(e);
   }
