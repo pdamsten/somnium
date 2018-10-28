@@ -150,33 +150,29 @@ setColorLookup = function(layer, lookup)
 {
   try {
     activateLayer(layer);
-    var desc70 = new ActionDescriptor();
-    var ref50 = new ActionReference();
-    ref50.putEnumerated(cTID("Chnl"), cTID("Chnl"), cTID("RGB "));
-    desc70.putReference(cTID("null"), ref50);
-    desc70.putBoolean(cTID("MkVs"), false);
-    executeAction(cTID("slct"), desc70, DialogModes.NO);
 
-    var desc71 = new ActionDescriptor();
-    var ref51 = new ActionReference();
-    ref51.putEnumerated(cTID("AdjL"), cTID("Ordn"), cTID("Trgt"));
-    desc71.putReference(cTID("null"), ref51);
-    var desc72 = new ActionDescriptor();
-    desc72.putEnumerated(sTID("lookupType"), sTID("colorLookupType"), sTID("3DLUT"));
-    desc72.putString(cTID("Nm  "), lookup);
-    desc72.putData(sTID("profile"), icc_profile);
+    var ref1 = new ActionReference();
+    var desc1 = new ActionDescriptor();
+    var desc2 = new ActionDescriptor();
+
+    desc2.putEnumerated(sTID("lookupType"), sTID("colorLookupType"), sTID("3DLUT"));
+    desc2.putString(cTID("Nm  "), lookup);
+    desc2.putData(sTID("profile"), icc_profile);
     // LUTFormatCUBE, LUTFormatLOOK, LUTFormat3DL
-    desc72.putEnumerated(sTID("LUTFormat"), sTID("LUTFormatType"), sTID("LUTFormatLOOK"));
+    desc2.putEnumerated(sTID("LUTFormat"), sTID("LUTFormatType"), sTID("LUTFormatLOOK"));
 
     var f = new File(lookup);
     f.open('r');
     var ldata = f.read();
     f.close();
 
-    desc72.putData(sTID("LUT3DFileData"), ldata);
-    desc72.putString(sTID("LUT3DFileName"), lookup);
-    desc71.putObject(cTID("T   "), sTID("colorLookup"), desc72);
-    executeAction(cTID("setd"), desc71, DialogModes.NO);
+    desc2.putData(sTID("LUT3DFileData"), ldata);
+    desc2.putString(sTID("LUT3DFileName"), lookup);
+
+    ref1.putEnumerated(cTID("AdjL"), cTID("Ordn"), cTID("Trgt"));
+    desc1.putReference(cTID("null"), ref1);
+    desc1.putObject(cTID("T   "), sTID("colorLookup"), desc2);
+    executeAction(cTID("setd"), desc1, DialogModes.NO);
   } catch (e) {
     log(e);
     return null;
