@@ -111,8 +111,10 @@ onSaveLayersClick = function()
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
     app.activeDocument = active;
-    var t1 = Date.now();
-    log('SaveLayers took: ', t1 - t0);
+    var t = Date.now() - t0;
+    var m = Math.floor(t / 1000 / 60);
+    var s = (t / 1000.0) % 60;
+    log('SaveLayers took:', m, 'minutes', s, 'seconds');
     return msg(INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
   } catch (e) {
     log(e);
