@@ -9,6 +9,26 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+basename = function(filename)
+{
+  return filename.split(sep()).reverse()[0];
+}
+
+ext = function(filename)
+{
+  var name = basename(filename);
+
+  if (name.indexOf('.') > 0) {
+    return '.' + name.split('.').reverse()[0];
+  }
+  return '';
+}
+
+removeExt = function(filename)
+{
+  return filename.split('.').slice(0, -1).join('.');
+}
+
 arrayContains = function(a, obj)
 {
   var i = a.length;
@@ -24,9 +44,7 @@ arrayContains = function(a, obj)
 uniqueFilename = function(path, name, ext)
 {
   path = addPathSep(File(path).fsName); // absolute path
-  if (name.indexOf('.') > 0) {
-    name = name.split('.').slice(0, -1).join('.'); // remove extension
-  }
+  name = removeExt(name);
   if (mkdir(path)) {
     var add = '';
     var n = 0;
