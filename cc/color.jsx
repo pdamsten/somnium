@@ -10,6 +10,7 @@ onPrevColorClick = function()
 {
   try {
     var lookup = "/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Bleach Bypass.look";
+    var lookup = pluginPath + "assets/AquaAndBrown.cube";
     var group = checkGroup('Color', 'Finish', 'Help Layers');
     var layer = createColorLookup('test');
     setColorLookup(layer, lookup);
