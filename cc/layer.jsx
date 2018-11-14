@@ -165,7 +165,7 @@ stampCurrentAndBelow = function(layer, name)
   }
 }
 
-enableSmartFilters = function(layer, enable)
+hasSmartFilters = function(layer)
 {
   try {
     layer = activateLayer(layer);
@@ -173,6 +173,18 @@ enableSmartFilters = function(layer, enable)
     if (info == false || info['hasFX'] == false) {
       return false;
     }
+  } catch (e) {
+    return false; // No smart filter
+  }
+}
+
+enableSmartFilters = function(layer, enable)
+{
+  try {
+    if (hasSmartFilters(layer) == false) {
+      return false;
+    }
+    layer = activateLayer(layer);
     if (enable) {
       cmd = cTID('Shw ');
     } else {
