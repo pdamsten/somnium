@@ -161,6 +161,56 @@ checkDir = function()
   return s;
 }
 
+// flags
+// m = show with and without mask
+// s = open smart object (default)
+// f = show with and without smart filters
+// r = Main (RAW) layer
+
+flags = function(layer, main)
+{
+  var main = (typeof main === 'undefined') ? false : main;
+  if (main) {
+    var f = {
+      mask: true,
+      filter: true,
+      smartObject: true,
+      main: true
+    };
+  } else {
+    var f = {
+      mask: false,
+      filter: false,
+      smartObject: true,
+      main: false
+    };
+  }
+  var n = layer.name.indexOf('(?');
+  var v = true;
+  if (n > 0) {
+    n += 2
+    while (n < layer.name.length) {
+      if (layer.name[n] == '-') {
+        v = false;
+        ++n;
+        continue;
+      } else if (layer.name[n] == ')') {
+        break;
+      } else if (layer.name[n] == 'm') {
+        f.mask = v;
+      } else if (layer.name[n] == 'f') {
+        f.filter = v;
+      } else if (layer.name[n] == 's') {
+        f.smartObject = v;
+      } else if (layer.name[n] == 'r') {
+        f.main = v;
+      }
+      ++n;
+    }
+  }
+  return f;
+}
+
 handleLayers = function(layers, func)
 {
   var lmain = findMain(layers);
@@ -173,12 +223,13 @@ handleLayers = function(layers, func)
   }
   for (var i = layers.length - 1; i >= 0; --i) {
     var layer = layers[i].layer;
+    var f = flags(layer);
     if (i == lmain || !layers[i].visible) {
       continue;
     }
     if (smart && layer.kind == LayerKind.SMARTOBJECT) {
       var info = smartObjectInfo(layers[i].layer);
-      if (info != false && info['type'] == 'photoshop') {
+      if (info != false && info['type'] == 'photoshop' && f.smartObject) {
         if (!(arrayContains(handledSmart, info['fileref']))) {
           handledSmart.push(info['fileref']);
           if (editSmartObjectContents(layer)) {
@@ -192,20 +243,28 @@ handleLayers = function(layers, func)
       }
     }
     if (layer.typename == 'LayerSet') {
-      if (masks) {
+      if (f.mask) {
         if (enableLayerMask(layer, false)) {
           func.apply(this, [layer]);
           enableLayerMask(layer, true);
         }
       }
     } else {
-      if (masks) {
-        if (enableLayerMask(layer, false)) {
-          func.apply(this, [layer]);
-          enableLayerMask(layer, true);
-        }
+      if (f.filter) {
+        enableSmartFilters(layer, false);
+      }
+      if (f.mask) {
+        enableLayerMask(layer, false);
       }
       func.apply(this, [layer]);
+      if (f.filter) {
+        enableSmartFilters(layer, true);
+        func.apply(this, [layer]);
+      }
+      if (f.mask) {
+        enableLayerMask(layer, true);
+        func.apply(this, [layer]);
+      }
     }
   }
 
@@ -239,7 +298,8 @@ handleLayers = function(layers, func)
 findMain = function(layers)
 {
   for (var i = layers.length - 1; i >= 0; --i) {
-    if (layers[i].layer.name[0] == '#') {
+    var f = flags(layers[i].layer);
+    if (f.main == true) {
       return i;
     }
   }
@@ -264,16 +324,20 @@ handleMain = function(lmain, layers, func)
   var thereWasAMask = false;
   var thereWasSmartFilters = false;
   var mainCopy = null;
-  var smart = settings.value('SaveLayers', 'smartobjects');
+  var f = flags(mainLayer, true);
 
-  while (i != -1) {
-    if (enableLayerMask(layers[i].layer, false)) {
-      thereWasAMask = true;
+  if (f.mask) {
+    while (i != -1) {
+      if (enableLayerMask(layers[i].layer, false)) {
+        thereWasAMask = true;
+      }
+      i = layers[i].parent;
     }
-    i = layers[i].parent;
   }
-  thereWasSmartFilters = enableSmartFilters(mainLayer, false);
-  if (smart && mainLayer.kind == LayerKind.SMARTOBJECT) {
+  if (f.filter) {
+    thereWasSmartFilters = enableSmartFilters(mainLayer, false);
+  }
+  if (f.smartObject && mainLayer.kind == LayerKind.SMARTOBJECT) {
     var info = smartObjectInfo(mainLayer);
     if (info) {
       if (info['type'] == 'photoshop') {
