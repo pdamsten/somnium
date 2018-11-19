@@ -334,14 +334,14 @@ cmpLayers = function(layer1, layer2)
   if (typeof layer1 === 'undefined' || typeof layer2 === 'undefined') {
     return false;
   }
-  if (typeof layer1 !== 'string' || typeof layer2 !== 'string') {
+  if (typeof layer1 !== 'string' && typeof layer2 !== 'string') {
     return (layer1 == layer2);
   }
   if (typeof layer1 !== 'string') {
-    return (layer1 == layer2.name);
+    return (layer1.name == layer2);
   }
   if (typeof layer2 !== 'string') {
-    return (layer1.name == layer2);
+    return (layer1 == layer2.name);
   }
   //log(layer1.name, layer2.name, (layer1 == layer2));
   return (layer1 == layer2);
