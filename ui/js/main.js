@@ -11,6 +11,7 @@
 
   var csInterface = new CSInterface();
   var pluginPath = '';
+  var colorThemes = [];
 
   csInterface.addEventListener("printToConsole", function(evt) {
     console.log(evt.data);
@@ -111,9 +112,49 @@
     return '<input id="' + id + '" class="ccwidget ' + cls + '" value=""' + type + '>';
   }
 
+  function initColor()
+  {
+    colorThemes = Object.keys(Colors);
+    // TODO Sort keys by hue
+    $("#color").prop('max', colorThemes.length - 1);
+    // TODO Get theme last from previous session
+    var theme = colorThemes[$("#color").prop("value")];
+    $("#colorTheme").html(theme);
+    $("#strength").prop('value', Colors[theme].default);
+  }
+
+  function applyColorTheme()
+  {
+    var strength = $("#strength").prop('value');
+    var theme = colorThemes[$("#color").prop("value")];
+    var values = Colors[theme].values;
+    var adjust = Colors[theme].adjust;
+    var fn = 'onColorThemeChanged(' + values + ',' + strength  + ',' + adjust + ')';
+    console.log(Colors, theme, adjust, fn);
+    callJsx(fn);
+  }
+
+  function colorThemeChanged()
+  {
+    var theme = colorThemes[$("#color").prop("value")];
+    $("#colorTheme").html(theme);
+    $("#strength").prop('value', Colors[theme].default);
+    applyColorTheme();
+  }
+
+  function callJsx(fn) {
+    closeDialog();
+    csInterface.evalScript(fn, function(result) {
+      if (result != 'undefined') { // Yes string after eval
+        openDlg(MSG, result);
+      }
+    });
+  }
+
   function init()
   {
     initJsx();
+    initColor();
     csInterface.evalScript('isDebug()', function(result) {
       if (result == 'true') { // Yes string after eval
         $(".experimental").css("display", "inline-block");
@@ -124,6 +165,42 @@
 
     $('#header, #content').click(function() {
       closeDialog();
+    });
+
+    $("#color").on("input", function (e) { // input too often, use changed ?
+      colorThemeChanged();
+    });
+
+    $("#strength").on("input", function (e) { // input too often, use changed ?
+      applyColorTheme();
+    });
+
+    $("#PrevColor").on("click", function (e) {
+      var clr = $("#color").prop("value");
+      if (clr > 0) {
+        $("#color").prop("value", clr - 1);
+        colorThemeChanged();
+      }
+    });
+
+    $("#RandomColor").on("click", function (e) {
+      var clr = $("#color").prop("value");
+      var max = parseInt($("#color").prop("max"));
+      var nclr = Math.floor(Math.random() * (max + 1));
+      if (clr == nclr) {
+        nclr = (nclr + 1) % (max + 1);
+      }
+      $("#color").prop("value", nclr);
+      colorThemeChanged();
+    });
+
+    $("#NextColor").on("click", function (e) {
+      var clr = $("#color").prop("value");
+      var max = $("#color").prop("max");
+      if (clr < max) {
+        $("#color").prop("value", clr + 1);
+        colorThemeChanged();
+      }
     });
 
     // Handle all clickable elements
@@ -188,14 +265,8 @@
 
     // Handle icon buttons
     $(".iconButton").click(function () {
-      closeDialog();
       var fn = 'on' + $(this).attr('id') + 'Click()';
-
-      csInterface.evalScript(fn, function(result) {
-        if (result != 'undefined') { // Yes string after eval
-          openDlg(MSG, result);
-        }
-      });
+      callJsx(fn);
     });
 
     // Handle icon button right click

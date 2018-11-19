@@ -1,0 +1,20 @@
+var Colors = {
+  "Dull": {
+    "Saturation" : {
+      "values": {
+        "master": [0, -100, 0]
+      },
+      "default": 50,
+      "adjust": "values"
+    }
+  },
+  "Cold": {
+    "Selective Color" : {
+      "values": {
+        "neutrals": [-20, 0, -20, 0]
+      },
+      "default": 20,
+      "adjust": "values"
+    }
+  }
+}

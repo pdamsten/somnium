@@ -205,19 +205,20 @@
       <div class="tabcontent">
         <h2>Color</h2>
         <div class="sliderbox">
-          <input type="range" min="1" max="100" value="50" class="slider" id="color">
+          <input type="range" min="0" max="0" value="0" class="slider" id="color">
         </div>
+        <div id="colorTheme"></div>
         <h2>Strength</h2>
         <div class="sliderbox">
-          <input type="range" min="1" max="100" value="50" class="slider" id="strength">
+          <input type="range" min="0" max="100" value="50" class="slider" id="strength">
         </div>
         <br/>
         <div id="PrevColor" class="iconButton">
           <img src="img/icon-prev.svg">
           Previous
         </div>
-        <div id="RandomColor" class="iconButtonBig">
-          <img src="img/icon-random.svg" class="orb">
+        <div id="RandomColor" class="iconButton">
+          <img src="img/icon-random.svg">
           Random
         </div>
         <div id="NextColor" class="iconButton">
@@ -245,6 +246,7 @@
 
   <script src="js/themeManager.js"></script>
   <script src="js/settings.json"></script>
+  <script src="js/colors.json"></script>
   <script src="js/main.js"></script>
 
 </body>
