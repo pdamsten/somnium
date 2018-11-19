@@ -125,12 +125,9 @@
 
   function applyColorTheme()
   {
-    var strength = $("#strength").prop('value');
-    var theme = colorThemes[$("#color").prop("value")];
-    var values = Colors[theme].values;
-    var adjust = Colors[theme].adjust;
-    var fn = 'onColorThemeChanged(' + values + ',' + strength  + ',' + adjust + ')';
-    console.log(Colors, theme, adjust, fn);
+    var values = Colors[colorThemes[$("#color").prop("value")]];
+    values.strength = parseInt($("#strength").prop('value'));
+    var fn = "onColorThemeChanged('" + JSON.stringify(values) + "')";
     callJsx(fn);
   }
 
@@ -145,7 +142,10 @@
   function callJsx(fn) {
     closeDialog();
     csInterface.evalScript(fn, function(result) {
-      if (result != 'undefined') { // Yes string after eval
+      if (result === "EvalScript error.") {
+        console.log('Error running: ' + fn);
+      }
+      else if (result != 'undefined') { // Yes string after eval
         openDlg(MSG, result);
       }
     });

@@ -3,18 +3,20 @@ var Colors = {
     "Saturation" : {
       "values": {
         "master": [0, -100, 0]
-      },
-      "default": 50,
-      "adjust": "values"
-    }
+      }
+    },
+    "default": 50,
+    "adjust": "values",
+    "blendingmode": "normal"
   },
   "Cold": {
     "Selective Color" : {
       "values": {
         "neutrals": [-20, 0, -20, 0]
-      },
-      "default": 20,
-      "adjust": "values"
-    }
+      }
+    },
+    "default": 20,
+    "adjust": "opacity",
+    "blendingmode": "softLight"
   }
 }
