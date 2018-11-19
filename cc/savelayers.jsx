@@ -215,7 +215,6 @@ handleLayers = function(layers, func)
 {
   var lmain = findMain(layers);
   var masks = false;
-  var smart = settings.value('SaveLayers', 'smartobjects');
 
   hideAllLayers(layers);
   if (lmain != -1) {
@@ -227,8 +226,9 @@ handleLayers = function(layers, func)
     if (i == lmain || !layers[i].visible) {
       continue;
     }
-    if (smart && layer.kind == LayerKind.SMARTOBJECT) {
+    if (layer.kind == LayerKind.SMARTOBJECT) {
       var info = smartObjectInfo(layers[i].layer);
+      //log(layer.name, f.smartObject, info['type'], info['fileref']);
       if (info != false && info['type'] == 'photoshop' && f.smartObject) {
         if (!(arrayContains(handledSmart, info['fileref']))) {
           handledSmart.push(info['fileref']);
@@ -308,12 +308,14 @@ findMain = function(layers)
       return i;
     }
   }
+  /*
   for (var i = layers.length - 1; i >= 0; --i) {
     var info = smartObjectInfo(layers[i].layer);
     if (info != false && info['type'] == 'raw') {
       return i;
     }
   }
+  */
   return -1;
 }
 
