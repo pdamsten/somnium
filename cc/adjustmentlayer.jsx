@@ -207,6 +207,7 @@ setChannelMixer = function(layer, color, cnst, mono)
 createSolidColorAdjustment = function(name, layer, color)
 {
   try {
+    color = (color == undefined) ? [0, 0, 0]: color;
     activateLayer(layer);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
@@ -226,7 +227,30 @@ createSolidColorAdjustment = function(name, layer, color)
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
-     return null;
+    return null;
+  }
+};
+
+setSolidColorAdjustment = function(layer, color)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(sTID("contentLayer"), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    var desc3 = new ActionDescriptor();
+    desc3.putDouble(cTID('Rd  '), color[0]);
+    desc3.putDouble(cTID('Grn '), color[1]);
+    desc3.putDouble(cTID('Bl  '), color[2]);
+    desc2.putObject(cTID('Clr '), sTID("RGBColor"), desc3);
+    desc1.putObject(cTID('T   '), sTID("solidColorLayer"), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
   }
 };
 
