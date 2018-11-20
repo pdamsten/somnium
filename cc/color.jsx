@@ -6,73 +6,94 @@
 //
 //**************************************************************************
 
-var colorGroupName = 'Color';
-var supported = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve'];
+const ColorGroupName = 'Color';
+const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve'];
 
 checkColorThemeGroup = function()
 {
   //log('checkColorThemeGroup');
-  var group = checkGroup(colorGroupName);
+  var group = checkGroup(ColorGroupName);
   var layer;
 
-  layer = checkLayer(supported[1], group);
+  layer = checkLayer(ColorLayers[1], group);
   if (layer == null) {
-    layer = createSelectiveColorAdjustment(supported[1], group);
+    layer = createSelectiveColorAdjustment(ColorLayers[1], group);
   }
   layer.visible = false;
+  deleteLayerMask(layer);
 
-  layer = checkLayer(supported[2], group);
+  layer = checkLayer(ColorLayers[2], group);
   if (layer == null) {
-    layer = createColorLookup(supported[2], group);
+    layer = createColorLookup(ColorLayers[2], group);
   }
   layer.visible = false;
+  deleteLayerMask(layer);
 
-  layer = checkLayer(supported[3], group);
+  layer = checkLayer(ColorLayers[3], group);
   if (layer == null) {
-    layer = createSolidColorAdjustment(supported[3], group);
+    layer = createSolidColorAdjustment(ColorLayers[3], group);
   }
   layer.visible = false;
+  deleteLayerMask(layer);
 
-  layer = checkLayer(supported[4], group);
+  layer = checkLayer(ColorLayers[4], group);
   if (layer == null) {
-    layer = createCurveAdjustment(supported[4], group);
+    layer = createCurveAdjustment(ColorLayers[4], group);
   }
   layer.visible = false;
+  deleteLayerMask(layer);
 
-  layer = checkLayer(supported[0], group);
+  layer = checkLayer(ColorLayers[0], group);
   if (layer == null) {
-    layer = createHueSaturationAdjustment(supported[0], group);
+    layer = createHueSaturationAdjustment(ColorLayers[0], group);
   }
   layer.visible = false;
+  deleteLayerMask(layer);
 }
 
-adjustValues = function(values, strength)
+const CurveTypes = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
+
+adjustValues = function(type, values, strength)
 {
-  if (type == supported[0]) { // Saturation
+  var ret = null;
+  if (type == ColorLayers[0]) { // Saturation
 
-  } else if (type == supported[1]) { // Selective Color
+  } else if (type == ColorLayers[1]) { // Selective Color
 
-  } else if (type == supported[2]) { // LUT
+  } else if (type == ColorLayers[2]) { // LUT
 
-  } else if (type == supported[3]) { // Tint
+  } else if (type == ColorLayers[3]) { // Tint
     return values;
-  } else if (type == supported[4]) { // Curve
-
+  } else if (type == ColorLayers[4]) { // Curve
+    ret = {};
+    for (var i in CurveTypes) {
+      if (i in values) {
+        ret[i] = [];
+        for (var j in values[i]) {
+          ret[i][j] = [];
+          ret[i][j][0] = values[i][j][0];
+          ret[i][j][1] = (values[i][j][1] - values[i][j][0])
+              * strength / 100 + values[i][j][0];
+        }
+      } else {
+        ret[i] = [[0, 0], [255, 255]];
+      }
+    }
   }
-  return values;
+  return ret;
 }
 
 setAdjustmentLayer = function(layer, type, values)
 {
-  if (type == supported[0]) { // Saturation
+  if (type == ColorLayers[0]) { // Saturation
     setHueSaturationAdjustment(layer, values);
-  } else if (type == supported[1]) { // Selective Color
+  } else if (type == ColorLayers[1]) { // Selective Color
     setSelectiveColorAdjustment(layer, values);
-  } else if (type == supported[2]) { // LUT
+  } else if (type == ColorLayers[2]) { // LUT
     setColorLookup(layer, values);
-  } else if (type == supported[3]) { // Tint
+  } else if (type == ColorLayers[3]) { // Tint
     setSolidColorAdjustment(layer, values);
-  } else if (type == supported[4]) { // Curve
+  } else if (type == ColorLayers[4]) { // Curve
     setCurveAdjustment(layer, values);
   }
 }
@@ -85,20 +106,20 @@ onColorThemeChanged = function(values)
 
     var data = JSON.parse(values);
 
-    for (i in supported) {
-      if (supported[i] in data) {
-        log(supported[i]);
-        var layer = findLayer(supported[i], colorGroupName);
+    for (var i in ColorLayers) {
+      if (ColorLayers[i] in data) {
+        //log(ColorLayers[i], data[ColorLayers[i]]["adjust"], data['strength']);
+        var layer = findLayer(ColorLayers[i], ColorGroupName);
+        var values = null;
         layer.visible = true;
-        if (data[supported[i]].adjust == 'values') {
-          var values = adjustValues(data[supported[i]], data['strength']);
+        if (data[ColorLayers[i]]["adjust"] == 'values') {
+          values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], data['strength']);
         } else {
-          var values = data[supported[i]];
+          values = data[ColorLayers[i]]["values"];
           layer.opacity = data['strength'];
         }
-        log(values[0]);
-        setAdjustmentLayer(layer, supported[i], values);
-        setLayerBlendingMode(layer, data['blendingmode']);
+        setAdjustmentLayer(layer, ColorLayers[i], values);
+        setLayerBlendingMode(layer, data[ColorLayers[i]]['blendingmode']);
       }
     }
     /*

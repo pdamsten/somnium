@@ -16,9 +16,21 @@ var Colors = {
     "blendingmode": "softLight"
   },
   "Blue Tint": {
-    "Tint" : [0, 0, 128],
+    "Tint": {
+      "values": [0, 0, 128],
+      "adjust": "opacity",
+      "blendingmode": "color"
+    },
     "default": 15,
-    "adjust": "opacity",
-    "blendingmode": "color"
+  },
+  "Blue & Yellow": {
+    "Curve" : {
+      "values": {
+        "blue": [[0, 20],[255, 240]]
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
+    },
+    "default": 50,
   }
 }
