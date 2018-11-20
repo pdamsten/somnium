@@ -96,9 +96,14 @@ fileVersion = function(filename)
 
 blendingMode = function(mode)
 {
-  var modes = {'color': 'Clr ', 'luminosity': 'Lmns', 'subtract': 'Sbtr',
-               'vividLight': 'vividLight', 'linearLight': 'linearLight',
-               'overlay': 'Ovrl', 'softLight': 'SftL', 'hardLight': 'HrdL'};
+  var modes = {'normal': 'Nrml', 'dissolve':'Dslv', 'darken': 'Drkn', 'multiply': 'Mltp',
+      'color burn': 'CBrn', 'linear burn': 'linearBurn', 'darker color': 'darkerColor',
+      'lighten': 'Lghn', 'screen': 'Scrn', 'color dodge': 'CDdg', 'linear dodge': 'linearDodge',
+      'lighterColor': 'lighterColor', 'Overlay': 'Ovrl', 'softLight': 'SftL',
+      'hard light': 'HrdL', 'vivid light': 'vividLight', 'linear light': 'linearLight',
+      'pin light': 'pinLight', 'hard mix': 'hardMix', 'difference': 'Dfrn', 'exclusion': 'Xclu',
+      'subtract': 'blendSubtraction', 'divide': 'blendDivide', 'hue': 'H   ',
+      'saturation': 'Strt', 'color': 'Clr ', 'luminosity': 'Lmns'};
 
   if (modes[mode].length > 4) {
     return sTID(modes[mode]);
