@@ -32,7 +32,7 @@ objectToString = function(obj, prefix)
     if (obj.hasOwnProperty(o)) {
       try {
         s += prefix + o + ' = ' + obj[o] + '\n';
-        if (typeof obj[o] === 'object') {
+        if (typeof obj[o] === 'object' && !(obj[o] instanceof Array)) {
           s += objectToString(obj[o], prefix + '  ');
         }
       } catch (e) {
