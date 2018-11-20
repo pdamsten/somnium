@@ -167,11 +167,26 @@
       closeDialog();
     });
 
-    $("#color").on("input", function (e) { // input too often, use changed ?
+    var delayTimer = null;
+    $("#color").on("input", function (e) { // input event on timer. otherwise too many events.
+      clearTimeout(delayTimer);
+      delayTimer = setTimeout(function () {
+        colorThemeChanged();
+      }, 300);
+    });
+    $("#color").change(function (e) { // or if users lets go do it immediately
+      clearTimeout(delayTimer);
       colorThemeChanged();
     });
 
-    $("#strength").on("input", function (e) { // input too often, use changed ?
+    $("#strength").on("input", function (e) {
+      clearTimeout(delayTimer);
+      delayTimer = setTimeout(function () {
+        applyColorTheme();
+      }, 300);
+    });
+    $("#strength").change(function (e) {
+      clearTimeout(delayTimer);
       applyColorTheme();
     });
 
