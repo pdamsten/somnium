@@ -1,9 +1,7 @@
 var Colors = {
   "Dull": {
     "Saturation" : {
-      "values": {
-        "master": [0, -100, 0]
-      }
+      "master": [0, -100, 0]
     },
     "default": 50,
     "adjust": "values",
@@ -11,12 +9,16 @@ var Colors = {
   },
   "Cold": {
     "Selective Color" : {
-      "values": {
-        "neutrals": [-20, 0, -20, 0]
-      }
+      "neutrals": [-20, 0, -20, 0]
     },
     "default": 20,
     "adjust": "opacity",
     "blendingmode": "softLight"
+  },
+  "Blue Tint": {
+    "Tint" : [0, 0, 128],
+    "default": 15,
+    "adjust": "opacity",
+    "blendingmode": "color"
   }
 }
