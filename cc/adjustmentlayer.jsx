@@ -293,19 +293,46 @@ createHueSaturationAdjustment = function(name, layer)
 setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
 {
   try {
+    var values = null;
+    if (typeof hue === 'object') {
+      values = hue;
+    } else {
+      values = {"master": [hue, saturation, lightness]}
+    }
+    if (!("colorize" in values)) {
+      values["colorize"] = false;
+    }
+
     activateLayer(layer);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    desc2.putEnumerated(sTID("presetKind"), sTID("presetKindType"), sTID("presetKindCustom"));
+    desc2.putBoolean(cTID('Clrz'),values["colorize"]);
+
     var list1 = new ActionList();
     var desc3 = new ActionDescriptor();
-    desc3.putInteger(cTID('H   '), hue);
-    desc3.putInteger(cTID('Strt'), saturation);
-    desc3.putInteger(cTID('Lght'), lightness);
+    desc3.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Cmps'));
+    desc3.putInteger(cTID('H   '), values['master'][0]);
+    desc3.putInteger(cTID('Strt'), values['master'][1]);
+    desc3.putInteger(cTID('Lght'), values['master'][2]);
     list1.putObject(cTID('Hst2'), desc3);
+
+    if (!values["colorize"] && "ranges" in values) {
+      for (i in values["ranges"]) {
+        var desc4 = new ActionDescriptor();
+        desc4.putInteger(cTID('LclR'), i + 1);
+        desc4.putInteger(cTID('BgnR'), values["ranges"][i][3]);
+        desc4.putInteger(cTID('BgnS'), values["ranges"][i][4]);
+        desc4.putInteger(cTID('EndS'), values["ranges"][i][5]);
+        desc4.putInteger(cTID('EndR'), values["ranges"][i][6]);
+        desc4.putInteger(cTID('H   '), values["ranges"][i][0]);
+        desc4.putInteger(cTID('Strt'), values["ranges"][i][1]);
+        desc4.putInteger(cTID('Lght'), values["ranges"][i][2]);
+        list1.putObject(cTID('Hst2'), desc4);
+      }
+    }
     desc2.putList(cTID('Adjs'), list1);
     desc1.putObject(cTID('T   '), cTID('HStr'), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
