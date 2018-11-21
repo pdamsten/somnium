@@ -68,7 +68,35 @@ adjustValues = function(type, values, strength)
   var ret = null;
   log(values);
   if (type == ColorLayers[0]) { // Saturation
-
+    ret = {};
+    if ("colorize" in values) {
+      ret["colorize"] = values["colorize"];
+    } else {
+      ret["colorize"] = false;
+    }
+    if ("master" in values) {
+      ret["master"] = [];
+      for (var j in values["master"]) {
+        ret["master"][j] = values["master"][j] * strength / 100;
+      }
+    } else {
+      ret["master"] = [0, 0, 0];
+    }
+    ret["ranges"] = [];
+    for (var i = 0; i < 6; ++i) {
+      ret["ranges"][i] = [];
+      if (typeof values["ranges"] !== 'undefined' && typeof values["ranges"][i] !== 'undefined') {
+        for (var j in values["ranges"][i]) {
+          if (j < 3) {
+            ret["ranges"][i][j] = values["ranges"][i][j] * strength / 100;
+          } else {
+            ret["ranges"][i][j] = values["ranges"][i][j];
+          }
+        }
+      } else {
+        ret["ranges"][i] = [0, 0, 0, 100, 120, 240, 260];
+      }
+    }
   } else if (type == ColorLayers[1]) { // Selective Color
     ret = {};
     for (var i in SelectiveColors) {

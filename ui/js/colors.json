@@ -1,14 +1,4 @@
 var Colors = {
-  "Dull": {
-    "Saturation" : {
-      "values": {
-        "master": [0, -100, 0],
-      },
-      "adjust": "values",
-      "blendingmode": "normal"
-    },
-    "default": 50
-  },
   "Multi": {
     "Multi Color Tint" : {
       "values": {
@@ -16,6 +6,16 @@ var Colors = {
       },
       "adjust": "opacity",
       "blendingmode": "soft light"
+    },
+    "default": 50
+  },
+  "Dull": {
+    "Saturation" : {
+      "values": {
+        "ranges": [[0, -100, 0, 15, 45, 75, 105]],
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
     },
     "default": 50
   },
