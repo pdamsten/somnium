@@ -6,6 +6,8 @@
 //
 //**************************************************************************
 
+const PhotoshopPath = dirname(Folder.appPackage.fsName);
+
 createColorLookup = function(name, layer)
 {
   try {
@@ -31,11 +33,12 @@ setColorLookup = function(layer, lookup)
   try {
     activateLayer(layer);
 
-
     var ref1 = new ActionReference();
     var desc1 = new ActionDescriptor();
     var desc2 = new ActionDescriptor();
 
+    lookup = lookup.replace('%PHOTOSHOP%', PhotoshopPath);
+    lookup = lookup.replace('%PLUGIN%', pluginPath);
     var profile = pluginPath + 'assets' + sep() + removeExt(basename(lookup)) + '.ps-lut-data';
     log(profile);
     var f = new File(profile);

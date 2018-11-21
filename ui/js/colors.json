@@ -19,6 +19,14 @@ var Colors = {
     },
     "default": 20
   },
+  "Bleach Bypass": {
+    "LUT" : {
+      "values": "%PHOTOSHOP%/Presets/3DLUTs/Bleach Bypass.look",
+      "adjust": "opacity",
+      "blendingmode": "normal"
+    },
+    "default": 20
+  },
   "Blue Tint": {
     "Tint": {
       "values": [0, 0, 128],

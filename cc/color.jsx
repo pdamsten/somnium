@@ -129,7 +129,7 @@ onColorThemeChanged = function(values)
         layer.visible = true;
         if (data[ColorLayers[i]]["adjust"] == 'values') {
           values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], data['strength']);
-        } else {
+        } else if (data[ColorLayers[i]]["adjust"] == 'opacity') {
           values = data[ColorLayers[i]]["values"];
           layer.opacity = data['strength'];
         }
