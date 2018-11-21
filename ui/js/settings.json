@@ -156,7 +156,7 @@ var Settings = {
   },
 
   "SaveFb": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Save to Facebook",
     "help": "Save image with correct size to Facebook.",
     "config": {
@@ -183,7 +183,7 @@ var Settings = {
     }
   },
   "SaveInsta": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Save to Instagram",
     "help": "Save image with correct size for Instagram",
     "config": {
@@ -210,7 +210,7 @@ var Settings = {
     }
   },
   "SaveTwitter": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Save to Twitter",
     "help": "Save image with correct size to Twitter.",
     "config": {
@@ -237,7 +237,7 @@ var Settings = {
     }
   },
   "Save4K": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Save in 4K Resolution",
     "help": "",
     "config": {
@@ -264,7 +264,7 @@ var Settings = {
     }
   },
   "Export1": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Custom Export 1",
     "help": "User definable export button.",
     "config": {
@@ -291,7 +291,7 @@ var Settings = {
     }
   },
   "Export2": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Custom Export 2",
     "help": "User definable export button.",
     "config": {
@@ -318,7 +318,7 @@ var Settings = {
     }
   },
   "Export3": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Custom Export 3",
     "help": "User definable export button.",
     "config": {
@@ -345,7 +345,7 @@ var Settings = {
     }
   },
   "Export4": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Custom Export 4",
     "help": "User definable export button.",
     "config": {
@@ -372,7 +372,7 @@ var Settings = {
     }
   },
   "SaveLayers": {
-    "group": "Export",
+    "group": "Finish",
     "title": "Save Layers",
     "help": "This makes layers animation from bottom to top which shows how editing progresses. You can mark the main layer with # and it will be saved first. If main layer is a smart object it is copied and opened so you can reset eg. lightroom settings.",
     "config": {
@@ -380,11 +380,6 @@ var Settings = {
         "title": "Save layers output folder:",
         "type": "folder",
         "value": "~/tmp/"
-      },
-      "smartobjects": {
-        "title": "Go inside smartobjects",
-        "type": "boolean",
-        "value": true
       }
     }
   }
