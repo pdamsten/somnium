@@ -383,3 +383,81 @@ setSelectiveColorAdjustment = function(layer, values, absolute)
     return false;
   }
 }
+
+createGradientMapAdjustment = function(name, layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(cTID('AdjL'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    var desc3 = new ActionDescriptor();
+    var desc4 = new ActionDescriptor();
+    desc4.putString(cTID('Nm  '), name);
+    desc4.putEnumerated(cTID('GrdF'), cTID('GrdF'), cTID('CstS'));
+    desc4.putDouble(cTID('Intr'), 4096);
+    desc3.putObject(cTID('Grad'), cTID('Grdn'), desc4);
+    desc2.putObject(cTID('Type'), cTID('GdMp'), desc3);
+    desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
+    executeAction(cTID('Mk  '), desc1, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
+setGradientMapAdjustment = function(layer, values)
+{
+  try {
+    activateLayer(layer);
+
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    var desc3 = new ActionDescriptor();
+    desc3.putString(cTID('Nm  '), name);
+    desc3.putEnumerated(cTID('GrdF'), cTID('GrdF'), cTID('CstS'));
+    desc3.putDouble(cTID('Intr'), 4096);
+    if ('colors' in values) {
+      var list1 = new ActionList();
+      var desc4 = new ActionDescriptor();
+      var desc5 = new ActionDescriptor();
+      for (var i in values['colors']) {
+        desc5.putDouble(cTID('Rd  '), values['colors'][i][0]);
+        desc5.putDouble(cTID('Grn '), values['colors'][i][1]);
+        desc5.putDouble(cTID('Bl  '), values['colors'][i][2]);
+        desc4.putObject(cTID('Clr '), sTID("RGBColor"), desc5);
+        desc4.putEnumerated(cTID('Type'), cTID('Clry'), cTID('UsrS'));
+        desc4.putInteger(cTID('Lctn'), 4096 * values['colors'][i][3] / 100);
+        desc4.putInteger(cTID('Mdpn'), values['colors'][i][4]);
+        list1.putObject(cTID('Clrt'), desc4);
+      }
+      desc3.putList(cTID('Clrs'), list1);
+    }
+    if ('opacity' in values) {
+      var list2 = new ActionList();
+      var desc14 = new ActionDescriptor();
+      for (var i in values['opacity']) {
+        desc14.putUnitDouble(cTID('Opct'), cTID('#Prc'), values['opacity'][i][0]);
+        desc14.putInteger(cTID('Lctn'), values['opacity'][i][1]);
+        desc14.putInteger(cTID('Mdpn'), values['opacity'][i][2]);
+        list2.putObject(cTID('TrnS'), desc14);
+      }
+      desc3.putList(cTID('Trns'), list2);
+    }
+    desc2.putObject(cTID('Grad'), cTID('Grdn'), desc3);
+    desc1.putObject(cTID('T   '), cTID('GdMp'), desc2);
+
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
