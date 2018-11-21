@@ -335,9 +335,9 @@ createSelectiveColorAdjustment = function(name, layer)
   }
 }
 
-var SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns', 'cyans': 'Cyns',
-                       'blues': 'Bls ', 'magentas': 'Mgnt', 'whites': 'Whts', 'neutrals': 'Ntrl',
-                       'blacks': 'Blks'}
+const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
+                         'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
+                         'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'};
 
 setSelectiveColorAdjustment = function(layer, values, absolute)
 {

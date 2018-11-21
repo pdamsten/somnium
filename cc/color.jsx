@@ -51,22 +51,36 @@ checkColorThemeGroup = function()
   deleteLayerMask(layer);
 }
 
-const CurveTypes = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
+const CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
+const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
+                         'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
+                         'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'};
 
 adjustValues = function(type, values, strength)
 {
   var ret = null;
+  log(values);
   if (type == ColorLayers[0]) { // Saturation
 
   } else if (type == ColorLayers[1]) { // Selective Color
-
+    ret = {};
+    for (var i in SelectiveColors) {
+      if (i in values) {
+        ret[i] = [];
+        for (var j in values[i]) {
+          ret[i][j] = values[i][j] * strength / 100;
+        }
+      } else {
+        ret[i] = [0, 0, 0, 0];
+      }
+    }
   } else if (type == ColorLayers[2]) { // LUT
-
+    ret = values;
   } else if (type == ColorLayers[3]) { // Tint
-    return values;
+    ret = values;
   } else if (type == ColorLayers[4]) { // Curve
     ret = {};
-    for (var i in CurveTypes) {
+    for (var i in CurveChannels) {
       if (i in values) {
         ret[i] = [];
         for (var j in values[i]) {
@@ -80,6 +94,7 @@ adjustValues = function(type, values, strength)
       }
     }
   }
+  log(ret);
   return ret;
 }
 
@@ -119,6 +134,7 @@ onColorThemeChanged = function(values)
           layer.opacity = data['strength'];
         }
         setAdjustmentLayer(layer, ColorLayers[i], values);
+        log(data[ColorLayers[i]]['blendingmode']);
         setLayerBlendingMode(layer, data[ColorLayers[i]]['blendingmode']);
       }
     }

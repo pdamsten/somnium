@@ -1,19 +1,23 @@
 var Colors = {
   "Dull": {
     "Saturation" : {
-      "master": [0, -100, 0]
+      "values": {
+        "master": [0, -100, 0],
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
     },
-    "default": 50,
-    "adjust": "values",
-    "blendingmode": "normal"
+    "default": 50
   },
   "Cold": {
     "Selective Color" : {
-      "neutrals": [-20, 0, -20, 0]
+      "values": {
+        "neutrals": [-20, 0, -20, 0],
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
     },
-    "default": 20,
-    "adjust": "opacity",
-    "blendingmode": "softLight"
+    "default": 20
   },
   "Blue Tint": {
     "Tint": {
@@ -21,7 +25,7 @@ var Colors = {
       "adjust": "opacity",
       "blendingmode": "color"
     },
-    "default": 15,
+    "default": 15
   },
   "Blue & Yellow": {
     "Curve" : {
@@ -31,6 +35,6 @@ var Colors = {
       "adjust": "values",
       "blendingmode": "normal"
     },
-    "default": 50,
+    "default": 50
   }
 }
