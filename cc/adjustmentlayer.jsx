@@ -77,7 +77,7 @@ setColorLookup = function(layer, lookup)
   }
 }
 
-var CurveTypes = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
+var CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
 
 createCurveAdjustment = function(name, layer)
 {
@@ -108,7 +108,7 @@ setCurveAdjustment = function(layer, data)
       data = {'master': data};
     }
     activateLayer(layer);
-    for (var type in CurveTypes) {
+    for (var type in CurveChannels) {
       if (type in data) {
         var desc1 = new ActionDescriptor();
         var ref1 = new ActionReference();
@@ -119,7 +119,7 @@ setCurveAdjustment = function(layer, data)
         var list1 = new ActionList();
         var desc3 = new ActionDescriptor();
         var ref2 = new ActionReference();
-        ref2.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID(CurveTypes[type]));
+        ref2.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID(CurveChannels[type]));
         desc3.putReference(cTID('Chnl'), ref2);
         var list2 = new ActionList();
         for (var i = 0; i < data[type].length; ++i) {
@@ -335,11 +335,12 @@ createSelectiveColorAdjustment = function(name, layer)
   }
 }
 
+var SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns', 'cyans': 'Cyns',
+                       'blues': 'Bls ', 'magentas': 'Mgnt', 'whites': 'Whts', 'neutrals': 'Ntrl',
+                       'blacks': 'Blks'}
+
 setSelectiveColorAdjustment = function(layer, values, absolute)
 {
-  var colors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns', 'cyans': 'Cyns',
-                'blues': 'Bls ', 'magentas': 'Mgnt', 'whites': 'Whts', 'neutrals': 'Ntrl',
-                'blacks': 'Blks'}
   try {
     activateLayer(layer);
     for (v in values) {
@@ -350,11 +351,11 @@ setSelectiveColorAdjustment = function(layer, values, absolute)
       var desc2 = new ActionDescriptor();
       var list1 = new ActionList();
       var desc3 = new ActionDescriptor();
-      desc3.putEnumerated(cTID('Clrs'), cTID('Clrs'), cTID(colors[values[v][0]]));
-      desc3.putUnitDouble(cTID('Cyn '), cTID('#Prc'), values[v][1][0]);
-      desc3.putUnitDouble(cTID('Mgnt'), cTID('#Prc'), values[v][1][1]);
-      desc3.putUnitDouble(cTID('Ylw '), cTID('#Prc'), values[v][1][2]);
-      desc3.putUnitDouble(cTID('Blck'), cTID('#Prc'), values[v][1][3]);
+      desc3.putEnumerated(cTID('Clrs'), cTID('Clrs'), cTID(SelectiveColors[v]));
+      desc3.putUnitDouble(cTID('Cyn '), cTID('#Prc'), values[v][0]);
+      desc3.putUnitDouble(cTID('Mgnt'), cTID('#Prc'), values[v][1]);
+      desc3.putUnitDouble(cTID('Ylw '), cTID('#Prc'), values[v][2]);
+      desc3.putUnitDouble(cTID('Blck'), cTID('#Prc'), values[v][3]);
       list1.putObject(cTID('ClrC'), desc3);
       desc2.putList(cTID('ClrC'), list1);
       desc1.putObject(cTID('T   '), cTID('SlcC'), desc2);
