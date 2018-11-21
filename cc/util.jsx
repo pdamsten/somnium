@@ -14,6 +14,11 @@ basename = function(filename)
   return filename.split(sep()).reverse()[0];
 }
 
+dirname = function(filename)
+{
+  return filename.replace(basename(filename), '');
+}
+
 ext = function(filename)
 {
   var name = basename(filename);
