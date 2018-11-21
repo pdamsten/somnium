@@ -7,7 +7,7 @@
 //**************************************************************************
 
 const ColorGroupName = 'Color';
-const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve'];
+const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve', 'Multi Color Tint'];
 
 checkColorThemeGroup = function()
 {
@@ -29,6 +29,13 @@ checkColorThemeGroup = function()
   layer.visible = false;
   deleteLayerMask(layer);
 
+  layer = checkLayer(ColorLayers[4], group);
+  if (layer == null) {
+    layer = createCurveAdjustment(ColorLayers[4], group);
+  }
+  layer.visible = false;
+  deleteLayerMask(layer);
+
   layer = checkLayer(ColorLayers[3], group);
   if (layer == null) {
     layer = createSolidColorAdjustment(ColorLayers[3], group);
@@ -36,9 +43,9 @@ checkColorThemeGroup = function()
   layer.visible = false;
   deleteLayerMask(layer);
 
-  layer = checkLayer(ColorLayers[4], group);
+  layer = checkLayer(ColorLayers[5], group);
   if (layer == null) {
-    layer = createCurveAdjustment(ColorLayers[4], group);
+    layer = createGradientMapAdjustment(ColorLayers[5], group);
   }
   layer.visible = false;
   deleteLayerMask(layer);
@@ -93,6 +100,24 @@ adjustValues = function(type, values, strength)
         ret[i] = [[0, 0], [255, 255]];
       }
     }
+  } else if (type == ColorLayers[5]) { // Gradient Map
+    ret = {};
+    if ('colors' in values) {
+      ret['colors'] = [];
+      for (i in values['colors']) {
+        ret['colors'][i] = values['colors'][i];
+      }
+    } else {
+      ret['colors'] = [[0, 0, 0, 0, 50], [255, 255, 255, 255, 50]];
+    }
+    if ('opacity' in values) {
+      ret['opacity'] = [];
+      for (i in values['opacity']) {
+        ret['opacity'][i] = values['opacity'][i];
+      }
+    } else {
+      ret['opacity'] = [[100, 0, 50], [100, 100, 50]];
+    }
   }
   log(ret);
   return ret;
@@ -110,6 +135,8 @@ setAdjustmentLayer = function(layer, type, values)
     setSolidColorAdjustment(layer, values);
   } else if (type == ColorLayers[4]) { // Curve
     setCurveAdjustment(layer, values);
+  } else if (type == ColorLayers[5]) { // Multi Color Tint
+    setGradientMapAdjustment(layer, values);
   }
 }
 
@@ -130,8 +157,10 @@ onColorThemeChanged = function(values)
         if (data[ColorLayers[i]]["adjust"] == 'values') {
           values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], data['strength']);
         } else if (data[ColorLayers[i]]["adjust"] == 'opacity') {
-          values = data[ColorLayers[i]]["values"];
+          values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
           layer.opacity = data['strength'];
+        } else {
+          values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
         }
         setAdjustmentLayer(layer, ColorLayers[i], values);
         log(data[ColorLayers[i]]['blendingmode']);

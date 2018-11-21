@@ -9,6 +9,16 @@ var Colors = {
     },
     "default": 50
   },
+  "Multi": {
+    "Multi Color Tint" : {
+      "values": {
+        "colors": [[0, 0, 64, 0, 50], [255, 255, 205, 255, 50]],
+      },
+      "adjust": "opacity",
+      "blendingmode": "soft light"
+    },
+    "default": 50
+  },
   "Cold": {
     "Selective Color" : {
       "values": {
