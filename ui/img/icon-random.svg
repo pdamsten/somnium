@@ -67,9 +67,9 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.5429688"
-     inkscape:cx="87.828032"
-     inkscape:cy="128"
+     inkscape:zoom="3.2219637"
+     inkscape:cx="243.93824"
+     inkscape:cy="62.396819"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -132,5 +132,42 @@
        cx="33.866669"
        cy="263.13333"
        r="32.543751" />
+    <g
+       id="g1106"
+       transform="matrix(0.8951876,0,0,0.89395371,4.6220192,27.845988)"
+       style="stroke-width:1.11785495">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.95765781;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 47.087099,244.09613 7.92839,7.93749 -7.92839,7.93749"
+         id="path3446"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccc" />
+      <path
+         sodipodi:nodetypes="cccc"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.95765781;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 53.561159,252.03362 H 33.936769 L 23.754261,273.26988 H 10.29873"
+         id="path3448"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path1068"
+         d="m 47.087098,265.19555 7.92839,7.93749 -7.92839,7.93749"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.95765781;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         transform="matrix(0.26458334,0,0,0.26458334,0,229.26665)"
+         id="path1099"
+         d="M 97.315026,102.81874 89.779883,86.04839 h -50.85555"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:11.17854881;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccc" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         transform="matrix(0.26458334,0,0,0.26458334,0,229.26665)"
+         id="path1092"
+         d="m 202.43587,166.31142 h -74.17092 l -8.2104,-17.2981"
+         style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:11.17854881;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
   </g>
 </svg>
