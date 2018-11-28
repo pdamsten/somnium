@@ -12,7 +12,7 @@ onHighPassSharpeningClick = function(type)
     var group = checkGroup('Finish');
     var l = stampCurrentAndBelow(group, 'High Pass Sharpening');
     doHighPass(l, 3.0, true);
-    setLayerBlendingMode(l, 'hardLight');
+    setLayerBlendingMode(l, 'hard light');
   } catch (e) {
     log(e);
   }
