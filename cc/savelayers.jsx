@@ -233,8 +233,8 @@ handleLayers = function(layers, func)
         if (!(arrayContains(handledSmart, info['fileref']))) {
           handledSmart.push(info['fileref']);
           if (editSmartObjectContents(layer)) {
-            if (app.activeDocument.layers.length > 1) {
-              var smlayers = listLayers();
+            var smlayers = listLayers();
+            if (smlayers.length > 1) {
               handleLayers(smlayers, func);
             }
             app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
