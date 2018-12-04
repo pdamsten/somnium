@@ -12,6 +12,7 @@
   var csInterface = new CSInterface();
   var pluginPath = '';
   var colorThemes = [];
+  var buttonId = null;
 
   csInterface.addEventListener("printToConsole", function(evt) {
     console.log(evt.data);
@@ -30,6 +31,7 @@
   var openDlg = function(type, title, text, arg1, arg2)
   {
     clearTimeout(timer);
+    buttonId = null;
     $('#settings').hide();
     $('#helpText').hide();
     $('#msgText').hide();
@@ -61,10 +63,25 @@
     }
   }
 
+  var setButtonName = function(buttonId) {
+    if ('config' in Settings[buttonId] && 'name' in Settings[buttonId]['config']) {
+      var fn = 'settings.value("' + buttonId + '","name");';
+      csInterface.evalScript(fn, function(result, buttonId) {
+        if (result != '') {
+          $('#' + this.buttonId + ' .iconButtonTitle').html(result);
+        }
+      }.bind({buttonId: buttonId}));
+    }
+  }
+
   var closeDialog = function() {
     timer = 0;
     if ($("#dialog").is(":visible")) {
       $('#dialog').slideToggle();
+
+      if (buttonId) {
+        setButtonName(buttonId);
+      }
     }
   }
 
@@ -79,7 +96,9 @@
     return function(result) {
       var id = '#' + data['id'] + '-' + data['key'];
       //console.log(id, result, typeof result);
-      if (data['type'] == 'folder') {
+      if (data['type'] == 'text') {
+        $(id).val(result);
+      } else if (data['type'] == 'folder') {
         $(id).val(result);
       } else if (data['type'] == 'color') {
         $(id).css('background-color', result);
@@ -162,6 +181,9 @@
     });
     themeManager.init();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
+    for (var key in Settings) {
+      setButtonName(key);
+    }
 
     $('#header, #content').click(function() {
       closeDialog();
@@ -292,7 +314,12 @@
         $('#settings').show();
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
-          if (type == 'folder') {
+          if (type == 'text') {
+            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
+            html += '<div class="column">';
+            html += input(id + '-' + key, 'fullwidth');
+            html += '</div>';
+          } else if (type == 'folder') {
             html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
             html += '<div class="multicolumn"><div class="column greedy">';
             html += input(id + '-' + key);
@@ -326,6 +353,7 @@
         }
       }
       openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
+      buttonId = id;
       return false;
     });
 

@@ -34,8 +34,12 @@ body {
   align-items: stretch;
 }
 
-.sliderbox {
+.sliderbox, .fullwidth {
   width: 100%;
+}
+
+input {
+  padding-right: 0px;
 }
 
 .slider {

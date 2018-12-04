@@ -268,6 +268,11 @@ var Settings = {
     "title": "Custom Export 1",
     "help": "User definable export button.",
     "config": {
+      "name": {
+        "title": "Name:",
+        "type": "text",
+        "value": "Export 1"
+      },
       "path": {
         "title": "Export images to:",
         "type": "folder",
@@ -295,6 +300,11 @@ var Settings = {
     "title": "Custom Export 2",
     "help": "User definable export button.",
     "config": {
+      "name": {
+        "title": "Name:",
+        "type": "text",
+        "value": "Export 2"
+      },
       "path": {
         "title": "Export images to:",
         "type": "folder",
@@ -322,6 +332,11 @@ var Settings = {
     "title": "Custom Export 3",
     "help": "User definable export button.",
     "config": {
+      "name": {
+        "title": "Name:",
+        "type": "text",
+        "value": "Export 3"
+      },
       "path": {
         "title": "Export images to:",
         "type": "folder",
@@ -349,6 +364,11 @@ var Settings = {
     "title": "Custom Export 4",
     "help": "User definable export button.",
     "config": {
+      "name": {
+        "title": "Name:",
+        "type": "text",
+        "value": "Export 4"
+      },
       "path": {
         "title": "Export images to:",
         "type": "folder",
