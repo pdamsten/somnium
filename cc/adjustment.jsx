@@ -19,6 +19,24 @@ doGaussianBlur = function(layer, value, withDialog)
   }
 }
 
+const NoiseTypes = {'gaussian': 'Gsn ', 'uniform': 'Unfr'};
+
+addNoise = function(layer, value, type, mono, withDialog)
+{
+  try {
+    activateLayer(layer);
+    var dialogMode = (typeof withDialog === 'undefined' || withDialog) ? DialogModes.ALL : DialogModes.NO;
+    var desc1 = new ActionDescriptor();
+    desc1.putEnumerated(cTID('Dstr'), cTID('Dstr'), cTID(NoiseTypes[type]));
+    desc1.putUnitDouble(cTID('Nose'), cTID('#Prc'), value);
+    desc1.putBoolean(cTID('Mnch'), mono);
+    desc1.putInteger(cTID('FlRs'), 31237892);
+    executeAction(sTID('addNoise'), desc1, dialogMode);
+  } catch (e) {
+    log(e);
+  }
+}
+
 doLevels = function(layer, value, withDialog)
 {
   try {
