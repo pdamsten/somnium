@@ -103,6 +103,11 @@ var Settings = {
     "title": "High Pass Sharpening",
     "help": "Make high pass Sharpening"
   },
+  "AddNoise": {
+    "group": "Finnish",
+    "title": "Noise",
+    "help": "Add noise layer. Blur and noise are adjustable as smart filters."
+  },
 
   "MakeAll": {
     "group": "Helpers",
