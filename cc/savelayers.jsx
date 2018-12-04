@@ -76,7 +76,6 @@ var ffmpeg = '';
 var ffmpeglast = '';
 var mainPath;
 var docname = '';
-var handledSmart = [];
 
 var minLength = 3.5 // seconds
 var maxLength = 10.0 // seconds
@@ -163,28 +162,51 @@ checkDir = function()
 
 // flags
 // m = show with and without mask
-// s = open smart object (default)
+// s = open smart object
 // f = show with and without smart filters
-// r = Main (RAW) layer
+// r = Show these first
+//
+// Defaults
+// PSB smart object => -m +s -f -r
+// RAW smart object => -m -s -f -r
+// Layer name == file name => +m +s +f +r
+// Other layers => -m -s -f -r
 
-flags = function(layer, main)
+default_flags = function(layer)
 {
-  var main = (typeof main === 'undefined') ? false : main;
-  if (main) {
+  if (layer.kind == LayerKind.SMARTOBJECT) {
+    var info = smartObjectInfo(layer);
+  } else {
+    var info = false;
+  }
+  if (layer.name == docname) {
     var f = {
       mask: true,
       filter: true,
-      smartObject: true,
+      smart: true,
       main: true
+    };
+  } else if (info != false && info['type'] == 'photoshop') {
+    var f = {
+      mask: false,
+      filter: false,
+      smart: true,
+      main: false
     };
   } else {
     var f = {
       mask: false,
       filter: false,
-      smartObject: true,
+      smart: false,
       main: false
     };
   }
+  return f;
+}
+
+flags = function(layer)
+{
+  var f = default_flags(layer);
   var n = layer.name.indexOf('(?');
   var v = true;
   if (n > 0) {
@@ -201,7 +223,7 @@ flags = function(layer, main)
       } else if (layer.name[n] == 'f') {
         f.filter = v;
       } else if (layer.name[n] == 's') {
-        f.smartObject = v;
+        f.smart = v;
       } else if (layer.name[n] == 'r') {
         f.main = v;
       }
@@ -211,61 +233,110 @@ flags = function(layer, main)
   return f;
 }
 
+enableLayerMasks = function(layers, n, enable)
+{
+  i = n;
+  hadMask = false;
+  while (i != -1) {
+    if (enableLayerMask(layers[i].layer, enable)) {
+      hadMask = true;
+    }
+    i = layers[i].parent;
+  }
+  return hadMask;
+}
+
+handleLayer = function(layers, n, func)
+{
+  var layer = layers[n].layer;
+  var f = flags(layer);
+  // layers[n].visible == original visibility
+  // layer.visible == already handled
+  if (layer.visible || !layers[n].visible) {
+    return;
+  }
+  if (layer.kind == LayerKind.SMARTOBJECT && f.smart) {
+    var info = smartObjectInfo(layer);
+    //log(layer.name, f.smartObject, info['type'], info['fileref']);
+    if (info) {
+      if (info['type'] == 'photoshop') {
+        if (editSmartObjectContents(layer)) {
+          var smlayers = listLayers();
+          if (smlayers.length > 1) {
+            handleLayers(smlayers, func);
+          }
+          app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
+        }
+      } else if (info['type'] == 'raw') {
+        if (newSmartObjectViaCopy(layer)) {
+          mainCopy = app.activeDocument.activeLayer;
+          // Move out of any groups
+          mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
+          deleteLayerMask(mainCopy);
+          deleteSmartFilters(mainCopy);
+          editSmartObjectContents(mainCopy);
+          mainCopy.visible = true;
+          mainCopy.opacity = 100;
+          func.apply(this, [mainCopy]);
+          mainCopy.visible = false;
+          mainCopy.remove();
+        }
+      }
+    }
+  }
+  if (layer.typename == 'LayerSet') {
+    if (f.mask) {
+      if (enableLayerMasks(layers, n, false)) {
+        func.apply(this, [layer]);
+        enableLayerMasks(layers, n, true);
+      }
+    }
+  } else {
+    if (f.filter) {
+      enableSmartFilters(layer, false);
+    }
+    if (f.mask) {
+      enableLayerMasks(layers, n, false);
+    }
+    func.apply(this, [layer]);
+    if (f.filter) {
+      if (enableSmartFilters(layer, true)) {
+        func.apply(this, [layer]);
+      }
+    }
+    if (f.mask) {
+      if (enableLayerMasks(layers, n, true)) {
+        func.apply(this, [layer]);
+      }
+    }
+  }
+}
+
+findFirst = function(layers, func)
+{
+  var result = [];
+
+  for (var i = layers.length - 1; i >= 0; --i) {
+    var f = flags(layers[i].layer);
+    if (f.main) {
+      result.push(i);
+    }
+    //log(layers[i].layer.name, f.main);
+  }
+  return result;
+}
+
 handleLayers = function(layers, func)
 {
-  var lmain = findMain(layers);
-  var masks = false;
+  var first = findFirst(layers);
 
   hideAllLayers(layers);
-  if (lmain != -1) {
-    handleMain(lmain, layers, func);
+
+  for (var i = first.length - 1; i >= 0; --i) {
+    handleLayer(layers, first[i], func);
   }
   for (var i = layers.length - 1; i >= 0; --i) {
-    var layer = layers[i].layer;
-    var f = flags(layer);
-    if (i == lmain || !layers[i].visible) {
-      continue;
-    }
-    if (layer.kind == LayerKind.SMARTOBJECT) {
-      var info = smartObjectInfo(layers[i].layer);
-      //log(layer.name, f.smartObject, info['type'], info['fileref']);
-      if (info != false && info['type'] == 'photoshop' && f.smartObject) {
-        if (!(arrayContains(handledSmart, info['fileref']))) {
-          handledSmart.push(info['fileref']);
-          if (editSmartObjectContents(layer)) {
-            var smlayers = listLayers();
-            if (smlayers.length > 1) {
-              handleLayers(smlayers, func);
-            }
-            app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-          }
-        }
-      }
-    }
-    if (layer.typename == 'LayerSet') {
-      if (f.mask) {
-        if (enableLayerMask(layer, false)) {
-          func.apply(this, [layer]);
-          enableLayerMask(layer, true);
-        }
-      }
-    } else {
-      if (f.filter) {
-        enableSmartFilters(layer, false);
-      }
-      if (f.mask) {
-        enableLayerMask(layer, false);
-      }
-      func.apply(this, [layer]);
-      if (f.filter) {
-        enableSmartFilters(layer, true);
-        func.apply(this, [layer]);
-      }
-      if (f.mask) {
-        enableLayerMask(layer, true);
-        func.apply(this, [layer]);
-      }
-    }
+    handleLayer(layers, i, func);
   }
 
   var d = checkDir();
@@ -293,97 +364,6 @@ handleLayers = function(layers, func)
   writeTextFile(d + 'ffmpeg-4k.sh', cmd1 + fourk + cmd2 + '-4k.mp4"\n');
   writeTextFile(d + 'ffmpeg-1080p.sh', cmd1 + fullhd + cmd2 + '-1080p.mp4"\n');
   writeTextFile(d + 'ffmpeg-insta.sh', cmd1 + insta + cmd2 + '-insta.mp4"\n');
-}
-
-findMain = function(layers)
-{
-  for (var i = layers.length - 1; i >= 0; --i) {
-    var f = flags(layers[i].layer);
-    if (f.main == true) {
-      return i;
-    }
-  }
-  for (var i = layers.length - 1; i >= 0; --i) {
-    if (layers[i].layer.name == docname) {
-      return i;
-    }
-  }
-  /*
-  for (var i = layers.length - 1; i >= 0; --i) {
-    var info = smartObjectInfo(layers[i].layer);
-    if (info != false && info['type'] == 'raw') {
-      return i;
-    }
-  }
-  */
-  return -1;
-}
-
-handleMain = function(lmain, layers, func)
-{
-  var mainLayer = layers[lmain].layer;
-  var i = lmain;
-  var thereWasAMask = false;
-  var thereWasSmartFilters = false;
-  var mainCopy = null;
-  var f = flags(mainLayer, true);
-
-  if (f.mask) {
-    while (i != -1) {
-      if (enableLayerMask(layers[i].layer, false)) {
-        thereWasAMask = true;
-      }
-      i = layers[i].parent;
-    }
-  }
-  if (f.filter) {
-    thereWasSmartFilters = enableSmartFilters(mainLayer, false);
-  }
-  if (f.smartObject && mainLayer.kind == LayerKind.SMARTOBJECT) {
-    var info = smartObjectInfo(mainLayer);
-    if (info) {
-      if (info['type'] == 'photoshop') {
-        if (!(arrayContains(handledSmart, info['fileref']))) {
-          handledSmart.push(info['fileref']);
-          if (editSmartObjectContents(mainLayer)) {
-            if (app.activeDocument.layers.length > 1) {
-              var smlayers = listLayers();
-              handleLayers(smlayers, func);
-            }
-            app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-          }
-        }
-      }
-      else if (info['type'] == 'raw') {
-        if (newSmartObjectViaCopy(mainLayer)) {
-          mainCopy = app.activeDocument.activeLayer;
-          // Move out of any groups
-          mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
-          deleteLayerMask(mainCopy);
-          deleteSmartFilters(mainCopy);
-          editSmartObjectContents(mainCopy);
-          mainCopy.visible = true;
-          mainCopy.opacity = 100;
-          func.apply(this, [mainCopy]);
-          mainCopy.visible = false;
-          mainCopy.remove();
-        }
-      }
-    }
-  }
-  func.apply(this, [mainLayer]);
-  if (thereWasSmartFilters) {
-    enableSmartFilters(mainLayer, true);
-    func.apply(this, [mainLayer]);
-  }
-  if (thereWasAMask) {
-    i = lmain;
-    while (i != -1) {
-      enableLayerMask(layers[i].layer, true);
-      i = layers[i].parent;
-    }
-    func.apply(this, [mainLayer]);
-  }
 }
 
 // Experimental
