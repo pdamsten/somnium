@@ -104,7 +104,7 @@ blendingMode = function(mode)
   var modes = {'normal': 'Nrml', 'dissolve':'Dslv', 'darken': 'Drkn', 'multiply': 'Mltp',
       'color burn': 'CBrn', 'linear burn': 'linearBurn', 'darker color': 'darkerColor',
       'lighten': 'Lghn', 'screen': 'Scrn', 'color dodge': 'CDdg', 'linear dodge': 'linearDodge',
-      'lighter color': 'lighterColor', 'Overlay': 'Ovrl', 'soft light': 'SftL',
+      'lighter color': 'lighterColor', 'overlay': 'Ovrl', 'soft light': 'SftL',
       'hard light': 'HrdL', 'vivid light': 'vividLight', 'linear light': 'linearLight',
       'pin light': 'pinLight', 'hard mix': 'hardMix', 'difference': 'Dfrn', 'exclusion': 'Xclu',
       'subtract': 'blendSubtraction', 'divide': 'blendDivide', 'hue': 'H   ',
