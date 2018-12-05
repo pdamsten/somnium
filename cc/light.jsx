@@ -10,7 +10,7 @@ onMakeCookieClick = function()
 {
   try {
     var type = settings.value('MakeCookie', 'type');
-    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    var group = checkGroup('Light', undefined, 'Help Layers');
     if (type == 0) {
       var c = [curvePoint(0, 0), curvePoint(128, -15), curvePoint(255, 0)];
       l = createCurveAdjustment('Cookie', group);
@@ -31,7 +31,7 @@ onMakeVignetteClick = function()
 {
   try {
     var type = settings.value('MakeVignette', 'type');
-    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    var group = checkGroup('Light', undefined, 'Help Layers');
     var p = 0.1;
     var c = [app.activeDocument.height * p, app.activeDocument.width * p,
              app.activeDocument.height - app.activeDocument.height * p,
@@ -51,7 +51,7 @@ onMakeVignetteClick = function()
 onMakeWashOutClick = function()
 {
   try {
-    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    var group = checkGroup('Light', undefined, 'Help Layers');
     var c = [curvePoint(0, 5), curvePoint(32, 0), curvePoint(224, 0), curvePoint(255, -2.5)];
 
     l = createCurveAdjustment('Faded / Contrast', group);
@@ -67,7 +67,7 @@ onMakeDBClick = function()
 {
   try {
     var type = settings.value('MakeDB', 'type');
-    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    var group = checkGroup('Light', undefined, 'Help Layers');
 
     if (type == 1) {
       var l = createLayer('Dodge & Burn', group);
@@ -97,7 +97,7 @@ onMakeDBClick = function()
 onMakeHighlightClick = function()
 {
   try {
-    var group = checkGroup('Light', 'Finish', 'Help Layers');
+    var group = checkGroup('Light', undefined, 'Help Layers');
 
     var l = createSolidColorAdjustment('Hightlight', group, [255, 255, 255])
     setLayerBlendingMode(l, 'softLight');

@@ -12,7 +12,7 @@ const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve', 'M
 checkColorThemeGroup = function()
 {
   //log('checkColorThemeGroup');
-  var group = checkGroup(ColorGroupName);
+  var group = checkGroup(ColorGroupName, undefined, 'Help Layers');
   var layer;
 
   layer = checkLayer(ColorLayers[1], group);
