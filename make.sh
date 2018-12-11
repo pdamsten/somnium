@@ -18,6 +18,9 @@ mkdir com.petridamsten.somnium
 cp ../com.petridamsten.somnium/README com.petridamsten.somnium/
 mkdir com.petridamsten.somnium/actions
 cp ../com.petridamsten.somnium/actions/*.jsx com.petridamsten.somnium/actions/
+# Don't use megabyte LUTs...
+mkdir com.petridamsten.somnium/assets
+cp "../com.petridamsten.somnium/assets/Bleach Bypass.ps-lut-data" com.petridamsten.somnium/assets/
 mkdir com.petridamsten.somnium/cc
 cp ../com.petridamsten.somnium/cc/*.js* com.petridamsten.somnium/cc/
 mkdir com.petridamsten.somnium/CSXS
@@ -41,3 +44,6 @@ if [ ! -f selfDB.p12 ]; then
 fi
 
 ZXPSignCmd -sign com.petridamsten.somnium com.petridamsten.somnium.zxp selfDB.p12 "$PASSWORD" -tsa http://timestamp.digicert.com/
+
+cd ..
+diff -r com.petridamsten.somnium tmp/com.petridamsten.somnium
