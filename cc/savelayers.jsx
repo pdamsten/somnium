@@ -113,7 +113,7 @@ onSaveLayersClick = function()
       newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
     }*/
     mainPath = addPathSep(File(addPathSep(path) + docname).fsName);
-    var layers = listLayers();
+    var layers = getFlags(listLayers());
     //takeScreenshotsFromLayers(layers);
     pindex = 0;
     mogrify = '';
@@ -144,6 +144,16 @@ saveJpg = function(layer)
 {
   layer.visible = true;
   saveAsJpeg(output('layer-', '.jpg'), 3840, 2160);
+}
+
+getFlags = function(layers)
+{
+  for (var i = layers.length - 1; i >= 0; --i) {
+    if (layers[i].visible) {
+      layers[i].flags = flags(layers[i].layer);
+    }
+  }
+  return layers;
 }
 
 hideAllLayers = function(layers)
@@ -263,19 +273,18 @@ enableLayerMasks = function(layers, n, enable)
 handleLayer = function(layers, n, func)
 {
   var layer = layers[n].layer;
-  var f = flags(layer);
   // layers[n].visible == original visibility
   // layer.visible == already handled
   if (layer.visible || !layers[n].visible) {
     return;
   }
-  if (layer.kind == LayerKind.SMARTOBJECT && f.smart) {
+  //log(layer.name, layers[n].flags.smart, layer.visible, layers[n].visible); return;
+  if (layer.kind == LayerKind.SMARTOBJECT && layers[n].flags.smart) {
     var info = smartObjectInfo(layer);
-    //log(layer.name, f.smartObject, info['type'], info['fileref']);
     if (info) {
       if (info['type'] == 'photoshop') {
         if (editSmartObjectContents(layer)) {
-          var smlayers = listLayers();
+          var smlayers = getFlags(listLayers());
           if (smlayers.length > 1) {
             handleLayers(smlayers, func);
           }
@@ -292,33 +301,32 @@ handleLayer = function(layers, n, func)
           mainCopy.visible = true;
           mainCopy.opacity = 100;
           func.apply(this, [mainCopy]);
-          mainCopy.visible = false;
           mainCopy.remove();
         }
       }
     }
   }
   if (layer.typename == 'LayerSet') {
-    if (f.mask) {
+    if (layers[n].flags.mask) {
       if (enableLayerMasks(layers, n, false)) {
         func.apply(this, [layer]);
         enableLayerMasks(layers, n, true);
       }
     }
   } else {
-    if (f.filter) {
+    if (layers[n].flags.filter) {
       enableSmartFilters(layer, false);
     }
-    if (f.mask) {
+    if (layers[n].flags.mask) {
       enableLayerMasks(layers, n, false);
     }
     func.apply(this, [layer]);
-    if (f.filter) {
+    if (layers[n].flags.filter) {
       if (enableSmartFilters(layer, true)) {
         func.apply(this, [layer]);
       }
     }
-    if (f.mask) {
+    if (layers[n].flags.mask) {
       if (enableLayerMasks(layers, n, true)) {
         func.apply(this, [layer]);
       }
@@ -331,8 +339,7 @@ findFirst = function(layers, func)
   var result = [];
 
   for (var i = layers.length - 1; i >= 0; --i) {
-    var f = flags(layers[i].layer);
-    if (f.main) {
+    if (layers[i].visible && layers[i].flags.main) {
       result.push(i);
     }
     //log(layers[i].layer.name, f.main);
@@ -349,6 +356,7 @@ handleLayers = function(layers, func)
   for (var i = first.length - 1; i >= 0; --i) {
     handleLayer(layers, first[i], func);
   }
+
   for (var i = layers.length - 1; i >= 0; --i) {
     handleLayer(layers, i, func);
   }
