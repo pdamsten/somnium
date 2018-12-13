@@ -47,11 +47,33 @@ onMakeSolarisationClick = function()
   l.visible = false;
 }
 
+const MemoStyles = {
+  'colorOverlay': {
+    'color': [255, 0, 55],
+    'opacity': 100,
+    'blendingmode': 'normal'
+  },
+  'stroke': {
+    'size': 2,
+    'position': 'outside',
+    'blendingmode': 'normal',
+    'opacity': 100,
+    'overprint': false,
+    'color': [0, 0, 0]
+  }
+}
+
 onMakeMemoClick = function()
 {
-  if (checkLayer('Memo', helpGroupName) != null) return;
-  group = checkGroup(helpGroupName);
-  createLayer('Memo', group);
+  try {
+    if (checkLayer('Memo', helpGroupName) != null) return;
+    var group = checkGroup(helpGroupName);
+    var layer = createLayer('Memo', group);
+    setLayerStyles(layer, MemoStyles);
+    layer.opacity = 66;
+  } catch (e) {
+    log(e);
+  }
 }
 
 onMakeSkinCheckerClick = function()
