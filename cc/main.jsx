@@ -55,6 +55,7 @@ function init(path)
     include(jsxPath + 'layer.jsx');
     include(jsxPath + 'mask.jsx');
     include(jsxPath + 'adjustment.jsx');
+    include(jsxPath + 'styles.jsx');
     include(jsxPath + 'adjustmentlayer.jsx');
     include(jsxPath + 'selection.jsx');
     include(jsxPath + 'atn.jsx');
