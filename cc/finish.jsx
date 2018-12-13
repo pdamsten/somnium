@@ -6,13 +6,13 @@
 //
 //**************************************************************************
 
-onHighPassSharpeningClick = function(type)
+onHighPassSharpeningClick = function()
 {
   try {
-    var group = checkGroup('Finish');
-    var l = stampCurrentAndBelow(group, 'High Pass Sharpening');
-    doHighPass(l, 3.0, true);
-    setLayerBlendingMode(l, 'hard light');
+    var layer = stampCurrentAndBelow('first', 'High Pass Sharpening');
+    layer = convertToSmartObject(layer);
+    doHighPass(layer, 2.6, false);
+    setLayerBlendingMode(layer, 'hard light');
   } catch (e) {
     log(e);
   }
