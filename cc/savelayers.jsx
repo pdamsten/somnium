@@ -70,20 +70,6 @@ onExport4Click = function()
   return exportFile('Export4');
 }
 
-onAddNoiseClick = function()
-{
-  try {
-    var layer = createSolidColorAdjustment('Noise', 'current', [128, 128, 128]);
-    layer = convertToSmartObject(layer);
-    deleteLayerMask(layer);
-    addNoise(layer, 2.0, 'gaussian', true, false);
-    doGaussianBlur(layer, 0.4, false);
-    setLayerBlendingMode(layer, 'overlay');
-  } catch (e) {
-    log(e);
-  }
-}
-
 var pindex = 0;
 var mogrify = '';
 var ffmpeg = '';
