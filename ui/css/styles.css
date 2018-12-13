@@ -147,8 +147,11 @@ select {
   color: var(--txt-color);
   font-family: var(--font-family);
   font-size: var(--font-size-widget);
-  font-weight: normal;
   z-index: 100;
+}
+
+#msgText, #helpText {
+  font-weight: 400;
 }
 
 #closeDlg {
