@@ -104,7 +104,7 @@ onMakeFSClick = function(type)
       hi.visible = true;
       var params = ["RGB", "Low Frequence", 'subtract', 2, 128];
       doApplyImage(hi, params, false);
-      setLayerBlendingMode(hi, 'linearLight');
+      setLayerBlendingMode(hi, 'linear light');
       var lo2 = duplicateLayer(lo, 'Low Frequence paint');
       doGaussianBlur(lo2, 9.0);
       addLayerMask(lo2, true);
