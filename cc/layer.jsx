@@ -382,18 +382,13 @@ checkLayer = function(name, parent)
   return null;
 }
 
-createLayer = function(name, layer, insideGroup)
+createLayer = function(name, layer)
 {
-  insideGroup = typeof insideGroup !== 'undefined' ? insideGroup : true;
   var layer = activateLayer(layer);
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
   app.activeDocument.activeLayer = newLayer;
-  if (layer.typename == 'LayerSet' && insideGroup == true) {
-    newLayer.move(layer, ElementPlacement.INSIDE);
-  } else {
-    newLayer.move(layer, ElementPlacement.PLACEBEFORE);
-  }
+  newLayer.move(layer, ElementPlacement.PLACEBEFORE);
   return newLayer;
 }
 
