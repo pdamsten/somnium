@@ -95,15 +95,18 @@ onMakeMatchClick = function()
   }
 }
 
-onMakeFSClick = function(type)
+onMakeFSClick = function()
 {
   try {
-    if (type == 'simple') {
+    var type = settings.value('MakeFS', 'style');
+    log(type);
+    if (type == 0) {
       var layer = stampCurrentAndBelow('current', 'Simple Frequence Separation');
       invertLayer(layer);
-      setLayerBlendingMode(layer, 'vividLight');
-      doHighPass(layer, 24);
-      doGaussianBlur(layer, 4);
+      layer = convertToSmartObject(layer);
+      doHighPass(layer, 24, false);
+      doGaussianBlur(layer, 7.0, false);
+      setLayerBlendingMode(layer, 'vivid light');
       addLayerMask(layer, true);
     } else {
       var lo = stampCurrentAndBelow('current', 'Low Frequence');
