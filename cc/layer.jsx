@@ -574,6 +574,19 @@ fillLayer = function(layer, color)
   return true;
 }
 
+ifGroupMoveOut = function(layer, group)
+{
+  try {
+    if (group.typename == 'LayerSet') {
+      layer.move(group, ElementPlacement.PLACEBEFORE);
+    }
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
 rotateLayer = function(layer, angle)
 {
   try {
