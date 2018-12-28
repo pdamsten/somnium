@@ -107,7 +107,7 @@ blendingMode = function(mode)
       'lighter color': 'lighterColor', 'overlay': 'Ovrl', 'soft light': 'SftL',
       'hard light': 'HrdL', 'vivid light': 'vividLight', 'linear light': 'linearLight',
       'pin light': 'pinLight', 'hard mix': 'hardMix', 'difference': 'Dfrn', 'exclusion': 'Xclu',
-      'subtract': 'blendSubtraction', 'divide': 'blendDivide', 'hue': 'H   ',
+      'subtract': 'Sbtr', 'divide': 'blendDivide', 'hue': 'H   ',
       'saturation': 'Strt', 'color': 'Clr ', 'luminosity': 'Lmns'};
 
   if (modes[mode].length > 4) {
