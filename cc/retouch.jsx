@@ -12,7 +12,7 @@ onDefringeMaskClick = function()
     doGaussianBlur(app.activeDocument.activeLayer, 2.0);
     doLevels(app.activeDocument.activeLayer, [[180, 255, 1.0], [0, 255]]);
   } else {
-    msg('No Layer mask.');
+    return msg(WARNING, 'Defringe Mask', 'No Layer mask.');
   }
 }
 
@@ -30,18 +30,22 @@ onCombineDocumentsClick = function()
 {
   try {
     var doc = app.activeDocument;
+    var moved = false;
     for (var i = app.documents.length - 1; i >= 0; --i) {
       if (app.documents[i] != doc) {
         if (app.documents[i].layers.length == 1) {
           app.activeDocument = app.documents[i];
           duplicateLayerToDoc(app.documents[i].layers[0], doc.name);
-          log(app.documents[i].name, doc.name);
-          // TODO get this from settings
+          //log(app.documents[i].name, doc.name);
           app.documents[i].close(SaveOptions.DONOTSAVECHANGES);
+          moved = true;
         }
       }
     }
     app.activeDocument = doc;
+    if (moved == false) {
+      return msg(WARNING, 'Combine Documents', 'Could not find any single layer documents.');
+    }
   } catch (e) {
     log(e);
   }
