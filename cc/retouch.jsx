@@ -99,7 +99,6 @@ onMakeFSClick = function()
 {
   try {
     var type = settings.value('MakeFS', 'style');
-    log(type);
     if (type == 0) {
       var layer = stampCurrentAndBelow('current', 'Simple Frequence Separation');
       invertLayer(layer);
