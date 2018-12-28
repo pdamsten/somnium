@@ -67,20 +67,25 @@ onFillEmptyClick = function()
 onMakeMatchClick = function()
 {
   try {
+    var current = app.activeDocument.activeLayer;
     var layer;
     layer = createCurveAdjustment('Luminosity');
     deleteLayerMask(layer);
+    ifGroupMoveOut(layer, current);
     clipBelow(layer);
     layer = createSelectiveColorAdjustment('Hue');
     deleteLayerMask(layer);
+    ifGroupMoveOut(layer, current);
     clipBelow(layer);
     layer = createHueSaturationAdjustment('Saturation');
     deleteLayerMask(layer);
+    ifGroupMoveOut(layer, current);
     clipBelow(layer);
     // Helpers
     onMakeLightnessClick();
     onMatchTonesClick();
     onMakeSaturationMapClick();
+    app.activeDocument.activeLayer = current;
   } catch (e) {
     log(e);
   }
