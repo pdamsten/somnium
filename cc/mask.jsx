@@ -28,14 +28,18 @@ addLayerMask = function(layer, hidden)
   try {
     hidden = (typeof hidden === 'undefined') ? false : hidden;
     activateLayer(layer);
+    deleteLayerMask(layer);
     var desc1 = new ActionDescriptor();
     desc1.putClass(cTID('Nw  '), cTID('Chnl'));
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
     desc1.putReference(cTID('At  '), ref1);
-    if (hidden) {
-      desc1.putEnumerated(cTID('Usng'), cTID('UsrM'), cTID('HdAl'));
+    if (hasSelection()) {
+      var type = (hidden) ? cTID('HdSl') : cTID('RvlS');
+    } else {
+      var type = (hidden) ? cTID('HdAl') : cTID('RvlA');
     }
+    desc1.putEnumerated(cTID('Usng'), cTID('UsrM'), type);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
     return true;
   } catch (e) {
