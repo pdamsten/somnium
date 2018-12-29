@@ -78,7 +78,15 @@ function init(path)
       var fileList = pluginFolder.getFiles('*.jsx');
       for (var i = 0 ;i < fileList.length; i++) {
         include(fileList[i].fsName);
-        plugins.push([removeExt(basename(fileList[i].fsName)), 'img/icon-default.svg']);
+        var name = removeExt(basename(fileList[i].fsName));
+        var svg = addPathSep(pluginFolder.fsName) + name + '.svg';
+        var f = new File(svg);
+        if (f.exists) {
+          svg = '../plugins/' + name + '.svg'
+        } else {
+          svg = 'img/icon-default.svg';
+        }
+        plugins.push([name, svg]);
       }
     }
     settings = new Settings(userDataPath, pluginPath);
