@@ -117,20 +117,6 @@ stampVisible = function(name, layer)
   }
 }
 
-clipBelow = function(layer)
-{
-  try {
-    layer = activateLayer(layer);
-    var desc1 = new ActionDescriptor();
-    var ref1 = new ActionReference();
-    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
-    desc1.putReference(cTID('null'), ref1);
-    executeAction(sTID('groupEvent'), desc1, DialogModes.NO);
-  } catch (e) {
-    log(e);
-  }
-};
-
 stampCurrentAndBelow = function(layer, name)
 {
   try {

@@ -29,10 +29,10 @@ onBlendIfClick = function()
     var current = app.activeDocument.activeLayer;
     var l = createSolidColorAdjustment('Blend If Helper');
     l.move(current, ElementPlacement.PLACEBEFORE);
+    l.grouped = true; // Clipping mask
     setSolidColorAdjustment(l, [255, 0, 0]);
     l.opacity = 50;
     deleteLayerMask(l);
-    clipBelow(l);
   } catch (e) {
     log(e);
   }
