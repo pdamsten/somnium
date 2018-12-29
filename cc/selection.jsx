@@ -6,6 +6,15 @@
 //
 //**************************************************************************
 
+hasSelection = function()
+{
+  try {
+    return (app.activeDocument.selection.bounds) ? true : false;
+  } catch(e) {
+    return false;
+  }
+}
+
 makeSelection = function(mode, type, coords, feather)
 {
   var modes = {'new': cTID('setd'), 'add': sTID('addTo'),
