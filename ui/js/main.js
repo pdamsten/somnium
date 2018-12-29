@@ -31,7 +31,10 @@
           html += result[i][0];
           html += '</div>';
         }
-        $('#PluginsTab .tabcontent').html(html);
+        if (html != '') {
+          $('#PluginsTab .tabcontent').html(html);
+          $("#Plugins").css("display", "inline");
+        }
       }
     });
   }
