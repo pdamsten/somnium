@@ -37,6 +37,7 @@ addPathSep = function(path)
   return path;
 }
 
+
 function init(path)
 {
   try {
@@ -70,8 +71,20 @@ function init(path)
     include(jsxPath + 'color.jsx');
     include(jsxPath + 'finish.jsx');
 
+    // Plugins
+    var plugins = [];
+    var pluginFolder = new Folder(pluginPath + 'plugins');
+    if (pluginFolder != null) {
+      var fileList = pluginFolder.getFiles('*.jsx');
+      for (var i = 0 ;i < fileList.length; i++) {
+        include(fileList[i].fsName);
+        plugins.push([removeExt(basename(fileList[i].fsName)), 'img/icon-default.svg']);
+      }
+    }
     settings = new Settings(userDataPath, pluginPath);
     checkAtn(userDataPath, pluginPath, settings);
+
+    return JSON.stringify(plugins);
   } catch (e) {
     //alert(e);
     log(e);

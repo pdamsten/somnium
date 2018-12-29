@@ -21,7 +21,19 @@
   function initJsx()
   {
     pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
-    csInterface.evalScript('init("' + pluginPath + '")');
+    csInterface.evalScript('init("' + pluginPath + '")', function(result) {
+      if (result != '') {
+        result = JSON.parse(result);
+        var html = '';
+        for (var i in result) {
+          html += '<div id="' + result[i][0].replace(' ', '') + '" class="iconButton">';
+          html += '<img src="' + result[i][1] + '">';
+          html += result[i][0];
+          html += '</div>';
+        }
+        $('#PluginsTab .tabcontent').html(html);
+      }
+    });
   }
 
   const HELP = 0, MSG = 1;
@@ -301,7 +313,7 @@
 
 
     // Handle icon buttons
-    $(".iconButton").click(function () {
+    $("#content").on('click', '.iconButton', function () {
       var fn = 'on' + $(this).attr('id') + 'Click()';
       callJsx(fn);
     });
