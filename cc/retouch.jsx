@@ -72,19 +72,22 @@ onMakeMatchClick = function()
 {
   try {
     var current = app.activeDocument.activeLayer;
-    var layer;
-    layer = createCurveAdjustment('Luminosity');
-    deleteLayerMask(layer);
-    ifGroupMoveOut(layer, current);
-    clipBelow(layer);
-    layer = createSelectiveColorAdjustment('Hue');
-    deleteLayerMask(layer);
-    ifGroupMoveOut(layer, current);
-    clipBelow(layer);
-    layer = createHueSaturationAdjustment('Saturation');
-    deleteLayerMask(layer);
-    ifGroupMoveOut(layer, current);
-    clipBelow(layer);
+
+    var lum = createCurveAdjustment('Luminosity');
+    deleteLayerMask(lum);
+    lum.move(current, ElementPlacement.PLACEBEFORE);
+    lum.grouped = true;
+
+    var hue = createSelectiveColorAdjustment('Hue');
+    deleteLayerMask(hue);
+    hue.move(lum, ElementPlacement.PLACEBEFORE);
+    hue.grouped = true;
+
+    var sat = createHueSaturationAdjustment('Saturation');
+    deleteLayerMask(sat);
+    sat.move(hue, ElementPlacement.PLACEBEFORE);
+    sat.grouped = true;
+    
     // Helpers
     onMakeLightnessClick();
     onMatchTonesClick();
