@@ -26,7 +26,10 @@ onMakeAllClick = function()
 onBlendIfClick = function()
 {
   try {
-    var l = createSolidColorAdjustment('Blend If Helper', 'current', [255, 0, 0])
+    var current = app.activeDocument.activeLayer;
+    var l = createSolidColorAdjustment('Blend If Helper');
+    l.move(current, ElementPlacement.PLACEBEFORE);
+    setSolidColorAdjustment(l, [255, 0, 0]);
     l.opacity = 50;
     deleteLayerMask(l);
     clipBelow(l);
