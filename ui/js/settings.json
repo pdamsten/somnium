@@ -37,6 +37,11 @@ var Settings = {
     "title": "Fill Empty Areas",
     "help": "If layer has empty (opaque) areas this can fill them with content aware fill quickly."
   },
+  "BlendIf2Mask": {
+    "group": "Retouch",
+    "title": "Blend If -> Mask",
+    "help": "Converts Blend if to a mask so it can be refined further."
+  },
   "StampUnder": {
     "group": "Retouch",
     "title": "Stamp Current And Below",

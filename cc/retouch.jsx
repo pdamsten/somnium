@@ -68,6 +68,24 @@ onFillEmptyClick = function()
   }
 }
 
+onBlendIf2MaskClick = function()
+{
+  try {
+    var current = app.activeDocument.activeLayer;
+    var copy = duplicateLayer(current);
+    copy = rasterizeLayer(copy);
+    var empty = createLayer();
+    copy = mergeLayers([copy, empty]);
+    selectLayer(copy);
+    copy.remove();
+    addLayerMask(current);
+    setBlendIf(current, [[0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255],
+                         [0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255]]);
+  } catch (e) {
+    log(e);
+  }
+}
+
 onMakeMatchClick = function()
 {
   try {
@@ -87,7 +105,7 @@ onMakeMatchClick = function()
     deleteLayerMask(sat);
     sat.move(hue, ElementPlacement.PLACEBEFORE);
     sat.grouped = true;
-    
+
     // Helpers
     onMakeLightnessClick();
     onMatchTonesClick();
