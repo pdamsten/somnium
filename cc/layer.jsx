@@ -225,6 +225,20 @@ convertToSmartObject = function(layer, name)
   }
 }
 
+rasterizeLayer = function(layer)
+{
+  try {
+    layer = activateLayer(layer);
+    if (layer.kind == LayerKind.SMARTOBJECT){
+      executeAction(sTID("rasterizePlaced"), undefined, DialogModes.NO );
+    }
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
 newSmartObjectViaCopy = function(layer, name)
 {
   try {
@@ -370,12 +384,27 @@ checkLayer = function(name, parent)
 
 createLayer = function(name, layer)
 {
+  name = (name == undefined) ? randomString(8) : name;
   var layer = activateLayer(layer);
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
   app.activeDocument.activeLayer = newLayer;
   newLayer.move(layer, ElementPlacement.PLACEBEFORE);
   return newLayer;
+}
+
+mergeLayers = function(layers)
+{
+  try {
+    if (selectLayers(layers)) {
+      var desc1 = new ActionDescriptor();
+      executeAction(cTID("Mrg2"), desc1, DialogModes.NO);
+      return app.activeDocument.activeLayer;
+    }
+  } catch (e) {
+    log(e);
+  }
+  return null;
 }
 
 findGroup = function(name, parent)
@@ -504,6 +533,7 @@ layerIndex = function(layer)
 duplicateLayer = function(layer, name)
 {
   try {
+    name = (name == undefined) ? randomString(8) : name;
     activateLayer(layer);
     executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
