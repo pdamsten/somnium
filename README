@@ -8,9 +8,11 @@ I needed a Photoshop panel that mimics my workflow and speeds up my making proce
 RETOUCH
 • Cleaning Layer - Just an empty layer for retouching. This way layers are consistently named. It's also locked so you won't accidentally move it.
 • Match - Make luminosity, saturation and hue check and adjustment layers for matching layer to background (or other way around).
+• Combine Documents - Move all other documents that have only one layer to this document.
 • Frequence Separation - Frequence separation layers. Two options simple for quick smoothing and normal for better results.
 • Defringe Mask - Layer mask edges are often a little bit of. Defringe layer mask can adjust that.
 • Fill Empty Areas - If layer has empty (opaque) areas this can fill them with content aware fill quickly.
+• Blend If -> Mask - Converts Blend if to a mask so it can be refined further.
 • Stamp Current And Below - Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers.
 • Stamp Current And Below to Smart Object - Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers. Merged layer is then converted to a smart object.
 • Update Smart Object - Smart object is updated to contents below. Works with 'Stamp Current And Below to Smart Object' (needs psb smart object with only one layer).
@@ -22,8 +24,14 @@ LIGHT
 • Dodge And Burn - There are two options for dodge and burn. Using curves and drawing in masks or using neutral grey layer and using dodge and burn tools. Both can get you similar results but are a bit different to use.
 • Highlight - Layer which enables you to draw highlights to an image.
 
+COLOR
+• Previous Color - Sets previous color theme.
+• Random Color - Sets random color theme.
+• Next Color - Sets next color theme.
+
 FINNISH
 • High Pass Sharpening - Make high pass Sharpening
+• Noise - Add noise layer. Blur and noise are adjustable as smart filters.
 
 HELPERS
 • Make All - Makes all the help layers.
@@ -37,7 +45,7 @@ HELPERS
 • Delete All - Delete help layers group.
 • Blend If - Makes blend if helper layer which shows you where the blend if affects
 
-EXPORT
+FINISH
 • Save to Facebook - Save image with correct size to Facebook.
 • Save to Instagram - Save image with correct size for Instagram
 • Save to Twitter - Save image with correct size to Twitter.
