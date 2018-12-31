@@ -4,10 +4,10 @@
 var themeManager = (function () {
   'use strict';
 
-  var pscolors = {50: [41, 214, 38, 125, 225],
-                  83: [69, 221, 66, 125, 240],
-                  184: [209, 37, 163, 135, 15],
-                  240: [252, 43, 219, 173, 41]};
+  var pscolors = {50: [41, 214, 38, 125, 225, 45],
+                  83: [69, 221, 66, 125, 240, 77],
+                  184: [209, 37, 163, 135, 15, 190],
+                  240: [252, 43, 219, 173, 41, 245]};
 
   // Convert the Color object to string in hexadecimal format;
   function toHex(color, delta)
@@ -70,6 +70,7 @@ var themeManager = (function () {
       var ff = appSkinInfo.baseFontFamily.replace('.', '') + ',-apple-system,system-ui,sans-serif;';
       var bg = hexColor(appSkinInfo.panelBackgroundColor.color.red);
       var widgetBg = hexColor(pscolors[clr][0]);
+      var widgetListBg = hexColor(pscolors[clr][5]);
       var txt = hexColor(pscolors[clr][1]);
       var darkerBg = hexColor(pscolors[clr][2]);
       var buttonPressed = hexColor(pscolors[clr][3]);
@@ -79,6 +80,7 @@ var themeManager = (function () {
       addRule(styleId, ":root", "--background-color:" + bg);
       addRule(styleId, ":root", "--background-color-darker:" + darkerBg);
       addRule(styleId, ":root", "--txt-color:" + txt);
+      addRule(styleId, ":root", "--widget-list-color:" + widgetListBg);
       addRule(styleId, ":root", "--widget-background-color:" + widgetBg);
       addRule(styleId, ":root", "--widget-txt-color:" + widgetTxt);
       addRule(styleId, ":root", "--font-size:" + fs);
