@@ -101,6 +101,7 @@ function init(path)
     include(jsxPath + 'selection.jsx');
     include(jsxPath + 'atn.jsx');
     include(jsxPath + 'settings.jsx');
+    include(jsxPath + 'metadata.jsx');
     include(jsxPath + 'json2.js');
 
     // tabs
