@@ -135,6 +135,7 @@ saveJpg = function(layer)
 getFlags = function(layers)
 {
   for (var i = layers.length - 1; i >= 0; --i) {
+    applyLocking(layers[i].layer, false, false, false, false);
     if (layers[i].visible) {
       layers[i].flags = flags(layers[i].layer);
     }
