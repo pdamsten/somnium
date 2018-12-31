@@ -230,16 +230,16 @@
     });
 
     $("#PrevColor").on("click", function (e) {
-      var clr = $("#color").prop("value");
-      if (clr > 0) {
-        $("#color").prop("value", clr - 1);
-        colorThemeChanged();
-      }
+      var clr = parseInt($("#color").prop("value"));
+      var max = parseInt($("#color").prop("max"));
+      var n =  (clr > 0) ? clr - 1 : max;
+      $("#color").prop("value", n);
+      colorThemeChanged();
       e.stopPropagation();
     });
 
     $("#RandomColor").on("click", function (e) {
-      var clr = $("#color").prop("value");
+      var clr = parseInt($("#color").prop("value"));
       var max = parseInt($("#color").prop("max"));
       var nclr = Math.floor(Math.random() * (max + 1));
       if (clr == nclr) {
@@ -251,12 +251,11 @@
     });
 
     $("#NextColor").on("click", function (e) {
-      var clr = $("#color").prop("value");
-      var max = $("#color").prop("max");
-      if (clr < max) {
-        $("#color").prop("value", clr + 1);
-        colorThemeChanged();
-      }
+      var clr = parseInt($("#color").prop("value"));
+      var max = parseInt($("#color").prop("max"));
+      var n =  (clr < max) ? clr + 1 : 0;
+      $("#color").prop("value", n);
+      colorThemeChanged();
       e.stopPropagation();
     });
 
