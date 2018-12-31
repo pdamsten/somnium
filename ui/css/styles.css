@@ -173,7 +173,7 @@ select {
 #settings {
 }
 
-.iconButton, .iconButtonBig {
+.iconButton {
   text-transform: uppercase;
   font-size: 10px;
   width: 62px;
@@ -188,28 +188,11 @@ select {
   vertical-align: top;
 }
 
-.iconButtonBig {
-  width: 80px;
-  height: 100px;
-}
-
-.iconButton img, .iconButtonBig img {
+.iconButton img {
   height: 42px;
   width: 42px;
   border: 5px solid transparent;
   filter: brightness(var(--svg-color));
-}
-
-.iconButtonBig img {
-  height: 60px;
-  width: 60px;
-}
-
-.orb {
-  background-image: url(../img/orb.svg);
-  background-size: 54px 54px;
-  background-repeat: no-repeat;
-  background-position: 3px 3px;
 }
 
 .iconButton:hover {
