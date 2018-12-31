@@ -22,16 +22,17 @@
   {
     pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
     csInterface.evalScript('init("' + pluginPath + '")', function(result) {
-      if (result != '') {
+      console.log(result);
+      if (result != 'EvalScript error.') {
         result = JSON.parse(result);
         var html = '';
         for (var i in result) {
-          var id = result[i][0].replace(' ', '');
+          var id = result[i]['id'];
+          Settings[id] = result[i];
           html += '<div id="' + id + '" class="iconButton">';
-          html += '<img src="' + result[i][1] + '">';
-          html += result[i][0];
+          html += '<img src="' + Settings[id]['icon'] + '">';
+          html += Settings[id]['title'];
           html += '</div>';
-          Settings[id] = result[i][2];
         }
         if (html != '') {
           $('#PluginsTab .tabcontent').html(html);
