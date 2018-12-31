@@ -20,9 +20,9 @@ body, html {
   margin: 0;
   min-height: 100%;
   height: 100%;
-  background-color: var(--background-color);
+  background-color: var(--widget-list-color);
   color: var(--txt-color);
-  border-color: var(--background-color);
+  border-color: var(--background-color-darker);
   font-size: var(--font-size);
   color: white;
 }
@@ -186,6 +186,7 @@ select {
   padding-top: 0px;
   display: inline-block;
   vertical-align: top;
+  color: var(--txt-color);
 }
 
 .iconButton img {
@@ -196,17 +197,12 @@ select {
 }
 
 .iconButton:hover {
-  background-color: var(--txt-color);
-  color: var(--background-color);
-}
-
-.iconButton:hover img {
-  filter: brightness(var(--svg-color-bg));'
+  background-color: var(--background-color-darker);
 }
 
 .iconButton:active {
   color: var(--txt-color);
-  background-color: var(--background-color-darker);
+  background-color: var(--background-color);
 }
 
 .iconButton:active img {
@@ -254,11 +250,14 @@ select {
 #tabs {
   min-width: 50px;
   flex-grow: auto;
+  background-color: var(--background-color-darker);
 }
 
 .tab {
   flex-grow: 1;
   display: none;
+  border-left: 1px solid var(--background-color-darker);
+  border-top: 1px solid var(--background-color-darker);
 }
 
 .tabbtn {
@@ -271,11 +270,13 @@ select {
   margin-bottom: 5px;
   border-left-width: 1px;
   border-left-color: transparent;
+  background-color: var(--background-color-darker);
 }
 
 .tabbtnselected {
   border-left-color: inherit;
-  background-color: var(--background-color);
+  background-color: var(--widget-list-color);
+  margin-right: -1px;
 }
 
 #dialog h1 {
@@ -449,7 +450,7 @@ ul {
 }
 
 .ccheader {
-  background-color: var(--background-color-darker);
+  background-color: var(--background-color);
   border-color: var(--widget-txt-color);
   color: var(--txt-color);
 }
