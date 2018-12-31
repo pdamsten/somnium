@@ -22,7 +22,6 @@
   {
     pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
     csInterface.evalScript('init("' + pluginPath + '")', function(result) {
-      console.log(result);
       if (result != 'EvalScript error.') {
         result = JSON.parse(result);
         var html = '';
