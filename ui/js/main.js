@@ -224,6 +224,12 @@
         applyColorTheme();
       }, 300);
     });
+    $("#strength").on("dblclick", function (e) {
+      clearTimeout(delayTimer);
+      var theme = colorThemes[$("#color").prop("value")];
+      $("#strength").prop('value', Colors[theme].default);
+      applyColorTheme();
+    });
     $("#strength").change(function (e) {
       clearTimeout(delayTimer);
       applyColorTheme();
