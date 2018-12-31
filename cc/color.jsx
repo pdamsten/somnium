@@ -66,7 +66,7 @@ const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
 adjustValues = function(type, values, strength)
 {
   var ret = null;
-  log(values);
+  //log(values);
   if (type == ColorLayers[0]) { // Saturation
     ret = {};
     if ("colorize" in values) {
@@ -147,7 +147,7 @@ adjustValues = function(type, values, strength)
       ret['opacity'] = [[100, 0, 50], [100, 100, 50]];
     }
   }
-  log(ret);
+  //log(ret);
   return ret;
 }
 
@@ -191,7 +191,6 @@ onColorThemeChanged = function(values)
           values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
         }
         setAdjustmentLayer(layer, ColorLayers[i], values);
-        log(data[ColorLayers[i]]['blendingmode']);
         setLayerBlendingMode(layer, data[ColorLayers[i]]['blendingmode']);
       }
     }

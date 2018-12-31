@@ -40,7 +40,7 @@ setColorLookup = function(layer, lookup)
     lookup = lookup.replace('%PHOTOSHOP%', PhotoshopPath);
     lookup = lookup.replace('%PLUGIN%', pluginPath);
     var profile = pluginPath + 'assets' + sep() + removeExt(basename(lookup)) + '.ps-lut-data';
-    log(profile);
+    //log(profile);
     var f = new File(profile);
     f.open('r');
     f.encoding = "BINARY";
