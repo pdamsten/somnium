@@ -179,7 +179,7 @@
     closeDialog();
     csInterface.evalScript(fn, function(result) {
       if (result === "EvalScript error.") {
-        console.log('Error running: ' + fn);
+        console.log('Error running: ' + fn + ', ' + result);
       }
       else if (result != 'undefined') { // Yes string after eval
         openDlg(MSG, result);
