@@ -26,10 +26,12 @@
         result = JSON.parse(result);
         var html = '';
         for (var i in result) {
-          html += '<div id="' + result[i][0].replace(' ', '') + '" class="iconButton">';
+          var id = result[i][0].replace(' ', '');
+          html += '<div id="' + id + '" class="iconButton">';
           html += '<img src="' + result[i][1] + '">';
           html += result[i][0];
           html += '</div>';
+          Settings[id] = result[i][2];
         }
         if (html != '') {
           $('#PluginsTab .tabcontent').html(html);
@@ -322,7 +324,7 @@
     });
 
     // Handle icon button right click
-    $('.iconButton').contextmenu(function() {
+    $("#content").on('contextmenu', '.iconButton', function () {
       var id = $(this).attr('id');
       var html = '';
       if ('config' in Settings[id]) {

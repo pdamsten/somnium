@@ -86,7 +86,17 @@ function init(path)
         } else {
           svg = 'img/icon-default.svg';
         }
-        plugins.push([name, svg]);
+        var json = addPathSep(pluginFolder.fsName) + name + '.json';
+        f = new File(json);
+        if (f.exists) {
+          f.open('r');
+          var content = f.read();
+          f.close();
+          info = JSON.parse(content);
+        } else {
+          info = {'title': name, 'help': 'User defined plugin.'};
+        }
+        plugins.push([name, svg, info]);
       }
     }
     settings = new Settings(userDataPath, pluginPath);
