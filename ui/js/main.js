@@ -235,6 +235,7 @@
         $("#color").prop("value", clr - 1);
         colorThemeChanged();
       }
+      e.stopPropagation();
     });
 
     $("#RandomColor").on("click", function (e) {
@@ -246,6 +247,7 @@
       }
       $("#color").prop("value", nclr);
       colorThemeChanged();
+      e.stopPropagation();
     });
 
     $("#NextColor").on("click", function (e) {
@@ -255,6 +257,7 @@
         $("#color").prop("value", clr + 1);
         colorThemeChanged();
       }
+      e.stopPropagation();
     });
 
     // Handle all clickable elements
