@@ -14,21 +14,30 @@ onIncludeSetupClick = function()
 
     var l = findLayer('Notes');
     if (l == null) {
-      var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psdt");
+      var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psd");
       var template = app.open(fileRef);
       var l = findLayer('Notes');
       duplicateLayerToDoc(l, doc.name);
       template.close(SaveOptions.DONOTSAVECHANGES);
       app.activeDocument = doc;
     }
-    var file = File.openDialog("Setup diagram image");
+    var file = File.openDialog("Get metadata");
     if(file != null) {
-      ExternalObject.AdobeXMPScript = new ExternalObject("lib:AdobeXMPScript");
-      var xmpfile = new XMPFile(file.fsName, XMPConst.UNKNOWN, XMPConst.OPEN_FOR_READ);
-      var xmp = xmpfile.getXMP();
-      //log(xmp.serialize());
-      var l = findLayer('“X” setup');
-      l.textItem.contents = '“' + xmp.getProperty(XMPConst.NS_DC, "title[1]").toString() + '” setup';
+      var data = metadata(file.fsName);
+      log(data);
+      var l = findLayer('TITLE');
+      l.textItem.contents = '“' + data['title'] + '” setup';
+
+      var s = data['model'] + "\r" +
+          data['lens'] + '\r' +
+          'Focal length: ' + data['focallength'] + 'mm\r' +
+          'Aperture: f/' + data['aperture'] + '\r' +
+          'Exposure: ' + data['exposure'] + 'sec\r' +
+          'ISO: ' + data['iso'] + '\r' +
+          'GODOX Xpro-N\r' +
+          'Camranger, Hähnel Radio remote'
+      l = findLayer('INFO');
+      l.textItem.contents = s;
     }
   } catch (e) {
     log(e);
