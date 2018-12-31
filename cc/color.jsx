@@ -181,14 +181,17 @@ onColorThemeChanged = function(values)
         //log(ColorLayers[i], data[ColorLayers[i]]["adjust"], data['strength']);
         var layer = findLayer(ColorLayers[i], ColorGroupName);
         var values = null;
+        var opacity = ("opacity" in data[ColorLayers[i]]) ? data[ColorLayers[i]]["opacity"] : 100;
         layer.visible = true;
         if (data[ColorLayers[i]]["adjust"] == 'values') {
           values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], data['strength']);
+          layer.opacity = opacity;
         } else if (data[ColorLayers[i]]["adjust"] == 'opacity') {
           values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
-          layer.opacity = data['strength'];
+          layer.opacity = opacity * data['strength'] / 100;
         } else {
           values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
+          layer.opacity = opacity;
         }
         setAdjustmentLayer(layer, ColorLayers[i], values);
         setLayerBlendingMode(layer, data[ColorLayers[i]]['blendingmode']);
