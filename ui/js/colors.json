@@ -77,6 +77,19 @@ var Colors = {
     },
     "default": 50
   },
+  "Mr. Black": {
+    "Color Balance" : {
+      "values": {
+        "highlights": [0, 0, -20],
+        "midtones": [0, 4, 10],
+        "shadows": [0, 28, 60],
+        "preserve luminosity": false
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
+    },
+    "default": 50
+  },
 
   "Multi": {
     "Multi Color Tint" : {
