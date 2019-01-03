@@ -60,6 +60,23 @@ var Colors = {
     },
     "default": 50
   },
+  "Silent Partner": {
+    "Curve" : {
+      "values": {
+        "blue": [[0, 30],[255, 223]]
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
+    },
+    "Saturation" : {
+      "values": {
+        "master": [0, -22, 0]
+      },
+      "adjust": "none",
+      "blendingmode": "normal"
+    },
+    "default": 50
+  },
 
   "Multi": {
     "Multi Color Tint" : {
@@ -71,34 +88,6 @@ var Colors = {
     },
     "default": 50
   },
-  "Dull": {
-    "Saturation" : {
-      "values": {
-        "ranges": [[0, -100, 0, 15, 45, 75, 105]],
-      },
-      "adjust": "values",
-      "blendingmode": "normal"
-    },
-    "default": 50
-  },
-  "Cold": {
-    "Selective Color" : {
-      "values": {
-        "neutrals": [-20, 0, -20, 0],
-      },
-      "adjust": "values",
-      "blendingmode": "normal"
-    },
-    "default": 20
-  },
-  "Bleach Bypass": {
-    "LUT" : {
-      "values": "%PHOTOSHOP%/Presets/3DLUTs/Bleach Bypass.look",
-      "adjust": "opacity",
-      "blendingmode": "normal"
-    },
-    "default": 20
-  },
   "Blue Tint": {
     "Tint": {
       "values": [0, 0, 128],
@@ -107,14 +96,4 @@ var Colors = {
     },
     "default": 15
   },
-  "Blue & Yellow": {
-    "Curve" : {
-      "values": {
-        "blue": [[0, 20],[255, 240]]
-      },
-      "adjust": "values",
-      "blendingmode": "normal"
-    },
-    "default": 50
-  }
 }
