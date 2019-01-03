@@ -7,7 +7,8 @@
 //**************************************************************************
 
 const ColorGroupName = 'Color';
-const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve', 'Multi Color Tint'];
+const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
+                     'Multi Color Tint', 'Color Balance'];
 
 checkColorThemeGroup = function()
 {
@@ -18,6 +19,13 @@ checkColorThemeGroup = function()
   layer = checkLayer(ColorLayers[1], group);
   if (layer == null) {
     layer = createSelectiveColorAdjustment(ColorLayers[1], group);
+  }
+  layer.visible = false;
+  deleteLayerMask(layer);
+
+  layer = checkLayer(ColorLayers[6], group);
+  if (layer == null) {
+    layer = createColorBalanceAdjustment(ColorLayers[6], group);
   }
   layer.visible = false;
   deleteLayerMask(layer);
@@ -62,6 +70,7 @@ const CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue':
 const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
                          'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
                          'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'};
+const ColorBalance = {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL'};
 
 adjustValues = function(type, values, strength)
 {
@@ -146,6 +155,23 @@ adjustValues = function(type, values, strength)
     } else {
       ret['opacity'] = [[100, 0, 50], [100, 100, 50]];
     }
+  } else if (type == ColorLayers[6]) { // Color Balance
+    ret = {};
+    for (var i in ColorBalance) {
+      if (i in values) {
+        ret[i] = [];
+        for (var j in values[i]) {
+          ret[i][j] = values[i][j] * strength / 100;
+        }
+      } else {
+        ret[i] = [0, 0, 0];
+      }
+    }
+    if ('preserve luminosity' in values) {
+      ret['preserve luminosity'] = values['preserve luminosity'];
+    } else {
+      ret['preserve luminosity'] = true;
+    }
   }
   //log(ret);
   return ret;
@@ -165,6 +191,8 @@ setAdjustmentLayer = function(layer, type, values)
     setCurveAdjustment(layer, values);
   } else if (type == ColorLayers[5]) { // Multi Color Tint
     setGradientMapAdjustment(layer, values);
+  } else if (type == ColorLayers[6]) { // Color Balance
+    setColorBalanceAdjustment(layer, values);
   }
 }
 

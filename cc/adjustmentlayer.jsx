@@ -8,6 +8,78 @@
 
 const PhotoshopPath = dirname(Folder.appPackage.fsName);
 
+const ColorBalance = {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL'};
+
+createColorBalanceAdjustment = function(name, layer)
+{
+  try {
+    activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(cTID('AdjL'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    var desc3 = new ActionDescriptor();
+    var list1 = new ActionList();
+    list1.putInteger(0);
+    list1.putInteger(0);
+    list1.putInteger(0);
+    desc3.putList(cTID('ShdL'), list1);
+    var list2 = new ActionList();
+    list2.putInteger(0);
+    list2.putInteger(0);
+    list2.putInteger(0);
+    desc3.putList(cTID('MdtL'), list2);
+    var list3 = new ActionList();
+    list3.putInteger(0);
+    list3.putInteger(0);
+    list3.putInteger(0);
+    desc3.putList(cTID('HghL'), list3);
+    desc3.putBoolean(cTID('PrsL'), true);
+    desc2.putObject(cTID('Type'), cTID('ClrB'), desc3);
+    desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
+    executeAction(cTID('Mk  '), desc1, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
+setColorBalanceAdjustment = function(layer, values)
+{
+  try {
+    activateLayer(layer);
+
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc3 = new ActionDescriptor();
+    var list1 = new ActionList();
+    list1.putInteger(values['shadows'][0]);
+    list1.putInteger(values['shadows'][1]);
+    list1.putInteger(values['shadows'][2]);
+    desc3.putList(cTID('ShdL'), list1);
+    var list2 = new ActionList();
+    list2.putInteger(values['midtones'][0]);
+    list2.putInteger(values['midtones'][1]);
+    list2.putInteger(values['midtones'][2]);
+    desc3.putList(cTID('MdtL'), list2);
+    var list3 = new ActionList();
+    list3.putInteger(values['highlights'][0]);
+    list3.putInteger(values['highlights'][1]);
+    list3.putInteger(values['highlights'][2]);
+    desc3.putList(cTID('HghL'), list3);
+    desc3.putBoolean(cTID('PrsL'), values['preserve luminosity']);
+    desc1.putObject(cTID('T   '), cTID('ClrB'), desc3);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+  }
+}
+
 createColorLookup = function(name, layer)
 {
   try {
