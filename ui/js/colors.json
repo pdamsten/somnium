@@ -90,6 +90,26 @@ var Colors = {
     },
     "default": 50
   },
+  "Every Last Drop of Ideas": {
+    "Color Balance" : {
+      "values": {
+        "highlights": [-56, 0, -2],
+        "midtones": [0, -18, 0],
+        "shadows": [0, 0, 32],
+        "preserve luminosity": false
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
+    },
+    "Saturation" : {
+      "values": {
+        "master": [0, -26, 0]
+      },
+      "adjust": "none",
+      "blendingmode": "normal"
+    },
+    "default": 50
+  },
 
   "Multi": {
     "Multi Color Tint" : {
