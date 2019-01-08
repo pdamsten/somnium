@@ -9,6 +9,12 @@ cat > .debug <<EOL
             <Host Name="PHXS" Port="8088"/>
         </HostList>
     </Extension>
+    <Extension Id="com.petridamsten.somnium.dialog">
+        <HostList>
+            <!-- Photoshop -->
+            <Host Name="PHXS" Port="8188"/>
+        </HostList>
+    </Extension>
 </ExtensionList>
 EOL
 

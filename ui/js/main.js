@@ -245,6 +245,18 @@
     });
 
     $("#RandomColor").on("click", function (e) {
+
+          var extension_Id = "com.petridamsten.somnium.dialog";
+          var params = {};
+          window.__adobe_cep__.requestOpenExtension(extension_Id, params);
+
+          var event = new CSEvent('koe', 'APPLICATION');
+          event.data = "This is a test!";
+          csInterface.dispatchEvent(event);
+
+          e.stopPropagation();
+          return;
+
       var clr = parseInt($("#color").prop("value"));
       var max = parseInt($("#color").prop("max"));
       var nclr = Math.floor(Math.random() * (max + 1));
