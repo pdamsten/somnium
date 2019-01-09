@@ -5,3 +5,24 @@
 //   Somnium styles
 //
 //*************************************************************************/
+
+body, html {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  background-color: var(--widget-list-color);
+  color: var(--txt-color);
+  border-color: var(--background-color-darker);
+}
+
+.modaldialog {
+  margin: 15px;
+}
+
+.buttonarea {
+  width: 100%;
+  height: 40px;
+  bottom: 0px;
+  overflow: hidden;
+  position: fixed;
+  text-align: right;
+}

@@ -11,8 +11,6 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 300;
 }
 
 body, html {
@@ -24,7 +22,7 @@ body, html {
   color: var(--txt-color);
   border-color: var(--background-color-darker);
   font-size: var(--font-size);
-  color: white;
+  font-family: 'Raleway', sans-serif;
 }
 
 body {
@@ -318,6 +316,7 @@ h1 {
   font-size: 145%;
   text-transform: uppercase;
   letter-spacing: 10px;
+  font-weight: 300;
 }
 h2 {
   padding: 0;
@@ -327,6 +326,7 @@ h2 {
   font-size: 125%;
   text-transform: uppercase;
   letter-spacing: 10px;
+  font-weight: 300;
 }
 
 hr {
@@ -365,96 +365,4 @@ ul {
   display: table-cell;
   padding-left: 5px;
   width: 50%;
-}
-
-/* photoshop specific */
-
-.cc {
-  font-size: var(--font-size);
-  font-family: var(--font-family);
-}
-
-.ccbutton, .ccbuttondefault{
-  border-radius: 30px;
-  border-width: 1px;
-  border-style: solid;
-  height: 27px;
-  font-size: 1.18em;
-  margin-bottom: 10px;
-  outline: none;
-}
-
-.ccwidget, .ccselect, .ccbuttonsmall {
-  -webkit-appearance: none;
-  border-width: 1px;
-  border-style: solid;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  border-radius: 4px;
-  height: 24px;
-  margin-top: 4px;
-  padding-left: 4px;
-  outline: none;
-  font-size: var(--font-size-widget);
-  font-family: var(--font-family);
-  margin-bottom: 5px;
-}
-
-.ccbuttonsmall {
-  height: 26px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.ccselect {
-  background-position: 97% center;
-  background-repeat: no-repeat;
-  background-image: url(../img/icon-down.svg);
-}
-
-.ccwidget option {
-  background-color: #c4c4c4;
-  color: black;
-}
-
-.ccbutton {
-  border-color: var(--border-color);
-  background: var(--background-color);
-  color: var(--widget-txt-color);
-}
-
-.ccbutton:active {
-  border-color: var(--border-color);
-  background: var(--border-color);
-  color: var(--background-color-darker);
-}
-
-.ccbuttondefault {
-  border-color: var(--widget-txt-color);
-  background: var(--background-color);
-  color: var(--widget-txt-color);
-}
-
-.ccbuttondefault:active {
-  border-color: var(--widget-txt-color);
-  background: var(--widget-txt-color);
-  color: var(--background-color-darker);
-}
-
-.ccwidget {
-  background-color: var(--widget-background-color);
-  color: var(--txt-color);
-  border-color: var(--border-color);
-  font-family: var(--font-family);
-}
-
-.ccheader {
-  background-color: var(--background-color);
-  border-color: var(--widget-txt-color);
-  color: var(--txt-color);
-}
-
-.ccsvg {
-  filter: brightness(var(--svg-color));
 }
