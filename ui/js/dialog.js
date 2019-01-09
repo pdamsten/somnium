@@ -16,6 +16,8 @@
 
   cs.addEventListener('com.petridamsten.somnium.dialogdata', function(event) {
     console.log("type=" + event.type + ", data=" + event.data);
+    cs.setWindowTitle(event.data['title']);
+    $(".jsonWidgets").html(config2html("modalDlg", event.data['items']));
   });
 
   $(".ccbutton").on("click", function (e) {
