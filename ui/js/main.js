@@ -74,7 +74,7 @@
       $('#helpText').html(text);
       if (arg2) {
         $('#settingsHeader').html(arg1);
-        $('#settingsText').html(arg2);
+        $('.jsonWidgets').html(arg2);
         $('#settings').show();
       }
       $('#helpText').show();
@@ -156,13 +156,6 @@
     $("#" + name).addClass('tabbtnselected');
     $("#tabTitle").html($("#" + name).attr('data-title'));
     localStorage.setItem('currentTab', name);
-  }
-
-  function input(id, cls, type)
-  {
-    cls = (cls == undefined) ? '': ' ' + cls;
-    type = (type == undefined) ? '': ' data-type="' + type + '" ';
-    return '<input id="' + id + '" class="ccwidget ' + cls + '" value=""' + type + '>';
   }
 
   function initColor()
@@ -282,41 +275,6 @@
       e.stopPropagation();
     });
 
-    // Handle all clickable elements
-    $("#settingsText").on("click", ".clickable", function (e) {
-      var type = $(this).data("type");
-      var fn;
-      var id;
-      var params = [];
-
-      if (type == "folderBrowse") {
-        fn = 'BrowseFolder';
-        params.push('"' + $(this).data("title") + '"');
-        id = $(this).data("id");
-        params.push('"' + $('#' + id).val() + '"');
-      } else if (type == "color") {
-        fn = 'ColorPicker';
-        id = $(this).attr('id');
-        params.push('"' + $(this).css('background-color') + '"');
-      }
-
-      fn = 'on' + fn + 'Click(' + params.join(',') + ')';
-
-      csInterface.evalScript(fn, function(result) {
-        if (result != 'null') {
-          var a = id.split('-');
-          if (type == "folderBrowse") {
-            $('#' + id).val(result);
-          } else if (type == "color") {
-            $('#' + id).css('background-color', result)
-          }
-          var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + result + '");'
-          csInterface.evalScript(fn);
-        }
-      });
-      e.stopPropagation();
-    });
-
     $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
       closeDialog();
     });
@@ -324,23 +282,6 @@
     $("#dialog").on("click", "*", function (e) {
       e.stopPropagation();
     });
-
-    $("#settingsText").on('change', "input, select", function(e) {
-      var a = $(this).attr('id').split('-');
-      if ($(this).data('type') == 'pixelsize') {
-        a[1] = a[1].slice(0, -2);
-        var v = '"' + $('#' + a[0] + '-' + a[1] + '_x').val() + 'x' + $('#' + a[0] +
-                '-' + a[1] + '_y').val() + '"';
-      } else if ($(this).data('type') == 'boolean') {
-        var v = $(this).prop('checked');
-      } else {
-        var v = '"' + this.value + '"';
-      }
-      var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
-      //console.log(fn);
-      csInterface.evalScript(fn);
-    });
-
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
