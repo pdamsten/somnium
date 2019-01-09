@@ -6,10 +6,40 @@
 //
 //**************************************************************************
 
+lightsReady = function()
+{
+  console.log('lightsReady');
+}
+
 onIncludeSetupClick = function()
 {
   try {
-    data = {'msg': 'Hello World'}
+    data = {
+      'title': 'Select Lights',
+      "items": {
+        "path": {
+          "title": "Save 4K images to:",
+          "type": "folder",
+          "value": "~/tmp/"
+        },
+        "maxsize": {
+          "title": "Maximum size:",
+          "type": "pixelsize",
+          "value": "3840x2160"
+        },
+        "minsize": {
+          "title": "Minimum Size (with padding):",
+          "type": "pixelsize",
+          "value": "3840x2160"
+        },
+        "paddingcolor": {
+          "title": "Padding color:",
+          "type": "color",
+          "value": "rgb(0,0,0)"
+        }
+      },
+      'callback': 'lightsReady'
+    };
     openDialog(data);
     return;
 
