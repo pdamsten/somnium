@@ -13,7 +13,25 @@ function input(id, cls, type)
   return '<input id="' + id + '" class="ccwidget ' + cls + '" value=""' + type + '>';
 }
 
-function config2html(id, items)
+function html2json(id, items)
+{
+  for (var key in items) {
+    var type = items[key]['type'];
+    if (type == 'pixelsize') {
+      items[key]['value'] = [$('#' + id + '-' + key + '_x').val(),
+                             $('#' + id + '-' + key + '_y').val()];
+    } else if (type == 'boolean') {
+      items[key]['value'] = $('#' + id + '-' + key).prop('checked');
+    } else if (type == 'label') {
+      // Do nothing
+    } else {
+      console.log(key, $('#' + id + '-' + key).val());
+      items[key]['value'] = $('#' + id + '-' + key).val();
+    }
+  }
+}
+
+function json2html(id, items)
 {
   var html = '';
   for (var key in items) {
@@ -32,6 +50,9 @@ function config2html(id, items)
               '" data-type="folderBrowse" data-id="' + id + '-' + key +
               '" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>';
       html += '</div></div>';
+    } else if (type == 'text') {
+      html += '<div class="label">' + items[key]['title'] + '</div>';
+      html += input(id + '-' + key);
     } else if (type == 'pixelsize') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
       html += input(id + '-' + key + '_x', 'coordinate', type);
@@ -50,8 +71,11 @@ function config2html(id, items)
         var v = items[key]['values'][i];
         html += '<option value="' + i + '">' + v + '</option>';
       }
-      html += '</select><br/><br/><br/><br/>';
+      html += '</select>';
+    } else if (type == 'label') {
+      html += '<div class="label big">' + items[key]['title'] + '</div><br/>';
     }
+    html += '</select>';
   }
   return html;
 }
@@ -110,7 +134,7 @@ function config2html(id, items)
       var v = '"' + this.value + '"';
     }
     var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
-    //console.log(fn);
+    console.log(fn);
     csInterface.evalScript(fn);
   });
 
