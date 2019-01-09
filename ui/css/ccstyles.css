@@ -20,9 +20,12 @@
   border-width: 1px;
   border-style: solid;
   height: 27px;
-  font-size: 1.18em;
+  font-size: 1.2em;
+  font-weight: 600;
   margin-bottom: 10px;
   outline: none;
+  min-width: 100px;
+  margin-left: 10px;
 }
 
 .ccwidget, .ccselect, .ccbuttonsmall {
@@ -57,10 +60,6 @@
 .ccwidget option {
   background-color: #c4c4c4;
   color: black;
-}
-
-.ccbutton, .ccbuttondefault {
-  min-width: 100px;
 }
 
 .ccbutton {

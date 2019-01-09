@@ -6,23 +6,35 @@
 //
 //*************************************************************************/
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body, html {
   font-family: var(--font-family);
   font-size: var(--font-size);
-  background-color: var(--widget-list-color);
+  background-color: var(--background-color);
   color: var(--txt-color);
   border-color: var(--background-color-darker);
 }
 
 .modaldialog {
-  margin: 15px;
+  margin: 10px;
+  width: calc(100% - 30px);
+}
+
+.jsonWidgets {
+  font-size: var(--font-size-widget);
+  font-weight: 600;
 }
 
 .buttonarea {
-  width: 100%;
+  width: calc(100% - 30px);
   height: 40px;
   bottom: 0px;
   overflow: hidden;
   position: fixed;
   text-align: right;
+  font-weight: 600;
 }

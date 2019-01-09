@@ -1,0 +1,83 @@
+/***************************************************************************
+//
+//   Copyright (c) 2018 by Petri Damstén <petri.damsten@gmail.com>
+//
+//   Somnium styles
+//
+//*************************************************************************/
+
+input {
+  padding-right: 0px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.label {
+  padding-top: 10px;
+  font-size: var(--font-size-widget);
+}
+
+.colorPicker {
+  max-width: 100px;
+}
+
+select {
+  min-width: 150px;
+}
+
+.coordinate {
+  max-width: 75px;
+}
+
+.multicolumn {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.column {
+  flex-grow: 1;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.greedy {
+  flex-grow: 3;
+}
+
+.column:last-of-type {
+  margin-right: 0;
+}
+.column:first-of-type {
+  margin-left: 0;
+}
+
+.column * {
+  width: 100%;
+}
+
+input[type='checkbox'] {
+  margin-top: 5px;
+}
+
+.table{
+  display: table;
+  width: 100%;
+}
+.row {
+  display: table-row;
+  width: 100%;
+}
+.cellleft {
+  display: table-cell;
+  padding-right: 5px;
+  width: 50%;
+}
+.cellright {
+  display: table-cell;
+  padding-left: 5px;
+  width: 50%;
+}
