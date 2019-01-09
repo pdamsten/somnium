@@ -15,7 +15,7 @@ metadata = function(filename)
     }
     var xmpfile = new XMPFile(filename, XMPConst.UNKNOWN, XMPConst.OPEN_FOR_READ);
     var xmp = xmpfile.getXMP();
-    log(xmp.serialize());
+    //log(xmp.serialize());
     data['title'] = xmp.getProperty(XMPConst.NS_DC, "title[1]").toString();
     data['model'] = xmp.getProperty(XMPConst.NS_TIFF, "Model").toString();
     data['lens'] = xmp.getProperty(XMPConst.NS_EXIF_AUX, "Lens").toString();
