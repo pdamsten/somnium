@@ -23,6 +23,7 @@
     console.log(evt.type);
     var event = new CSEvent('com.petridamsten.somnium.dialogdata', 'APPLICATION');
     event.data = dialogData;
+    console.log(event.data);
     csInterface.dispatchEvent(event);
   });
 
@@ -30,7 +31,7 @@
     console.log(evt.type);
     var extension_Id = "com.petridamsten.somnium.dialog";
     var params = {}; // Params don't work, use events...
-    dialogData = evt.data;
+    dialogData = JSON.stringify(evt.data);
     window.__adobe_cep__.requestOpenExtension(extension_Id, params);
   });
 
@@ -353,42 +354,9 @@
       var html = '';
       if ('config' in Settings[id]) {
         $('#settings').show();
+        html = config2html(id, Settings[id]['config']);
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
-          if (type == 'text') {
-            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
-            html += '<div class="column">';
-            html += input(id + '-' + key, 'fullwidth');
-            html += '</div>';
-          } else if (type == 'folder') {
-            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
-            html += '<div class="multicolumn"><div class="column greedy">';
-            html += input(id + '-' + key);
-            html += '</div><div class="column">';
-            html += '<button data-title="' + Settings[id]['config'][key]['title'] +
-                    '" data-type="folderBrowse" data-id="' + id + '-' + key +
-                    '" class="ccwidget ccbuttonsmall clickable">Browse</button><br/>';
-            html += '</div></div>';
-          } else if (type == 'pixelsize') {
-            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
-            html += input(id + '-' + key + '_x', 'coordinate', type);
-            html += ' x ';
-            html += input(id + '-' + key + '_y', 'coordinate', type);
-          } else if (type == 'color') {
-            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
-            html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker"></div>';
-          } else if (type == 'boolean') {
-            html += '<input type="checkbox" data-type="boolean" id="' + id + '-' + key + '">  ' +
-                    Settings[id]['config'][key]['title'] + '<br>';
-          } else if (type == 'selection') {
-            html += '<h3>' + Settings[id]['config'][key]['title'] + '</h3>';
-            html += '<select id="' + id + '-' + key + '" class="ccwidget ccselect">';
-            for (var i in Settings[id]['config'][key]['values']) {
-              var v = Settings[id]['config'][key]['values'][i];
-              html += '<option value="' + i + '">' + v + '</option>';
-            }
-            html += '</select><br/><br/><br/><br/>';
-          }
           var fn = 'settings.value("' + id + '","' + key + '");'
           csInterface.evalScript(fn, setValue(id, key, type));
         }
