@@ -6,7 +6,7 @@
 //
 //**************************************************************************
 
-lightsReady = function()
+lightsReady = function(data)
 {
   console.log('lightsReady');
 }
@@ -14,32 +14,54 @@ lightsReady = function()
 onIncludeSetupClick = function()
 {
   try {
+    light = {
+      "header": {
+        "title": "Light 1",
+        "type": "label",
+      },
+      "role": {
+        "title": "Role:",
+        "type": "selection",
+        "value": "0",
+        "values": ["None", "Key Light", "Accent Light", "Hair Light", "Fill Light"]
+      },
+      "flash": {
+        "title": "Flash:",
+        "type": "selection",
+        "value": "0",
+        "values": ["Godox AD200", "Godox AD600BM", "Godox QS600", "Godox QS300",
+                   "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX"]
+      },
+      "modifier": {
+        "title": "Modifier:",
+        "type": "selection",
+        "value": "0",
+        "values": ["Reflector", "120cm Octabox", "150cm Octabox", "140cm Stripbox",
+                   "40cm Beauty Dish"]
+      },
+      "power": {
+        "title": "Power:",
+        "type": "pixelsize",
+      },
+      "gel": {
+        "title": "Gel:",
+        "type": "selection",
+        "value": "0",
+        "values": ["None", "", "", ""]
+      }
+    }
     data = {
       'title': 'Select Lights',
-      "items": {
-        "path": {
-          "title": "Save 4K images to:",
-          "type": "folder",
-          "value": "~/tmp/"
-        },
-        "maxsize": {
-          "title": "Maximum size:",
-          "type": "pixelsize",
-          "value": "3840x2160"
-        },
-        "minsize": {
-          "title": "Minimum Size (with padding):",
-          "type": "pixelsize",
-          "value": "3840x2160"
-        },
-        "paddingcolor": {
-          "title": "Padding color:",
-          "type": "color",
-          "value": "rgb(0,0,0)"
-        }
-      },
+      "items": { },
       'callback': 'lightsReady'
     };
+
+    for (var i = 0; i < 5; ++i) {
+      light['header']['title'] = 'Light ' + (i + 1);
+      for (key in light) {
+        data['items'][key + (i + 1)] = deepCopy(light[key]);
+      }
+    }
     openDialog(data);
     return;
 
