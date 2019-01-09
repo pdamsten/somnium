@@ -20,15 +20,18 @@
   });
 
   csInterface.addEventListener("com.petridamsten.somnium.dialoginit", function(evt) {
-    console.log(evt.type);
     var event = new CSEvent('com.petridamsten.somnium.dialogdata', 'APPLICATION');
     event.data = dialogData;
-    console.log(event.data);
     csInterface.dispatchEvent(event);
   });
 
+  csInterface.addEventListener("com.petridamsten.somnium.dialogclose", function(evt) {
+    //var fn = evt.data['callback'] + "('" + JSON.stringify(evt.data) + "')";
+    var fn = "lightsReady()";
+    callJsx(fn);
+  });
+
   csInterface.addEventListener("com.petridamsten.somnium.opendialog", function(evt) {
-    console.log(evt.type);
     var extension_Id = "com.petridamsten.somnium.dialog";
     var params = {}; // Params don't work, use events...
     dialogData = JSON.stringify(evt.data);
@@ -295,7 +298,7 @@
       var html = '';
       if ('config' in Settings[id]) {
         $('#settings').show();
-        html = config2html(id, Settings[id]['config']);
+        html = json2html(id, Settings[id]['config']) + '<br/><br/><br/><br/>';
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
           var fn = 'settings.value("' + id + '","' + key + '");'
