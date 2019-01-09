@@ -6,9 +6,46 @@
 //
 //**************************************************************************
 
-lightsReady = function(data)
+var LIGHTS = 5;
+
+onLightsDialogOK = function(data)
 {
-  console.log('lightsReady');
+  try {
+    data = JSON.parse(data);
+    for (var i = 0; i < LIGHTS; ++i) {
+      var n = parseInt(data['items']['role' + (i + 1)]['value']);
+      if (n != 0) {
+        var s = data['items']['role' + (i + 1)]['values'][n] + '\r';
+        n = parseInt(data['items']['flash' + (i + 1)]['value']);
+        s += data['items']['flash' + (i + 1)]['values'][n] + '\r';
+        major = data['items']['power' + (i + 1)]['value'][0];
+        if (major != '') {
+          s += 'Power: ' + major;
+          minor = data['items']['power' + (i + 1)]['value'][1];
+          if (minor != '') {
+            s += ' ' + minor;
+          }
+          s += '\r';
+        }
+        n = parseInt(data['items']['modifier' + (i + 1)]['value']);
+        s += data['items']['modifier' + (i + 1)]['values'][n] + '\r';
+        n = parseInt(data['items']['gel' + (i + 1)]['value']);
+        if (n > 0) {
+          s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
+        }
+        log(s);
+        var l = findLayer('LIGHT');
+        if (l != null) {
+          var dl = duplicateLayer(l, 'Light ' + (i + 1));
+          dl.visible = true;
+          dl.textItem.contents = s;
+        }
+        l.visible = false;
+      }
+    }
+  } catch (e) {
+    log(e);
+  }
 }
 
 onIncludeSetupClick = function()
@@ -30,14 +67,15 @@ onIncludeSetupClick = function()
         "type": "selection",
         "value": "0",
         "values": ["Godox AD200", "Godox AD600BM", "Godox QS600", "Godox QS300",
-                   "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX"]
+                   "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX",
+                   "Elinchrom RX4", "Elinchrom RX2"]
       },
       "modifier": {
         "title": "Modifier:",
         "type": "selection",
         "value": "0",
         "values": ["Reflector", "120cm Octabox", "150cm Octabox", "140cm Stripbox",
-                   "40cm Beauty Dish"]
+                   "40cm Beauty Dish", "60x60cm Softbox"]
       },
       "power": {
         "title": "Power:",
@@ -47,23 +85,26 @@ onIncludeSetupClick = function()
         "title": "Gel:",
         "type": "selection",
         "value": "0",
-        "values": ["None", "", "", ""]
+        "values": ["None", "102 Primary Red", "106 Light Scarlet",
+                   "201 Deep Purple Rose", "206 Medium Purple Rose",
+                   "404 Golden Amber", "405 Light Amber",
+                   "501 Deep Yellow", "503 Yellow",
+                   "603 Medium Green", "6001 Dark Green",
+                   "8002 Deep Blue", "806 Light Blue"]
       }
     }
-    data = {
+    dlgdata = {
       'title': 'Select Lights',
       "items": { },
-      'callback': 'lightsReady'
+      'callback': 'onLightsDialogOK'
     };
 
-    for (var i = 0; i < 5; ++i) {
+    for (var i = 0; i < LIGHTS; ++i) {
       light['header']['title'] = 'Light ' + (i + 1);
       for (key in light) {
-        data['items'][key + (i + 1)] = deepCopy(light[key]);
+        dlgdata['items'][key + (i + 1)] = deepCopy(light[key]);
       }
     }
-    openDialog(data);
-    return;
 
     var doc = app.activeDocument;
     doc.resizeImage(UnitValue(3543, "px"), UnitValue(2365, "px"), null, ResampleMethod.BICUBICSHARPER);
@@ -80,7 +121,7 @@ onIncludeSetupClick = function()
     var file = File.openDialog("Get metadata");
     if(file != null) {
       var data = metadata(file.fsName);
-      log(data);
+      //log(data);
       var l = findLayer('TITLE');
       l.textItem.contents = '“' + data['title'] + '” setup';
 
@@ -95,6 +136,8 @@ onIncludeSetupClick = function()
       l = findLayer('INFO');
       l.textItem.contents = s;
     }
+
+    openDialog(dlgdata);
   } catch (e) {
     log(e);
   }
