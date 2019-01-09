@@ -11,6 +11,28 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 
 var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
 
+isDict = function (value)
+{
+  return (typeof value === 'object') && (value !== null) &&
+         !(value instanceof Array) && !(value instanceof Date);
+}
+
+deepCopy = function(src)
+{
+  var dest = {};
+
+  for (var prop in src) {
+    if (src.hasOwnProperty(prop)) {
+      if (isDict(src[prop])) {
+        dest[prop] = deepCopy(src[prop]);
+      } else {
+        dest[prop] = src[prop];
+      }
+    }
+  }
+  return dest;
+}
+
 basename = function(filename)
 {
   return filename.split(sep()).reverse()[0];
