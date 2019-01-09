@@ -13,9 +13,25 @@
   var pluginPath = '';
   var colorThemes = [];
   var buttonId = null;
+  var dialogData = "";
 
-  csInterface.addEventListener("printToConsole", function(evt) {
+  csInterface.addEventListener("com.petridamsten.somnium.console", function(evt) {
     console.log(evt.data);
+  });
+
+  csInterface.addEventListener("com.petridamsten.somnium.dialoginit", function(evt) {
+    console.log(evt.type);
+    var event = new CSEvent('com.petridamsten.somnium.dialogdata', 'APPLICATION');
+    event.data = dialogData;
+    csInterface.dispatchEvent(event);
+  });
+
+  csInterface.addEventListener("com.petridamsten.somnium.opendialog", function(evt) {
+    console.log(evt.type);
+    var extension_Id = "com.petridamsten.somnium.dialog";
+    var params = {}; // Params don't work, use events...
+    dialogData = evt.data;
+    window.__adobe_cep__.requestOpenExtension(extension_Id, params);
   });
 
   function initJsx()
@@ -245,18 +261,6 @@
     });
 
     $("#RandomColor").on("click", function (e) {
-
-          var extension_Id = "com.petridamsten.somnium.dialog";
-          var params = {};
-          window.__adobe_cep__.requestOpenExtension(extension_Id, params);
-
-          var event = new CSEvent('koe', 'APPLICATION');
-          event.data = "This is a test!";
-          csInterface.dispatchEvent(event);
-
-          e.stopPropagation();
-          return;
-
       var clr = parseInt($("#color").prop("value"));
       var max = parseInt($("#color").prop("max"));
       var nclr = Math.floor(Math.random() * (max + 1));

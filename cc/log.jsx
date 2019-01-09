@@ -8,18 +8,9 @@
 
 var logFile = '';
 
-function sendToConsole(txt)
+sendToConsole = function(txt)
 {
-  try {
-    var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
-    if (xLib) {
-      var event = new CSXSEvent();
-      event.type = 'printToConsole';
-      event.data = txt;
-      event.dispatch();
-    }
-  } catch (e) {
-  }
+  dispatchEvent('console', txt);
 }
 
 objectToString = function(obj, prefix)

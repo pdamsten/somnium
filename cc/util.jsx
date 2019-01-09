@@ -9,6 +9,8 @@
 cTID = function(s) { return app.charIDToTypeID(s); };
 sTID = function(s) { return app.stringIDToTypeID(s); };
 
+var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
+
 basename = function(filename)
 {
   return filename.split(sep()).reverse()[0];
@@ -44,6 +46,26 @@ arrayContains = function(a, obj)
     }
   }
   return false;
+}
+
+openDialog = function(data)
+{
+  dispatchEvent('opendialog', JSON.stringify(data));
+}
+
+dispatchEvent = function(e, data)
+{
+  try {
+    if (xLib) {
+      var event = new CSXSEvent();
+      event.type = 'com.petridamsten.somnium.' + e;
+      alert(event.type);
+      event.data = data;
+      event.dispatch();
+    }
+  } catch (e) {
+    //alert(e.message);
+  }
 }
 
 uniqueFilename = function(path, name, ext)

@@ -9,6 +9,10 @@
 onIncludeSetupClick = function()
 {
   try {
+    data = {'msg': 'Hello World'}
+    openDialog(data);
+    return;
+
     var doc = app.activeDocument;
     doc.resizeImage(UnitValue(3543, "px"), UnitValue(2365, "px"), null, ResampleMethod.BICUBICSHARPER);
 
