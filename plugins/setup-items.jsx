@@ -33,12 +33,12 @@ onLightsDialogOK = function(data)
         if (n > 0) {
           s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
         }
-        log(s);
         var l = findLayer('LIGHT');
         if (l != null) {
           var dl = duplicateLayer(l, 'Light ' + (i + 1));
           dl.visible = true;
           dl.textItem.contents = s;
+          dl.translate((i + 1) * 300, (i + 1) * 300)
         }
         l.visible = false;
       }
