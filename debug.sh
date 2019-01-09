@@ -6,13 +6,13 @@ cat > .debug <<EOL
     <Extension Id="com.petridamsten.somnium.panel">
         <HostList>
             <!-- Photoshop -->
-            <Host Name="PHXS" Port="8088"/>
+            <Host Name="PHXS" Port="8000"/>
         </HostList>
     </Extension>
     <Extension Id="com.petridamsten.somnium.dialog">
         <HostList>
             <!-- Photoshop -->
-            <Host Name="PHXS" Port="8188"/>
+            <Host Name="PHXS" Port="8100"/>
         </HostList>
     </Extension>
 </ExtensionList>

@@ -54,6 +54,7 @@
 				</UI>
 			</DispatchInfo>
 		</Extension>
+
     <Extension Id="com.petridamsten.somnium.dialog">
 			<DispatchInfo >
 				<Resources>
@@ -69,14 +70,6 @@
 							<Height>500</Height>
 							<Width>350</Width>
 						</Size>
-                    <!--<MinSize>
-                            <Height>550</Height>
-                            <Width>400</Width>
-                        </MinSize>
-                        <MaxSize>
-                            <Height>550</Height>
-                            <Width>400</Width>
-                        </MaxSize>-->
 					</Geometry>
 				</UI>
 			</DispatchInfo>
