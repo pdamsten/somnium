@@ -26,8 +26,7 @@
   });
 
   csInterface.addEventListener("com.petridamsten.somnium.dialogclose", function(evt) {
-    //var fn = evt.data['callback'] + "('" + JSON.stringify(evt.data) + "')";
-    var fn = "lightsReady()";
+    var fn = evt.data['callback'] + "('" + JSON.stringify(evt.data) + "')";
     callJsx(fn);
   });
 
