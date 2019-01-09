@@ -59,7 +59,6 @@ dispatchEvent = function(e, data)
     if (xLib) {
       var event = new CSXSEvent();
       event.type = 'com.petridamsten.somnium.' + e;
-      alert(event.type);
       event.data = data;
       event.dispatch();
     }
