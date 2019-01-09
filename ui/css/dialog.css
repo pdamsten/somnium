@@ -27,6 +27,7 @@ body, html {
 .jsonWidgets {
   font-size: var(--font-size-widget);
   font-weight: 600;
+  padding-bottom: 50px;
 }
 
 .buttonarea {
@@ -37,4 +38,6 @@ body, html {
   position: fixed;
   text-align: right;
   font-weight: 600;
+  padding-top: 10px;
+  background-color: var(--background-color);
 }
