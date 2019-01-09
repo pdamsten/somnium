@@ -9,18 +9,28 @@
 (function () {
   'use strict';
 
+  var data = null;
+
   themeManager.init();
 
   var cs = new CSInterface();
   cs.setWindowTitle("Somnium Dialog");
 
   cs.addEventListener('com.petridamsten.somnium.dialogdata', function(event) {
-    console.log("type=" + event.type + ", data=" + event.data);
-    cs.setWindowTitle(event.data['title']);
-    $(".jsonWidgets").html(config2html("modalDlg", event.data['items']));
+    data = event.data;
+    cs.setWindowTitle(data['title']);
+    $(".jsonWidgets").html(json2html("modalDlg", data['items']));
   });
 
   $(".ccbutton").on("click", function (e) {
+    cs.closeExtension();
+  });
+
+  $(".ccbuttondefault").on("click", function (e) {
+    html2json("modalDlg", data['items']);
+    var event = new CSEvent('com.petridamsten.somnium.dialogclose', 'APPLICATION');
+    event.data = data;
+    cs.dispatchEvent(event);
     cs.closeExtension();
   });
 
