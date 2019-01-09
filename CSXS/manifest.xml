@@ -59,6 +59,7 @@
 			<DispatchInfo >
 				<Resources>
 				<MainPath>./ui/dialog.html</MainPath>
+        <ScriptPath>./cc/main.jsx</ScriptPath>
 				</Resources>
 				<Lifecycle>
 					<AutoVisible>true</AutoVisible>
