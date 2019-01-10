@@ -20,6 +20,7 @@
     data = event.data;
     cs.setWindowTitle(data['title']);
     $(".jsonWidgets").html(json2html("modalDlg", data['items']));
+    cs.resizeContent(400, $("body").height() + 30);
   });
 
   $(".ccbutton").on("click", function (e) {
