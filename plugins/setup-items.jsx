@@ -8,6 +8,46 @@
 
 var LIGHTS = 5;
 
+my_lenses = {
+  'smc PENTAX-DA 18-55mm F3.5-5.6 AL II': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
+  'smc PENTAX-DA L 18-55mm F3.5-5.6': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
+  '18-55mm F3.5-5.6': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
+  'smc PENTAX-DA L 18-55mm F3.5-5.6 AL': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
+  'TAMRON AF70-300mm F/4-5.6 LD MACRO': 'Tamron AF70-300mm F/4-5.6 LD Macro',
+  'Tamron AF70-300mm F/4-5.6 LD Macro (572D/A17)': 'Tamron AF70-300mm F/4-5.6 LD Macro',
+  '14.0-24.0 mm f/2.8': 'Nikon AF-S Nikkor 14-24mm f/2.8G ED',
+  '14-24mm f/2.8': 'Nikon AF-S Nikkor 14-24mm f/2.8G ED',
+  '14-24mm F2.8': 'Nikon AF-S Nikkor 14-24mm f/2.8G ED',
+  '24.0-70.0 mm f/2.8': 'Nikon AF-S Zoom-Nikkor 24-70mm f/2.8G ED',
+  '24-70mm F2.8': 'Nikon AF-S Zoom-Nikkor 24-70mm f/2.8G ED',
+  '70.0-200.0 mm f/2.8': 'Nikon AF-S Nikkor 70-200mm f/2.8G ED VR II',
+  '70-200mm F2.8': 'Nikon AF-S Nikkor 70-200mm f/2.8G ED VR II',
+  '70-200mm f/2.8': 'Nikon AF-S Nikkor 70-200mm f/2.8G ED VR II',
+  '50.0 mm f/1.4': 'Nikon AF-S Nikkor 50mm f/1.4G',
+  '50mm F1.4': 'Nikon AF-S Nikkor 50mm f/1.4G',
+  '85.0 mm f/1.4': 'Nikon AF Nikkor 85mm f/1.4D IF',
+  '16.0 mm f/2.8': 'Nikon AF Fisheye-Nikkor 16mm f/2.8D',
+  'X': 'Sigma 50mm F1.4 EX DG HSM',
+  '35.0 mm f/1.8': 'Nikon AF-S DX Nikkor 35mm f/1.8G',
+  '35mm F1.8': 'Nikon AF-S DX Nikkor 35mm f/1.8G',
+  '18.0-200.0 mm f/3.5-5.6': 'Nikon AF-S DX Nikkor 18-200mm f/3.5-5.6G ED VR II',
+  '18-200mm F3.5-5.6': 'Nikon AF-S DX Nikkor 18-200mm f/3.5-5.6G ED VR II',
+  '0.0 mm f/0': 'Samyang 8mm f/3.5 Fisheye',
+  '0mm F0': 'Samyang 8mm f/3.5 Fisheye',
+  '0.0 mm f/0.0': 'Samyang 8mm f/3.5 Fisheye',
+  '100mm F2.8': 'Tokina AT-X M100 PRO D 100mm f/2.8 Macro',
+  '100.0 mm f/2.8': 'Tokina AT-X M100 PRO D 100mm f/2.8 Macro',
+  '10-20mm F3.5': 'Sigma 10-20mm F3.5 EX DC HSM',
+  '10.0-20.0 mm f/3.5': 'Sigma 10-20mm F3.5 EX DC HSM',
+  '150-500mm F5-6.3': 'Sigma APO 150-500mm F5-6.3 DG OS HSM',
+  '150.0-500.0 mm f/5-6.3': 'Sigma APO 150-500mm F5-6.3 DG OS HSM',
+  '150.0-500.0 mm f/5.0-6.3': 'Sigma APO 150-500mm F5-6.3 DG OS HSM',
+  'Apple iPhone 5': 'iPhone 5',
+  '7.4-22.2 mm': 'Canon Ixus 400',
+  'XF35mmF1.4 R': 'Fujinon XF35mmF1.4 R',
+  '35mm f/2.8': 'Olympus mju II',
+}
+
 onLightsDialogOK = function(data)
 {
   try {
@@ -125,8 +165,13 @@ onIncludeSetupClick = function()
       var l = findLayer('TITLE');
       l.textItem.contents = '“' + data['title'] + '” setup';
 
+      var lens = data['lens'];
+      if (lens in my_lenses) {
+        lens = my_lenses[lens];
+      }
+
       var s = data['model'] + "\r" +
-          data['lens'] + '\r' +
+          lens + '\r' +
           'Focal length: ' + data['focallength'] + 'mm\r' +
           'Aperture: f/' + data['aperture'] + '\r' +
           'Exposure: ' + data['exposure'] + 'sec\r' +
