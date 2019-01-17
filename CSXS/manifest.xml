@@ -68,7 +68,7 @@
 					<Type>ModalDialog</Type>
 					<Geometry>
 						<Size>
-							<Height>1400</Height>
+							<Height>800</Height>
 							<Width>350</Width>
 						</Size>
             <MinSize>
@@ -76,7 +76,7 @@
               <Width>400</Width>
             </MinSize>
             <MaxSize>
-              <Height>1400</Height>
+              <Height>800</Height>
               <Width>400</Width>
             </MaxSize>
 					</Geometry>
