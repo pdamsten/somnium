@@ -22,8 +22,8 @@ var Settings = {
       "style": {
         "title": "Style:",
         "type": "selection",
-        "value": "1",
-        "values": ["Simple", "Normal"]
+        "value": "0",
+        "values": ["Normal", "With Helper"]
       }
     }
   },

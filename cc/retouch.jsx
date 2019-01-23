@@ -120,7 +120,7 @@ onMakeFSClick = function()
 {
   try {
     var type = settings.value('MakeFS', 'style');
-    if (type == 0) {
+    /* Not sure if this simple is useful after all
       var layer = stampCurrentAndBelow('current', 'Simple Frequence Separation');
       invertLayer(layer);
       layer = convertToSmartObject(layer);
@@ -128,19 +128,26 @@ onMakeFSClick = function()
       doGaussianBlur(layer, 7.0, false);
       setLayerBlendingMode(layer, 'vivid light');
       addLayerMask(layer, true);
-    } else {
-      var lo = stampCurrentAndBelow('current', 'Low Frequence');
-      var hi = duplicateLayer(lo, 'High Frequence');
-      hi.visible = false;
-      doGaussianBlur(lo, 7.0);
-      hi.visible = true;
-      var params = ["RGB", "Low Frequence", 'subtract', 2, 128];
-      doApplyImage(hi, params, false);
-      setLayerBlendingMode(hi, 'linear light');
-      var lo2 = duplicateLayer(lo, 'Low Frequence paint');
+    */
+    var lo = stampCurrentAndBelow('current', 'Low Frequence');
+    var hi = duplicateLayer(lo, 'High Frequence');
+    var layers = [];
+    hi.visible = false;
+    doGaussianBlur(lo, 7.0);
+    layers.push(lo);
+    hi.visible = true;
+    var params = ["RGB", "Low Frequence", 'subtract', 2, 128];
+    doApplyImage(hi, params, false);
+    setLayerBlendingMode(hi, 'linear light');
+    layers.push(hi);
+    if (type == 1) { // With helper
+      var lo2 = duplicateLayer(lo, 'Low Frequence Blurred');
       doGaussianBlur(lo2, 9.0);
-      addLayerMask(lo2, true);
-      groupLayers('Frequence Separation', [hi, lo2, lo]);
+      layers.push(lo2);
+    }
+    var g = groupLayers('Frequence Separation', layers);
+    if (type == 1) {
+      addLayerMask(g, true);
     }
   } catch (e) {
     log(e);
