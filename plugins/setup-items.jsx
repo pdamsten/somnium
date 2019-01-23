@@ -55,7 +55,8 @@ onLightsDialogOK = function(data)
     for (var i = 0; i < LIGHTS; ++i) {
       var n = parseInt(data['items']['role' + (i + 1)]['value']);
       if (n != 0) {
-        var s = data['items']['role' + (i + 1)]['values'][n] + '\r';
+        var role = data['items']['role' + (i + 1)]['values'][n];
+        var s = role + '\r';
         n = parseInt(data['items']['flash' + (i + 1)]['value']);
         s += data['items']['flash' + (i + 1)]['values'][n] + '\r';
         major = data['items']['power' + (i + 1)]['value'][0];
@@ -75,7 +76,7 @@ onLightsDialogOK = function(data)
         }
         var l = findLayer('LIGHT');
         if (l != null) {
-          var dl = duplicateLayer(l, 'Light ' + (i + 1));
+          var dl = duplicateLayer(l, 'Light ' + (i + 1) + ' - ' + role);
           dl.visible = true;
           dl.textItem.contents = s;
           dl.translate((i + 1) * 300, (i + 1) * 300)
@@ -83,6 +84,21 @@ onLightsDialogOK = function(data)
         l.visible = false;
       }
     }
+    s = ''
+    n = parseInt(data['items']['trigger']['value']);
+    if (n != 2) {
+      s += '\rTrigger: ' + data['items']['trigger']['values'][n];
+    }
+    n = parseInt(data['items']['stand']['value']);
+    if (n != 0) {
+      s += '\rStand: ' + data['items']['stand']['values'][n];
+    }
+    n = parseInt(data['items']['remote']['value']);
+    if (n != 0) {
+      s += '\rRemote: ' + data['items']['remote']['values'][n];
+    }
+    l = findLayer('INFO');
+    l.textItem.contents = l.textItem.contents + s;
   } catch (e) {
     log(e);
   }
@@ -100,7 +116,8 @@ onIncludeSetupClick = function()
         "title": "Role:",
         "type": "selection",
         "value": "0",
-        "values": ["None", "Key Light", "Accent Light", "Hair Light", "Fill Light"]
+        "values": ["None", "Key Light", "Accent Light", "Hair Light", "Fill Light",
+                   "Background Light"]
       },
       "flash": {
         "title": "Flash:",
@@ -135,7 +152,27 @@ onIncludeSetupClick = function()
     }
     dlgdata = {
       'title': 'Select Lights',
-      "items": { },
+      "items": {
+        "stand": {
+          "title": "Stand:",
+          "type": "selection",
+          "value": "0",
+          "values": ["None", "Gitzo GT2542T & RRS BH-30", "Manfrotto 055XPROB & 498RC2",
+                     "Manfrotto 055XPROB & 327RC2", "Fotometal M & Manfrotto MHXPRO-3W"]
+        },
+        "remote": {
+          "title": "Remote:",
+          "type": "selection",
+          "value": "0",
+          "values": ["None", "Camranger", "Hähnel Giga T Pro II"]
+        },
+        "trigger": {
+          "title": "Trigger:",
+          "type": "selection",
+          "value": "0",
+          "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "None"]
+        },
+      },
       'callback': 'onLightsDialogOK'
     };
 
@@ -175,9 +212,7 @@ onIncludeSetupClick = function()
           'Focal length: ' + data['focallength'] + 'mm\r' +
           'Aperture: f/' + data['aperture'] + '\r' +
           'Exposure: ' + data['exposure'] + 'sec\r' +
-          'ISO: ' + data['iso'] + '\r' +
-          'GODOX Xpro-N\r' +
-          'Camranger, Hähnel Radio remote'
+          'ISO: ' + data['iso'];
       l = findLayer('INFO');
       l.textItem.contents = s;
     }
