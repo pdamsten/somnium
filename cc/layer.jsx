@@ -121,7 +121,6 @@ parentsVisible = function(layers, i)
 {
   var p = layers[i].parent;
   while (p != -1) {
-    log('PARENT', layers[p].layer.name, layers[p].visible);
     if (layers[p].visible == false) {
       return false;
     }
@@ -142,7 +141,6 @@ stampCurrentAndBelow = function(layer, name)
         break;
       }
       if (layers[i].layer.typename != 'LayerSet' && parentsVisible(layers, i)) {
-        log('OFF', layers[i].layer.name, layers[i].visible);
         layers[i].layer.visible = false;
       }
     }
@@ -155,7 +153,6 @@ stampCurrentAndBelow = function(layer, name)
         break;
       }
       if (layers[i].layer.typename != 'LayerSet' && parentsVisible(layers, i)) {
-        log('ON', layers[i].layer.name, layers[i].visible);
         layers[i].layer.visible = layers[i].visible;
       }
     }
