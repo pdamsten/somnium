@@ -10,7 +10,7 @@ onHighPassSharpeningClick = function()
 {
   try {
     var current = app.activeDocument.activeLayer;
-    var layer = stampCurrentAndBelow('first', 'High Pass Sharpening');
+    var layer = stampCurrentAndBelow('current', 'High Pass Sharpening');
     layer = convertToSmartObject(layer);
     layer.move(current, ElementPlacement.PLACEBEFORE);
     doHighPass(layer, 2.6, false);
