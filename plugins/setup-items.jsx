@@ -48,6 +48,122 @@ my_lenses = {
   '35mm f/2.8': 'Olympus mju II',
 }
 
+light = {
+  "header": {
+    "title": "Light 1",
+    "type": "label",
+  },
+  "role": {
+    "title": "Role:",
+    "type": "selection",
+    "value": "0",
+    "values": ["None", "Key Light", "Accent Light", "Hair Light", "Fill Light",
+               "Background Light"]
+  },
+  "flash": {
+    "title": "Flash:",
+    "type": "selection",
+    "value": "0",
+    "values": ["Godox AD200", "Godox AD600BM", "Godox QS600", "Godox QS300",
+               "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX",
+               "Elinchrom RX4", "Elinchrom RX2"]
+  },
+  "modifier": {
+    "title": "Modifier:",
+    "type": "selection",
+    "value": "0",
+    "values": ["Reflector", "120cm Octabox", "150cm Octabox", "140cm Stripbox",
+               "40cm Beauty Dish", "60x60cm Softbox"]
+  },
+  "power": {
+    "title": "Power:",
+    "type": "pixelsize",
+  },
+  "gel": {
+    "title": "Gel:",
+    "type": "selection",
+    "value": "0",
+    "values": ["None", "102 Primary Red", "106 Light Scarlet",
+               "201 Deep Purple Rose", "206 Medium Purple Rose",
+               "404 Golden Amber", "405 Light Amber",
+               "501 Deep Yellow", "503 Yellow",
+               "603 Medium Green", "6001 Dark Green",
+               "8002 Deep Blue", "806 Light Blue"]
+  }
+};
+
+dlgdata = {
+  'title': 'Select Lights',
+  "items": {
+    "stand": {
+      "title": "Stand:",
+      "type": "selection",
+      "value": "0",
+      "values": ["None", "Gitzo GT2542T & RRS BH-30", "Manfrotto 055XPROB & 498RC2",
+                 "Manfrotto 055XPROB & 327RC2", "Fotometal M & Manfrotto MHXPRO-3W"]
+    },
+    "remote": {
+      "title": "Remote:",
+      "type": "selection",
+      "value": "0",
+      "values": ["None", "Camranger", "Hähnel Giga T Pro II"]
+    },
+    "trigger": {
+      "title": "Trigger:",
+      "type": "selection",
+      "value": "0",
+      "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "None"]
+    },
+  },
+  'callback': 'onLightsDialogOK'
+};
+
+WhySoSerious = {
+  "LUT" : {
+    "values": "%PHOTOSHOP%/Presets/3DLUTs/Bleach Bypass.look",
+    "adjust": "opacity",
+    "opacity": 16,
+    "blendingmode": "normal"
+  },
+  "Selective Color" : {
+    "values": {
+      "whites": [0, 0, 4, 0],
+      "neutrals": [0, 0, -16, 0],
+      "blacks": [0, 0, -2, 0],
+    },
+    "adjust": "values",
+    "blendingmode": "normal"
+  },
+  "Curve" : {
+    "values": {
+      "green": [[0, 6],[255, 255]],
+      "blue": [[0, 16],[255, 221]]
+    },
+    "adjust": "values",
+    "opacity": 50,
+    "blendingmode": "normal"
+  },
+  "Multi Color Tint" : {
+    "values": {
+      "colors": [[0, 0, 0, 0, 50], [255, 255, 255, 255, 50]],
+    },
+    "adjust": "opacity",
+    "opacity": 40,
+    "blendingmode": "normal"
+  },
+  "default": 50,
+  "strength": 50
+};
+
+nikTonalContrast = function()
+{
+  var desc1 = new ActionDescriptor();
+  desc1.putInteger(cTID('dRes'), 5104);
+  desc1.putString(cTID('conf'), "PENvbG9yRWZleFBybzRfZmlsdGVyPgoJPGZpbHRlciBuYW1lPSJUb25hbENvbnRyYXN0XzMiPgoJCTxwYXJhbWV0ZXIgbmFtZT0ic3RyZW5ndGgwX2hpIiB2YWx1ZT0iMjUiIHZhbHVlVHlwZT0iZmxvYXQiLz4KCQk8cGFyYW1ldGVyIG5hbWU9InN0cmVuZ3RoMF9tZWQiIHZhbHVlPSI1MCIgdmFsdWVUeXBlPSJmbG9hdCIvPgoJCTxwYXJhbWV0ZXIgbmFtZT0ic3RyZW5ndGgwX2xvdyIgdmFsdWU9IjI1IiB2YWx1ZVR5cGU9ImZsb2F0Ii8+CgkJPHBhcmFtZXRlciBuYW1lPSJzYXR1cmF0aW9uIiB2YWx1ZT0iMCIgdmFsdWVUeXBlPSJmbG9hdCIvPgoJCTxwYXJhbWV0ZXIgbmFtZT0iVENUeXBlQ29tYm8iIHZhbHVlPSIwIiB2YWx1ZVR5cGU9ImludCIvPgoJCTxwYXJhbWV0ZXIgbmFtZT0icHJvdGVjdF9zaGFkb3dzIiB2YWx1ZT0iMCIgdmFsdWVUeXBlPSJmbG9hdCIvPgoJCTxwYXJhbWV0ZXIgbmFtZT0icHJvdGVjdF9oaWxpZ2h0cyIgdmFsdWU9IjAiIHZhbHVlVHlwZT0iZmxvYXQiLz4KCQk8cGFyYW1ldGVyIG5hbWU9ImJhc2VGaWxsIiB2YWx1ZT0iMSIgdmFsdWVUeXBlPSJmbG9hdCIvPgoJCTxwYXJhbWV0ZXIgbmFtZT0id2hvbGVGaWx0ZXJEZWFjdGl2YXRlZCIgdmFsdWU9IjAiIHZhbHVlVHlwZT0iaW50Ii8+Cgk8L2ZpbHRlcj4KPC9Db2xvckVmZXhQcm80X2ZpbHRlcj4KCgA=");
+  desc1.putString(cTID('name'), "Tonal Contrast (CEP 4)");
+  executeAction(sTID('com.niksoftware.cep4.ps.filter'), desc1, DialogModes.NO);
+};
+
 onLightsDialogOK = function(data)
 {
   try {
@@ -107,117 +223,76 @@ onLightsDialogOK = function(data)
 onIncludeSetupClick = function()
 {
   try {
-    light = {
-      "header": {
-        "title": "Light 1",
-        "type": "label",
-      },
-      "role": {
-        "title": "Role:",
-        "type": "selection",
-        "value": "0",
-        "values": ["None", "Key Light", "Accent Light", "Hair Light", "Fill Light",
-                   "Background Light"]
-      },
-      "flash": {
-        "title": "Flash:",
-        "type": "selection",
-        "value": "0",
-        "values": ["Godox AD200", "Godox AD600BM", "Godox QS600", "Godox QS300",
-                   "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX",
-                   "Elinchrom RX4", "Elinchrom RX2"]
-      },
-      "modifier": {
-        "title": "Modifier:",
-        "type": "selection",
-        "value": "0",
-        "values": ["Reflector", "120cm Octabox", "150cm Octabox", "140cm Stripbox",
-                   "40cm Beauty Dish", "60x60cm Softbox"]
-      },
-      "power": {
-        "title": "Power:",
-        "type": "pixelsize",
-      },
-      "gel": {
-        "title": "Gel:",
-        "type": "selection",
-        "value": "0",
-        "values": ["None", "102 Primary Red", "106 Light Scarlet",
-                   "201 Deep Purple Rose", "206 Medium Purple Rose",
-                   "404 Golden Amber", "405 Light Amber",
-                   "501 Deep Yellow", "503 Yellow",
-                   "603 Medium Green", "6001 Dark Green",
-                   "8002 Deep Blue", "806 Light Blue"]
-      }
-    }
-    dlgdata = {
-      'title': 'Select Lights',
-      "items": {
-        "stand": {
-          "title": "Stand:",
-          "type": "selection",
-          "value": "0",
-          "values": ["None", "Gitzo GT2542T & RRS BH-30", "Manfrotto 055XPROB & 498RC2",
-                     "Manfrotto 055XPROB & 327RC2", "Fotometal M & Manfrotto MHXPRO-3W"]
-        },
-        "remote": {
-          "title": "Remote:",
-          "type": "selection",
-          "value": "0",
-          "values": ["None", "Camranger", "Hähnel Giga T Pro II"]
-        },
-        "trigger": {
-          "title": "Trigger:",
-          "type": "selection",
-          "value": "0",
-          "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "None"]
-        },
-      },
-      'callback': 'onLightsDialogOK'
-    };
+    var current = app.activeDocument.activeLayer;
 
-    for (var i = 0; i < LIGHTS; ++i) {
-      light['header']['title'] = 'Light ' + (i + 1);
-      for (key in light) {
-        dlgdata['items'][key + (i + 1)] = deepCopy(light[key]);
-      }
-    }
-
+    // Resize 30x20cm
     var doc = app.activeDocument;
-    doc.resizeImage(UnitValue(3543, "px"), UnitValue(2365, "px"), null, ResampleMethod.BICUBICSHARPER);
+    doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
+
+    // NIK Tonal
+    if (!hasSmartFilters(current)) {
+      nikTonalContrast();
+    }
+
+    // Dodge & Burn
+    if (findLayer('Dodge & Burn') == null) {
+      onMakeDBClick();
+    }
+
+    // Color
+    if (findLayer('Color') == null) {
+      onColorThemeChanged(WhySoSerious);
+    }
+
+    // Sharpening
+    if (findLayer('High Pass Sharpening') == null) {
+      onHighPassSharpeningClick();
+    }
 
     var l = findLayer('Notes');
     if (l == null) {
+      // Copy notes layers from setup_items.psd
       var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psd");
       var template = app.open(fileRef);
       var l = findLayer('Notes');
       duplicateLayerToDoc(l, doc.name);
       template.close(SaveOptions.DONOTSAVECHANGES);
       app.activeDocument = doc;
-    }
-    var file = File.openDialog("Get metadata");
-    if(file != null) {
-      var data = metadata(file.fsName);
-      //log(data);
-      var l = findLayer('TITLE');
-      l.textItem.contents = '“' + data['title'] + '” setup';
 
-      var lens = data['lens'];
-      if (lens in my_lenses) {
-        lens = my_lenses[lens];
+      // Get metadata from jpg
+      var file = File.openDialog("Get metadata");
+      if(file != null) {
+        var data = metadata(file.fsName);
+        //log(data);
+        var l = findLayer('TITLE');
+        l.textItem.contents = '“' + data['title'] + '” setup';
+
+        var lens = data['lens'];
+        if (lens in my_lenses) {
+          lens = my_lenses[lens];
+        }
+
+        var s = data['model'] + "\r" +
+            lens + '\r' +
+            'Focal length: ' + data['focallength'] + 'mm\r' +
+            'Aperture: f/' + data['aperture'] + '\r' +
+            'Exposure: ' + data['exposure'] + 'sec\r' +
+            'ISO: ' + data['iso'];
+        l = findLayer('INFO');
+        l.textItem.contents = s;
       }
 
-      var s = data['model'] + "\r" +
-          lens + '\r' +
-          'Focal length: ' + data['focallength'] + 'mm\r' +
-          'Aperture: f/' + data['aperture'] + '\r' +
-          'Exposure: ' + data['exposure'] + 'sec\r' +
-          'ISO: ' + data['iso'];
-      l = findLayer('INFO');
-      l.textItem.contents = s;
-    }
+      // Show dialog for lighting information
 
-    openDialog(dlgdata);
+      // multiply data for 5 lights
+      for (var i = 0; i < LIGHTS; ++i) {
+        light['header']['title'] = 'Light ' + (i + 1);
+        for (key in light) {
+          dlgdata['items'][key + (i + 1)] = deepCopy(light[key]);
+        }
+      }
+      openDialog(dlgdata);
+    }
   } catch (e) {
     log(e);
   }
