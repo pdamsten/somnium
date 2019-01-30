@@ -134,58 +134,6 @@ var Settings = {
     "title": "Noise",
     "help": "Add noise layer. Blur and noise are adjustable as smart filters."
   },
-
-  "MakeAll": {
-    "group": "Helpers",
-    "title": "Make All",
-    "help": "Makes all the help layers."
-  },
-  "MakeMemo": {
-    "group": "Helpers",
-    "title": "Memo",
-    "help": "Makes layer for writing notes."
-  },
-  "MakePerspectiveLines": {
-    "group": "Helpers",
-    "title": "Perspective Lines",
-    "help": "Lines to check perspective."
-  },
-  "MakeSolarisation": {
-    "group": "Helpers",
-    "title": "Solarisation",
-    "help": "For finding dust spots and composition errors."
-  },
-  "MakeSkinChecker": {
-    "group": "Helpers",
-    "title": "Skin Checker",
-    "help": "For finding skin imperfections."
-  },
-  "MakeLightness": {
-    "group": "Helpers",
-    "title": "Luminosity Check",
-    "help": "For finding luminosity differences eg. in dodging & burning."
-  },
-  "MakeSaturationMap": {
-    "group": "Helpers",
-    "title": "Saturation Check",
-    "help": "For finding saturation differences."
-  },
-  "MatchTones": {
-    "group": "Helpers",
-    "title": "Hue Check",
-    "help": "For finding tone differences."
-  },
-  "DeleteAll": {
-    "group": "Helpers",
-    "title": "Delete All",
-    "help": "Delete help layers group."
-  },
-  "BlendIf": {
-    "group": "Helpers",
-    "title": "Blend If",
-    "help": "Makes blend if helper layer which shows you where the blend if affects"
-  },
-
   "SaveFb": {
     "group": "Finish",
     "title": "Save to Facebook",
@@ -425,7 +373,7 @@ var Settings = {
   "SaveLayers": {
     "group": "Finish",
     "title": "Save Layers",
-    "help": "This makes layers animation from bottom to top which shows how editing progresses. You can mark the main layer with # and it will be saved first. If main layer is a smart object it is copied and opened so you can reset eg. lightroom settings.",
+    "help": "This makes layers animation from bottom to top which shows how editing progresses.",
     "config": {
       "path": {
         "title": "Save layers output folder:",
@@ -433,5 +381,56 @@ var Settings = {
         "value": "~/tmp/"
       }
     }
+  },
+
+  "MakeAll": {
+    "group": "Helpers",
+    "title": "Make All",
+    "help": "Makes all the help layers."
+  },
+  "MakeMemo": {
+    "group": "Helpers",
+    "title": "Memo",
+    "help": "Makes layer for writing notes."
+  },
+  "MakePerspectiveLines": {
+    "group": "Helpers",
+    "title": "Perspective Lines",
+    "help": "Lines to check perspective."
+  },
+  "MakeSolarisation": {
+    "group": "Helpers",
+    "title": "Solarisation",
+    "help": "For finding dust spots and composition errors."
+  },
+  "MakeSkinChecker": {
+    "group": "Helpers",
+    "title": "Skin Checker",
+    "help": "For finding skin imperfections."
+  },
+  "MakeLightness": {
+    "group": "Helpers",
+    "title": "Luminosity Check",
+    "help": "For finding luminosity differences eg. in dodging & burning."
+  },
+  "MakeSaturationMap": {
+    "group": "Helpers",
+    "title": "Saturation Check",
+    "help": "For finding saturation differences."
+  },
+  "MatchTones": {
+    "group": "Helpers",
+    "title": "Hue Check",
+    "help": "For finding tone differences."
+  },
+  "DeleteAll": {
+    "group": "Helpers",
+    "title": "Delete All",
+    "help": "Delete help layers group."
+  },
+  "BlendIf": {
+    "group": "Helpers",
+    "title": "Blend If",
+    "help": "Makes blend if helper layer which shows you where the blend if affects"
   }
 }
