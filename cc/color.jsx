@@ -64,6 +64,7 @@ checkColorThemeGroup = function()
   }
   layer.visible = false;
   deleteLayerMask(layer);
+  return group;
 }
 
 const CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
@@ -196,13 +197,15 @@ setAdjustmentLayer = function(layer, type, values)
   }
 }
 
-onColorThemeChanged = function(values)
+onColorThemeChanged = function(data)
 {
   try {
     //log('onColorThemeChanged');
-    checkColorThemeGroup();
+    var group = checkColorThemeGroup();
 
-    var data = JSON.parse(values);
+    if (typeof data == 'string') {
+      data = JSON.parse(data);
+    }
 
     for (var i in ColorLayers) {
       if (ColorLayers[i] in data) {
@@ -225,13 +228,7 @@ onColorThemeChanged = function(values)
         setLayerBlendingMode(layer, data[ColorLayers[i]]['blendingmode']);
       }
     }
-    /*
-    var lookup = "/Applications/Adobe Photoshop CC 2019/Presets/3DLUTs/Bleach Bypass.look";
-    var lookup = pluginPath + "assets/AquaAndBrown.cube";
-    var group = checkGroup('Color', 'Finish', 'Help Layers');
-    var layer = createColorLookup('test');
-    setColorLookup(layer, lookup);
-    */
+    app.activeDocument.activeLayer = group;
   } catch (e) {
     log(e);
   }
