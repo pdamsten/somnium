@@ -171,6 +171,7 @@ hasSmartFilters = function(layer)
     if (info == false || info['hasFX'] == false) {
       return false;
     }
+    return true;
   } catch (e) {
     return false; // No smart filter
   }
