@@ -1,9 +1,33 @@
-This is a Somnium Photoshop panel by Petri Damstén.
-
+This is a Somnium Photoshop panel.
 http://somnium.petridamsten.com/
 
-I needed a Photoshop panel that mimics my workflow and speeds up my making process. This powerful panel helps me to get my retouching, light (dodging & burning), color and finishing/export done in less time.
+I needed a Photoshop panel that mimics my workflow and speeds up my making process. Since I'm also a nerd I gathered all my techniques that I have learnt to this panel.
 
+I have used these techniques in many of my award winning images. Now you can use those same techniques with just a press of a button.
+
+
+GROUPS
+
+RETOUCH
+Tools for retouching like frequence separation, defringe mask, stamp current & below.
+
+LIGHT
+Tools for handling light with vignette, cookie lighting, dodge & burn.
+
+COLOR
+Color gradings that I have used in my own images. Can be modified easily.
+
+FINISH
+Finishing touches. Sharpening, noise & export.
+
+PLUGINS
+You can have your own scripts here for easier access.
+
+HELPERS
+Helper layers to make all parts of the picture more seamless.
+
+
+FUNCTIONS
 
 RETOUCH
 • Cleaning Layer - Just an empty layer for retouching. This way layers are consistently named. It's also locked so you won't accidentally move it.
@@ -33,6 +57,17 @@ FINNISH
 • High Pass Sharpening - Make high pass Sharpening
 • Noise - Add noise layer. Blur and noise are adjustable as smart filters.
 
+FINISH
+• Save to Facebook - Save image with correct size to Facebook.
+• Save to Instagram - Save image with correct size for Instagram
+• Save to Twitter - Save image with correct size to Twitter.
+• Save in 4K Resolution -
+• Custom Export 1 - User definable export button.
+• Custom Export 2 - User definable export button.
+• Custom Export 3 - User definable export button.
+• Custom Export 4 - User definable export button.
+• Save Layers - This makes layers animation from bottom to top which shows how editing progresses.
+
 HELPERS
 • Make All - Makes all the help layers.
 • Memo - Makes layer for writing notes.
@@ -44,17 +79,6 @@ HELPERS
 • Hue Check - For finding tone differences.
 • Delete All - Delete help layers group.
 • Blend If - Makes blend if helper layer which shows you where the blend if affects
-
-FINISH
-• Save to Facebook - Save image with correct size to Facebook.
-• Save to Instagram - Save image with correct size for Instagram
-• Save to Twitter - Save image with correct size to Twitter.
-• Save in 4K Resolution -
-• Custom Export 1 - User definable export button.
-• Custom Export 2 - User definable export button.
-• Custom Export 3 - User definable export button.
-• Custom Export 4 - User definable export button.
-• Save Layers - This makes layers animation from bottom to top which shows how editing progresses. You can mark the main layer with # and it will be saved first. If main layer is a smart object it is copied and opened so you can reset eg. lightroom settings.
 
 
 Panel is located:
