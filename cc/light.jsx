@@ -94,6 +94,7 @@ onMakeDBClick = function()
       setLayerBlendingMode(dl, 'luminosity');
       setLayerBlendingMode(bl, 'luminosity');
       setDefaultColors();
+      app.activeDocument.activeLayer = group;
       selectTool('brush'); // TODO brush preset?
     }
   } catch (e) {
