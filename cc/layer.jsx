@@ -83,8 +83,8 @@ smartObjectInfo = function(layer)
       info['docid'] = desc.getString(sTID('documentID'));
       info['hasFX'] = desc.hasKey(sTID("filterFX"));
 
-      ext = info['fileref'].substr(info['fileref'].length - 4).toLowerCase();
-      if (ext == '.psb') {
+      fext = info['fileref'].substr(info['fileref'].length - 4).toLowerCase();
+      if (fext == '.psb') {
         info['type'] = 'photoshop';
       } else if (arrayContains(RAW, ext)) {
         info['type'] = 'raw';
