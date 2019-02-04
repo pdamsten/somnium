@@ -20,7 +20,8 @@ mkdir com.petridamsten.somnium/actions
 cp ../com.petridamsten.somnium/actions/*.jsx com.petridamsten.somnium/actions/
 # Don't use megabyte LUTs...
 mkdir com.petridamsten.somnium/assets
-cp "../com.petridamsten.somnium/assets/Bleach Bypass.ps-lut-data" com.petridamsten.somnium/assets/
+cp ../com.petridamsten.somnium/assets/*.ps-lut-data com.petridamsten.somnium/assets/
+cp ../com.petridamsten.somnium/assets/*.3DL com.petridamsten.somnium/assets/
 mkdir com.petridamsten.somnium/cc
 cp ../com.petridamsten.somnium/cc/*.js* com.petridamsten.somnium/cc/
 mkdir com.petridamsten.somnium/CSXS

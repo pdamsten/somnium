@@ -144,5 +144,13 @@ var Colors = {
       "blendingmode": "normal"
     },
     "default": 50
+  },
+  "Aqua And Brown": {
+    "LUT" : {
+      "values": "%PLUGIN%/assets/AquaAndBrown.3DL",
+      "adjust": "opacity",
+      "blendingmode": "normal"
+    },
+    "default": 100,
   }
 }
