@@ -71,7 +71,7 @@ onMakeMemoClick = function()
   try {
     if (checkLayer('Memo', helpGroupName) != null) return;
     var group = checkGroup(helpGroupName);
-    var layer = createLayer('Memo', group);
+    var layer = createLayer('Memo', group, ElementPlacement.INSIDE);
     setLayerStyles(layer, MemoStyles);
     layer.opacity = 66;
   } catch (e) {

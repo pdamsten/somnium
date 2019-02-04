@@ -106,7 +106,7 @@ smartObjectInfo = function(layer)
 stampVisible = function(name, layer)
 {
   try {
-    createLayer(name, layer, false); // This way stamnp works also with one layer
+    createLayer(name, layer); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
     executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
@@ -395,14 +395,15 @@ checkLayer = function(name, parent)
   return null;
 }
 
-createLayer = function(name, layer)
+createLayer = function(name, layer, placement)
 {
   name = (name == undefined) ? randomString(8) : name;
+  placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
   var layer = activateLayer(layer);
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
   app.activeDocument.activeLayer = newLayer;
-  newLayer.move(layer, ElementPlacement.PLACEBEFORE);
+  newLayer.move(layer, placement);
   return newLayer;
 }
 
