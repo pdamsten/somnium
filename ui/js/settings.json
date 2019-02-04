@@ -1,4 +1,7 @@
 var Settings = {
+  "Retouch": {
+    "help": "Tools for retouching like frequence separation, defringe mask, stamp current & below."
+  },
   "MakeCleaning": {
     "group": "Retouch",
     "title": "Cleaning Layer",
@@ -58,6 +61,9 @@ var Settings = {
     "help": "Smart object is updated to contents below. Works with 'Stamp Current And Below to Smart Object' (needs psb smart object with only one layer)."
   },
 
+  "Light": {
+    "help": "Tools for handling light with vignette, cookie lighting, dodge & burn."
+  },
   "MakeCookie": {
     "group": "Light",
     "title": "Cookie Light",
@@ -108,6 +114,9 @@ var Settings = {
     "help": "Layer which enables you to draw highlights to an image."
   },
 
+  "Color": {
+    "help": "Color gradings that I have used in my own images. Can be modified easily."
+  },
   "PrevColor": {
     "group": "Color",
     "title": "Previous Color",
@@ -124,6 +133,9 @@ var Settings = {
     "help": "Sets next color theme."
   },
 
+  "Finish": {
+    "help": "Finishing touches. Sharpening, noise & export."
+  },
   "HighPassSharpening": {
     "group": "Finnish",
     "title": "High Pass Sharpening",
@@ -383,6 +395,9 @@ var Settings = {
     }
   },
 
+  "Helpers": {
+    "help": "Helper layers to make all parts of the picture more seamless."
+  },
   "MakeAll": {
     "group": "Helpers",
     "title": "Make All",
@@ -432,5 +447,9 @@ var Settings = {
     "group": "Helpers",
     "title": "Blend If",
     "help": "Makes blend if helper layer which shows you where the blend if affects"
+  },
+
+  "Plugins": {
+    "help": "You can have your own scripts here for easier access."
   }
 }

@@ -15,10 +15,12 @@ with open('./ui/js/settings.json', "r") as f:
 g = ''
 
 for key in settings:
-    if g != settings[key]['group']:
-        g = settings[key]['group']
+    if not 'group' in settings[key]:
         print
-        print g.upper()
+        print key.upper()
+        print
+        print settings[key]['help']
+        continue
     print u'• ' + settings[key]['title'] + ' - ' + settings[key]['help']
     with open('./actions/' + settings[key]['group'].replace(' ', '') + '-' + settings[key]['title'].replace(' ', '') + '.jsx', 'w') as f:
         f.write(s1 + key + s2);
