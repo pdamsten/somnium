@@ -110,23 +110,39 @@ var Colors = {
     },
     "default": 50
   },
-
-  "Multi": {
+  "The Red Coat": {
+    "Selective Color" : {
+      "values": {
+        "whites": [-13, 30, 20, 0],
+        "neutrals": [-24, 0, -10, 0],
+        "blacks": [0, 0, -8, 0],
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
+    },
+    "Tint": {
+      "values": [243, 229, 225],
+      "adjust": "none",
+      "blendingmode": "multiply",
+      "opacity": 100,
+    },
     "Multi Color Tint" : {
       "values": {
-        "colors": [[0, 0, 64, 0, 50], [255, 255, 205, 255, 50]],
+        "colors": [[3, 3, 3, 0, 50], [61, 36, 16, 3, 50],
+                   [88, 59, 28, 25, 50], [128, 128, 128, 50, 50],
+                   [217, 189, 129, 75, 50], [243, 237, 201, 100, 50]],
       },
       "adjust": "opacity",
-      "blendingmode": "soft light"
+      "opacity": 20,
+      "blendingmode": "normal"
+    },
+    "Saturation" : {
+      "values": {
+        "master": [0, -20, 0]
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
     },
     "default": 50
-  },
-  "Blue Tint": {
-    "Tint": {
-      "values": [0, 0, 128],
-      "adjust": "opacity",
-      "blendingmode": "color"
-    },
-    "default": 15
-  },
+  }
 }
