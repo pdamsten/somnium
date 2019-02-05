@@ -238,13 +238,21 @@ setColorTheme = function(data, strength)
       CurrentThemeIndex = indexOf(ColorThemes, data);
       PreviousTheme = data;
       data = Colors[data];
-      if (strength == undefined) {
-        data['strength'] = data['default'];
-      } else {
-        data['strength'] = parseInt(strength);
-      }
     } else {
       CurrentThemeIndex = -1;
+      PreviousTheme = data;
+    }
+
+    if (strength == undefined) {
+      if (!('strength' in data)) {
+        if ('default' in data) {
+          data['strength'] = data['default'];
+        } else {
+          data['strength'] = 50;
+        }
+      }
+    } else {
+      data['strength'] = parseInt(strength);
     }
 
     for (var i in ColorLayers) {
@@ -297,15 +305,35 @@ onPrevColorClick = function()
 onRandomColorClick = function()
 {
   try {
+    var type = settings.value('RandomColor', 'type');
+
     checkColorThemes();
-    var max = ColorThemes.length - 1;
-    var nclr = Math.floor(Math.random() * (max + 1));
-    if (CurrentThemeIndex == nclr) {
-      nclr = (nclr + 1) % (max + 1);
+    if (type == 0) {
+      var max = ColorThemes.length - 1;
+      var nclr = Math.floor(Math.random() * (max + 1));
+      if (CurrentThemeIndex == nclr) {
+        nclr = (nclr + 1) % (max + 1);
+      }
+      CurrentThemeIndex = nclr;
+      var theme = ColorThemes[CurrentThemeIndex];
+      setColorTheme(theme);
+    } else {
+      var r = Math.floor(Math.random() * 1024) + 1;
+      var result = {};
+      for (var i = 0; i < 7; ++i) {
+        if (r & (1 << i)) {
+          var start = Math.floor(Math.random() * ColorThemes.length);
+          for (var j = start; j < ColorThemes.length; ++j) {
+            var theme = ColorThemes[j % ColorThemes.length];
+            if (ColorLayers[i] in Colors[theme]) {
+              result[ColorLayers[i]] = Colors[theme][ColorLayers[i]];
+              break;
+            }
+          }
+        }
+      }
+      setColorTheme(result, Math.floor(Math.random() * 75) + 25);
     }
-    CurrentThemeIndex = nclr;
-    var theme = ColorThemes[CurrentThemeIndex];
-    setColorTheme(theme);
   } catch (e) {
     log(e);
   }
