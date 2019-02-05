@@ -197,14 +197,29 @@ setAdjustmentLayer = function(layer, type, values)
   }
 }
 
-onColorThemeChanged = function(data)
+var Colors = null;
+
+checkColorThemes = function()
+{
+  if (Colors == null) {
+    var f = File(pluginPath + 'ui/js/colors.json');
+    f.open('r');
+    var content = f.read();
+    f.close();
+    Colors = JSON.parse(content.substring(13));
+  }
+}
+
+onColorThemeChanged = function(data, strength)
 {
   try {
-    //log('onColorThemeChanged');
+    log('onColorThemeChanged', data, strength);
     var group = checkColorThemeGroup();
 
     if (typeof data == 'string') {
-      data = JSON.parse(data);
+      checkColorThemes();
+      data = Colors[data];
+      data['strength'] = strength;
     }
 
     for (var i in ColorLayers) {

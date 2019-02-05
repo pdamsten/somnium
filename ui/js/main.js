@@ -173,9 +173,8 @@
 
   function applyColorTheme()
   {
-    var values = Colors[colorThemes[$("#color").prop("value")]];
-    values.strength = parseInt($("#strength").prop('value'));
-    var fn = "onColorThemeChanged('" + JSON.stringify(values) + "')";
+    var theme = colorThemes[$("#color").prop("value")];
+    var fn = "onColorThemeChanged('" + theme + "', " + $("#strength").prop('value') + ")";
     callJsx(fn);
   }
 
