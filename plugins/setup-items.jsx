@@ -207,7 +207,7 @@ onIncludeSetupClick = function()
 
     // Color
     if (findLayer('Color') == null) {
-      onColorThemeChanged('Why So Serious?');
+      setColorTheme('Why So Serious?');
     }
 
     // Sharpening
