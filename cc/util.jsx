@@ -11,6 +11,15 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 
 var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
 
+dictKeys = function(dict)
+{
+  var result = [];
+  for(var key in dict) {
+    result.push(key);
+  }
+  return result;
+}
+
 isDict = function (value)
 {
   return (typeof value === 'object') && (value !== null) &&
@@ -68,6 +77,11 @@ arrayContains = function(a, obj)
     }
   }
   return false;
+}
+
+setUI = function(data)
+{
+  dispatchEvent('setui', JSON.stringify(data));
 }
 
 openDialog = function(data)
