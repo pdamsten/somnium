@@ -8,6 +8,7 @@
 
 var Colors = null;
 var CurrentTheme = -1;
+var PreviousTheme = null;
 var ColorThemes = [];
 
 const ColorGroupName = 'Color';
@@ -213,17 +214,30 @@ checkColorThemes = function()
   }
 }
 
+setColorThemeStrength = function(strength)
+{
+  try {
+    checkColorThemes();
+    if (PreviousTheme == null) {
+      PreviousTheme = Colors[ColorThemes[0]];
+    }
+    changeColorTheme(PreviousTheme, strength);
+  } catch (e) {
+    log(e);
+  }
+}
+
 changeColorTheme = function(data, strength)
 {
   try {
-    log('onColorThemeChanged', data, strength);
     var group = checkColorThemeGroup();
 
     if (typeof data == 'string') {
       checkColorThemes();
       data = Colors[data];
-      data['strength'] = strength;
+      PreviousTheme = data;
     }
+    data['strength'] = strength;
 
     for (var i in ColorLayers) {
       if (ColorLayers[i] in data) {

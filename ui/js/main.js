@@ -181,10 +181,9 @@
     $("#strength").prop('value', Colors[theme].default);
   }
 
-  function applyColorTheme()
+  function changeStrength()
   {
-    var theme = colorThemes[$("#color").prop("value")];
-    var fn = "onColorThemeChanged('" + theme + "', " + $("#strength").prop('value') + ")";
+    var fn = "setColorThemeStrength(" + $('#strength').prop('value') + ")";
     callJsx(fn);
   }
 
@@ -231,7 +230,7 @@
     $("#color").on("input", function (e) { // input event on timer. otherwise too many events.
       clearTimeout(delayTimer);
       delayTimer = setTimeout(function () {
-        colorThemeChanged();
+        changeStrength();
       }, 300);
     });
     $("#color").change(function (e) { // or if users lets go do it immediately
@@ -242,18 +241,18 @@
     $("#strength").on("input", function (e) {
       clearTimeout(delayTimer);
       delayTimer = setTimeout(function () {
-        applyColorTheme();
+        changeStrength();
       }, 300);
     });
     $("#strength").on("dblclick", function (e) {
       clearTimeout(delayTimer);
       var theme = colorThemes[$("#color").prop("value")];
       $("#strength").prop('value', Colors[theme].default);
-      applyColorTheme();
+      changeStrength();
     });
     $("#strength").change(function (e) {
       clearTimeout(delayTimer);
-      applyColorTheme();
+      changeStrength();
     });
 
     $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
