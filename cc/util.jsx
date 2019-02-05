@@ -67,16 +67,21 @@ removeExt = function(filename)
   return filename.split('.').slice(0, -1).join('.');
 }
 
-arrayContains = function(a, obj)
+indexOf = function(a, obj)
 {
   var i = a.length;
 
   while (i--) {
     if (a[i] === obj) {
-      return true;
+      return i;
     }
   }
-  return false;
+  return -1;
+}
+
+arrayContains = function(a, obj)
+{
+  return (indexOf(a, obj) >= 0);
 }
 
 setUI = function(data)
