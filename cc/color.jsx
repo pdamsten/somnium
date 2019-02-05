@@ -6,6 +6,10 @@
 //
 //**************************************************************************
 
+var Colors = null;
+var CurrentTheme = -1;
+var ColorThemes = [];
+
 const ColorGroupName = 'Color';
 const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
                      'Multi Color Tint', 'Color Balance'];
@@ -197,8 +201,6 @@ setAdjustmentLayer = function(layer, type, values)
   }
 }
 
-var Colors = null;
-
 checkColorThemes = function()
 {
   if (Colors == null) {
@@ -207,10 +209,11 @@ checkColorThemes = function()
     var content = f.read();
     f.close();
     Colors = JSON.parse(content.substring(13));
+    ColorThemes = dictKeys(Colors);
   }
 }
 
-onColorThemeChanged = function(data, strength)
+changeColorTheme = function(data, strength)
 {
   try {
     log('onColorThemeChanged', data, strength);
@@ -244,6 +247,52 @@ onColorThemeChanged = function(data, strength)
       }
     }
     app.activeDocument.activeLayer = group;
+  } catch (e) {
+    log(e);
+  }
+}
+
+onPrevColorClick = function(data)
+{
+  try {
+    checkColorThemes();
+    data = JSON.parse(data);
+    var max = ColorThemes.length - 1;
+    CurrentTheme = (CurrentTheme > 0) ? CurrentTheme - 1 : max;
+    changeColorTheme(ColorThemes[CurrentTheme], data['strength']);
+    setUI({ "colorTheme": ColorThemes[CurrentTheme], "color": CurrentTheme });
+  } catch (e) {
+    log(e);
+  }
+}
+
+onRandomColorClick = function(data)
+{
+  try {
+    checkColorThemes();
+    data = JSON.parse(data);
+    var max = ColorThemes.length - 1;
+    var nclr = Math.floor(Math.random() * (max + 1));
+    if (CurrentTheme == nclr) {
+      nclr = (nclr + 1) % (max + 1);
+    }
+    CurrentTheme = nclr;
+    changeColorTheme(ColorThemes[CurrentTheme], data['strength']);
+    setUI({ "colorTheme": ColorThemes[CurrentTheme], "color": CurrentTheme });
+  } catch (e) {
+    log(e);
+  }
+}
+
+onNextColorClick = function(data)
+{
+  try {
+    checkColorThemes();
+    data = JSON.parse(data);
+    var max = ColorThemes.length - 1;
+    CurrentTheme = (CurrentTheme < max) ? CurrentTheme + 1 : 0;
+    changeColorTheme(ColorThemes[CurrentTheme], data['strength']);
+    setUI({ "colorTheme": ColorThemes[CurrentTheme], "color": CurrentTheme });
   } catch (e) {
     log(e);
   }

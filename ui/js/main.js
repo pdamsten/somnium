@@ -15,6 +15,16 @@
   var buttonId = null;
   var dialogData = "";
 
+  csInterface.addEventListener("com.petridamsten.somnium.setui", function(evt) {
+    for (var key in evt.data) {
+      if ($('#' + key).is('div') || $('#' + key).is('span')) {
+        $('#' + key).html(evt.data[key]);
+      } else if ($('#' + key).is('input')) {
+        $('#' + key).val(evt.data[key]);
+      }
+    }
+  });
+
   csInterface.addEventListener("com.petridamsten.somnium.console", function(evt) {
     console.log(evt.data);
   });
@@ -246,36 +256,6 @@
       applyColorTheme();
     });
 
-    $("#PrevColor").on("click", function (e) {
-      var clr = parseInt($("#color").prop("value"));
-      var max = parseInt($("#color").prop("max"));
-      var n =  (clr > 0) ? clr - 1 : max;
-      $("#color").prop("value", n);
-      colorThemeChanged();
-      e.stopPropagation();
-    });
-
-    $("#RandomColor").on("click", function (e) {
-      var clr = parseInt($("#color").prop("value"));
-      var max = parseInt($("#color").prop("max"));
-      var nclr = Math.floor(Math.random() * (max + 1));
-      if (clr == nclr) {
-        nclr = (nclr + 1) % (max + 1);
-      }
-      $("#color").prop("value", nclr);
-      colorThemeChanged();
-      e.stopPropagation();
-    });
-
-    $("#NextColor").on("click", function (e) {
-      var clr = parseInt($("#color").prop("value"));
-      var max = parseInt($("#color").prop("max"));
-      var n =  (clr < max) ? clr + 1 : 0;
-      $("#color").prop("value", n);
-      colorThemeChanged();
-      e.stopPropagation();
-    });
-
     $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
       closeDialog();
     });
@@ -286,7 +266,11 @@
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      var fn = 'on' + $(this).attr('id') + 'Click()';
+      var values = {};
+      $("input").each(function() {
+        values[$(this).attr("id")] = $(this).val();
+      });
+      var fn = 'on' + $(this).attr('id') + 'Click(\'' + JSON.stringify(values) + '\')';
       callJsx(fn);
     });
 
