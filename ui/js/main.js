@@ -16,6 +16,7 @@
   var dialogData = "";
 
   csInterface.addEventListener("com.petridamsten.somnium.setui", function(evt) {
+    //console.log('Setting UI', evt.data);
     for (var key in evt.data) {
       if ($('#' + key).is('div') || $('#' + key).is('span')) {
         $('#' + key).html(evt.data[key]);
@@ -173,12 +174,9 @@
   function initColor()
   {
     colorThemes = Object.keys(Colors);
-    // TODO Sort keys by hue
     $("#color").prop('max', colorThemes.length - 1);
-    // TODO Get theme last from previous session
-    var theme = colorThemes[$("#color").prop("value")];
-    $("#colorTheme").html(theme);
-    $("#strength").prop('value', Colors[theme].default);
+    $("#colorTheme").html('&nbsp;');
+    $("#strength").prop('value', 0);
   }
 
   function changeStrength()
@@ -187,12 +185,11 @@
     callJsx(fn);
   }
 
-  function colorThemeChanged()
+  function changeTheme()
   {
     var theme = colorThemes[$("#color").prop("value")];
-    $("#colorTheme").html(theme);
-    $("#strength").prop('value', Colors[theme].default);
-    applyColorTheme();
+    var fn = "setColorTheme('" + theme + "')";
+    callJsx(fn);
   }
 
   function callJsx(fn) {
@@ -230,12 +227,12 @@
     $("#color").on("input", function (e) { // input event on timer. otherwise too many events.
       clearTimeout(delayTimer);
       delayTimer = setTimeout(function () {
-        changeStrength();
+        changeTheme();
       }, 300);
     });
     $("#color").change(function (e) { // or if users lets go do it immediately
       clearTimeout(delayTimer);
-      colorThemeChanged();
+      changeTheme();
     });
 
     $("#strength").on("input", function (e) {
@@ -265,11 +262,14 @@
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
+      /* enable if there is a need for this data
       var values = {};
       $("input").each(function() {
         values[$(this).attr("id")] = $(this).val();
       });
       var fn = 'on' + $(this).attr('id') + 'Click(\'' + JSON.stringify(values) + '\')';
+      */
+      var fn = 'on' + $(this).attr('id') + 'Click()';
       callJsx(fn);
     });
 

@@ -7,7 +7,7 @@
 //**************************************************************************
 
 var Colors = null;
-var CurrentTheme = -1;
+var CurrentThemeIndex = -1;
 var PreviousTheme = null;
 var ColorThemes = [];
 
@@ -219,25 +219,33 @@ setColorThemeStrength = function(strength)
   try {
     checkColorThemes();
     if (PreviousTheme == null) {
-      PreviousTheme = Colors[ColorThemes[0]];
+      PreviousTheme = ColorThemes[0];
     }
-    changeColorTheme(PreviousTheme, strength);
+    setColorTheme(PreviousTheme, strength);
   } catch (e) {
     log(e);
   }
 }
 
-changeColorTheme = function(data, strength)
+setColorTheme = function(data, strength)
 {
   try {
+    //log('setColorTheme', data, strength);
     var group = checkColorThemeGroup();
 
     if (typeof data == 'string') {
       checkColorThemes();
-      data = Colors[data];
+      CurrentThemeIndex = indexOf(ColorThemes, data);
       PreviousTheme = data;
+      data = Colors[data];
+      if (strength == undefined) {
+        data['strength'] = data['default'];
+      } else {
+        data['strength'] = parseInt(strength);
+      }
+    } else {
+      CurrentThemeIndex = -1;
     }
-    data['strength'] = strength;
 
     for (var i in ColorLayers) {
       if (ColorLayers[i] in data) {
@@ -261,52 +269,56 @@ changeColorTheme = function(data, strength)
       }
     }
     app.activeDocument.activeLayer = group;
+
+    if (CurrentThemeIndex == -1) {
+      setUI({"colorTheme": 'Random', "color": 0, "strength": data['strength']});
+    } else {
+      setUI({"colorTheme": ColorThemes[CurrentThemeIndex], "color": CurrentThemeIndex,
+             "strength": data['strength']});
+    }
   } catch (e) {
     log(e);
   }
 }
 
-onPrevColorClick = function(data)
+onPrevColorClick = function()
 {
   try {
     checkColorThemes();
-    data = JSON.parse(data);
     var max = ColorThemes.length - 1;
-    CurrentTheme = (CurrentTheme > 0) ? CurrentTheme - 1 : max;
-    changeColorTheme(ColorThemes[CurrentTheme], data['strength']);
-    setUI({ "colorTheme": ColorThemes[CurrentTheme], "color": CurrentTheme });
+    CurrentThemeIndex = (CurrentThemeIndex > 0) ? CurrentThemeIndex - 1 : max;
+    var theme = ColorThemes[CurrentThemeIndex];
+    setColorTheme(theme);
   } catch (e) {
     log(e);
   }
 }
 
-onRandomColorClick = function(data)
+onRandomColorClick = function()
 {
   try {
     checkColorThemes();
-    data = JSON.parse(data);
     var max = ColorThemes.length - 1;
     var nclr = Math.floor(Math.random() * (max + 1));
-    if (CurrentTheme == nclr) {
+    if (CurrentThemeIndex == nclr) {
       nclr = (nclr + 1) % (max + 1);
     }
-    CurrentTheme = nclr;
-    changeColorTheme(ColorThemes[CurrentTheme], data['strength']);
-    setUI({ "colorTheme": ColorThemes[CurrentTheme], "color": CurrentTheme });
+    CurrentThemeIndex = nclr;
+    var theme = ColorThemes[CurrentThemeIndex];
+    setColorTheme(theme);
   } catch (e) {
     log(e);
   }
 }
 
-onNextColorClick = function(data)
+onNextColorClick = function()
 {
   try {
     checkColorThemes();
-    data = JSON.parse(data);
     var max = ColorThemes.length - 1;
-    CurrentTheme = (CurrentTheme < max) ? CurrentTheme + 1 : 0;
-    changeColorTheme(ColorThemes[CurrentTheme], data['strength']);
-    setUI({ "colorTheme": ColorThemes[CurrentTheme], "color": CurrentTheme });
+    CurrentThemeIndex = (CurrentThemeIndex < max) ? CurrentThemeIndex + 1 : 0;
+    var theme = ColorThemes[CurrentThemeIndex];
+    setColorTheme(theme);
   } catch (e) {
     log(e);
   }
