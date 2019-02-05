@@ -20,7 +20,7 @@ var Settings = {
   "MakeFS": {
     "group": "Retouch",
     "title": "Frequence Separation",
-    "help": "Frequence separation layers. Two options simple for quick smoothing and normal for better results.",
+    "help": "Frequence separation layers. Two options: 'Normal' two layer frequence separation and 'With helper' that already has blurred low frequence layer. At first blur you should select value that hides details from skin. 'With helper' has a second blur that should have value that smoothens the skin. Usually a bit higher than the first one.",
     "config": {
       "style": {
         "title": "Style:",
@@ -33,7 +33,7 @@ var Settings = {
   "DefringeMask": {
     "group": "Retouch",
     "title": "Defringe Mask",
-    "help": "Layer mask edges are often a little bit of. Defringe layer mask can adjust that."
+    "help": "Layer mask edges are often a little bit of. Defringe layer mask can adjust that. First it blurs the mask (default value is often good), then you can tweak the edge with levels. You can make a selection before running to handle only part of the mask."
   },
   "FillEmpty": {
     "group": "Retouch",
@@ -43,17 +43,17 @@ var Settings = {
   "BlendIf2Mask": {
     "group": "Retouch",
     "title": "Blend If -> Mask",
-    "help": "Converts Blend if to a mask so it can be refined further."
+    "help": "Converts Blend if (This layer) to a mask so it can be refined further."
   },
   "StampUnder": {
     "group": "Retouch",
     "title": "Stamp Current And Below",
-    "help": "Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers."
+    "help": "Stamps Current and below layers. Unlike Merge Visible to a New Layer this does not stamp layers above."
   },
   "SmartFromUnder": {
     "group": "Retouch",
     "title": "Stamp Current And Below to Smart Object",
-    "help": "Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp upper layers. Merged layer is then converted to a smart object."
+    "help": "Stamps Current and below layers. Unlike Merge Visible to New Layer this does not stamp layers above. Merged layer is then converted to a smart object."
   },
   "UpdateFromUnder": {
     "group": "Retouch",
@@ -67,7 +67,7 @@ var Settings = {
   "MakeCookie": {
     "group": "Light",
     "title": "Cookie Light",
-    "help": "Cookie light means poking light 'spots' to a image. It can be used to rise certain part of images.",
+    "help": "Cookie light means poking light 'spots' to a image. It can be used to rise certain part of images. After applying use soft round brush to make light spots on the mask.",
     "config": {
       "type": {
         "title": "Style:",
@@ -93,12 +93,12 @@ var Settings = {
   "MakeWashOut": {
     "group": "Light",
     "title": "Faded and Contrast",
-    "help": "Makes contrast faded look layer."
+    "help": "Makes contrast/faded look layer."
   },
   "MakeDB": {
     "group": "Light",
     "title": "Dodge And Burn",
-    "help": "There are two options for dodge and burn. Using curves and drawing in masks or using neutral grey layer and using dodge and burn tools. Both can get you similar results but are a bit different to use.",
+    "help": "There are two options for dodge and burn. With curves use soft round brush with 1%-10% flow to draw on masks. With neutral grey layer use dodge and burn tools on the grey layer. Both can get you similar results. Use the one that suites your editing style.",
     "config": {
       "type": {
         "title": "Style:",
@@ -111,7 +111,7 @@ var Settings = {
   "MakeHighlight": {
     "group": "Light",
     "title": "Highlight",
-    "help": "Layer which enables you to draw highlights to an image."
+    "help": "Layer which enables you to draw highlights to an image. After applying use soft round brush with 1%-3% flow to paint on the mask."
   },
 
   "Color": {
@@ -125,7 +125,15 @@ var Settings = {
   "RandomColor": {
     "group": "Color",
     "title": "Random Color",
-    "help": "Sets random color theme."
+    "help": "Sets random color theme. 'Random theme' swaps to next random theme. 'Themes shuffled' takes random parts from the themes and makes totally new themes.",
+    "config": {
+      "type": {
+        "title": "Style:",
+        "type": "selection",
+        "value": "0",
+        "values": ["Random theme", "Themes shuffled"]
+      }
+    }
   },
   "NextColor": {
     "group": "Color",
@@ -139,12 +147,12 @@ var Settings = {
   "HighPassSharpening": {
     "group": "Finnish",
     "title": "High Pass Sharpening",
-    "help": "Make high pass Sharpening"
+    "help": "Make high pass sharpening layer. You can adjust sharpening in high pass smart filter or lowering the opacity."
   },
   "AddNoise": {
     "group": "Finnish",
     "title": "Noise",
-    "help": "Add noise layer. Blur and noise are adjustable as smart filters."
+    "help": "Add noise layer. Blur and noise are adjustable as smart filters. Although photographers try to avoid noise, coherent noise in the image can make it more believable."
   },
   "SaveFb": {
     "group": "Finish",
@@ -385,7 +393,7 @@ var Settings = {
   "SaveLayers": {
     "group": "Finish",
     "title": "Save Layers",
-    "help": "This makes layers animation from bottom to top which shows how editing progresses.",
+    "help": "This makes layers animation from bottom to top which shows how editing progresses. I use this to make animations from my editing process to blog, instagram, youtube, ...",
     "config": {
       "path": {
         "title": "Save layers output folder:",
@@ -406,12 +414,12 @@ var Settings = {
   "MakeMemo": {
     "group": "Helpers",
     "title": "Memo",
-    "help": "Makes layer for writing notes."
+    "help": "Makes layer for writing notes. I keep my editing notes written on the image like you might have seen done in the darkroom."
   },
   "MakePerspectiveLines": {
     "group": "Helpers",
     "title": "Perspective Lines",
-    "help": "Lines to check perspective."
+    "help": "Perspective lines to check if all parts of the image are in correct perspective."
   },
   "MakeSolarisation": {
     "group": "Helpers",
@@ -436,7 +444,7 @@ var Settings = {
   "MatchTones": {
     "group": "Helpers",
     "title": "Hue Check",
-    "help": "For finding tone differences."
+    "help": "For finding hue (color tone) differences."
   },
   "DeleteAll": {
     "group": "Helpers",
@@ -446,7 +454,7 @@ var Settings = {
   "BlendIf": {
     "group": "Helpers",
     "title": "Blend If",
-    "help": "Makes blend if helper layer which shows you where the blend if affects"
+    "help": "Makes blend if helper layer which shows you where the blend if affects. This is sometimes hard to see so this layer helps to visualise it."
   },
 
   "Plugins": {
