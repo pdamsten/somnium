@@ -118,43 +118,6 @@ dlgdata = {
   'callback': 'onLightsDialogOK'
 };
 
-WhySoSerious = {
-  "LUT" : {
-    "values": "%PHOTOSHOP%/Presets/3DLUTs/Bleach Bypass.look",
-    "adjust": "opacity",
-    "opacity": 16,
-    "blendingmode": "normal"
-  },
-  "Selective Color" : {
-    "values": {
-      "whites": [0, 0, 4, 0],
-      "neutrals": [0, 0, -16, 0],
-      "blacks": [0, 0, -2, 0],
-    },
-    "adjust": "values",
-    "blendingmode": "normal"
-  },
-  "Curve" : {
-    "values": {
-      "green": [[0, 6],[255, 255]],
-      "blue": [[0, 16],[255, 221]]
-    },
-    "adjust": "values",
-    "opacity": 50,
-    "blendingmode": "normal"
-  },
-  "Multi Color Tint" : {
-    "values": {
-      "colors": [[0, 0, 0, 0, 50], [255, 255, 255, 255, 50]],
-    },
-    "adjust": "opacity",
-    "opacity": 40,
-    "blendingmode": "normal"
-  },
-  "default": 50,
-  "strength": 50
-};
-
 nikTonalContrast = function()
 {
   var desc1 = new ActionDescriptor();
@@ -231,6 +194,9 @@ onIncludeSetupClick = function()
 
     // NIK Tonal
     if (!hasSmartFilters(current)) {
+      if (current.kind != LayerKind.SMARTOBJECT) {
+        convertToSmartObject(current);
+      }
       nikTonalContrast();
     }
 
@@ -241,7 +207,7 @@ onIncludeSetupClick = function()
 
     // Color
     if (findLayer('Color') == null) {
-      onColorThemeChanged(WhySoSerious);
+      onColorThemeChanged('Why So Serious?');
     }
 
     // Sharpening
