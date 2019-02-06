@@ -6,7 +6,7 @@
 //
 //**************************************************************************
 
-ArtLayer.prototype.hasMask = function()
+LayerSet.prototype.hasMask = ArtLayer.prototype.hasMask = function()
 {
   try {
     this.activate();
@@ -22,7 +22,8 @@ ArtLayer.prototype.hasMask = function()
   return false;
 }
 
-ArtLayer.prototype.addMask = function(hidden)
+//_addMask = function(hidden)
+LayerSet.prototype.addMask = ArtLayer.prototype.addMask = function(hidden)
 {
   try {
     hidden = (typeof hidden === 'undefined') ? false : hidden;
@@ -33,7 +34,7 @@ ArtLayer.prototype.addMask = function(hidden)
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
     desc1.putReference(cTID('At  '), ref1);
-    if (hasSelection()) {
+    if (app.activeDocument.hasSelection()) {
       var type = (hidden) ? cTID('HdSl') : cTID('RvlS');
     } else {
       var type = (hidden) ? cTID('HdAl') : cTID('RvlA');
@@ -46,8 +47,10 @@ ArtLayer.prototype.addMask = function(hidden)
     return false; // No mask
   }
 }
+//LayerSet.prototype.addMask = function(h) { _addMask(h); };
+//ArtLayer.prototype.addMask = function(h) { _addMask(h); };
 
-ArtLayer.prototype.enableMask = function(enable)
+LayerSet.prototype.enableMask = ArtLayer.prototype.enableMask = function(enable)
 {
   try {
     if (!(this.hasMask(layer))) {
@@ -77,10 +80,10 @@ ArtLayer.prototype.enableMask = function(enable)
   }
 }
 
-ArtLayer.prototype.deleteMask = function()
+LayerSet.prototype.deleteMask = ArtLayer.prototype.deleteMask = function()
 {
   try {
-    if (!(hasLayerMask(layer))) {
+    if (!(this.hasMask())) {
       return false;
     }
     this.activate();
@@ -103,7 +106,7 @@ ArtLayer.prototype.deleteMask = function()
   return true;
 }
 
-ArtLayer.prototype.setMaskFeather = function(feather)
+LayerSet.prototype.setMaskFeather = ArtLayer.prototype.setMaskFeather = function(feather)
 {
   try {
     this.activate();
@@ -122,7 +125,7 @@ ArtLayer.prototype.setMaskFeather = function(feather)
 return true;
 }
 
-ArtLayer.prototype.setMaskDensity = function(density)
+LayerSet.prototype.setMaskDensity = ArtLayer.prototype.setMaskDensity = function(density)
 {
   try {
     this.activate();
@@ -141,7 +144,7 @@ ArtLayer.prototype.setMaskDensity = function(density)
 return true;
 }
 
-ArtLayer.prototype.invertMask = function()
+LayerSet.prototype.invertMask = ArtLayer.prototype.invertMask = function()
 {
   try {
     this.activateMask(layer);

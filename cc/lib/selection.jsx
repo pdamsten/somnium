@@ -58,10 +58,10 @@ Document.prototype.clearSelection = function()
   }
 }
 
-Document.prototype.selectLayer = function(layer)
+ArtLayer.prototype.alphaToSelection = function()
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putProperty(cTID('Chnl'), sTID("selection"));

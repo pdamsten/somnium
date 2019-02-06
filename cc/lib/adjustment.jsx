@@ -90,7 +90,7 @@ ArtLayer.prototype.applyImage = function(values, withDialog)
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), sTID(values[0]));
     ref1.putName(cTID('Lyr '), values[1]);
     desc2.putReference(cTID('T   '), ref1);
-    desc2.putEnumerated(cTID('Clcl'), cTID('Clcn'), blendingMode(values[2]));
+    desc2.putEnumerated(cTID('Clcl'), cTID('Clcn'), Photoshop.blendingMode(values[2]));
     desc2.putDouble(cTID('Scl '), values[3]);
     desc2.putInteger(cTID('Ofst'), values[4]);
     desc1.putObject(cTID('With'), cTID('Clcl'), desc2);

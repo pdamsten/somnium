@@ -22,7 +22,7 @@ Document.prototype.activateLayer = function(layer)
   return app.activeDocument.activeLayer;
 }
 
-ArtLayer.prototype.activate = function()
+LayerSet.prototype.activate = ArtLayer.prototype.activate = function()
 {
   app.activeDocument.activeLayer = this;
   return app.activeDocument.activeLayer;
@@ -126,10 +126,10 @@ ArtLayer.prototype.smartObjectInfo = function()
   return false;
 }
 
-Document.prototype.xxstampVisible = function(name, layer) // Onko layer vai doc
+Document.prototype.stampVisible = function(name)
 {
   try {
-    createLayer(name, layer); // This way stamnp works also with one layer
+    app.activeDocument.addLayer(name); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
     executeAction(sTID('mergeVisible'), desc1, DialogModes.NO);
@@ -140,7 +140,7 @@ Document.prototype.xxstampVisible = function(name, layer) // Onko layer vai doc
   }
 }
 
-xxparentsVisible = function(layers, i)
+_parentsVisible = function(layers, i)
 {
   var p = layers[i].parent;
   while (p != -1) {
@@ -152,30 +152,29 @@ xxparentsVisible = function(layers, i)
   return true;
 }
 
-Document.prototype.xxstampCurrentAndBelow = function(layer, name)
+Document.prototype.stampCurrentAndBelow = function(name)
 {
   try {
-    var active = this.activate();
-    var group = layer;
-    var layers = listLayers();
+    var active = app.activeDocument.activeLayer;
+    var layers = app.activeDocument.listLayers();
     // Hide layers up this layer
     for (i = 0; i < layers.length; ++i) {
       if (layers[i].layer == active) {
         break;
       }
-      if (layers[i].layer.typename != 'LayerSet' && parentsVisible(layers, i)) {
+      if (layers[i].layer.typename != 'LayerSet' && _parentsVisible(layers, i)) {
         layers[i].layer.visible = false;
       }
     }
 
-    layer = stampVisible(name, active);
+    layer = app.activeDocument.stampVisible(name);
 
     // return visible state of layers
     for (i = 0; i < layers.length; ++i) {
       if (layers[i].layer == active) {
         break;
       }
-      if (layers[i].layer.typename != 'LayerSet' && parentsVisible(layers, i)) {
+      if (layers[i].layer.typename != 'LayerSet' && _parentsVisible(layers, i)) {
         layers[i].layer.visible = layers[i].visible;
       }
     }
@@ -312,7 +311,7 @@ ArtLayer.prototype.setBlendingMode = function(mode)
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), blendingMode(mode));
+    desc2.putEnumerated(cTID('Md  '), cTID('BlnM'), Photoshop.blendingMode(mode));
     desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
     return true;
@@ -339,7 +338,7 @@ Document.prototype.listLayers = function(player, _pindex)
       var layer = player.layers[i];
       _layersList[_lindex++] = {'parent': _pindex, 'layer': layer, 'visible': layer.visible};
       if (layer.typename == 'LayerSet') {
-        listLayers(layer, _lindex - 1);
+        this.listLayers(layer, _lindex - 1);
       }
     }
     return _layersList;
@@ -404,10 +403,10 @@ Document.prototype.checkLayer = function(name, parent)
 
 Document.prototype.addLayer = function(name, layer, placement)
 {
-  name = (name == undefined) ? randomString(8) : name;
+  name = (name == undefined) ? String.random(8) : name;
   layer = (layer == undefined) ? app.activeDocument.activeLayer : layer;
   placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
-  layer.activate();
+  app.activeDocument.activeLayer = layer;
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
   app.activeDocument.activeLayer = newLayer;
@@ -418,7 +417,7 @@ Document.prototype.addLayer = function(name, layer, placement)
 Document.prototype.mergeLayers = function(layers)
 {
   try {
-    if (selectLayers(layers)) {
+    if (this.selectLayers(layers)) {
       var desc1 = new ActionDescriptor();
       executeAction(cTID("Mrg2"), desc1, DialogModes.NO);
       return app.activeDocument.activeLayer;
@@ -506,7 +505,7 @@ Document.prototype.selectLayers = function(layers)
     var indexes = [];
 
     for (var i = 0; i < layers.length; ++i) {
-      indexes.push(layerIndex(layers[i]));
+      indexes.push(layers[i].index());
     }
     for (var i = 0; i < indexes.length; ++i) {
       var desc1 = new ActionDescriptor();
@@ -528,8 +527,8 @@ Document.prototype.selectLayers = function(layers)
 Document.prototype.groupLayers = function(name, layers)
 {
   try {
-    selectLayers(layers);
-    return groupSelected(name);
+    this.selectLayers(layers);
+    return this.groupSelectedLayers(name);
   } catch (e) {
     log(e);
     return null;
@@ -552,10 +551,10 @@ ArtLayer.prototype.index = function()
   }
 }
 
-ArtLayer.prototype.duplicateEx = function(layer, name)
+ArtLayer.prototype.duplicateEx = function(name)
 {
   try {
-    name = (name == undefined) ? randomString(8) : name;
+    name = (name == undefined) ? String.random(8) : name;
     this.activate();
     executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
@@ -566,10 +565,10 @@ ArtLayer.prototype.duplicateEx = function(layer, name)
   }
 }
 
-ArtLayer.prototype.activateMask = function(layer)
+ArtLayer.prototype.activateMask = function()
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));

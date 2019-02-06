@@ -142,6 +142,23 @@ msg: function(type, title, txt)
 };})();
 
 
+Document.prototype.contentAwareFill = function(tool)
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    desc1.putEnumerated(cTID('Usng'), cTID('FlCn'), sTID("contentAware"));
+    desc1.putBoolean(sTID("contentAwareColorAdaptationFill"), true);
+    desc1.putUnitDouble(cTID('Opct'), cTID('#Prc'), 100);
+    desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
+    executeAction(cTID('Fl  '), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+
 Photoshop = (function() {
 
 return { // public:
@@ -174,22 +191,6 @@ fitWindow: function()
   desc125.putBoolean( idkcanDispatchWhileModal, true);
   executeAction(idinvokeCommand, desc125, DialogModes.NO);
   app.refresh();
-},
-
-contentAwareFill: function(tool)
-{
-  try {
-    var desc1 = new ActionDescriptor();
-    desc1.putEnumerated(cTID('Usng'), cTID('FlCn'), sTID("contentAware"));
-    desc1.putBoolean(sTID("contentAwareColorAdaptationFill"), true);
-    desc1.putUnitDouble(cTID('Opct'), cTID('#Prc'), 100);
-    desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
-    executeAction(cTID('Fl  '), desc1, DialogModes.NO);
-  } catch (e) {
-    log(e);
-    return false;
-  }
-  return true;
 },
 
 selectTool: function(tool)
@@ -401,7 +402,7 @@ drawLine: function(name, x1, y1, x2, y2, w)
 
 };})();
 
-String.prototype.randomString = function(length)
+String.random = function(length)
 {
   var s = '';
   var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

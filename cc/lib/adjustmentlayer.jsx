@@ -13,7 +13,6 @@ const ColorBalance = {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL
 Document.prototype.addColorBalanceAdjustment = function(name)
 {
   try {
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -83,7 +82,6 @@ ArtLayer.prototype.setColorBalanceAdjustment = function(values)
 Document.prototype.addColorLookup = function(name)
 {
   try {
-    this.activate();
     var desc0 = new ActionDescriptor();
     var ref0 = new ActionReference();
     ref0.putClass(cTID('AdjL'));
@@ -157,7 +155,6 @@ var CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': '
 Document.prototype.addCurveAdjustment = function(name)
 {
   try {
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -235,7 +232,6 @@ scurve = function(percentage, dark, light)
 Document.prototype.addChannelMixer = function(name)
 {
   try {
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -293,7 +289,6 @@ Document.prototype.addSolidColorAdjustment = function(name, color)
 {
   try {
     color = (color == undefined) ? [0, 0, 0]: color;
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(sTID("contentLayer"));
@@ -342,7 +337,6 @@ ArtLayer.prototype.setSolidColorAdjustment = function(layer, color)
 Document.prototype.addHueSaturationAdjustment = function(name)
 {
   try {
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -418,7 +412,6 @@ ArtLayer.prototype.setHueSaturationAdjustment = function(layer, hue, saturation,
 Document.prototype.addSelectiveColorAdjustment = function(name)
 {
   try {
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -486,7 +479,6 @@ ArtLayer.prototype.setSelectiveColorAdjustment = function(values, absolute)
 Document.prototype.addGradientMapAdjustment = function(name)
 {
   try {
-    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
