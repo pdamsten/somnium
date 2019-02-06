@@ -10,6 +10,9 @@ var pluginPath = '';
 var settings;
 
 // Load PS DOM classes so we can extend them
+if (typeof LayerSet === 'undefined') {
+  LayerSet = function() {};
+}
 if (typeof ArtLayer === 'undefined') {
   ArtLayer = function() {};
 }
