@@ -8,9 +8,10 @@
 
 onDefringeMaskClick = function()
 {
-  if (selectLayerMask(app.activeDocument.activeLayer)) {
-    doGaussianBlur(app.activeDocument.activeLayer, 2.0);
-    doLevels(app.activeDocument.activeLayer, [[180, 255, 1.0], [0, 255]]);
+  var layer = app.activeDocument.activeLayer;
+  if (layer.activateMask()) {
+    layer.applyGaussianBlurEx(2.0);
+    layer.adjustLevelsEx([[180, 255, 1.0], [0, 255]]);
   } else {
     return msg(WARNING, 'Defringe Mask', 'No Layer mask.');
   }
@@ -20,7 +21,7 @@ onMakeCleaningClick = function()
 {
   try {
     var layer = app.activeDocument.addLayer('Cleaning');
-    layer.applyLocking(layer, false, false, true, false);
+    layer.applyLocking(false, false, true, false);
   } catch (e) {
     log(e);
   }
@@ -35,8 +36,7 @@ onCombineDocumentsClick = function()
       if (app.documents[i] != doc) {
         if (app.documents[i].layers.length == 1) {
           app.activeDocument = app.documents[i];
-          duplicateLayerToDoc(app.documents[i].layers[0], doc.name);
-          //log(app.documents[i].name, doc.name);
+          app.documents[i].layers[0].duplicateToDoc(doc.name);
           app.documents[i].close(SaveOptions.DONOTSAVECHANGES);
           moved = true;
         }
@@ -54,14 +54,15 @@ onCombineDocumentsClick = function()
 onFillEmptyClick = function()
 {
   try {
+    var doc = app.activeDocument;
     var current = app.activeDocument.activeLayer;
-    var stamp = stampCurrentAndBelow(current, randomString(10));
-    selectLayer(current);
-    inverseSelection();
-    expandSelection(2);
-    app.activeDocument.activeLayer = stamp;
-    contentAwareFill();
-    duplicateLayer(stamp, 'Fill');
+    var stamp = doc.stampCurrentAndBelow();
+    current.alphaToSelection();
+    doc.inverseSelection();
+    doc.expandSelection(2);
+    stamp.activate();
+    doc.contentAwareFill();
+    stamp.duplicateEx('Fill');
     stamp.remove();
   } catch (e) {
     log(e);
@@ -71,14 +72,15 @@ onFillEmptyClick = function()
 onBlendIf2MaskClick = function()
 {
   try {
-    var current = app.activeDocument.activeLayer;
-    var copy = duplicateLayer(current);
-    copy = rasterizeLayer(copy);
-    var empty = createLayer();
-    copy = mergeLayers([copy, empty]);
-    selectLayer(copy);
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+    var copy = current.duplicate();
+    copy = copy.rasterizeEx();
+    var empty = doc.addLayer();
+    copy = doc.mergeLayers([copy, empty]);
+    copy.alphaToSelection();
     copy.remove();
-    addLayerMask(current);
+    current.addMask();
     current.setBlendIf([[0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255],
                         [0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255]]);
   } catch (e) {
@@ -89,20 +91,21 @@ onBlendIf2MaskClick = function()
 onMakeMatchClick = function()
 {
   try {
-    var current = app.activeDocument.activeLayer;
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
 
-    var lum = createCurveAdjustment('Luminosity');
-    deleteLayerMask(lum);
+    var lum = doc.addCurveAdjustment('Luminosity');
+    lum.deleteMask();
     lum.move(current, ElementPlacement.PLACEBEFORE);
     lum.grouped = true;
 
-    var hue = createSelectiveColorAdjustment('Hue');
-    deleteLayerMask(hue);
+    var hue = doc.addSelectiveColorAdjustment('Hue');
+    hue.deleteMask();
     hue.move(lum, ElementPlacement.PLACEBEFORE);
     hue.grouped = true;
 
-    var sat = createHueSaturationAdjustment('Saturation');
-    deleteLayerMask(sat);
+    var sat = doc.addHueSaturationAdjustment('Saturation');
+    sat.deleteMask();
     sat.move(hue, ElementPlacement.PLACEBEFORE);
     sat.grouped = true;
 
@@ -119,35 +122,27 @@ onMakeMatchClick = function()
 onMakeFSClick = function()
 {
   try {
+    var doc = app.activeDocument;
     var type = settings.value('MakeFS', 'style');
-    /* Not sure if this simple is useful after all
-      var layer = stampCurrentAndBelow('current', 'Simple Frequence Separation');
-      invertLayer(layer);
-      layer = convertToSmartObject(layer);
-      doHighPass(layer, 24, false);
-      doGaussianBlur(layer, 7.0, false);
-      setLayerBlendingMode(layer, 'vivid light');
-      addLayerMask(layer, true);
-    */
-    var lo = stampCurrentAndBelow('current', 'Low Frequence');
-    var hi = duplicateLayer(lo, 'High Frequence');
+    var lo = doc.stampCurrentAndBelow('Low Frequence');
+    var hi = lo.duplicateEx('High Frequence');
     var layers = [];
     hi.visible = false;
-    doGaussianBlur(lo, 7.0);
+    lo.applyGaussianBlurEx(7.0);
     layers.push(lo);
     hi.visible = true;
     var params = ["RGB", "Low Frequence", 'subtract', 2, 128];
-    doApplyImage(hi, params, false);
-    setLayerBlendingMode(hi, 'linear light');
+    hi.applyImage(params, false);
+    hi.setBlendingMode('linear light');
     layers.push(hi);
     if (type == 1) { // With helper
-      var lo2 = duplicateLayer(lo, 'Low Frequence Blurred');
-      doGaussianBlur(lo2, 9.0);
+      var lo2 = lo.duplicateEx('Low Frequence Blurred');
+      lo2.applyGaussianBlurEx(9.0);
       layers.push(lo2);
     }
-    var g = groupLayers('Frequence Separation', layers);
+    var g = doc.groupLayers('Frequence Separation', layers);
     if (type == 1) {
-      addLayerMask(g, true);
+      g.addMask(true);
     }
   } catch (e) {
     log(e);
@@ -157,7 +152,7 @@ onMakeFSClick = function()
 onStampUnderClick = function(type)
 {
   try {
-    stampCurrentAndBelow('current', 'Stamp from below');
+    app.activeDocument.stampCurrentAndBelow('Stamp from below');
   } catch (e) {
     log(e);
   }
@@ -166,8 +161,8 @@ onStampUnderClick = function(type)
 onSmartFromUnderClick = function(type)
 {
   try {
-    var layer = stampCurrentAndBelow('current', 'Stamp from below');
-    convertToSmartObject(layer);
+    var layer = app.activeDocument.stampCurrentAndBelow('Stamp from below');
+    layer.convertToSmartObject();
   } catch (e) {
     log(e);
   }
@@ -176,19 +171,19 @@ onSmartFromUnderClick = function(type)
 onUpdateFromUnderClick = function(type)
 {
   try {
-    var info = smartObjectInfo(app.activeDocument.activeLayer);
+    var orgLayer = app.activeDocument.activeLayer;
+    var info = orgLayer.smartObjectInfo();
     if (info != false) {
-      if (endsWith(info['fileref'], ".psb")) {
+      if (info['fileref'].endsWith(".psb")) {
         var orgDoc = app.activeDocument;
-        var orgLayer = app.activeDocument.activeLayer;
         orgLayer.visible = false;
-        var stamp = stampCurrentAndBelow(orgLayer, 'update');
-        if (editSmartObjectContents(orgLayer)) {
+        var stamp = app.activeDocument.stampCurrentAndBelow('update');
+        if (orgLayer.editSmartObjectContents()) {
           var newDoc = app.activeDocument;
           var newLayer = app.activeDocument.activeLayer;
           if (newDoc.layers.length == 1) {
             app.activeDocument = orgDoc;
-            duplicateLayerToDoc(stamp, newDoc.name);
+            stamp.duplicateToDoc(newDoc.name);
             stamp.remove();
             app.activeDocument = newDoc;
             newLayer.remove();
