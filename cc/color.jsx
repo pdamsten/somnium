@@ -223,11 +223,11 @@ random: function(type)
     var result = {};
     for (var i = 0; i < 7; ++i) {
       if (r & (1 << i)) {
-        var start = Math.floor(Math.random() * ColorThemes.length);
+        var start = Math.floor(Math.random() * colorThemes.length);
         for (var j = start; j < colorThemes.length; ++j) {
           var theme = colorThemes[j % colorThemes.length];
-          if (colorLayers[i] in colors[theme]) {
-            result[colorLayers[i]] = colors[theme][ColorLayers[i]];
+          if (ColorLayers[i] in colors[theme]) {
+            result[ColorLayers[i]] = colors[theme][ColorLayers[i]];
             break;
           }
         }
@@ -242,7 +242,7 @@ colorData: function(data)
   if (typeof data == 'string') {
     if (data == 'previous') {
       if (previousTheme == null) {
-        previousTheme = ColorThemes[0];
+        previousTheme = colorThemes[0];
       }
       data = previousTheme;
     }
