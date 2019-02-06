@@ -6,11 +6,10 @@
 //
 //**************************************************************************
 
-hasLayerMask = function(layer)
+ArtLayer.prototype.hasMask = function()
 {
-  var hasLayerMask = false;
   try {
-    activateLayer(layer);
+    this.activate();
     var ref1 = new ActionReference();
     ref1.putProperty(cTID('Prpr'), cTID('UsrM'));
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -23,12 +22,12 @@ hasLayerMask = function(layer)
   return false;
 }
 
-addLayerMask = function(layer, hidden)
+ArtLayer.prototype.addMask = function(hidden)
 {
   try {
     hidden = (typeof hidden === 'undefined') ? false : hidden;
-    activateLayer(layer);
-    deleteLayerMask(layer);
+    this.activate();
+    this.deleteMask();
     var desc1 = new ActionDescriptor();
     desc1.putClass(cTID('Nw  '), cTID('Chnl'));
     var ref1 = new ActionReference();
@@ -48,13 +47,13 @@ addLayerMask = function(layer, hidden)
   }
 }
 
-enableLayerMask = function(layer, enable)
+ArtLayer.prototype.enableMask = function(enable)
 {
   try {
-    if (!(hasLayerMask(layer))) {
+    if (!(this.hasMask(layer))) {
       return false;
     }
-    activateLayer(layer);
+    this.activate();
     var idsetd = cTID("setd");
     var desc9 = new ActionDescriptor();
     var idnull = cTID("null");
@@ -78,13 +77,13 @@ enableLayerMask = function(layer, enable)
   }
 }
 
-deleteLayerMask = function(layer)
+ArtLayer.prototype.deleteMask = function()
 {
   try {
     if (!(hasLayerMask(layer))) {
       return false;
     }
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
@@ -104,10 +103,10 @@ deleteLayerMask = function(layer)
   return true;
 }
 
-setLayerMaskFeather = function(layer, feather)
+ArtLayer.prototype.setMaskFeather = function(feather)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -123,10 +122,10 @@ setLayerMaskFeather = function(layer, feather)
 return true;
 }
 
-setLayerMaskDensity = function(layer, density)
+ArtLayer.prototype.setMaskDensity = function(density)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -142,10 +141,10 @@ setLayerMaskDensity = function(layer, density)
 return true;
 }
 
-invertLayerMask = function(layer)
+ArtLayer.prototype.invertMask = function()
 {
   try {
-    selectLayerMask(layer);
+    this.activateMask(layer);
     executeAction(cTID('Invr'), undefined, DialogModes.NO);
   } catch (e) {
     log(e);

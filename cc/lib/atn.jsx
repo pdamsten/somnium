@@ -6,14 +6,18 @@
 //
 //**************************************************************************
 
-writeArray = function(f, array)
+Atn = (function() {
+
+return { // public:
+
+writeArray: function(f, array)
 {
   for (var i = 0; i < array.length; ++i) {
     f.write(String.fromCharCode(array[i]));
   }
-}
+},
 
-writeNumber = function(f, number, bytes, littleendian)
+writeNumber: function(f, number, bytes, littleendian)
 {
   var array = [];
   if (littleendian) {
@@ -28,29 +32,29 @@ writeNumber = function(f, number, bytes, littleendian)
     }
   }
   writeArray(f, array);
-}
+},
 
-writeLong = function(f, number, littleendian)
+writeLong: function(f, number, littleendian)
 {
   writeNumber(f, number, 4, littleendian);
-}
+},
 
-writeShort = function(f, number, littleendian)
+writeShort: function(f, number, littleendian)
 {
   writeNumber(f, number, 2, littleendian);
-}
+},
 
-writeBoolean = function(f, number)
+writeBoolean: function(f, number)
 {
   writeNumber(f, number, 1);
-}
+},
 
-writeByte = function(f, number)
+writeByte: function(f, number)
 {
   writeNumber(f, number, 1);
-}
+},
 
-writeUnicodeString = function(f, str, littleendian)
+writeUnicodeString: function(f, str, littleendian)
 {
   var length = str.length;
   writeLong(f, length + 1, littleendian);
@@ -58,9 +62,9 @@ writeUnicodeString = function(f, str, littleendian)
     writeShort(f, str.charCodeAt(j), littleendian);
   }
   writeShort(f, 0);
-}
+},
 
-writeByteString = function(f, str)
+writeByteString: function(f, str)
 {
   var length = str.length;
   writeLong(f, length + 1);
@@ -68,9 +72,9 @@ writeByteString = function(f, str)
     writeByte(f, str.charCodeAt(j));
   }
   writeByte(f, 0);
-}
+},
 
-write4ByteID = function(f, id, littleendian)
+write4ByteID: function(f, id, littleendian)
 {
   if (littleendian) {
     for (var j = 3; j >= 0; --j) {
@@ -81,29 +85,29 @@ write4ByteID = function(f, id, littleendian)
       f.write(id[j]);
     }
   }
-}
+},
 
-writeStringID = function(f, str)
+writeStringID: function(f, str)
 {
   write4ByteID(f, 'TEXT');
   writeByteString(f, str);
-}
+},
 
-writeCharID = function(f, str)
+writeCharID: function(f, str)
 {
   writeLong(f, 0);
   write4ByteID(f, str);
-}
+},
 
-writeClass = function(f)
+writeClass: function(f)
 {
   writeUnicodeString(f, '');
   writeCharID(f, 'null');
-}
+},
 
 // alis
 
-writeAlisByteString = function(f, str)
+writeAlisByteString: function(f, str)
 {
   var length = str.length;
   writeShort(f, length);
@@ -111,9 +115,9 @@ writeAlisByteString = function(f, str)
     writeByte(f, str.charCodeAt(j));
   }
   writeByte(f, 0);
-}
+},
 
-writeAlisUnicodeString = function(f, str)
+writeAlisUnicodeString: function(f, str)
 {
   var length = str.length;
   writeShort(f, length); // name length
@@ -121,9 +125,9 @@ writeAlisUnicodeString = function(f, str)
     writeShort(f, str.charCodeAt(j));
   }
   writeByte(f, 0);
-}
+},
 
-writeAlisPaddedByteString = function(f, str, total)
+writeAlisPaddedByteString: function(f, str, total)
 {
   var length = str.length;
   writeByte(f, length);
@@ -133,24 +137,24 @@ writeAlisPaddedByteString = function(f, str, total)
   for (var j = length; j < total; ++j) {
     writeByte(f, 0);
   }
-}
+},
 
-var volume = 'Macintosh HD';
-var data1 = [0,  0,  0,  0,  66,  68,  0,  1,  255,  255,  255,  255];
-var data2 = [255,  255,  255,  255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  2,
-             0,  0,  10,  32,  99,  117,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0];
-var data3 = [19,  0,  1,  47,  0,  0,  21,  0,  2,  0,  11,  255,  255,  0,  0];
+volume: 'Macintosh HD',
+data1: [0,  0,  0,  0,  66,  68,  0,  1,  255,  255,  255,  255],
+data2: [255,  255,  255,  255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  2,
+             0,  0,  10,  32,  99,  117,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0],
+data3: [19,  0,  1,  47,  0,  0,  21,  0,  2,  0,  11,  255,  255,  0,  0],
 
-alisLength = function(script)
+alisLength: function(script)
 {
   var file = File(script);
   var folder = File(file.path);
 
   return 191 + folder.name.length + script.length + 1 + file.name.length * 2 +
          volume.length * 2 + script.length - 1 + ((script.length + 1) % 2) * 2;
-}
+},
 
-writeAlis = function(f, script)
+writeAlis: function(f, script)
 {
   var file = File(script);
   var folder = File(file.path);
@@ -183,16 +187,16 @@ writeAlis = function(f, script)
     writeByte(f, 0);
   }
   writeArray(f, data3); // end shit
-}
+},
 
-writePth = function(f, script)
+writePth: function(f, script)
 {
   write4ByteID(f, 'utxt', true);
   writeLong(f, script.length * 2 + 12, true);
   writeUnicodeString(f, script, true);
-}
+},
 
-writePair = function(f, type, data)
+writePair: function(f, type, data)
 {
   write4ByteID(f, type);
   if (type == 'TEXT') {
@@ -204,9 +208,9 @@ writePair = function(f, type, data)
     writeLong(f, data.length * 2 + 12);
     writePth(f, data);
   }
-}
+},
 
-writeDescriptor = function(f, script)
+writeDescriptor: function(f, script)
 {
   writeClass(f);
   writeLong(f, 2); // Items
@@ -218,9 +222,9 @@ writeDescriptor = function(f, script)
   }
   writeCharID(f, 'jsMs');
   writePair(f, 'TEXT', 'undefined');
-}
+},
 
-writeCommand = function(f, script)
+writeCommand: function(f, script)
 {
   writeBoolean(f, 0); // Expanded
   writeBoolean(f, 1); // Enabled
@@ -230,9 +234,9 @@ writeCommand = function(f, script)
   writeByteString(f, 'Scripts'); // Dictionary
   writeLong(f, -1); // Descriptor
   writeDescriptor(f, script);
-}
+},
 
-writeAction = function(f, setting, actions)
+writeAction: function(f, setting, actions)
 {
   writeShort(f, 0); // Function key
   writeBoolean(f, 0); // Shift
@@ -243,9 +247,9 @@ writeAction = function(f, setting, actions)
   writeBoolean(f, 0); // Expanded
   writeLong(f, 1); // Command count
   writeCommand(f, actions + name.replace(/ /g , '') + '.jsx');
-}
+},
 
-writeActionSet = function(f, settings, actions)
+writeActionSet: function(f, settings, actions)
 {
   writeUnicodeString(f, 'Somnium'); // set name
   writeBoolean(f, 0); // expanded
@@ -253,9 +257,9 @@ writeActionSet = function(f, settings, actions)
   for (var key in settings) {
     writeAction(f, settings[key], actions);
   }
-}
+},
 
-writeAtn = function(filename, settings, actions)
+write: function(filename, settings, actions)
 {
   try {
     var f = new File(filename);
@@ -267,9 +271,9 @@ writeAtn = function(filename, settings, actions)
   } catch (e) {
     log(e);
   }
-}
+},
 
-unloadActionsSet = function(actionSet) {
+unloadActionsSet: function(actionSet) {
   try {
     var desc = new ActionDescriptor();
     var ref = new ActionReference();
@@ -280,9 +284,9 @@ unloadActionsSet = function(actionSet) {
     return false;
   }
   return true;
-}
+},
 
-checkAtn = function(path, pluginPath, settings)
+check: function(path, pluginPath, settings)
 {
   var atnFile = path + 'somnium-' + settings.version() + '.atn';
   var actions = addPathSep(pluginPath + 'actions');
@@ -295,3 +299,5 @@ checkAtn = function(path, pluginPath, settings)
     app.load(new File(atnFile));
   }
 }
+
+};})();

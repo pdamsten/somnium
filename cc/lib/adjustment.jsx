@@ -6,10 +6,10 @@
 //
 //**************************************************************************
 
-doGaussianBlur = function(layer, value, withDialog)
+ArtLayer.prototype.applyGaussianBlurEx = function(value, withDialog)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var dialogMode = (typeof withDialog === 'undefined' || withDialog) ? DialogModes.ALL : DialogModes.NO;
     var desc1 = new ActionDescriptor();
     desc1.putUnitDouble(cTID('Rds '), cTID('#Pxl'), value);
@@ -21,10 +21,10 @@ doGaussianBlur = function(layer, value, withDialog)
 
 const NoiseTypes = {'gaussian': 'Gsn ', 'uniform': 'Unfr'};
 
-addNoise = function(layer, value, type, mono, withDialog)
+ArtLayer.prototype.applyAddNoiseEx = function(value, type, mono, withDialog)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var dialogMode = (typeof withDialog === 'undefined' || withDialog) ? DialogModes.ALL : DialogModes.NO;
     var desc1 = new ActionDescriptor();
     desc1.putEnumerated(cTID('Dstr'), cTID('Dstr'), cTID(NoiseTypes[type]));
@@ -37,10 +37,10 @@ addNoise = function(layer, value, type, mono, withDialog)
   }
 }
 
-doLevels = function(layer, value, withDialog)
+ArtLayer.prototype.adjustLevelsEx = function(value, withDialog)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var dialogMode = (typeof withDialog === 'undefined' || withDialog) ? DialogModes.ALL : DialogModes.NO;
     var desc1 = new ActionDescriptor();
     desc1.putEnumerated(sTID("presetKind"), sTID("presetKindType"), sTID("presetKindCustom"));
@@ -66,10 +66,10 @@ doLevels = function(layer, value, withDialog)
   }
 }
 
-doHighPass = function(layer, value, withDialog)
+ArtLayer.prototype.applyHighPassEx = function(value, withDialog)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var dialogMode = (withDialog ? DialogModes.ALL : DialogModes.NO);
     var desc1 = new ActionDescriptor();
     desc1.putUnitDouble(cTID('Rds '), cTID('#Pxl'), value);
@@ -79,10 +79,10 @@ doHighPass = function(layer, value, withDialog)
   }
 }
 
-doApplyImage = function(layer, values, withDialog)
+ArtLayer.prototype.applyImage = function(values, withDialog)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var dialogMode = (typeof withDialog === 'undefined' || withDialog) ? DialogModes.ALL : DialogModes.NO;
     var desc1 = new ActionDescriptor();
     var desc2 = new ActionDescriptor();

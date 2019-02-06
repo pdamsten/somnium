@@ -6,14 +6,18 @@
 //
 //**************************************************************************
 
+Log = (function() {
+
 var logFile = '';
 
-sendToConsole = function(txt)
-{
-  dispatchEvent('console', txt);
-}
+return { // public:
 
-objectToString = function(obj, prefix)
+sendToConsole: function(txt)
+{
+  UI.dispatchEvent('console', txt);
+},
+
+objectToString: function(obj, prefix)
 {
   var s = '';
   prefix = (typeof prefix === 'undefined') ? '' : prefix;
@@ -24,7 +28,7 @@ objectToString = function(obj, prefix)
       try {
         s += prefix + o + ' = ' + obj[o] + '\n';
         if (typeof obj[o] === 'object' && !(obj[o] instanceof Array)) {
-          s += objectToString(obj[o], prefix + '  ');
+          s += this.objectToString(obj[o], prefix + '  ');
         }
       } catch (e) {
         s += prefix + o + ' = ' + e.message + '\n';
@@ -32,9 +36,9 @@ objectToString = function(obj, prefix)
     }
   }
   return s;
-}
+},
 
-exceptionToString = function(obj)
+exceptionToString: function(obj)
 {
   var a = obj.source.split('\n');
   var fn = '';
@@ -50,14 +54,14 @@ exceptionToString = function(obj)
     }
   }
   return '(' + fn + ':' + (obj.line) + ') ' + line + ' : ' + obj.message;
-}
+},
 
-isException = function(obj)
+isException: function(obj)
 {
   return obj.hasOwnProperty('source') && obj.hasOwnProperty('line');
-}
+},
 
-isoDate = function()
+isoDate: function()
 {
   var date = new Date();
   var yy = date.getYear();
@@ -73,23 +77,23 @@ isoDate = function()
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
   return yy + '-' + m + '-' + d + 'T' + hours + ':' + minutes + ':' + seconds;
-}
+},
 
-initLog = function(path)
+init: function(path)
 {
   logFile = path;
-}
+},
 
-log = function()
+write: function(arguments)
 {
   try {
-    var s = isoDate();
+    var s = this.isoDate();
     for (var i = 0; i < arguments.length; ++i) {
       if (typeof arguments[i] == 'object') {
-        if (isException(arguments[i])) {
-          s += ' ' + exceptionToString(arguments[i]);
+        if (this.isException(arguments[i])) {
+          s += ' ' + this.exceptionToString(arguments[i]);
         } else {
-          s += ' ' + objectToString(arguments[i]);
+          s += ' ' + this.objectToString(arguments[i]);
         }
       } else {
         s += ' ' + arguments[i];
@@ -100,9 +104,15 @@ log = function()
     f.encoding = "BINARY"; // For proper line ending
     f.write(s + '\n');
     f.close();
-    sendToConsole(s);
+    this.sendToConsole(s);
   } catch (e) {
-    //log(e);
     alert(e.message);
   }
+}
+
+};})();
+
+log = function()
+{
+  Log.write(arguments);
 }

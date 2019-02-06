@@ -6,14 +6,14 @@
 //
 //**************************************************************************
 
-const PhotoshopPath = dirname(Folder.appPackage.fsName);
+const PhotoshopPath = Path.dirname(Folder.appPackage.fsName);
 
 const ColorBalance = {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL'};
 
-createColorBalanceAdjustment = function(name, layer)
+Document.prototype.addColorBalanceAdjustment = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -47,10 +47,10 @@ createColorBalanceAdjustment = function(name, layer)
   }
 }
 
-setColorBalanceAdjustment = function(layer, values)
+ArtLayer.prototype.setColorBalanceAdjustment = function(values)
 {
   try {
-    activateLayer(layer);
+    this.activate();
 
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
@@ -80,10 +80,10 @@ setColorBalanceAdjustment = function(layer, values)
   }
 }
 
-createColorLookup = function(name, layer)
+Document.prototype.addColorLookup = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc0 = new ActionDescriptor();
     var ref0 = new ActionReference();
     ref0.putClass(cTID('AdjL'));
@@ -100,10 +100,10 @@ createColorLookup = function(name, layer)
   }
 }
 
-setColorLookup = function(layer, lookup)
+ArtLayer.prototype.setColorLookup = function(layer, lookup)
 {
   try {
-    activateLayer(layer);
+    this.activate();
 
     var ref1 = new ActionReference();
     var desc1 = new ActionDescriptor();
@@ -154,10 +154,10 @@ setColorLookup = function(layer, lookup)
 
 var CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
 
-createCurveAdjustment = function(name, layer)
+Document.prototype.addCurveAdjustment = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -176,13 +176,13 @@ createCurveAdjustment = function(name, layer)
   }
 }
 
-setCurveAdjustment = function(layer, data)
+ArtLayer.prototype.setCurveAdjustment = function(layer, data)
 {
   try {
     if (data instanceof Array) {
       data = {'master': data};
     }
-    activateLayer(layer);
+    this.activate();
     for (var type in CurveChannels) {
       if (type in data) {
         var desc1 = new ActionDescriptor();
@@ -232,10 +232,10 @@ scurve = function(percentage, dark, light)
           curvePoint(192, percentage), curvePoint(255, light)];
 }
 
-createChannelMixer = function(name, layer)
+Document.prototype.addChannelMixer = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -263,10 +263,10 @@ createChannelMixer = function(name, layer)
   }
 }
 
-setChannelMixer = function(layer, color, cnst, mono)
+ArtLayer.prototype.setChannelMixer = function(layer, color, cnst, mono)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
@@ -289,11 +289,11 @@ setChannelMixer = function(layer, color, cnst, mono)
   }
 }
 
-createSolidColorAdjustment = function(name, layer, color)
+Document.prototype.addSolidColorAdjustment = function(name, color)
 {
   try {
     color = (color == undefined) ? [0, 0, 0]: color;
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(sTID("contentLayer"));
@@ -316,10 +316,10 @@ createSolidColorAdjustment = function(name, layer, color)
   }
 };
 
-setSolidColorAdjustment = function(layer, color)
+ArtLayer.prototype.setSolidColorAdjustment = function(layer, color)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(sTID("contentLayer"), cTID('Ordn'), cTID('Trgt'));
@@ -339,10 +339,10 @@ setSolidColorAdjustment = function(layer, color)
   }
 };
 
-createHueSaturationAdjustment = function(name, layer)
+Document.prototype.addHueSaturationAdjustment = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -362,7 +362,7 @@ createHueSaturationAdjustment = function(name, layer)
   }
 }
 
-setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
+ArtLayer.prototype.setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
 {
   try {
     var values = null;
@@ -375,7 +375,7 @@ setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
       values["colorize"] = false;
     }
 
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
@@ -415,10 +415,10 @@ setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
   }
 }
 
-createSelectiveColorAdjustment = function(name, layer)
+Document.prototype.addSelectiveColorAdjustment = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -441,10 +441,10 @@ const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
                          'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
                          'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'};
 
-setSelectiveColorAdjustment = function(layer, values, absolute)
+ArtLayer.prototype.setSelectiveColorAdjustment = function(values, absolute)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     for (v in values) {
       var desc1 = new ActionDescriptor();
       var ref1 = new ActionReference();
@@ -483,10 +483,10 @@ setSelectiveColorAdjustment = function(layer, values, absolute)
   }
 }
 
-createGradientMapAdjustment = function(name, layer)
+Document.prototype.addGradientMapAdjustment = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(cTID('AdjL'));
@@ -509,10 +509,10 @@ createGradientMapAdjustment = function(name, layer)
   }
 }
 
-setGradientMapAdjustment = function(layer, values)
+ArtLayer.prototype.setGradientMapAdjustment = function(values)
 {
   try {
-    activateLayer(layer);
+    this.activate();
 
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
@@ -558,5 +558,26 @@ setGradientMapAdjustment = function(layer, values)
   } catch (e) {
     log(e);
     return false;
+  }
+}
+
+ArtLayer.prototype.setAdjustment(values)
+{
+  if(this.kind == LayerKind.COLORBALANCE) {
+    this.setColorBalanceAdjustment(values);
+  } else if(this.kind == LayerKind.COLORLOOKUP) {
+    this.setColorLookup(values);
+  } else if(this.kind == LayerKind.CURVES) {
+    this.setCurveAdjustment(values);
+  } else if(this.kind == LayerKind.CHANNELMIXER) {
+    this.setChannelMixer(values);
+  } else if(this.kind == LayerKind.SOLIDFILL) {
+    this.setSolidColorAdjustment(values);
+  } else if(this.kind == LayerKind.HUESATURATION) {
+    this.setHueSaturationAdjustment(values);
+  } else if(this.kind == LayerKind.SELECTIVECOLOR) {
+    this.setSelectiveColorAdjustment(values);
+  } else if(this.kind == LayerKind.GRADIENTMAP) {
+    this.setGradientMapAdjustment(values);
   }
 }

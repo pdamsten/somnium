@@ -6,11 +6,10 @@
 //
 //**************************************************************************
 
-
 ArtLayer.prototype.setBlendIf = function(data)
 {
   try {
-    layer = activateLayer(this);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -127,7 +126,7 @@ ArtLayer.prototype.setLayerStyles = function(data, scale)
 {
   var s = (typeof scale !== 'undefined') ?  scale : 200;
   try {
-    layer = activateLayer(this);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putProperty(cTID('Prpr'), cTID('Lefx'));

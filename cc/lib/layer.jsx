@@ -6,10 +6,32 @@
 //
 //**************************************************************************
 
-applyLocking = function(layer, transparency, composite, position, artboard)
+Document.prototype.activateLayer = function(layer)
+{
+  if (typeof layer !== 'undefined') {
+    if (typeof layer === 'string' && layer == 'first') {
+      app.activeDocument.activeLayer = app.activeDocument.layers[0];
+    } else if (typeof layer === 'string' && layer == 'current') {
+        return app.activeDocument.activeLayer;
+    } else if (typeof layer === 'string' && layer == 'last') {
+      app.activeDocument.activeLayer = app.activeDocument.layers[app.activeDocument.layers.length - 1];
+    } else {
+      app.activeDocument.activeLayer = layer;
+    }
+  }
+  return app.activeDocument.activeLayer;
+}
+
+ArtLayer.prototype.activate = function()
+{
+  app.activeDocument.activeLayer = this;
+  return app.activeDocument.activeLayer;
+}
+
+ArtLayer.prototype.applyLocking = function(transparency, composite, position, artboard)
 {
   try {
-    layer = activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -39,9 +61,10 @@ applyLocking = function(layer, transparency, composite, position, artboard)
   return false;
 };
 
-duplicateLayerToDoc = function(layer, destDoc) {
+ArtLayer.prototype.duplicateToDoc = function(destDoc)
+{
   try {
-    layer = activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -61,7 +84,7 @@ duplicateLayerToDoc = function(layer, destDoc) {
   return false;
 };
 
-smartObjectInfo = function(layer)
+ArtLayer.prototype.smartObjectInfo = function()
 {
   RAW = [
   '.3fr', '.ari', '.arw', '.srf', '.sr2', '.bay', '.cri', '.crw', '.cr2', '.cr3', '.cap', '.iiq',
@@ -72,8 +95,8 @@ smartObjectInfo = function(layer)
 
   var info = {};
   try {
-    layer = activateLayer(layer);
-    if (layer.kind == LayerKind.SMARTOBJECT) {
+    this.activate();
+    if (this.kind == LayerKind.SMARTOBJECT) {
       var ref = new ActionReference();
       ref.putEnumerated(cTID("Lyr "), cTID("Ordn"), cTID("Trgt") );
       var layerDesc = executeActionGet(ref);
@@ -103,7 +126,7 @@ smartObjectInfo = function(layer)
   return false;
 }
 
-stampVisible = function(name, layer)
+Document.prototype.xxstampVisible = function(name, layer) // Onko layer vai doc
 {
   try {
     createLayer(name, layer); // This way stamnp works also with one layer
@@ -117,7 +140,7 @@ stampVisible = function(name, layer)
   }
 }
 
-parentsVisible = function(layers, i)
+xxparentsVisible = function(layers, i)
 {
   var p = layers[i].parent;
   while (p != -1) {
@@ -129,10 +152,10 @@ parentsVisible = function(layers, i)
   return true;
 }
 
-stampCurrentAndBelow = function(layer, name)
+Document.prototype.xxstampCurrentAndBelow = function(layer, name)
 {
   try {
-    var active = activateLayer(layer);
+    var active = this.activate();
     var group = layer;
     var layers = listLayers();
     // Hide layers up this layer
@@ -163,11 +186,11 @@ stampCurrentAndBelow = function(layer, name)
   }
 }
 
-hasSmartFilters = function(layer)
+Layer.prototype.hasSmartFilters = function()
 {
   try {
-    layer = activateLayer(layer);
-    var info = smartObjectInfo(layer);
+    this.activate();
+    var info = smartObjectInfo(this);
     if (info == false || info['hasFX'] == false) {
       return false;
     }
@@ -177,13 +200,13 @@ hasSmartFilters = function(layer)
   }
 }
 
-enableSmartFilters = function(layer, enable)
+Layer.prototype.enableSmartFilters = function(enable)
 {
   try {
-    if (hasSmartFilters(layer) == false) {
+    if (this.hasSmartFilters() == false) {
       return false;
     }
-    layer = activateLayer(layer);
+    this.activate();
     if (enable) {
       cmd = cTID('Shw ');
     } else {
@@ -202,11 +225,11 @@ enableSmartFilters = function(layer, enable)
   }
 }
 
-deleteSmartFilters = function(layer)
+Layer.prototype.removeSmartFilters = function()
 {
   try {
-    layer = activateLayer(layer);
-    var info = smartObjectInfo(layer);
+    this.activate();
+    var info = smartObjectInfo(this);
     if (info == false || info['hasFX'] == false) {
       return false;
     }
@@ -223,10 +246,10 @@ deleteSmartFilters = function(layer)
   }
 }
 
-convertToSmartObject = function(layer, name)
+Layer.prototype.convertToSmartObject = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     executeAction(sTID('newPlacedLayer'), undefined, DialogModes.NO);
     if (name !== undefined && name != '') {
       app.activeDocument.activeLayer.name = name;
@@ -238,11 +261,11 @@ convertToSmartObject = function(layer, name)
   }
 }
 
-rasterizeLayer = function(layer)
+Layer.prototype.rasterizeEx = function()
 {
   try {
-    layer = activateLayer(layer);
-    if (layer.kind == LayerKind.SMARTOBJECT){
+    this.activate();
+    if (this.kind == LayerKind.SMARTOBJECT){
       executeAction(sTID("rasterizePlaced"), undefined, DialogModes.NO );
     }
     return app.activeDocument.activeLayer;
@@ -252,10 +275,10 @@ rasterizeLayer = function(layer)
   }
 }
 
-newSmartObjectViaCopy = function(layer, name)
+Layer.prototype.newSmartObjectViaCopy = function(name)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     executeAction(sTID('placedLayerMakeCopy'), undefined, DialogModes.NO);
     if (name !== undefined && name != '') {
       app.activeDocument.activeLayer.name = name;
@@ -267,10 +290,10 @@ newSmartObjectViaCopy = function(layer, name)
   }
 }
 
-editSmartObjectContents = function(layer)
+Layer.prototype.editSmartObjectContents = function()
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var name = app.activeDocument.name;
     executeAction(sTID('placedLayerEditContents'), undefined, DialogModes.NO);
     return (name != app.activeDocument.name);
@@ -280,10 +303,10 @@ editSmartObjectContents = function(layer)
   }
 }
 
-setLayerBlendingMode = function(layer, mode)
+Layer.prototype.setBlendingMode = function(mode)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -302,7 +325,7 @@ setLayerBlendingMode = function(layer, mode)
 var _layersList = [];
 var _lindex = 0;
 
-listLayers = function(player, _pindex)
+Document.prototype.listLayers = function(player, _pindex)
 {
   try {
     if (typeof _pindex === 'undefined') {
@@ -326,41 +349,25 @@ listLayers = function(player, _pindex)
   }
 }
 
-activateLayer = function(layer)
+Layer.prototype.compare = function(layer)
 {
-  if (typeof layer !== 'undefined') {
-    if (typeof layer === 'string' && layer == 'first') {
-      app.activeDocument.activeLayer = app.activeDocument.layers[0];
-    } else if (typeof layer === 'string' && layer == 'current') {
-        return app.activeDocument.activeLayer;
-    } else if (typeof layer === 'string' && layer == 'last') {
-      app.activeDocument.activeLayer = app.activeDocument.layers[app.activeDocument.layers.length - 1];
-    } else {
-      app.activeDocument.activeLayer = layer;
-    }
-  }
-  return app.activeDocument.activeLayer;
-}
-
-cmpLayers = function(layer1, layer2)
-{
-  if (typeof layer1 === 'undefined' || typeof layer2 === 'undefined') {
+  if (typeof this === 'undefined' || typeof layer === 'undefined') {
     return false;
   }
-  if (typeof layer1 !== 'string' && typeof layer2 !== 'string') {
-    return (layer1 == layer2);
+  if (typeof this !== 'string' && typeof layer !== 'string') {
+    return (this == layer);
   }
-  if (typeof layer1 !== 'string') {
-    return (layer1.name == layer2);
+  if (typeof this !== 'string') {
+    return (this.name == layer);
   }
-  if (typeof layer2 !== 'string') {
-    return (layer1 == layer2.name);
+  if (typeof layer !== 'string') {
+    return (this == layer.name);
   }
   //log(layer1.name, layer2.name, (layer1 == layer2));
-  return (layer1 == layer2);
+  return (this == layer);
 }
 
-findLayer = function(name, parent, type)
+Document.prototype.findLayer = function(name, parent, type)
 {
   try {
     layers = listLayers();
@@ -383,7 +390,7 @@ findLayer = function(name, parent, type)
   return null;
 }
 
-checkLayer = function(name, parent)
+Document.prototype.checkLayer = function(name, parent)
 {
   var layer = findLayer(name, parent);
   if (layer != null) {
@@ -395,11 +402,11 @@ checkLayer = function(name, parent)
   return null;
 }
 
-createLayer = function(name, layer, placement)
+Document.prototype.addLayer = function(name, layer, placement)
 {
   name = (name == undefined) ? randomString(8) : name;
   placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
-  var layer = activateLayer(layer);
+  layer.activate();
   var newLayer = app.activeDocument.artLayers.add();
   newLayer.name = name;
   app.activeDocument.activeLayer = newLayer;
@@ -407,7 +414,7 @@ createLayer = function(name, layer, placement)
   return newLayer;
 }
 
-mergeLayers = function(layers)
+Document.prototype.mergeLayers = function(layers)
 {
   try {
     if (selectLayers(layers)) {
@@ -421,23 +428,23 @@ mergeLayers = function(layers)
   return null;
 }
 
-findGroup = function(name, parent)
+Document.prototype.findGroup = function(name, parent)
 {
   return findLayer(name, parent, 'LayerSet');
 }
 
-moveToGroup = function(layer, group)
+Layer.prototype.moveToGroup = function(group)
 {
   if (group.typename == 'LayerSet') {
     var before = group.layerSets.add();
-    layer.move(before, ElementPlacement.PLACEBEFORE); // Does not support ElementPlacement.INSIDE
+    this.move(before, ElementPlacement.PLACEBEFORE); // Does not support ElementPlacement.INSIDE
     before.remove();
   }
 }
 
-createGroup = function(name, layer)
+Document.prototype.addGroup = function(name)
 {
-  var layerActive = activateLayer(layer);
+  var layerActive = this.activate();
   var group = app.activeDocument.layerSets.add();
   group.name = name;
   app.activeDocument.activeLayer = group;
@@ -447,7 +454,7 @@ createGroup = function(name, layer)
   return group;
 }
 
-checkGroup = function(name, parent, after)
+xxcheckGroup = function(name, parent, after)
 {
   try {
     if (parent !== undefined) {
@@ -473,7 +480,7 @@ checkGroup = function(name, parent, after)
   }
 }
 
-groupSelected = function(name)
+Document.prototype.groupSelectedLayers = function(name)
 {
   try {
     var desc1 = new ActionDescriptor();
@@ -492,7 +499,7 @@ groupSelected = function(name)
   }
 }
 
-selectLayers = function(layers)
+Document.prototype.selectLayers = function(layers)
 {
   try {
     var indexes = [];
@@ -517,7 +524,7 @@ selectLayers = function(layers)
   return true;
 }
 
-groupLayers = function(name, layers)
+Document.prototype.groupLayers = function(name, layers)
 {
   try {
     selectLayers(layers);
@@ -528,10 +535,10 @@ groupLayers = function(name, layers)
   }
 }
 
-layerIndex = function(layer)
+ArtLayer.prototype.index = function()
 {
   try {
-    app.activeDocument.activeLayer = layer;
+    this.activate();
     var ref1 = new ActionReference();
     ref1.putProperty(cTID('Prpr'), cTID('ItmI'));
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -544,11 +551,11 @@ layerIndex = function(layer)
   }
 }
 
-duplicateLayer = function(layer, name)
+ArtLayer.prototype.duplicateEx = function(layer, name)
 {
   try {
     name = (name == undefined) ? randomString(8) : name;
-    activateLayer(layer);
+    this.activate();
     executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
     app.activeDocument.activeLayer.name = name;
     return app.activeDocument.activeLayer;
@@ -558,10 +565,27 @@ duplicateLayer = function(layer, name)
   }
 }
 
-selectLayerRGB = function(layer)
+ArtLayer.prototype.activateMask = function(layer)
 {
   try {
     activateLayer(layer);
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putBoolean(cTID('MkVs'), false);
+    executeAction(cTID('slct'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false; // No mask
+  }
+  return true;
+}
+
+ArtLayer.prototype.activateRGB = function()
+{
+  try {
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('RGB'));
@@ -575,10 +599,10 @@ selectLayerRGB = function(layer)
   return true;
 }
 
-invertLayer = function(layer)
+ArtLayer.prototype.invertEx = function()
 {
   try {
-    selectLayerRGB(layer);
+    selectLayerRGB(this);
     executeAction(cTID('Invr'), undefined, DialogModes.NO);
   } catch (e) {
     log(e);
@@ -587,11 +611,11 @@ invertLayer = function(layer)
   return true;
 }
 
-fillLayer = function(layer, color)
+ArtLayer.prototype.fill = function(color)
 {
   colors = {'gray': cTID('Gry ')};
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     desc1.putEnumerated(cTID('Usng'), cTID('FlCn'), colors[color]);
     desc1.putUnitDouble(cTID('Opct'), cTID('#Prc'), 100);
@@ -604,10 +628,10 @@ fillLayer = function(layer, color)
   return true;
 }
 
-rotateLayer = function(layer, angle)
+ArtLayer.prototype.rotate = function(angle)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Path'), cTID('Ordn'), cTID('Trgt'));
@@ -626,10 +650,10 @@ rotateLayer = function(layer, angle)
   return true;
 }
 
-scaleLayer = function(layer, scale)
+ArtLayer.prototype.scale = function(scale)
 {
   try {
-    activateLayer(layer);
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));

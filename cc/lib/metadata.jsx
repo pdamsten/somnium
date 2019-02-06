@@ -2,11 +2,13 @@
 //
 //   Copyright (c) 2018 by Petri Damstén <petri.damsten@gmail.com>
 //
-//   Adjustment handling
+//   Metadata handling
 //
 //**************************************************************************
 
-calc = function(s, floatresult)
+var Metadata = {
+
+calc: function(s, floatresult)
 {
   floatresult = (floatresult === undefined) ? false : floatresult;
 
@@ -23,9 +25,9 @@ calc = function(s, floatresult)
   } else {
     return s;
   }
-}
+},
 
-metadata = function(filename)
+get: function(filename)
 {
   var data = {};
   try {
@@ -46,4 +48,6 @@ metadata = function(filename)
     log(e);
   }
   return data;
+}
+
 }

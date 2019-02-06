@@ -6,16 +6,16 @@
 //
 //**************************************************************************
 
-hasSelection = function()
+Document.prototype.hasSelection = function()
 {
   try {
-    return (app.activeDocument.selection.bounds) ? true : false;
+    return (this.selection.bounds) ? true : false;
   } catch(e) {
     return false;
   }
 }
 
-makeSelection = function(mode, type, coords, feather)
+Document.prototype.makeSelection = function(mode, type, coords, feather)
 {
   var modes = {'new': cTID('setd'), 'add': sTID('addTo'),
                'subtract': sTID('subtractFrom'), 'intersect': sTID('interfaceWhite')};
@@ -42,7 +42,7 @@ makeSelection = function(mode, type, coords, feather)
   }
 }
 
-clearSelection = function()
+Document.prototype.clearSelection = function()
 {
   try {
     var desc1 = new ActionDescriptor();
@@ -58,24 +58,7 @@ clearSelection = function()
   }
 }
 
-selectLayerMask = function(layer)
-{
-  try {
-    activateLayer(layer);
-    var desc1 = new ActionDescriptor();
-    var ref1 = new ActionReference();
-    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
-    desc1.putReference(cTID('null'), ref1);
-    desc1.putBoolean(cTID('MkVs'), false);
-    executeAction(cTID('slct'), desc1, DialogModes.NO);
-  } catch (e) {
-    log(e);
-    return false; // No mask
-  }
-  return true;
-}
-
-selectLayer = function(layer)
+Document.prototype.selectLayer = function(layer)
 {
   try {
     activateLayer(layer);
@@ -94,7 +77,7 @@ selectLayer = function(layer)
   }
 }
 
-inverseSelection = function() {
+Document.prototype.inverseSelection = function() {
   try {
     executeAction(cTID('Invs'), undefined, DialogModes.NO);
     return true;
@@ -104,7 +87,7 @@ inverseSelection = function() {
   }
 }
 
-expandSelection = function(pixels) {
+Document.prototype.expandSelection = function(pixels) {
   try {
     var desc1 = new ActionDescriptor();
     desc1.putUnitDouble(cTID('By  '), cTID('#Pxl'), pixels);
