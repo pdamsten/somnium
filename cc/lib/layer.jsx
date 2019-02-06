@@ -348,7 +348,7 @@ Document.prototype.listLayers = function(player, _pindex)
   }
 }
 
-ArtLayer.prototype.compare = function(layer)
+LayerSet.prototype.compare = ArtLayer.prototype.compare = function(layer)
 {
   if (typeof this === 'undefined' || typeof layer === 'undefined') {
     return false;
@@ -369,12 +369,12 @@ ArtLayer.prototype.compare = function(layer)
 Document.prototype.findLayer = function(name, parent, type)
 {
   try {
-    layers = listLayers();
+    layers = this.listLayers();
 
     for (var i = 0; i < layers.length; ++i) {
       if (layers[i].layer.name == name) {
         if (typeof parent !== 'undefined' && layers[i].parent != -1 &&
-            !cmpLayers(layers[layers[i].parent].layer, parent)) {
+                    !(layers[layers[i].parent].layer.compare(parent))) {
           continue;
         }
         if (typeof type !== 'undefined' && layers[i].layer.typename != type) {
@@ -391,7 +391,7 @@ Document.prototype.findLayer = function(name, parent, type)
 
 Document.prototype.checkLayer = function(name, parent)
 {
-  var layer = findLayer(name, parent);
+  var layer = this.findLayer(name, parent);
   if (layer != null) {
     var v = layer.visible;
     app.activeDocument.activeLayer = layer;
@@ -430,7 +430,7 @@ Document.prototype.mergeLayers = function(layers)
 
 Document.prototype.findGroup = function(name, parent)
 {
-  return findLayer(name, parent, 'LayerSet');
+  return this.findLayer(name, parent, 'LayerSet');
 }
 
 ArtLayer.prototype.moveToGroup = function(group)
@@ -454,17 +454,17 @@ Document.prototype.addGroup = function(name)
   return group;
 }
 
-xxcheckGroup = function(name, parent, after)
+Document.prototype.checkGroup = function(name, parent, after)
 {
   try {
     if (parent !== undefined) {
-      parent = checkGroup(parent);
+      parent = this.checkGroup(parent);
     }
-    var group = findGroup(name, parent);
+    var group = this.findGroup(name, parent);
     if (group == null) {
-      group = createGroup(name, parent);
+      group = this.addGroup(name, parent);
       if (after !== undefined) {
-        after = findLayer(after);
+        after = this.findLayer(after);
         if (parent && after) {
           parent.move(after, ElementPlacement.PLACEAFTER);
         } else if (group && after) {
