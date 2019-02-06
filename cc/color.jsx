@@ -6,83 +6,88 @@
 //
 //**************************************************************************
 
-var Colors = null;
-var CurrentThemeIndex = -1;
-var PreviousTheme = null;
-var ColorThemes = [];
+ColorGrading = (function() {
 
-const ColorGroupName = 'Color';
-const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
-                     'Multi Color Tint', 'Color Balance'];
+return { // public:
 
-checkColorThemeGroup = function()
+currentThemeIndex: -1,
+colorThemes: [],
+colors: null,
+previousTheme: null,
+
+ColorGroupName: 'Color',
+ColorLayers: ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
+               'Multi Color Tint', 'Color Balance'],
+
+checkColorThemeGroup: function()
 {
   //log('checkColorThemeGroup');
-  var group = checkGroup(ColorGroupName, undefined, 'Help Layers');
+  var doc = app.activeDocument;
+  var group = doc.checkGroup(this.ColorGroupName, undefined, 'Help Layers');
   var layer;
 
-  layer = checkLayer(ColorLayers[1], group);
+  layer = doc.checkLayer(this.ColorLayers[1], group);
   if (layer == null) {
-    layer = createSelectiveColorAdjustment(ColorLayers[1], group);
+    layer = doc.addSelectiveColorAdjustment(ColorLayers[1]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
 
-  layer = checkLayer(ColorLayers[6], group);
+  layer = doc.checkLayer(this.ColorLayers[6], group);
   if (layer == null) {
-    layer = createColorBalanceAdjustment(ColorLayers[6], group);
+    layer = doc.addColorBalanceAdjustment(ColorLayers[6]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
 
-  layer = checkLayer(ColorLayers[2], group);
+  layer = doc.checkLayer(this.ColorLayers[2], group);
   if (layer == null) {
-    layer = createColorLookup(ColorLayers[2], group);
+    layer = doc.addColorLookup(ColorLayers[2]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
 
-  layer = checkLayer(ColorLayers[4], group);
+  layer = doc.checkLayer(this.ColorLayers[4], group);
   if (layer == null) {
-    layer = createCurveAdjustment(ColorLayers[4], group);
+    layer = doc.addCurveAdjustment(ColorLayers[4]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
 
-  layer = checkLayer(ColorLayers[3], group);
+  layer = doc.checkLayer(this.ColorLayers[3], group);
   if (layer == null) {
-    layer = createSolidColorAdjustment(ColorLayers[3], group);
+    layer = doc.addSolidColorAdjustment(ColorLayers[3]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
 
-  layer = checkLayer(ColorLayers[5], group);
+  layer = doc.checkLayer(this.ColorLayers[5], group);
   if (layer == null) {
-    layer = createGradientMapAdjustment(ColorLayers[5], group);
+    layer = doc.addGradientMapAdjustment(ColorLayers[5]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
 
-  layer = checkLayer(ColorLayers[0], group);
+  layer = doc.checkLayer(this.ColorLayers[0], group);
   if (layer == null) {
-    layer = createHueSaturationAdjustment(ColorLayers[0], group);
+    layer = doc.addHueSaturationAdjustment(ColorLayers[0]);
   }
   layer.visible = false;
-  deleteLayerMask(layer);
+  layer.deleteMask();
   return group;
-}
-
+},
+/*
 const CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
 const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
                          'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
                          'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'};
 const ColorBalance = {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL'};
-
-adjustValues = function(type, values, strength)
+*/
+adjustValues: function(type, values, strength)
 {
   var ret = null;
   //log(values);
-  if (type == ColorLayers[0]) { // Saturation
+  if (type == this.ColorLayers[0]) { // Saturation
     ret = {};
     if ("colorize" in values) {
       ret["colorize"] = values["colorize"];
@@ -112,7 +117,7 @@ adjustValues = function(type, values, strength)
         ret["ranges"][i] = [0, 0, 0, 100, 120, 240, 260];
       }
     }
-  } else if (type == ColorLayers[1]) { // Selective Color
+  } else if (type == this.ColorLayers[1]) { // Selective Color
     ret = {};
     for (var i in SelectiveColors) {
       if (i in values) {
@@ -124,11 +129,11 @@ adjustValues = function(type, values, strength)
         ret[i] = [0, 0, 0, 0];
       }
     }
-  } else if (type == ColorLayers[2]) { // LUT
+  } else if (type == this.ColorLayers[2]) { // LUT
     ret = values;
-  } else if (type == ColorLayers[3]) { // Tint
+  } else if (type == this.ColorLayers[3]) { // Tint
     ret = values;
-  } else if (type == ColorLayers[4]) { // Curve
+  } else if (type == this.ColorLayers[4]) { // Curve
     ret = {};
     for (var i in CurveChannels) {
       if (i in values) {
@@ -143,7 +148,7 @@ adjustValues = function(type, values, strength)
         ret[i] = [[0, 0], [255, 255]];
       }
     }
-  } else if (type == ColorLayers[5]) { // Gradient Map
+  } else if (type == this.ColorLayers[5]) { // Gradient Map
     ret = {};
     if ('colors' in values) {
       ret['colors'] = [];
@@ -161,7 +166,7 @@ adjustValues = function(type, values, strength)
     } else {
       ret['opacity'] = [[100, 0, 50], [100, 100, 50]];
     }
-  } else if (type == ColorLayers[6]) { // Color Balance
+  } else if (type == this.ColorLayers[6]) { // Color Balance
     ret = {};
     for (var i in ColorBalance) {
       if (i in values) {
@@ -181,38 +186,21 @@ adjustValues = function(type, values, strength)
   }
   //log(ret);
   return ret;
-}
+},
 
-setAdjustmentLayer = function(layer, type, values)
+checkColorThemes: function()
 {
-  if (type == ColorLayers[0]) { // Saturation
-    setHueSaturationAdjustment(layer, values);
-  } else if (type == ColorLayers[1]) { // Selective Color
-    setSelectiveColorAdjustment(layer, values);
-  } else if (type == ColorLayers[2]) { // LUT
-    setColorLookup(layer, values);
-  } else if (type == ColorLayers[3]) { // Tint
-    setSolidColorAdjustment(layer, values);
-  } else if (type == ColorLayers[4]) { // Curve
-    setCurveAdjustment(layer, values);
-  } else if (type == ColorLayers[5]) { // Multi Color Tint
-    setGradientMapAdjustment(layer, values);
-  } else if (type == ColorLayers[6]) { // Color Balance
-    setColorBalanceAdjustment(layer, values);
-  }
-}
-
-checkColorThemes = function()
-{
-  if (Colors == null) {
+  if (this.colors == null) {
     var f = File(pluginPath + 'ui/js/colors.json');
     f.open('r');
     var content = f.read();
     f.close();
-    Colors = JSON.parse(content.substring(13));
-    ColorThemes = dictKeys(Colors);
+    this.colors = JSON.parse(content.substring(13));
+    this.colorThemes = Object.keys(this.colors);
   }
 }
+
+};})();
 
 setColorThemeStrength = function(strength)
 {
@@ -231,16 +219,17 @@ setColorTheme = function(data, strength)
 {
   try {
     //log('setColorTheme', data, strength);
-    var group = checkColorThemeGroup();
+    var doc = app.activeDocument;
+    var group = ColorGrading.checkColorThemeGroup();
 
     if (typeof data == 'string') {
-      checkColorThemes();
-      CurrentThemeIndex = indexOf(ColorThemes, data);
-      PreviousTheme = data;
-      data = Colors[data];
+      ColorGrading.checkColorThemes();
+      ColorGrading.CurrentThemeIndex = ColorGrading.colorThemes.indexOf(data);
+      ColorGrading.PreviousTheme = data;
+      data = ColorGrading.colors[data];
     } else {
-      CurrentThemeIndex = -1;
-      PreviousTheme = data;
+      ColorGrading.CurrentThemeIndex = -1;
+      ColorGrading.PreviousTheme = data;
     }
 
     if (strength == undefined) {
@@ -255,30 +244,31 @@ setColorTheme = function(data, strength)
       data['strength'] = parseInt(strength);
     }
 
-    for (var i in ColorLayers) {
-      if (ColorLayers[i] in data) {
+    for (var i in ColorGrading.ColorLayers) {
+      if (ColorGrading.ColorLayers[i] in data) {
         //log(ColorLayers[i], data[ColorLayers[i]]["adjust"], data['strength']);
-        var layer = findLayer(ColorLayers[i], ColorGroupName);
+        var layer = doc.findLayer(ColorGrading.ColorLayers[i], ColorGrading.ColorGroupName);
         var values = null;
-        var opacity = ("opacity" in data[ColorLayers[i]]) ? data[ColorLayers[i]]["opacity"] : 100;
+        var opacity = ("opacity" in data[ColorGrading.ColorLayers[i]]) ?
+                                    data[ColorGrading.ColorLayers[i]]["opacity"] : 100;
         layer.visible = true;
-        if (data[ColorLayers[i]]["adjust"] == 'values') {
-          values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], data['strength']);
+        if (data[ColorGrading.ColorLayers[i]]["adjust"] == 'values') {
+          values = ColorGrading.adjustValues(ColorGrading.ColorLayers[i], data[ColorGrading.ColorLayers[i]]["values"], data['strength']);
           layer.opacity = opacity;
-        } else if (data[ColorLayers[i]]["adjust"] == 'opacity') {
-          values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
+        } else if (data[ColorGrading.ColorLayers[i]]["adjust"] == 'opacity') {
+          values = ColorGrading.adjustValues(ColorGrading.ColorLayers[i], data[ColorGrading.ColorLayers[i]]["values"], 100);
           layer.opacity = opacity * data['strength'] / 100;
         } else {
-          values = adjustValues(ColorLayers[i], data[ColorLayers[i]]["values"], 100);
+          values = ColorGrading.adjustValues(ColorGrading.ColorLayers[i], data[ColorGrading.ColorLayers[i]]["values"], 100);
           layer.opacity = opacity;
         }
-        setAdjustmentLayer(layer, ColorLayers[i], values);
-        setLayerBlendingMode(layer, data[ColorLayers[i]]['blendingmode']);
+        layer.setAdjustment(values);
+        layer.setBlendingMode(data[ColorLayers[i]]['blendingmode']);
       }
     }
     app.activeDocument.activeLayer = group;
 
-    if (CurrentThemeIndex == -1) {
+    if (ColorGrading.CurrentThemeIndex == -1) {
       setUI({"colorTheme": 'Random', "color": 0, "strength": data['strength']});
     } else {
       setUI({"colorTheme": ColorThemes[CurrentThemeIndex], "color": CurrentThemeIndex,
@@ -292,10 +282,11 @@ setColorTheme = function(data, strength)
 onPrevColorClick = function()
 {
   try {
-    checkColorThemes();
-    var max = ColorThemes.length - 1;
-    CurrentThemeIndex = (CurrentThemeIndex > 0) ? CurrentThemeIndex - 1 : max;
-    var theme = ColorThemes[CurrentThemeIndex];
+    ColorGrading.checkColorThemes();
+    var max = ColorGrading.colorThemes.length - 1;
+    ColorGrading.currentThemeIndex = (ColorGrading.currentThemeIndex > 0) ?
+                                      ColorGrading.currentThemeIndex - 1 : max;
+    var theme = ColorGrading.colorThemes[ColorGrading.currentThemeIndex];
     setColorTheme(theme);
   } catch (e) {
     log(e);
@@ -307,7 +298,7 @@ onRandomColorClick = function()
   try {
     var type = settings.value('RandomColor', 'type');
 
-    checkColorThemes();
+    ColorGrading.checkColorThemes();
     if (type == 0) {
       var max = ColorThemes.length - 1;
       var nclr = Math.floor(Math.random() * (max + 1));
@@ -342,10 +333,11 @@ onRandomColorClick = function()
 onNextColorClick = function()
 {
   try {
-    checkColorThemes();
-    var max = ColorThemes.length - 1;
-    CurrentThemeIndex = (CurrentThemeIndex < max) ? CurrentThemeIndex + 1 : 0;
-    var theme = ColorThemes[CurrentThemeIndex];
+    ColorGrading.checkColorThemes();
+    var max = ColorGrading.colorThemes.length - 1;
+    ColorGrading.currentThemeIndex = (ColorGrading.currentThemeIndex < max) ?
+                                      ColorGrading.currentThemeIndex + 1 : 0;
+    var theme = ColorGrading.colorThemes[ColorGrading.currentThemeIndex];
     setColorTheme(theme);
   } catch (e) {
     log(e);
