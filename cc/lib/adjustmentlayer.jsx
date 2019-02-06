@@ -394,7 +394,7 @@ ArtLayer.prototype.setHueSaturationAdjustment = function(hue, saturation, lightn
     list1.putObject(cTID('Hst2'), desc3);
 
     if (!values["colorize"] && "ranges" in values) {
-      for (i in values["ranges"]) {
+      for (var i = 0; i < values["ranges"].length; ++i) {
         var desc4 = new ActionDescriptor();
         desc4.putInteger(cTID('LclR'), i + 1);
         desc4.putInteger(cTID('BgnR'), values["ranges"][i][3]);
@@ -523,7 +523,7 @@ ArtLayer.prototype.setGradientMapAdjustment = function(values)
       var list1 = new ActionList();
       var desc4 = new ActionDescriptor();
       var desc5 = new ActionDescriptor();
-      for (var i in values['colors']) {
+      for (var i = 0; i < values['colors'].length; ++i) {
         desc5.putDouble(cTID('Rd  '), values['colors'][i][0]);
         desc5.putDouble(cTID('Grn '), values['colors'][i][1]);
         desc5.putDouble(cTID('Bl  '), values['colors'][i][2]);
@@ -538,7 +538,7 @@ ArtLayer.prototype.setGradientMapAdjustment = function(values)
     if ('opacity' in values) {
       var list2 = new ActionList();
       var desc14 = new ActionDescriptor();
-      for (var i in values['opacity']) {
+      for (var i = 0; i < values['opacity'].length; ++i) {
         desc14.putUnitDouble(cTID('Opct'), cTID('#Prc'), values['opacity'][i][0]);
         desc14.putInteger(cTID('Lctn'), values['opacity'][i][1]);
         desc14.putInteger(cTID('Mdpn'), values['opacity'][i][2]);
