@@ -9,6 +9,14 @@
 var pluginPath = '';
 var settings;
 
+// Load PS DOM classes so we can extentd them
+if (typeof ArtLayer === 'undefined') {
+  ArtLayer = function() {};
+}
+if (typeof Document === 'undefined') {
+  Document = function() {};
+}
+
 function include(path)
 {
   try {

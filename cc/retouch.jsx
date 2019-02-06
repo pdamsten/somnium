@@ -79,8 +79,8 @@ onBlendIf2MaskClick = function()
     selectLayer(copy);
     copy.remove();
     addLayerMask(current);
-    setBlendIf(current, [[0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255],
-                         [0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255]]);
+    current.setBlendIf([[0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255],
+                        [0, 0, 255, 255, 0, 0, 255, 255], [0, 0, 255, 255, 0, 0, 255, 255]]);
   } catch (e) {
     log(e);
   }

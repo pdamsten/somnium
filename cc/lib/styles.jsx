@@ -7,10 +7,10 @@
 //**************************************************************************
 
 
-setBlendIf = function(layer, data)
+ArtLayer.prototype.setBlendIf = function(data)
 {
   try {
-    layer = activateLayer(layer);
+    layer = activateLayer(this);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
@@ -123,11 +123,11 @@ setStroke = function(desc2, data)
   }
 }
 
-setLayerStyles = function(layer, data, scale)
+ArtLayer.prototype.setLayerStyles = function(data, scale)
 {
   var s = (typeof scale !== 'undefined') ?  scale : 200;
   try {
-    layer = activateLayer(layer);
+    layer = activateLayer(this);
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putProperty(cTID('Prpr'), cTID('Lefx'));
