@@ -6,9 +6,33 @@
 //
 //**************************************************************************
 
-const PhotoshopPath = Path.dirname(Folder.appPackage.fsName);
+Adjustment = (function() {
 
-const ColorBalance = {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL'};
+return { // public:
+
+PhotoshopPath: Path.dirname(Folder.appPackage.fsName),
+ColorBalance: {'shadows': 'ShdL', 'midtones': 'MdtL', 'highlights': 'HghL'},
+CurveChannels: {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '},
+SelectiveColors: {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
+                  'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
+                  'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'},
+
+curvePoint: function(pos, percentage)
+{
+  var p = (typeof percentage !== 'undefined') ?  percentage : 0;
+  var v = pos + (p / 100.0 * 255);
+  v = Math.max(v, 0);
+  v = Math.min(v, 255);
+  return [pos, v];
+},
+
+scurve: function(percentage, dark, light)
+{
+  return [curvePoint(0, dark), curvePoint(64, -1 * percentage),
+          curvePoint(192, percentage), curvePoint(255, light)];
+}
+
+};})();
 
 Document.prototype.addColorBalanceAdjustment = function(name)
 {
@@ -107,9 +131,10 @@ ArtLayer.prototype.setColorLookup = function(lookup)
     var desc1 = new ActionDescriptor();
     var desc2 = new ActionDescriptor();
 
-    lookup = lookup.replace('%PHOTOSHOP%', PhotoshopPath);
+    lookup = lookup.replace('%PHOTOSHOP%', Adjustment.PhotoshopPath);
     lookup = lookup.replace('%PLUGIN%', pluginPath);
-    var profile = pluginPath + 'assets' + sep() + removeExt(basename(lookup)) + '.ps-lut-data';
+    var profile = pluginPath + 'assets' + sep() +
+                  Path.removeExt(Path.basename(lookup)) + '.ps-lut-data';
     //log(profile);
     var f = new File(profile);
     f.open('r');
@@ -120,7 +145,7 @@ ArtLayer.prototype.setColorLookup = function(lookup)
     desc2.putString(cTID("Nm  "), lookup);
     desc2.putData(sTID("profile"), pdata);
 
-    var e = ext(lookup).toLowerCase();
+    var e = Path.ext(lookup).toLowerCase();
     var type = '';
     if (e == '.cube') {
       type = 'LUTFormatCUBE';
@@ -150,8 +175,6 @@ ArtLayer.prototype.setColorLookup = function(lookup)
   }
 }
 
-var CurveChannels = {'master': 'Cmps', 'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '};
-
 Document.prototype.addCurveAdjustment = function(name)
 {
   try {
@@ -180,7 +203,7 @@ ArtLayer.prototype.setCurveAdjustment = function(data)
       data = {'master': data};
     }
     this.activate();
-    for (var type in CurveChannels) {
+    for (var type in Adjustment.CurveChannels) {
       if (type in data) {
         var desc1 = new ActionDescriptor();
         var ref1 = new ActionReference();
@@ -191,7 +214,7 @@ ArtLayer.prototype.setCurveAdjustment = function(data)
         var list1 = new ActionList();
         var desc3 = new ActionDescriptor();
         var ref2 = new ActionReference();
-        ref2.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID(CurveChannels[type]));
+        ref2.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID(Adjustment.CurveChannels[type]));
         desc3.putReference(cTID('Chnl'), ref2);
         var list2 = new ActionList();
         for (var i = 0; i < data[type].length; ++i) {
@@ -212,21 +235,6 @@ ArtLayer.prototype.setCurveAdjustment = function(data)
     log(e);
     return false;
   }
-}
-
-curvePoint = function(pos, percentage)
-{
-  var p = (typeof percentage !== 'undefined') ?  percentage : 0;
-  var v = pos + (p / 100.0 * 255);
-  v = Math.max(v, 0);
-  v = Math.min(v, 255);
-  return [pos, v];
-}
-
-scurve = function(percentage, dark, light)
-{
-  return [curvePoint(0, dark), curvePoint(64, -1 * percentage),
-          curvePoint(192, percentage), curvePoint(255, light)];
 }
 
 Document.prototype.addChannelMixer = function(name)
@@ -430,10 +438,6 @@ Document.prototype.addSelectiveColorAdjustment = function(name)
   }
 }
 
-const SelectiveColors = {'reds': 'Rds ', 'yellows': 'Ylws', 'greens': 'Grns',
-                         'cyans': 'Cyns', 'blues': 'Bls ', 'magentas': 'Mgnt',
-                         'whites': 'Whts', 'neutrals': 'Ntrl', 'blacks': 'Blks'};
-
 ArtLayer.prototype.setSelectiveColorAdjustment = function(values, absolute)
 {
   try {
@@ -446,7 +450,7 @@ ArtLayer.prototype.setSelectiveColorAdjustment = function(values, absolute)
       var desc2 = new ActionDescriptor();
       var list1 = new ActionList();
       var desc3 = new ActionDescriptor();
-      desc3.putEnumerated(cTID('Clrs'), cTID('Clrs'), cTID(SelectiveColors[v]));
+      desc3.putEnumerated(cTID('Clrs'), cTID('Clrs'), cTID(Adjustment.SelectiveColors[v]));
       desc3.putUnitDouble(cTID('Cyn '), cTID('#Prc'), values[v][0]);
       desc3.putUnitDouble(cTID('Mgnt'), cTID('#Prc'), values[v][1]);
       desc3.putUnitDouble(cTID('Ylw '), cTID('#Prc'), values[v][2]);
