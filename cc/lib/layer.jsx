@@ -444,6 +444,7 @@ ArtLayer.prototype.moveToGroup = function(group)
 
 Document.prototype.addGroup = function(name)
 {
+  name = (name == undefined) ? String.random(8) : name;
   var layerActive = app.activeDocument.activeLayer;
   var group = app.activeDocument.layerSets.add();
   group.name = name;

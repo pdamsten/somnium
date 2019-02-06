@@ -47,7 +47,7 @@ dirname: function(filename)
 
 ext: function(filename)
 {
-  var name = basename(filename);
+  var name = this.basename(filename);
 
   if (name.indexOf('.') > 0) {
     return '.' + name.split('.').reverse()[0];
@@ -110,12 +110,12 @@ ERROR: 3,
 
 setElements: function(data)
 {
-  dispatchEvent('setui', JSON.stringify(data));
+  this.dispatchEvent('setui', JSON.stringify(data));
 },
 
 openDialog: function(data)
 {
-  dispatchEvent('opendialog', JSON.stringify(data));
+  this.dispatchEvent('opendialog', JSON.stringify(data));
 },
 
 dispatchEvent: function(e, data)
