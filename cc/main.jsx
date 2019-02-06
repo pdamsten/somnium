@@ -86,23 +86,23 @@ function init(path)
     var jsxPath = addPathSep(pluginPath + 'cc');
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
 
-    include(jsxPath + 'util.jsx');
+    include(jsxPath + 'lib/util.jsx');
     mkdir(userDataPath);
 
-    include(jsxPath + 'log.jsx');
+    include(jsxPath + 'lib/log.jsx');
     initLog(userDataPath + 'log.txt');
 
     // libs
-    include(jsxPath + 'layer.jsx');
-    include(jsxPath + 'mask.jsx');
-    include(jsxPath + 'adjustment.jsx');
-    include(jsxPath + 'styles.jsx');
-    include(jsxPath + 'adjustmentlayer.jsx');
-    include(jsxPath + 'selection.jsx');
-    include(jsxPath + 'atn.jsx');
-    include(jsxPath + 'settings.jsx');
-    include(jsxPath + 'metadata.jsx');
-    include(jsxPath + 'json2.js');
+    include(jsxPath + 'lib/layer.jsx');
+    include(jsxPath + 'lib/mask.jsx');
+    include(jsxPath + 'lib/adjustment.jsx');
+    include(jsxPath + 'lib/styles.jsx');
+    include(jsxPath + 'lib/adjustmentlayer.jsx');
+    include(jsxPath + 'lib/selection.jsx');
+    include(jsxPath + 'lib/atn.jsx');
+    include(jsxPath + 'lib/settings.jsx');
+    include(jsxPath + 'lib/metadata.jsx');
+    include(jsxPath + 'lib/json2.js');
 
     // tabs
     include(jsxPath + 'retouch.jsx');
