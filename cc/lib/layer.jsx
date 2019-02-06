@@ -186,7 +186,7 @@ Document.prototype.xxstampCurrentAndBelow = function(layer, name)
   }
 }
 
-Layer.prototype.hasSmartFilters = function()
+ArtLayer.prototype.hasSmartFilters = function()
 {
   try {
     this.activate();
@@ -200,7 +200,7 @@ Layer.prototype.hasSmartFilters = function()
   }
 }
 
-Layer.prototype.enableSmartFilters = function(enable)
+ArtLayer.prototype.enableSmartFilters = function(enable)
 {
   try {
     if (this.hasSmartFilters() == false) {
@@ -225,7 +225,7 @@ Layer.prototype.enableSmartFilters = function(enable)
   }
 }
 
-Layer.prototype.removeSmartFilters = function()
+ArtLayer.prototype.removeSmartFilters = function()
 {
   try {
     this.activate();
@@ -246,7 +246,7 @@ Layer.prototype.removeSmartFilters = function()
   }
 }
 
-Layer.prototype.convertToSmartObject = function(name)
+ArtLayer.prototype.convertToSmartObject = function(name)
 {
   try {
     this.activate();
@@ -261,7 +261,7 @@ Layer.prototype.convertToSmartObject = function(name)
   }
 }
 
-Layer.prototype.rasterizeEx = function()
+ArtLayer.prototype.rasterizeEx = function()
 {
   try {
     this.activate();
@@ -275,7 +275,7 @@ Layer.prototype.rasterizeEx = function()
   }
 }
 
-Layer.prototype.newSmartObjectViaCopy = function(name)
+ArtLayer.prototype.newSmartObjectViaCopy = function(name)
 {
   try {
     this.activate();
@@ -290,7 +290,7 @@ Layer.prototype.newSmartObjectViaCopy = function(name)
   }
 }
 
-Layer.prototype.editSmartObjectContents = function()
+ArtLayer.prototype.editSmartObjectContents = function()
 {
   try {
     this.activate();
@@ -303,7 +303,7 @@ Layer.prototype.editSmartObjectContents = function()
   }
 }
 
-Layer.prototype.setBlendingMode = function(mode)
+ArtLayer.prototype.setBlendingMode = function(mode)
 {
   try {
     this.activate();
@@ -349,7 +349,7 @@ Document.prototype.listLayers = function(player, _pindex)
   }
 }
 
-Layer.prototype.compare = function(layer)
+ArtLayer.prototype.compare = function(layer)
 {
   if (typeof this === 'undefined' || typeof layer === 'undefined') {
     return false;
@@ -405,6 +405,7 @@ Document.prototype.checkLayer = function(name, parent)
 Document.prototype.addLayer = function(name, layer, placement)
 {
   name = (name == undefined) ? randomString(8) : name;
+  layer = (layer == undefined) ? app.activeDocument.activeLayer : layer;
   placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
   layer.activate();
   var newLayer = app.activeDocument.artLayers.add();
@@ -433,7 +434,7 @@ Document.prototype.findGroup = function(name, parent)
   return findLayer(name, parent, 'LayerSet');
 }
 
-Layer.prototype.moveToGroup = function(group)
+ArtLayer.prototype.moveToGroup = function(group)
 {
   if (group.typename == 'LayerSet') {
     var before = group.layerSets.add();

@@ -561,7 +561,7 @@ ArtLayer.prototype.setGradientMapAdjustment = function(values)
   }
 }
 
-ArtLayer.prototype.setAdjustment(values)
+ArtLayer.prototype.setAdjustment = function(values)
 {
   if(this.kind == LayerKind.COLORBALANCE) {
     this.setColorBalanceAdjustment(values);
