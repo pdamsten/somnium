@@ -98,7 +98,7 @@ Document.prototype.addColorLookup = function(name)
   }
 }
 
-ArtLayer.prototype.setColorLookup = function(layer, lookup)
+ArtLayer.prototype.setColorLookup = function(lookup)
 {
   try {
     this.activate();
@@ -173,7 +173,7 @@ Document.prototype.addCurveAdjustment = function(name)
   }
 }
 
-ArtLayer.prototype.setCurveAdjustment = function(layer, data)
+ArtLayer.prototype.setCurveAdjustment = function(data)
 {
   try {
     if (data instanceof Array) {
@@ -259,7 +259,7 @@ Document.prototype.addChannelMixer = function(name)
   }
 }
 
-ArtLayer.prototype.setChannelMixer = function(layer, color, cnst, mono)
+ArtLayer.prototype.setChannelMixer = function(color, cnst, mono)
 {
   try {
     this.activate();
@@ -311,7 +311,7 @@ Document.prototype.addSolidColorAdjustment = function(name, color)
   }
 };
 
-ArtLayer.prototype.setSolidColorAdjustment = function(layer, color)
+ArtLayer.prototype.setSolidColorAdjustment = function(color)
 {
   try {
     this.activate();
@@ -356,7 +356,7 @@ Document.prototype.addHueSaturationAdjustment = function(name)
   }
 }
 
-ArtLayer.prototype.setHueSaturationAdjustment = function(layer, hue, saturation, lightness)
+ArtLayer.prototype.setHueSaturationAdjustment = function(hue, saturation, lightness)
 {
   try {
     var values = null;

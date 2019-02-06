@@ -444,12 +444,12 @@ ArtLayer.prototype.moveToGroup = function(group)
 
 Document.prototype.addGroup = function(name)
 {
-  var layerActive = this.activate();
+  var layerActive = app.activeDocument.activeLayer;
   var group = app.activeDocument.layerSets.add();
   group.name = name;
   app.activeDocument.activeLayer = group;
   if (typeof layer === 'object' &&  layerActive.typename == 'LayerSet') {
-    moveToGroup(group, layerActive)
+    this.moveToGroup(group, layerActive)
   }
   return group;
 }
