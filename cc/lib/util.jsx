@@ -11,15 +11,6 @@ sTID = function(s) { return app.stringIDToTypeID(s); };
 
 var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
 
-dictKeys = function(dict)
-{
-  var result = [];
-  for(var key in dict) {
-    result.push(key);
-  }
-  return result;
-}
-
 isDict = function (value)
 {
   return (typeof value === 'object') && (value !== null) &&
@@ -65,23 +56,6 @@ ext = function(filename)
 removeExt = function(filename)
 {
   return filename.split('.').slice(0, -1).join('.');
-}
-
-indexOf = function(a, obj)
-{
-  var i = a.length;
-
-  while (i--) {
-    if (a[i] === obj) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-arrayContains = function(a, obj)
-{
-  return (indexOf(a, obj) >= 0);
 }
 
 setUI = function(data)

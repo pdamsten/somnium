@@ -112,6 +112,7 @@ function init(path)
     include(jsxPath + 'lib/metadata.jsx');
 
     include(jsxPath + 'libex/json2.js');
+    include(jsxPath + 'libex/mozilla.js');
 
     // tabs
     include(jsxPath + 'retouch.jsx');
