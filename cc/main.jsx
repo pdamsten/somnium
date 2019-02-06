@@ -17,12 +17,17 @@ if (typeof Document === 'undefined') {
   Document = function() {};
 }
 
+log = function() // default implementation until we have full log
+{
+  alert(arguments);
+}
+
 function include(path)
 {
   try {
     $.evalFile(path);
   } catch (e) {
-    log(e);
+    log(e, path);
   }
 }
 
@@ -54,7 +59,7 @@ importPlugins = function(pluginPath)
       var fileList = pluginFolder.getFiles('*.jsx');
       for (var i = 0 ;i < fileList.length; i++) {
         include(fileList[i].fsName);
-        var name = removeExt(basename(fileList[i].fsName));
+        var name = Path.removeExt(Path.basename(fileList[i].fsName));
         var info = {'id': '', 'group': 'Plugins', 'title': '',
                     'help': 'User defined plugin.', 'icon': 'img/icon-default.svg'};
         var json = addPathSep(pluginFolder.fsName) + name + '.json';
@@ -95,10 +100,10 @@ function init(path)
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
 
     include(jsxPath + 'lib/util.jsx');
-    mkdir(userDataPath);
+    Path.mkdir(userDataPath);
 
     include(jsxPath + 'lib/log.jsx');
-    initLog(userDataPath + 'log.txt');
+    Log.init(userDataPath + 'log.txt');
 
     // libs
     include(jsxPath + 'lib/layer.jsx');
@@ -126,7 +131,7 @@ function init(path)
     var plugins = importPlugins(pluginPath);
 
     settings = new Settings(userDataPath, pluginPath);
-    checkAtn(userDataPath, pluginPath, settings);
+    Atn.check(userDataPath, pluginPath, settings);
 
     return JSON.stringify(plugins);
   } catch (e) {
