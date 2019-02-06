@@ -9,7 +9,7 @@
 var pluginPath = '';
 var settings;
 
-// Load PS DOM classes so we can extentd them
+// Load PS DOM classes so we can extend them
 if (typeof ArtLayer === 'undefined') {
   ArtLayer = function() {};
 }
@@ -110,7 +110,8 @@ function init(path)
     include(jsxPath + 'lib/atn.jsx');
     include(jsxPath + 'lib/settings.jsx');
     include(jsxPath + 'lib/metadata.jsx');
-    include(jsxPath + 'lib/json2.js');
+
+    include(jsxPath + 'libex/json2.js');
 
     // tabs
     include(jsxPath + 'retouch.jsx');
