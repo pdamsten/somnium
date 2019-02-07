@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ln -nsf "$(pwd)" ~/Library/Application\ Support/Adobe/CEP/extensions/com.petridamsten.somnium
+
 cat > .debug <<EOL
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionList>
