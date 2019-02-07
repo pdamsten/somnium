@@ -14,13 +14,13 @@ onMakeCookieClick = function()
     var type = settings.value('MakeCookie', 'type');
 
     if (type == 0) {
-      var c = [curvePoint(0, 0), curvePoint(128, -15), curvePoint(255, 0)];
+      var c = [Adjustment.curvePoint(0, 0), Adjustment.curvePoint(128, -15), Adjustment.curvePoint(255, 0)];
       l = doc.addCurveAdjustment('Cookie');
       l.move(current, ElementPlacement.PLACEBEFORE);
       l.setAdjustment(c);
       l.setBlendingMode('luminosity');
     } else {
-      var c = [curvePoint(0, 0), curvePoint(128, 15), curvePoint(255, 0)];
+      var c = [Adjustment.curvePoint(0, 0), Adjustment.curvePoint(128, 15), Adjustment.curvePoint(255, 0)];
       l = doc.addCurveAdjustment('Cookie');
       l.move(current, ElementPlacement.PLACEBEFORE);
       l.setAdjustment(c);
@@ -43,7 +43,8 @@ onMakeVignetteClick = function()
     var height = app.activeDocument.height.as("px");
     var c = [height * p, width * p, height - height * p, width - width * p];
     doc.makeSelection('new', type, c, 0.5);
-    var c = [curvePoint(0, 0), curvePoint(128, -20), curvePoint(255, 0)];
+    var c = [Adjustment.curvePoint(0, 0), Adjustment.curvePoint(128, -20),
+             Adjustment.curvePoint(255, 0)];
     l = doc.addCurveAdjustment('Vignette');
     l.move(current, ElementPlacement.PLACEBEFORE);
     l.setAdjustment(c);
@@ -60,7 +61,8 @@ onMakeWashOutClick = function()
   try {
     var doc = app.activeDocument;
     var current = doc.activeLayer;
-    var c = [curvePoint(0, 5), curvePoint(32, 0), curvePoint(224, 0), curvePoint(255, -2.5)];
+    var c = [Adjustment.curvePoint(0, 5), Adjustment.curvePoint(32, 0),
+             Adjustment.curvePoint(224, 0), Adjustment.curvePoint(255, -2.5)];
 
     l = doc.addCurveAdjustment('Faded / Contrast');
     l.move(current, ElementPlacement.PLACEBEFORE);
