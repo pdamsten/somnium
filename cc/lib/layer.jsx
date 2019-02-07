@@ -62,7 +62,7 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
   return false;
 };
 
-ArtLayer.prototype.duplicateToDoc = function(destDoc)
+LayerSet.prototype.duplicateToDoc = ArtLayer.prototype.duplicateToDoc = function(destDoc)
 {
   try {
     this.activate();
@@ -188,11 +188,16 @@ Document.prototype.stampCurrentAndBelow = function(name)
   }
 }
 
+LayerSet.prototype.hasSmartFilters = function()
+{
+  return false;
+}
+
 ArtLayer.prototype.hasSmartFilters = function()
 {
   try {
     this.activate();
-    var info = smartObjectInfo(this);
+    var info = this.smartObjectInfo();
     if (info == false || info['hasFX'] == false) {
       return false;
     }
