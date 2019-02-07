@@ -15,14 +15,14 @@ Object.isDictionary = function()
          !(this instanceof Array) && !(this instanceof Date);
 }
 
-Object.deepCopy = function()
+Object.deepCopy = function(src)
 {
   var dest = {};
 
-  for (var prop in this) {
-    if (this.hasOwnProperty(prop)) {
-      if (this[prop].isDictionary()) {
-        dest[prop] = this[prop].deepCopy();
+  for (var prop in src) {
+    if (src.hasOwnProperty(prop)) {
+      if (Object.isDictionary(src[prop])) {
+        dest[prop] = Object.deepCopy(src[prop]);
       } else {
         dest[prop] = src[prop];
       }
@@ -479,7 +479,6 @@ importPlugins = function(pluginPath)
           if (f.exists) {
             info['icon'] = svg;
           }
-          log(info);
           plugins.push(info);
         }
       }
