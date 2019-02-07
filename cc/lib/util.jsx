@@ -195,12 +195,12 @@ Document.prototype.saveAsJpeg = function(filepath, x, y, minx, miny, color)
   try {
     app.activeDocument = this;
     var active = app.activeDocument;
-    var newDoc = app.activeDocument.duplicate(String.random(8));
+    var newDoc = active.duplicate(String.random(8));
 
     newDoc.flatten();
 
     if (x > 0 || y > 0) {
-      if (newDoc.height / newDoc.width < 1.0 * x / 1.0 * y) {
+      if (1.0 * newDoc.height.as("px") / 1.0 * newDoc.width.as("px") < 1.0 * x / 1.0 * y) {
         newDoc.resizeImage(null, UnitValue(y, "px"), null, ResampleMethod.BICUBICSHARPER);
       } else {
         newDoc.resizeImage(UnitValue(x, "px"), null, null, ResampleMethod.BICUBICSHARPER);
@@ -214,10 +214,10 @@ Document.prototype.saveAsJpeg = function(filepath, x, y, minx, miny, color)
       clr.rgb.blue = color[2];
       app.backgroundColor = clr;
 
-      if (newDoc.width < minx) {
+      if (newDoc.width.as("px") < minx) {
         newDoc.resizeCanvas(UnitValue(minx, "px"), null, AnchorPosition.MIDDLECENTER);
       }
-      if (newDoc.height < miny) {
+      if (newDoc.height.as("px") < miny) {
         newDoc.resizeCanvas(null, UnitValue(miny, "px"), AnchorPosition.MIDDLECENTER);
       }
     }
