@@ -53,47 +53,6 @@ addPathSep = function(path)
   return path;
 }
 
-importPlugins = function(pluginPath)
-{
-  try {
-    var plugins = [];
-    var pluginFolder = new Folder(pluginPath + 'plugins');
-    if (pluginFolder != null) {
-      var fileList = pluginFolder.getFiles('*.jsx');
-      for (var i = 0 ;i < fileList.length; i++) {
-        include(fileList[i].fsName);
-        var name = Path.removeExt(Path.basename(fileList[i].fsName));
-        var info = {'id': '', 'group': 'Plugins', 'title': '',
-                    'help': 'User defined plugin.', 'icon': 'img/icon-default.svg'};
-        var json = addPathSep(pluginFolder.fsName) + name + '.json';
-        f = new File(json);
-        if (f.exists) {
-          f.open('r');
-          var content = f.read();
-          f.close();
-          info = JSON.parse(content);
-        }
-        if (info['title'] == '') {
-          info['title'] = name;
-        }
-        if (info['id'] == '') {
-          info['id'] = info['title'].replace(' ', '');
-        }
-        var svg = addPathSep(pluginFolder.fsName) + name + '.svg';
-        var f = new File(svg);
-        if (f.exists) {
-          info['icon'] = '../plugins/' + name + '.svg'
-        }
-        plugins.push(info);
-      }
-    }
-    return plugins;
-  } catch (e) {
-    log(e);
-    return {};
-  }
-}
-
 function init(path)
 {
   try {
@@ -130,16 +89,16 @@ function init(path)
     include(jsxPath + 'color.jsx');
     include(jsxPath + 'finish.jsx');
 
-    // Plugins
-    var plugins = importPlugins(pluginPath);
-
     settings = new Settings(userDataPath, pluginPath);
     Atn.check(userDataPath, pluginPath, settings);
+
+    // Plugins
+    var plugins = importPlugins(userDataPath + 'plugins');
 
     return JSON.stringify(plugins);
   } catch (e) {
     log(e);
-    return {};
+    return '{}';
   }
 }
 
