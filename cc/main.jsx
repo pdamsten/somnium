@@ -93,7 +93,7 @@ function init(path)
     Atn.check(userDataPath, pluginPath, settings);
 
     // Plugins
-    var plugins = importPlugins(userDataPath + 'plugins');
+    var plugins = importPlugins(addPathSep(userDataPath + 'plugins'));
 
     return JSON.stringify(plugins);
   } catch (e) {

@@ -453,34 +453,35 @@ importPlugins = function(pluginPath)
 {
   try {
     var plugins = [];
-    var pluginFolder = new Folder(pluginPath + 'plugins');
+    var pluginFolder = new Folder(pluginPath);
     if (pluginFolder != null) {
       var fileList = pluginFolder.getFiles('*.jsx');
       for (var i = 0 ;i < fileList.length; i++) {
         include(fileList[i].fsName);
         var name = Path.removeExt(Path.basename(fileList[i].fsName));
-        var info = {'id': '', 'group': 'Plugins', 'title': '',
-                    'help': 'User defined plugin.', 'icon': 'img/icon-default.svg'};
-        var json = addPathSep(pluginFolder.fsName) + name + '.json';
-        f = new File(json);
-        if (f.exists) {
-          f.open('r');
-          var content = f.read();
-          f.close();
-          info = JSON.parse(content);
+        var info = {'id': name, 'group': 'Plugins', 'title': '',
+                    'help': 'User defined plugin.', 'icon': 'img/icon-default.svg',
+                    'call': name + '.onClick'};
+        var plugin = this[name];
+        if (plugin) {
+          if (plugin.title) {
+            info['title'] = plugin.title;
+          }
+          if (plugin.help) {
+            info['help'] = plugin.help;
+          }
+          if (plugin.icon) {
+            var svg = pluginPath + plugin.icon;
+          } else {
+            var svg = pluginPath + name + '.svg';
+          }
+          var f = new File(svg);
+          if (f.exists) {
+            info['icon'] = svg;
+          }
+          log(info);
+          plugins.push(info);
         }
-        if (info['title'] == '') {
-          info['title'] = name;
-        }
-        if (info['id'] == '') {
-          info['id'] = info['title'].replace(' ', '');
-        }
-        var svg = addPathSep(pluginFolder.fsName) + name + '.svg';
-        var f = new File(svg);
-        if (f.exists) {
-          info['icon'] = '../plugins/' + name + '.svg'
-        }
-        plugins.push(info);
       }
     }
     return plugins;

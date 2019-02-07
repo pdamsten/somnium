@@ -58,7 +58,8 @@
         for (var i in result) {
           var id = result[i]['id'];
           Settings[id] = result[i];
-          html += '<div id="' + id + '" class="iconButton">';
+          html += '<div id="' + id + '" class="iconButton" data-call="' +
+                  Settings[id]['call'] + '">';
           html += '<img src="' + Settings[id]['icon'] + '">';
           html += Settings[id]['title'];
           html += '</div>';
@@ -269,7 +270,11 @@
       });
       var fn = 'on' + $(this).attr('id') + 'Click(\'' + JSON.stringify(values) + '\')';
       */
-      var fn = 'on' + $(this).attr('id') + 'Click()';
+      var fn = $(this).attr('data-call');
+      if (!fn) {
+        fn = 'on' + $(this).attr('id') + 'Click';
+      }
+      fn += '()';
       callJsx(fn);
     });
 
