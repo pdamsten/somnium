@@ -6,7 +6,7 @@
 //
 //**************************************************************************
 
-setup-items = (function() {
+SetupItems = (function() {
 
 var LIGHTS = 5;
 
@@ -117,7 +117,7 @@ dlgdata = {
       "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "None"]
     },
   },
-  'callback': 'setup-items.onLightsDialogOK'
+  'callback': 'SetupItems.onLightsDialogOK'
 };
 
 nikTonalContrast = function()
@@ -129,9 +129,96 @@ nikTonalContrast = function()
   executeAction(sTID('com.niksoftware.cep4.ps.filter'), desc1, DialogModes.NO);
 };
 
-onLightsDialogOK = function(data)
+return { // public:
+
+title: 'Include Setup Items',
+help: 'Import items for making setup images.',
+
+onClick: function()
 {
   try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+
+    // Resize 30x20cm
+    doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
+
+    // NIK Tonal
+    if (!current.hasSmartFilters()) {
+      if (current.kind != LayerKind.SMARTOBJECT) {
+        current.convertToSmartObject(current.name);
+      }
+      nikTonalContrast();
+    }
+
+    // Dodge & Burn
+    if (doc.findLayer('Dodge & Burn') == null) {
+      onMakeDBClick();
+    }
+
+    // Color
+    if (doc.findLayer('Color') == null) {
+      setColorTheme('Why So Serious?');
+    }
+
+    // Sharpening
+    if (doc.findLayer('High Pass Sharpening') == null) {
+      onHighPassSharpeningClick();
+    }
+
+    var l = doc.findLayer('Notes');
+    if (l == null) {
+      // Copy notes layers from setup_items.psd
+      var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psd");
+      var template = app.open(fileRef);
+      var l = template.findLayer('Notes');
+      l.duplicateToDoc(doc.name);
+      template.close(SaveOptions.DONOTSAVECHANGES);
+      app.activeDocument = doc;
+
+      // Get metadata from jpg
+      var file = File.openDialog("Get metadata");
+      if(file != null) {
+        var data = Metadata.get(file.fsName);
+        //log(data);
+        var l = doc.findLayer('TITLE');
+        l.textItem.contents = '“' + data['title'] + '” setup';
+
+        var lens = data['lens'];
+        if (lens in my_lenses) {
+          lens = my_lenses[lens];
+        }
+
+        var s = data['model'] + "\r" +
+            lens + '\r' +
+            'Focal length: ' + data['focallength'] + 'mm\r' +
+            'Aperture: f/' + data['aperture'] + '\r' +
+            'Exposure: ' + data['exposure'] + 'sec\r' +
+            'ISO: ' + data['iso'];
+        l = doc.findLayer('INFO');
+        l.textItem.contents = s;
+      }
+
+      // Show dialog for lighting information
+
+      // multiply data for 5 lights
+      for (var i = 0; i < LIGHTS; ++i) {
+        light['header']['title'] = 'Light ' + (i + 1);
+        for (key in light) {
+          dlgdata['items'][key + (i + 1)] = Object.deepCopy(light[key]);
+        }
+      }
+      UI.openDialog(dlgdata);
+    }
+  } catch (e) {
+    log(e);
+  }
+},
+
+onLightsDialogOK: function(data)
+{
+  try {
+    var doc = app.activeDocument;
     data = JSON.parse(data);
     for (var i = 0; i < LIGHTS; ++i) {
       var n = parseInt(data['items']['role' + (i + 1)]['value']);
@@ -155,9 +242,9 @@ onLightsDialogOK = function(data)
         if (n > 0) {
           s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
         }
-        var l = findLayer('LIGHT');
+        var l = doc.findLayer('LIGHT');
         if (l != null) {
-          var dl = duplicateLayer(l, 'Light ' + (i + 1) + ' - ' + role);
+          var dl = l.duplicateEx('Light ' + (i + 1) + ' - ' + role);
           dl.visible = true;
           dl.textItem.contents = s;
           dl.translate((i + 1) * 300, (i + 1) * 300)
@@ -178,94 +265,8 @@ onLightsDialogOK = function(data)
     if (n != 0) {
       s += '\rRemote: ' + data['items']['remote']['values'][n];
     }
-    l = findLayer('INFO');
+    l = doc.findLayer('INFO');
     l.textItem.contents = l.textItem.contents + s;
-  } catch (e) {
-    log(e);
-  }
-}
-
-return { // public:
-
-title: 'Include Setup Items',
-help: 'Import items for making setup images.',
-
-onClick: function()
-{
-  try {
-    var current = app.activeDocument.activeLayer;
-
-    // Resize 30x20cm
-    var doc = app.activeDocument;
-    doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
-
-    // NIK Tonal
-    if (!hasSmartFilters(current)) {
-      if (current.kind != LayerKind.SMARTOBJECT) {
-        convertToSmartObject(current);
-      }
-      nikTonalContrast();
-    }
-
-    // Dodge & Burn
-    if (findLayer('Dodge & Burn') == null) {
-      onMakeDBClick();
-    }
-
-    // Color
-    if (findLayer('Color') == null) {
-      setColorTheme('Why So Serious?');
-    }
-
-    // Sharpening
-    if (findLayer('High Pass Sharpening') == null) {
-      onHighPassSharpeningClick();
-    }
-
-    var l = findLayer('Notes');
-    if (l == null) {
-      // Copy notes layers from setup_items.psd
-      var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psd");
-      var template = app.open(fileRef);
-      var l = findLayer('Notes');
-      duplicateLayerToDoc(l, doc.name);
-      template.close(SaveOptions.DONOTSAVECHANGES);
-      app.activeDocument = doc;
-
-      // Get metadata from jpg
-      var file = File.openDialog("Get metadata");
-      if(file != null) {
-        var data = metadata(file.fsName);
-        //log(data);
-        var l = findLayer('TITLE');
-        l.textItem.contents = '“' + data['title'] + '” setup';
-
-        var lens = data['lens'];
-        if (lens in my_lenses) {
-          lens = my_lenses[lens];
-        }
-
-        var s = data['model'] + "\r" +
-            lens + '\r' +
-            'Focal length: ' + data['focallength'] + 'mm\r' +
-            'Aperture: f/' + data['aperture'] + '\r' +
-            'Exposure: ' + data['exposure'] + 'sec\r' +
-            'ISO: ' + data['iso'];
-        l = findLayer('INFO');
-        l.textItem.contents = s;
-      }
-
-      // Show dialog for lighting information
-
-      // multiply data for 5 lights
-      for (var i = 0; i < LIGHTS; ++i) {
-        light['header']['title'] = 'Light ' + (i + 1);
-        for (key in light) {
-          dlgdata['items'][key + (i + 1)] = deepCopy(light[key]);
-        }
-      }
-      openDialog(dlgdata);
-    }
   } catch (e) {
     log(e);
   }
