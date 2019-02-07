@@ -8,6 +8,12 @@
 
 Atn = (function() {
 
+const volume = 'Macintosh HD';
+const data1 = [0,  0,  0,  0,  66,  68,  0,  1,  255,  255,  255,  255];
+const data2 = [255,  255,  255,  255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,
+               2, 0,  0,  10,  32,  99,  117,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0];
+const data3 = [19,  0,  1,  47,  0,  0,  21,  0,  2,  0,  11,  255,  255,  0,  0];
+
 return { // public:
 
 writeArray: function(f, array)
@@ -31,47 +37,47 @@ writeNumber: function(f, number, bytes, littleendian)
       number = number >> 8;
     }
   }
-  writeArray(f, array);
+  this.writeArray(f, array);
 },
 
 writeLong: function(f, number, littleendian)
 {
-  writeNumber(f, number, 4, littleendian);
+  this.writeNumber(f, number, 4, littleendian);
 },
 
 writeShort: function(f, number, littleendian)
 {
-  writeNumber(f, number, 2, littleendian);
+  this.writeNumber(f, number, 2, littleendian);
 },
 
 writeBoolean: function(f, number)
 {
-  writeNumber(f, number, 1);
+  this.writeNumber(f, number, 1);
 },
 
 writeByte: function(f, number)
 {
-  writeNumber(f, number, 1);
+  this.writeNumber(f, number, 1);
 },
 
 writeUnicodeString: function(f, str, littleendian)
 {
   var length = str.length;
-  writeLong(f, length + 1, littleendian);
+  this.writeLong(f, length + 1, littleendian);
   for (var j = 0; j < length; ++j) {
-    writeShort(f, str.charCodeAt(j), littleendian);
+    this.writeShort(f, str.charCodeAt(j), littleendian);
   }
-  writeShort(f, 0);
+  this.writeShort(f, 0);
 },
 
 writeByteString: function(f, str)
 {
   var length = str.length;
-  writeLong(f, length + 1);
+  this.writeLong(f, length + 1);
   for (var j = 0; j < length; ++j) {
-    writeByte(f, str.charCodeAt(j));
+    this.writeByte(f, str.charCodeAt(j));
   }
-  writeByte(f, 0);
+  this.writeByte(f, 0);
 },
 
 write4ByteID: function(f, id, littleendian)
@@ -89,20 +95,20 @@ write4ByteID: function(f, id, littleendian)
 
 writeStringID: function(f, str)
 {
-  write4ByteID(f, 'TEXT');
-  writeByteString(f, str);
+  this.write4ByteID(f, 'TEXT');
+  this.writeByteString(f, str);
 },
 
 writeCharID: function(f, str)
 {
-  writeLong(f, 0);
-  write4ByteID(f, str);
+  this.writeLong(f, 0);
+  this.write4ByteID(f, str);
 },
 
 writeClass: function(f)
 {
-  writeUnicodeString(f, '');
-  writeCharID(f, 'null');
+  this.writeUnicodeString(f, '');
+  this.writeCharID(f, 'null');
 },
 
 // alis
@@ -110,40 +116,34 @@ writeClass: function(f)
 writeAlisByteString: function(f, str)
 {
   var length = str.length;
-  writeShort(f, length);
+  this.writeShort(f, length);
   for (var j = 0; j < length; ++j) {
-    writeByte(f, str.charCodeAt(j));
+    this.writeByte(f, str.charCodeAt(j));
   }
-  writeByte(f, 0);
+  this.writeByte(f, 0);
 },
 
 writeAlisUnicodeString: function(f, str)
 {
   var length = str.length;
-  writeShort(f, length); // name length
+  this.writeShort(f, length); // name length
   for (var j = 0; j < length; ++j) {
-    writeShort(f, str.charCodeAt(j));
+    this.writeShort(f, str.charCodeAt(j));
   }
-  writeByte(f, 0);
+  this.writeByte(f, 0);
 },
 
 writeAlisPaddedByteString: function(f, str, total)
 {
   var length = str.length;
-  writeByte(f, length);
+  this.writeByte(f, length);
   for (var j = 0; j < length; ++j) {
-    writeByte(f, str.charCodeAt(j));
+    this.writeByte(f, str.charCodeAt(j));
   }
   for (var j = length; j < total; ++j) {
-    writeByte(f, 0);
+    this.writeByte(f, 0);
   }
 },
-
-volume: 'Macintosh HD',
-data1: [0,  0,  0,  0,  66,  68,  0,  1,  255,  255,  255,  255],
-data2: [255,  255,  255,  255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  2,
-             0,  0,  10,  32,  99,  117,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0],
-data3: [19,  0,  1,  47,  0,  0,  21,  0,  2,  0,  11,  255,  255,  0,  0],
 
 alisLength: function(script)
 {
@@ -159,103 +159,103 @@ writeAlis: function(f, script)
   var file = File(script);
   var folder = File(file.path);
 
-  var length = alisLength(script);
+  var length = this.alisLength(script);
 
-  writeShort(f, 0); // ?
-  writeLong(f, length); // length of all data
-  writeShort(f, 2); // ?
-  writeShort(f, 0); // ?
-  writeAlisPaddedByteString(f, volume, 27); // Volume name
-  writeArray(f, data1); // Some volume specific shit. Works with Macintosh HD only.
-  writeAlisPaddedByteString(f, file.name, 63); // Script name
-  writeArray(f, data2); // Again some volume specific shit.
-  writeAlisByteString(f, folder.name); // Containing folder name (not path)
-  writeShort(f, 2); // ?
-  writeAlisByteString(f, '/' + script.replace(/\//g , ':'));
+  this.writeShort(f, 0); // ?
+  this.writeLong(f, length); // length of all data
+  this.writeShort(f, 2); // ?
+  this.writeShort(f, 0); // ?
+  this.writeAlisPaddedByteString(f, volume, 27); // Volume name
+  this.writeArray(f, data1); // Some volume specific shit. Works with Macintosh HD only.
+  this.writeAlisPaddedByteString(f, file.name, 63); // Script name
+  this.writeArray(f, data2); // Again some volume specific shit.
+  this.writeAlisByteString(f, folder.name); // Containing folder name (not path)
+  this.writeShort(f, 2); // ?
+  this.writeAlisByteString(f, '/' + script.replace(/\//g , ':'));
   if ((script.length % 2) == 0) {
-    writeByte(f, 0);
+    this.writeByte(f, 0);
   }
-  writeByte(f, 14); // ?
-  writeShort(f, (file.name.length + 1) * 2); // data length ?
-  writeAlisUnicodeString(f, file.name);
-  writeByte(f, 15); // ?
-  writeShort(f, 26); // ?
-  writeAlisUnicodeString(f, volume);
-  writeByte(f, 18); // ?
-  writeAlisByteString(f, script.substring(1));
+  this.writeByte(f, 14); // ?
+  this.writeShort(f, (file.name.length + 1) * 2); // data length ?
+  this.writeAlisUnicodeString(f, file.name);
+  this.writeByte(f, 15); // ?
+  this.writeShort(f, 26); // ?
+  this.writeAlisUnicodeString(f, volume);
+  this.writeByte(f, 18); // ?
+  this.writeAlisByteString(f, script.substring(1));
   if ((script.length % 2) == 0) {
-    writeByte(f, 0);
+    this.writeByte(f, 0);
   }
-  writeArray(f, data3); // end shit
+  this.writeArray(f, data3); // end shit
 },
 
 writePth: function(f, script)
 {
-  write4ByteID(f, 'utxt', true);
-  writeLong(f, script.length * 2 + 12, true);
-  writeUnicodeString(f, script, true);
+  this.write4ByteID(f, 'utxt', true);
+  this.writeLong(f, script.length * 2 + 12, true);
+  this.writeUnicodeString(f, script, true);
 },
 
 writePair: function(f, type, data)
 {
-  write4ByteID(f, type);
+  this.write4ByteID(f, type);
   if (type == 'TEXT') {
-    writeUnicodeString(f, data);
+    this.writeUnicodeString(f, data);
   } else if (type == 'alis') {
-    writeLong(f, alisLength(data));
-    writeAlis(f, data);
+    this.writeLong(f, this.alisLength(data));
+    this.writeAlis(f, data);
   } else if (type == 'Pth ') {
-    writeLong(f, data.length * 2 + 12);
-    writePth(f, data);
+    this.writeLong(f, data.length * 2 + 12);
+    this.writePth(f, data);
   }
 },
 
 writeDescriptor: function(f, script)
 {
-  writeClass(f);
-  writeLong(f, 2); // Items
-  writeCharID(f, 'jsCt');
+  this.writeClass(f);
+  this.writeLong(f, 2); // Items
+  this.writeCharID(f, 'jsCt');
   if (isMac() >= 0) {
-    writePair(f, 'alis', script);
+    this.writePair(f, 'alis', script);
   } else {
-    writePair(f, 'Pth ', script);
+    this.writePair(f, 'Pth ', script);
   }
-  writeCharID(f, 'jsMs');
-  writePair(f, 'TEXT', 'undefined');
+  this.writeCharID(f, 'jsMs');
+  this.writePair(f, 'TEXT', 'undefined');
 },
 
 writeCommand: function(f, script)
 {
-  writeBoolean(f, 0); // Expanded
-  writeBoolean(f, 1); // Enabled
-  writeBoolean(f, 0); // Dialog
-  writeByte(f, 0); // Dialog options
-  writeStringID(f, 'AdobeScriptAutomation Scripts'); // ID
-  writeByteString(f, 'Scripts'); // Dictionary
-  writeLong(f, -1); // Descriptor
-  writeDescriptor(f, script);
+  this.writeBoolean(f, 0); // Expanded
+  this.writeBoolean(f, 1); // Enabled
+  this.writeBoolean(f, 0); // Dialog
+  this.writeByte(f, 0); // Dialog options
+  this.writeStringID(f, 'AdobeScriptAutomation Scripts'); // ID
+  this.writeByteString(f, 'Scripts'); // Dictionary
+  this.writeLong(f, -1); // Descriptor
+  this.writeDescriptor(f, script);
 },
 
 writeAction: function(f, setting, actions)
 {
-  writeShort(f, 0); // Function key
-  writeBoolean(f, 0); // Shift
-  writeBoolean(f, 0); // Command
-  writeShort(f, 0); // Color
+  this.writeShort(f, 0); // Function key
+  this.writeBoolean(f, 0); // Shift
+  this.writeBoolean(f, 0); // Command
+  this.writeShort(f, 0); // Color
   var name = setting.group + ' - ' + setting.title;
-  writeUnicodeString(f, name); // Name
-  writeBoolean(f, 0); // Expanded
-  writeLong(f, 1); // Command count
-  writeCommand(f, actions + name.replace(/ /g , '') + '.jsx');
+  this.writeUnicodeString(f, name); // Name
+  this.writeBoolean(f, 0); // Expanded
+  this.writeLong(f, 1); // Command count
+  this.writeCommand(f, actions + name.replace(/ /g , '') + '.jsx');
 },
 
 writeActionSet: function(f, settings, actions)
 {
-  writeUnicodeString(f, 'Somnium'); // set name
-  writeBoolean(f, 0); // expanded
-  writeLong(f, dicLength(settings)); // action count
+  this.writeUnicodeString(f, 'Somnium'); // set name
+  this.writeBoolean(f, 0); // expanded
+  this.writeLong(f, Object.keys(settings).length); // action count
   for (var key in settings) {
-    writeAction(f, settings[key], actions);
+    this.writeAction(f, settings[key], actions);
   }
 },
 
@@ -265,8 +265,8 @@ write: function(filename, settings, actions)
     var f = new File(filename);
     f.open('w');
     f.encoding = "BINARY";
-    writeLong(f, 16); // Version
-    writeActionSet(f, settings, actions);
+    this.writeLong(f, 16); // Version
+    this.writeActionSet(f, settings, actions);
     f.close();
   } catch (e) {
     log(e);
@@ -293,9 +293,9 @@ check: function(path, pluginPath, settings)
   var f = File(atnFile);
 
   if (!f.exists) {
-    writeAtn(atnFile, settings.constantData(), actions);
+    this.write(atnFile, settings.constantData(), actions);
 
-    unloadActionsSet('Somnium');
+    this.unloadActionsSet('Somnium');
     app.load(new File(atnFile));
   }
 }
