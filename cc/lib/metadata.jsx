@@ -6,9 +6,9 @@
 //
 //**************************************************************************
 
-var Metadata = {
+Metadata = (function() {
 
-calc: function(s, floatresult)
+calc = function(s, floatresult)
 {
   floatresult = (floatresult === undefined) ? false : floatresult;
 
@@ -25,7 +25,9 @@ calc: function(s, floatresult)
   } else {
     return s;
   }
-},
+}
+
+return { // public:
 
 get: function(filename)
 {
@@ -50,4 +52,4 @@ get: function(filename)
   return data;
 }
 
-}
+};})();
