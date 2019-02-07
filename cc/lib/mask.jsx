@@ -147,7 +147,8 @@ return true;
 LayerSet.prototype.invertMask = ArtLayer.prototype.invertMask = function()
 {
   try {
-    this.activateMask(layer);
+    this.activate();
+    this.activateMask();
     executeAction(cTID('Invr'), undefined, DialogModes.NO);
   } catch (e) {
     log(e);
