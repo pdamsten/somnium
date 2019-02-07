@@ -11,7 +11,7 @@ return { // public:
 title: 'Hello World',
 help: 'Somnium plugin template.',
 
-onClick = function()
+onClick: function()
 {
   try {
     alert('Hello World');
