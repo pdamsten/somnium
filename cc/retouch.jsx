@@ -13,7 +13,7 @@ onDefringeMaskClick = function()
     layer.applyGaussianBlurEx(2.0);
     layer.adjustLevelsEx([[180, 255, 1.0], [0, 255]]);
   } else {
-    return msg(WARNING, 'Defringe Mask', 'No Layer mask.');
+    return UI.msg(UI.WARNING, 'Defringe Mask', 'No Layer mask.');
   }
 }
 
@@ -44,7 +44,7 @@ onCombineDocumentsClick = function()
     }
     app.activeDocument = doc;
     if (moved == false) {
-      return msg(WARNING, 'Combine Documents', 'Could not find any single layer documents.');
+      return UI.msg(UI.WARNING, 'Combine Documents', 'Could not find any single layer documents.');
     }
   } catch (e) {
     log(e);
