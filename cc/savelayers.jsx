@@ -10,19 +10,19 @@ exportFile = function(key)
 {
   try {
     var path = settings.value(key, 'path');
-    var filename = uniqueFilename(path, app.activeDocument.name, '.jpg');
+    var filename = Path.uniqueFilename(path, app.activeDocument.name, '.jpg');
     if (filename === false) {
-      return LAST_MESSAGE;
+      return UI.LAST_MESSAGE;
     }
     var size = settings.value(key, 'maxsize').split('x');
     var minsize = settings.value(key, 'minsize').split('x');
     var color = settings.value(key, 'paddingcolor');
     color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
-    if (saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
-               parseInt(minsize[0]), parseInt(minsize[1]), color)) {
-      var s = msg(INFO, 'Export', filename + ' saved succesfully.');
+    if (app.activeDocument.saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
+                                      parseInt(minsize[0]), parseInt(minsize[1]), color)) {
+      var s = UI.msg(UI.INFO, 'Export', filename + ' saved succesfully.');
     } else {
-      var s = msg(ERROR, 'Export', 'Saving ' + filename + ' failed.');
+      var s = UI.msg(UI.ERROR, 'Export', 'Saving ' + filename + ' failed.');
     }
     return s;
   } catch (e) {
@@ -89,17 +89,13 @@ onSaveLayersClick = function()
     var active = app.activeDocument;
     var parts = active.name.split(".");
     docname = parts[0];
-    var newDoc = app.activeDocument.duplicate(randomString(8));
+    var newDoc = app.activeDocument.duplicate(String.random(8));
 
     if (active == newDoc) {
-      return msg(ERROR, 'Save Layers', 'Could not make a duplicate.');
+      return UI.msg(UI.ERROR, 'Save Layers', 'Could not make a duplicate.');
     }
-    /* if (settings.value('SaveLayers', 'faster')) {
-      newDoc.convertProfile('sRGB IEC61966-2.1', Intent.RELATIVECOLORIMETRIC, true, false);
-      newDoc.bitsPerChannel = BitsPerChannelType.EIGHT;
-    }*/
     mainPath = addPathSep(File(addPathSep(path) + docname).fsName);
-    var layers = getFlags(listLayers());
+    var layers = getFlags(newDoc.listLayers());
     //takeScreenshotsFromLayers(layers);
     pindex = 0;
     mogrify = '';
@@ -114,11 +110,11 @@ onSaveLayersClick = function()
     var m = Math.floor(t / 1000 / 60);
     var s = (t / 1000.0) % 60;
     log('SaveLayers took:', m, 'minutes', s, 'seconds');
-    return msg(INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
+    return UI.msg(UI.INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
   } catch (e) {
     log(e);
   }
-  return msg(ERROR, 'Save Layers', 'Saving layers failed.');
+  return UI.msg(UI.ERROR, 'Save Layers', 'Saving layers failed.');
 }
 
 saveLayersAsJpgs = function(layers)
@@ -129,13 +125,13 @@ saveLayersAsJpgs = function(layers)
 saveJpg = function(layer)
 {
   layer.visible = true;
-  saveAsJpeg(output('layer-', '.jpg'), 3840, 2160);
+  app.activeDocument.saveAsJpeg(output('layer-', '.jpg'), 3840, 2160);
 }
 
 getFlags = function(layers)
 {
   for (var i = layers.length - 1; i >= 0; --i) {
-    applyLocking(layers[i].layer, false, false, false, false);
+    layers[i].layer.applyLocking(false, false, false, false);
     if (layers[i].visible) {
       layers[i].flags = flags(layers[i].layer);
     }
@@ -157,7 +153,7 @@ hideAllLayers = function(layers)
 output = function(prefix, suffix)
 {
   var dir = checkDir();
-  var name = dir + prefix + padNum(++pindex, 4) + suffix;
+  var name = dir + prefix + (++pindex).toString().padStart(4, '0') + suffix;
   ffmpeglast = 'file ' + name + '\n';
   ffmpeg += ffmpeglast;
   mogrify += name + '\n';
@@ -167,7 +163,7 @@ output = function(prefix, suffix)
 checkDir = function()
 {
   var s = addPathSep(File(mainPath).fsName);
-  mkdir(s);
+  Path.mkdir(s);
   return s;
 }
 
@@ -186,7 +182,7 @@ checkDir = function()
 default_flags = function(layer)
 {
   if (layer.kind == LayerKind.SMARTOBJECT) {
-    var info = smartObjectInfo(layer);
+    var info = layer.smartObjectInfo();
   } else {
     var info = false;
   }
@@ -249,7 +245,7 @@ enableLayerMasks = function(layers, n, enable)
   i = n;
   hadMask = false;
   while (i != -1) {
-    if (enableLayerMask(layers[i].layer, enable)) {
+    if (layers[i].layer.enableMask(enable)) {
       hadMask = true;
     }
     i = layers[i].parent;
@@ -267,24 +263,24 @@ handleLayer = function(layers, n, func)
   }
   //log(layer.name, layers[n].flags.smart, layer.visible, layers[n].visible); return;
   if (layer.kind == LayerKind.SMARTOBJECT && layers[n].flags.smart) {
-    var info = smartObjectInfo(layer);
+    var info = layer.smartObjectInfo();
     if (info) {
       if (info['type'] == 'photoshop') {
-        if (editSmartObjectContents(layer)) {
-          var smlayers = getFlags(listLayers());
+        if (layer.editSmartObjectContents()) {
+          var smlayers = getFlags(app.activeDocument.listLayers());
           if (smlayers.length > 1) {
             handleLayers(smlayers, func);
           }
           app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
         }
       } else if (info['type'] == 'raw') {
-        if (newSmartObjectViaCopy(layer)) {
+        if (layer.newSmartObjectViaCopy()) {
           mainCopy = app.activeDocument.activeLayer;
           // Move out of any groups
           mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
-          deleteLayerMask(mainCopy);
-          deleteSmartFilters(mainCopy);
-          editSmartObjectContents(mainCopy);
+          mainCopy.deleteMask();
+          mainCopy.removeSmartFilters(mainCopy);
+          mainCopy.editSmartObjectContents(mainCopy);
           mainCopy.visible = true;
           mainCopy.opacity = 100;
           func.apply(this, [mainCopy]);
@@ -302,14 +298,14 @@ handleLayer = function(layers, n, func)
     }
   } else {
     if (layers[n].flags.filter) {
-      enableSmartFilters(layer, false);
+      layer.enableSmartFilters(false);
     }
     if (layers[n].flags.mask) {
       enableLayerMasks(layers, n, false);
     }
     func.apply(this, [layer]);
     if (layers[n].flags.filter) {
-      if (enableSmartFilters(layer, true)) {
+      if (layer.enableSmartFilters(true)) {
         func.apply(this, [layer]);
       }
     }

@@ -9,12 +9,13 @@
 onHighPassSharpeningClick = function()
 {
   try {
-    var current = app.activeDocument.activeLayer;
-    var layer = stampCurrentAndBelow('current', 'High Pass Sharpening');
-    layer = convertToSmartObject(layer);
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+    var layer = doc.stampCurrentAndBelow('High Pass Sharpening');
+    layer.convertToSmartObject();
     layer.move(current, ElementPlacement.PLACEBEFORE);
-    doHighPass(layer, 2.6, false);
-    setLayerBlendingMode(layer, 'hard light');
+    layer.applyHighPassEx(2.6, false);
+    layer.setBlendingMode('hard light');
   } catch (e) {
     log(e);
   }
@@ -23,14 +24,15 @@ onHighPassSharpeningClick = function()
 onAddNoiseClick = function()
 {
   try {
-    var current = app.activeDocument.activeLayer;
-    var layer = createSolidColorAdjustment('Noise', 'current', [128, 128, 128]);
-    layer = convertToSmartObject(layer);
-    deleteLayerMask(layer);
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+    var layer = doc.addSolidColorAdjustment('Noise', [128, 128, 128]);
+    layer.convertToSmartObject();
+    layer.deleteMask();
     layer.move(current, ElementPlacement.PLACEBEFORE);
-    addNoise(layer, 2.0, 'gaussian', true, false);
-    doGaussianBlur(layer, 0.4, false);
-    setLayerBlendingMode(layer, 'overlay');
+    layer.applyAddNoiseEx(2.0, 'gaussian', true, false);
+    layer.applyGaussianBlurEx(0.4, false);
+    layer.setBlendingMode('overlay');
   } catch (e) {
     log(e);
   }
