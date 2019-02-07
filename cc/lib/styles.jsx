@@ -83,7 +83,7 @@ setColorOverlay = function(desc2, data)
     desc3.putBoolean(cTID('enab'), true);
     desc3.putBoolean(sTID("present"), true);
     desc3.putBoolean(sTID("showInDialog"), true);
-    desc3.putEnumerated(cTID('Md  '), cTID('BlnM'), blendingMode(data['blendingmode']));
+    desc3.putEnumerated(cTID('Md  '), cTID('BlnM'), Photoshop.blendingMode(data['blendingmode']));
     var desc4 = new ActionDescriptor();
     desc4.putDouble(cTID('Rd  '), data['color'][0]);
     desc4.putDouble(cTID('Grn '), data['color'][1]);
@@ -107,7 +107,7 @@ setStroke = function(desc2, data)
     desc5.putBoolean(sTID("showInDialog"), true);
     desc5.putEnumerated(cTID('Styl'), cTID('FStl'), cTID(Position[data['position']]));
     desc5.putEnumerated(cTID('PntT'), cTID('FrFl'), cTID('SClr'));
-    desc5.putEnumerated(cTID('Md  '), cTID('BlnM'), blendingMode(data['blendingmode']));
+    desc5.putEnumerated(cTID('Md  '), cTID('BlnM'), Photoshop.blendingMode(data['blendingmode']));
     desc5.putUnitDouble(cTID('Opct'), cTID('#Prc'), data['opacity']);
     desc5.putUnitDouble(cTID('Sz  '), cTID('#Pxl'), data['size']);
     var desc6 = new ActionDescriptor();
@@ -122,7 +122,7 @@ setStroke = function(desc2, data)
   }
 }
 
-ArtLayer.prototype.setLayerStyles = function(data, scale)
+ArtLayer.prototype.setStyles = function(data, scale)
 {
   var s = (typeof scale !== 'undefined') ?  scale : 200;
   try {

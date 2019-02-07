@@ -28,8 +28,8 @@ curvePoint: function(pos, percentage)
 
 scurve: function(percentage, dark, light)
 {
-  return [curvePoint(0, dark), curvePoint(64, -1 * percentage),
-          curvePoint(192, percentage), curvePoint(255, light)];
+  return [this.curvePoint(0, dark), this.curvePoint(64, -1 * percentage),
+          this.curvePoint(192, percentage), this.curvePoint(255, light)];
 }
 
 };})();
