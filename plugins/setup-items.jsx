@@ -6,6 +6,8 @@
 //
 //**************************************************************************
 
+setup-items = (function() {
+
 var LIGHTS = 5;
 
 my_lenses = {
@@ -115,7 +117,7 @@ dlgdata = {
       "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "None"]
     },
   },
-  'callback': 'onLightsDialogOK'
+  'callback': 'setup-items.onLightsDialogOK'
 };
 
 nikTonalContrast = function()
@@ -183,7 +185,12 @@ onLightsDialogOK = function(data)
   }
 }
 
-onIncludeSetupClick = function()
+return { // public:
+
+title: 'Include Setup Items',
+help: 'Import items for making setup images.',
+
+onClick: function()
 {
   try {
     var current = app.activeDocument.activeLayer;
@@ -263,3 +270,5 @@ onIncludeSetupClick = function()
     log(e);
   }
 }
+
+};})();
