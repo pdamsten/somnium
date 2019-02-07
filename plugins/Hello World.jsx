@@ -4,7 +4,14 @@
 //
 //**************************************************************************
 
-onHelloWorldClick = function()
+HelloWorld = (function() {
+
+return { // public:
+
+title: 'Hello World',
+help: 'Somnium plugin template.',
+
+onClick = function()
 {
   try {
     alert('Hello World');
@@ -12,3 +19,5 @@ onHelloWorldClick = function()
     log(e);
   }
 }
+
+};})();
