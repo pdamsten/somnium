@@ -88,8 +88,10 @@ onMakeDBClick = function()
     } else {
       var group = doc.addGroup('Dodge & Burn');
       group.move(current, ElementPlacement.PLACEBEFORE);
-      var b = [curvePoint(0, 0), curvePoint(128, -30), curvePoint(255, 0)];
-      var d = [curvePoint(0, 0), curvePoint(128, 30), curvePoint(255, 0)];
+      var b = [Adjustment.curvePoint(0, 0), Adjustment.curvePoint(128, -30),
+               Adjustment.curvePoint(255, 0)];
+      var d = [Adjustment.curvePoint(0, 0), Adjustment.curvePoint(128, 30),
+               Adjustment.curvePoint(255, 0)];
       var dl = doc.addCurveAdjustment('Dodge', group);
       var bl = doc.addCurveAdjustment('Burn', group);
       dl.setAdjustment(d);
