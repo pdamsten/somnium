@@ -8,7 +8,7 @@
 
 Document.prototype.activateLayer = function(layer)
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   if (typeof layer !== 'undefined') {
     if (typeof layer === 'string' && layer == 'first') {
       app.activeDocument.activeLayer = app.activeDocument.layers[0];
@@ -25,8 +25,18 @@ Document.prototype.activateLayer = function(layer)
 
 LayerSet.prototype.activate = ArtLayer.prototype.activate = function()
 {
-  app.activeDocument.activeLayer = this;
+  if (app.activeDocument.activeLayer != this) {
+    app.activeDocument.activeLayer = this;
+  }
   return app.activeDocument.activeLayer;
+}
+
+Document.prototype.activate = function()
+{
+  if (app.activeDocument != this) {
+    app.activeDocument = this;
+  }
+  return app.activeDocument;
 }
 
 LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(transparency, composite, position, artboard)
@@ -130,7 +140,7 @@ LayerSet.prototype.smartObjectInfo = ArtLayer.prototype.smartObjectInfo = functi
 Document.prototype.stampVisible = function(name)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     this.addLayer(name); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
@@ -157,7 +167,7 @@ _parentsVisible = function(layers, i)
 Document.prototype.stampCurrentAndBelow = function(name)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     var active = app.activeDocument.activeLayer;
     var layers = app.activeDocument.listLayers();
     // Hide layers up this layer
@@ -335,7 +345,7 @@ var _lindex = 0;
 Document.prototype.listLayers = function(player, _pindex)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     if (typeof _pindex === 'undefined') {
       _pindex = -1;
       _layersList = [];
@@ -378,7 +388,7 @@ LayerSet.prototype.compare = ArtLayer.prototype.compare = function(layer)
 Document.prototype.findLayer = function(name, parent, type)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     layers = this.listLayers();
 
     for (var i = 0; i < layers.length; ++i) {
@@ -401,7 +411,7 @@ Document.prototype.findLayer = function(name, parent, type)
 
 Document.prototype.checkLayer = function(name, parent)
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   var layer = this.findLayer(name, parent);
   if (layer != null) {
     var v = layer.visible;
@@ -414,7 +424,7 @@ Document.prototype.checkLayer = function(name, parent)
 
 Document.prototype.addLayer = function(name, layer, placement)
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   name = (name == undefined) ? String.random(8) : name;
   layer = (layer == undefined) ? app.activeDocument.activeLayer : layer;
   placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
@@ -429,7 +439,7 @@ Document.prototype.addLayer = function(name, layer, placement)
 Document.prototype.mergeLayers = function(layers)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     if (this.selectLayers(layers)) {
       var desc1 = new ActionDescriptor();
       executeAction(cTID("Mrg2"), desc1, DialogModes.NO);
@@ -457,7 +467,7 @@ ArtLayer.prototype.moveToGroup = function(group)
 
 Document.prototype.addGroup = function(name)
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   name = (name == undefined) ? String.random(8) : name;
   var layerActive = app.activeDocument.activeLayer;
   var group = app.activeDocument.layerSets.add();
@@ -472,7 +482,7 @@ Document.prototype.addGroup = function(name)
 Document.prototype.checkGroup = function(name, parent, after)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     if (parent !== undefined) {
       parent = this.checkGroup(parent);
     }
@@ -518,7 +528,7 @@ Document.prototype.groupSelectedLayers = function(name)
 Document.prototype.selectLayers = function(layers)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     var indexes = [];
 
     for (var i = 0; i < layers.length; ++i) {
@@ -544,7 +554,7 @@ Document.prototype.selectLayers = function(layers)
 Document.prototype.groupLayers = function(name, layers)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     this.selectLayers(layers);
     return this.groupSelectedLayers(name);
   } catch (e) {

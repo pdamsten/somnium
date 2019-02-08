@@ -148,7 +148,7 @@ msg: function(type, title, txt)
 Document.prototype.contentAwareFill = function(tool)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     var desc1 = new ActionDescriptor();
     desc1.putEnumerated(cTID('Usng'), cTID('FlCn'), sTID("contentAware"));
     desc1.putBoolean(sTID("contentAwareColorAdaptationFill"), true);
@@ -164,7 +164,7 @@ Document.prototype.contentAwareFill = function(tool)
 
 Document.prototype.exportAsJpeg = function(filepath, x, y) // export does not support res?
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   exportOptionsSaveForWeb = new ExportOptionsSaveForWeb();
   exportOptionsSaveForWeb.quality = 95;
   exportOptionsSaveForWeb.includeProfile = true;
@@ -177,7 +177,7 @@ Document.prototype.exportAsJpeg = function(filepath, x, y) // export does not su
 
 Document.prototype.saveAsFlatPSB = function(filepath)
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   var desc1 = new ActionDescriptor();
   var desc2 = new ActionDescriptor();
   desc2.putBoolean(sTID("maximizeCompatibility"), false);
@@ -193,7 +193,7 @@ Document.prototype.saveAsFlatPSB = function(filepath)
 Document.prototype.saveAsJpeg = function(filepath, x, y, minx, miny, color)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     var active = app.activeDocument;
     var newDoc = active.duplicate(String.random(8));
 
@@ -244,7 +244,7 @@ Document.prototype.saveAsJpeg = function(filepath, x, y, minx, miny, color)
 
 Document.prototype.saveAsPng = function(filepath, x, y)
 {
-  app.activeDocument = this;
+  app.activeDocument.activate();
   var active = app.activeDocument;
   var newDoc = app.activeDocument.duplicate(String.random(8));
 
@@ -272,7 +272,7 @@ Document.prototype.saveAsPng = function(filepath, x, y)
 Document.prototype.drawLine = function(name, x1, y1, x2, y2, w)
 {
   try {
-    app.activeDocument = this;
+    app.activeDocument.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putClass(sTID("contentLayer"));
