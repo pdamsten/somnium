@@ -74,8 +74,9 @@ light = {
     "title": "Modifier:",
     "type": "selection",
     "value": "0",
-    "values": ["Reflector", "120cm Octabox", "150cm Octabox", "140cm Stripbox",
-               "40cm Beauty Dish", "60x60cm Softbox"]
+    "values": ["18cm Reflector", "18cm Reflector with grid",
+               "120cm Octabox", "150cm Octabox", "140cm Stripbox",
+               "40cm Beauty Dish", "40cm Beauty Dish with Grid", "60x60cm Softbox"]
   },
   "power": {
     "title": "Power:",
@@ -175,41 +176,41 @@ onClick: function()
       l.duplicateToDoc(doc.name);
       template.close(SaveOptions.DONOTSAVECHANGES);
       app.activeDocument = doc;
-
-      // Get metadata from jpg
-      var file = File.openDialog("Get metadata");
-      if(file != null) {
-        var data = Metadata.get(file.fsName);
-        //log(data);
-        var l = doc.findLayer('TITLE');
-        l.textItem.contents = '“' + data['title'] + '” setup';
-
-        var lens = data['lens'];
-        if (lens in my_lenses) {
-          lens = my_lenses[lens];
-        }
-
-        var s = data['model'] + "\r" +
-            lens + '\r' +
-            'Focal length: ' + data['focallength'] + 'mm\r' +
-            'Aperture: f/' + data['aperture'] + '\r' +
-            'Exposure: ' + data['exposure'] + 'sec\r' +
-            'ISO: ' + data['iso'];
-        l = doc.findLayer('INFO');
-        l.textItem.contents = s;
-      }
-
-      // Show dialog for lighting information
-
-      // multiply data for 5 lights
-      for (var i = 0; i < LIGHTS; ++i) {
-        light['header']['title'] = 'Light ' + (i + 1);
-        for (key in light) {
-          dlgdata['items'][key + (i + 1)] = Object.deepCopy(light[key]);
-        }
-      }
-      UI.openDialog(dlgdata);
     }
+
+    // Get metadata from jpg
+    var file = File.openDialog("Get metadata");
+    if(file != null) {
+      var data = Metadata.get(file.fsName);
+      //log(data);
+      var l = doc.findLayer('TITLE');
+      l.textItem.contents = '“' + data['title'] + '” setup';
+
+      var lens = data['lens'];
+      if (lens in my_lenses) {
+        lens = my_lenses[lens];
+      }
+
+      var s = data['model'] + "\r" +
+          lens + '\r' +
+          'Focal length: ' + data['focallength'] + 'mm\r' +
+          'Aperture: f/' + data['aperture'] + '\r' +
+          'Exposure: ' + data['exposure'] + 'sec\r' +
+          'ISO: ' + data['iso'];
+      l = doc.findLayer('INFO');
+      l.textItem.contents = s;
+    }
+
+    // Show dialog for lighting information
+
+    // multiply data for 5 lights
+    for (var i = 0; i < LIGHTS; ++i) {
+      light['header']['title'] = 'Light ' + (i + 1);
+      for (key in light) {
+        dlgdata['items'][key + (i + 1)] = Object.deepCopy(light[key]);
+      }
+    }
+    UI.openDialog(dlgdata);
   } catch (e) {
     log(e);
   }
