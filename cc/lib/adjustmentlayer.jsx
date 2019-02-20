@@ -34,6 +34,53 @@ scurve: function(percentage, dark, light)
 
 };})();
 
+Document.prototype.addVibranceAdjustment = function(name)
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putClass(cTID('AdjL'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    desc2.putClass(cTID('Type'), sTID("vibrance"));
+    desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
+    executeAction(cTID('Mk  '), desc1, DialogModes.NO);
+    app.activeDocument.activeLayer.name = name;
+    return app.activeDocument.activeLayer;
+  } catch (e) {
+    log(e);
+    return null;
+  }
+}
+
+ArtLayer.prototype.setVibranceAdjustment = function(values)
+{
+  try {
+    this.activate();
+    /*
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    desc2.putInteger(cTID('Strt'), values['saturation']);
+    desc1.putObject(cTID('T   '), sTID("vibrance"), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+    */
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+    desc2.putInteger(sTID("vibrance"), values['vibrance']);
+    desc2.putInteger(cTID('Strt'), values['saturation']);
+    desc1.putObject(cTID('T   '), sTID("vibrance"), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+  }
+}
+
 Document.prototype.addColorBalanceAdjustment = function(name)
 {
   try {
@@ -575,5 +622,7 @@ ArtLayer.prototype.setAdjustment = function(values)
     this.setSelectiveColorAdjustment(values);
   } else if(this.kind == LayerKind.GRADIENTMAP) {
     this.setGradientMapAdjustment(values);
+  } else if(this.kind == LayerKind.VIBRANCE) {
+    this.setVibranceAdjustment(values);
   }
 }
