@@ -152,5 +152,22 @@ var Colors = {
       "blendingmode": "normal"
     },
     "default": 100,
+  },
+  "Color Contrast": {
+    "Vibrance" : {
+      "values": {"saturation": 75},
+      "adjust": "fill",
+      "fill": 20,
+      "blendingmode": "color dodge"
+    },
+    "Saturation" : {
+      "values": {
+        "master": [0, 75, 0]
+      },
+      "adjust": "fill",
+      "fill": 20,
+      "blendingmode": "color burn"
+    },
+    "default": 50,
   }
 }
