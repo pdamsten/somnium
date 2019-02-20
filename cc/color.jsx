@@ -15,7 +15,7 @@ var previousTheme = null;
 
 const ColorGroupName = 'Color';
 const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
-                     'Multi Color Tint', 'Color Balance'];
+                     'Multi Color Tint', 'Color Balance', 'Vibrance'];
 
 return { // public:
 
@@ -74,6 +74,14 @@ checkColorThemeGroup: function()
   }
   layer.visible = false;
   layer.deleteMask();
+
+  layer = doc.checkLayer(ColorLayers[7], group);
+  if (layer == null) {
+    layer = doc.addVibranceAdjustment(ColorLayers[7]);
+  }
+  layer.visible = false;
+  layer.deleteMask();
+
   return group;
 },
 
@@ -176,6 +184,19 @@ adjustValues: function(type, values, strength)
       ret['preserve luminosity'] = values['preserve luminosity'];
     } else {
       ret['preserve luminosity'] = true;
+    }
+  } else if (type == ColorLayers[7]) { // Vibrance
+    ret = {};
+    ret = {};
+    if ('vibrance' in values) {
+      ret['vibrance'] = values['vibrance'] * strength / 100;
+    } else {
+      ret['vibrance'] = 0;
+    }
+    if ('saturation' in values) {
+      ret['saturation'] = values['saturation'] * strength / 100;
+    } else {
+      ret['saturation'] = 0;
     }
   }
   //log(ret);
@@ -315,16 +336,24 @@ setColorTheme = function(data, strength)
       var layer = ColorGrading.colorLayer(key);
       var values = null;
       var opacity = ("opacity" in data[key]) ? data[key]["opacity"] : 100;
+      var fill = ("fill" in data[key]) ? data[key]["fill"] : 100;
       layer.visible = true;
       if (data[key]["adjust"] == 'values') {
         values = ColorGrading.adjustValues(key, data[key]["values"], data['strength']);
         layer.opacity = opacity;
+        layer.fillOpacity = fill;
       } else if (data[key]["adjust"] == 'opacity') {
         values = ColorGrading.adjustValues(key, data[key]["values"], 100);
         layer.opacity = opacity * data['strength'] / 100;
+        layer.fillOpacity = fill;
+      } else if (data[key]["adjust"] == 'fill') {
+        values = ColorGrading.adjustValues(key, data[key]["values"], 100);
+        layer.opacity = opacity;
+        layer.fillOpacity = fill * data['strength'] / 100;
       } else {
         values = ColorGrading.adjustValues(key, data[key]["values"], 100);
         layer.opacity = opacity;
+        layer.fillOpacity = fill;
       }
       layer.setAdjustment(values);
       layer.setBlendingMode(data[key]['blendingmode']);
