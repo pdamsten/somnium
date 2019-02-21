@@ -48,3 +48,12 @@ ZXPSignCmd -sign com.petridamsten.somnium com.petridamsten.somnium.zxp selfDB.p1
 
 cd ..
 diff -r com.petridamsten.somnium tmp/com.petridamsten.somnium
+
+echo -n "Latest version is "
+git describe --abbrev=0 --tags
+
+read -p "Do you want to tag new version to git (Enter = No): " version
+if ! [[ -z "$version" ]]; then
+   echo -n "Tagging new version: v$version"
+   git tag -a "v$version" -m "new version $version"
+fi
