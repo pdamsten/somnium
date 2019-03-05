@@ -178,6 +178,8 @@ checkDir = function()
 // RAW smart object => -m -s -f -r
 // Layer name == file name => +m +s +f +r
 // Other layers => -m -s -f -r
+//
+// example (?ms) => show without maks and open smart object
 
 default_flags = function(layer)
 {
@@ -321,7 +323,7 @@ findFirst = function(layers, func)
 {
   var result = [];
 
-  for (var i = layers.length - 1; i >= 0; --i) {
+  for (var i = 0; i < layers.length; ++i) {
     if (layers[i].visible && layers[i].flags.main) {
       result.push(i);
     }
