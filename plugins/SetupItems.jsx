@@ -74,9 +74,14 @@ light = {
     "title": "Modifier:",
     "type": "selection",
     "value": "0",
-    "values": ["18cm Reflector", "18cm Reflector with grid",
-               "120cm Octabox", "150cm Octabox", "140cm Stripbox",
-               "40cm Beauty Dish", "40cm Beauty Dish with Grid", "60x60cm Softbox"]
+    "values": ["18cm Reflector", "90cm Octabox", "120cm Octabox", "150cm Octabox",
+               "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox"]
+  },
+  "accessory": {
+    "title": "Accessory:",
+    "type": "selection",
+    "value": "0",
+    "values": ["None", "with Grid", "with Diffusor", "without Diffusor", "without Outer Diffusor"]
   },
   "power": {
     "title": "Power:",
@@ -238,7 +243,12 @@ onLightsDialogOK: function(data)
           s += '\r';
         }
         n = parseInt(data['items']['modifier' + (i + 1)]['value']);
-        s += data['items']['modifier' + (i + 1)]['values'][n] + '\r';
+        s += data['items']['modifier' + (i + 1)]['values'][n];
+        n = parseInt(data['items']['accessory' + (i + 1)]['value']);
+        if (n != 0) {
+          s += ' ' + data['items']['accessory' + (i + 1)]['values'][n];
+        }
+        s += '\r';
         n = parseInt(data['items']['gel' + (i + 1)]['value']);
         if (n > 0) {
           s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
