@@ -120,7 +120,7 @@ dlgdata = {
       "title": "Trigger:",
       "type": "selection",
       "value": "0",
-      "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "None"]
+      "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "Godox XT16", "None"]
     },
   },
   'callback': 'SetupItems.onLightsDialogOK'
