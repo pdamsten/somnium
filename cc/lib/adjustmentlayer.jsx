@@ -485,11 +485,12 @@ Document.prototype.addSelectiveColorAdjustment = function(name)
   }
 }
 
-ArtLayer.prototype.setSelectiveColorAdjustment = function(values, absolute)
+ArtLayer.prototype.setSelectiveColorAdjustment = function(values)
 {
   try {
     this.activate();
     for (v in values) {
+      if (v == 'absolute') { continue; }
       var desc1 = new ActionDescriptor();
       var ref1 = new ActionReference();
       ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
@@ -512,7 +513,7 @@ ArtLayer.prototype.setSelectiveColorAdjustment = function(values, absolute)
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    if (absolute) {
+    if (values['absolute']) {
       desc2.putEnumerated(sTID("presetKind"), sTID("presetKindType"), sTID("presetKindCustom"));
       desc2.putEnumerated(cTID('Mthd'), cTID('CrcM'), cTID('Absl'));
     } else {
