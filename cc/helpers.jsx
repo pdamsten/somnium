@@ -137,8 +137,9 @@ onMakeLightnessClick = function()
     l1.setBlendingMode('color');
     l2.setAdjustment(Adjustment.scurve(10));
     l1.deleteMask();
-    l2.deleteMask(l2);
+    l2.deleteMask();
     group = doc.groupLayers('Luminosity Check', [l1, l2]);
+    l2.visible = false;
     group.visible = false;
   } catch (e) {
     log(e);
