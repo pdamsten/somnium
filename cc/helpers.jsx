@@ -176,8 +176,8 @@ onMakeSaturationMapClick = function()
                   'greens': [0, 0, 0, -100], 'cyans':    [0, 0, 0, -100],
                   'blues':  [0, 0, 0, -100], 'magentas': [0, 0, 0, -100],
                   'whites': [0, 0, 0,  100], 'neutrals': [0, 0, 0, 100],
-                  'blacks': [0, 0, 0,  100]};
-    l.setAdjustment(values, true);
+                  'blacks': [0, 0, 0,  100], 'absolute': true};
+    l.setAdjustment(values);
     l.deleteMask();
     l.visible = false;
   } catch (e) {
