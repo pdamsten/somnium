@@ -489,8 +489,8 @@ ArtLayer.prototype.setSelectiveColorAdjustment = function(values)
 {
   try {
     this.activate();
-    for (v in values) {
-      if (v == 'absolute') { continue; }
+    for (v in Adjustment.SelectiveColors) {
+      if (!(v in values)) { continue; }
       var desc1 = new ActionDescriptor();
       var ref1 = new ActionReference();
       ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
@@ -513,7 +513,7 @@ ArtLayer.prototype.setSelectiveColorAdjustment = function(values)
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
     desc1.putReference(cTID('null'), ref1);
     var desc2 = new ActionDescriptor();
-    if (values['absolute']) {
+    if ('absolute' in values ? values['absolute'] : false) {
       desc2.putEnumerated(sTID("presetKind"), sTID("presetKindType"), sTID("presetKindCustom"));
       desc2.putEnumerated(cTID('Mthd'), cTID('CrcM'), cTID('Absl'));
     } else {
