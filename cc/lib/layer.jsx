@@ -167,7 +167,7 @@ _parentsVisible = function(layers, i)
 Document.prototype.stampCurrentAndBelow = function(name)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     var active = app.activeDocument.activeLayer;
     var layers = app.activeDocument.listLayers();
     // Hide layers up this layer
@@ -345,7 +345,7 @@ var _lindex = 0;
 Document.prototype.listLayers = function(player, _pindex)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     if (typeof _pindex === 'undefined') {
       _pindex = -1;
       _layersList = [];
@@ -388,7 +388,7 @@ LayerSet.prototype.compare = ArtLayer.prototype.compare = function(layer)
 Document.prototype.findLayer = function(name, parent, type)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     layers = this.listLayers();
 
     for (var i = 0; i < layers.length; ++i) {
@@ -448,7 +448,7 @@ Document.prototype.addLayer = function(name, layer, placement)
 Document.prototype.mergeLayers = function(layers)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     if (this.selectLayers(layers)) {
       var desc1 = new ActionDescriptor();
       executeAction(cTID("Mrg2"), desc1, DialogModes.NO);
@@ -476,7 +476,7 @@ ArtLayer.prototype.moveToGroup = function(group)
 
 Document.prototype.addGroup = function(name)
 {
-  app.activeDocument.activate();
+  this.activate();
   name = (name == undefined) ? String.random(8) : name;
   var layerActive = app.activeDocument.activeLayer;
   var group = app.activeDocument.layerSets.add();
@@ -491,7 +491,7 @@ Document.prototype.addGroup = function(name)
 Document.prototype.checkGroup = function(name, parent, after)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     if (parent !== undefined) {
       parent = this.checkGroup(parent);
     }
@@ -537,7 +537,7 @@ Document.prototype.groupSelectedLayers = function(name)
 Document.prototype.selectLayers = function(layers)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     var indexes = [];
 
     for (var i = 0; i < layers.length; ++i) {
@@ -563,7 +563,7 @@ Document.prototype.selectLayers = function(layers)
 Document.prototype.groupLayers = function(name, layers)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     this.selectLayers(layers);
     return this.groupSelectedLayers(name);
   } catch (e) {
