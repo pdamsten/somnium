@@ -6,6 +6,14 @@
 //
 //**************************************************************************
 
+Styles = (function() {
+
+return { // public:
+
+Channels: {'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '},
+
+};})();
+
 ArtLayer.prototype.setBlendIf = function(data)
 {
   try {
@@ -29,6 +37,7 @@ ArtLayer.prototype.setBlendIf = function(data)
     desc6.putInteger(cTID('Dstl'), data[0][5]);
     desc6.putInteger(cTID('DstW'), data[0][6]);
     desc6.putInteger(cTID('Dstt'), data[0][7]);
+    list1.putObject(cTID('Blnd'), desc6);
     var desc3 = new ActionDescriptor();
     var ref2 = new ActionReference();
     ref2.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Rd  '));
@@ -69,6 +78,50 @@ ArtLayer.prototype.setBlendIf = function(data)
     desc5.putInteger(cTID('Dstt'), data[3][7]);
     list1.putObject(cTID('Blnd'), desc3);
     desc2.putList(cTID('Blnd'), list1);
+    desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+  }
+}
+
+ArtLayer.prototype.setAdvancedBlending = function(data)
+{
+  try {
+    this.activate();
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('null'), ref1);
+    var desc2 = new ActionDescriptor();
+
+    if ('channels' in data) {
+      var list1 = new ActionList();
+      for (v in data['channels']) {
+        list1.putEnumerated(cTID('Chnl'), cTID(Styles.Channels[v]));
+      }
+      desc2.putList(sTID("channelRestrictions"), list1);
+    }
+
+    if ('knockout' in data) {
+      desc2.putEnumerated(sTID("knockout"), sTID("knockout"), sTID(data['knockout']));
+    }
+    if ('blendInterior' in data) {
+      desc2.putBoolean(sTID("blendInterior"), data['blendInterior']);
+    }
+    if ('blendClipped' in data) {
+      desc2.putBoolean(sTID("blendClipped"), data['blendClipped']);
+    }
+    if ('transparencyShapesLayer' in data) {
+      desc2.putBoolean(sTID("transparencyShapesLayer"), data['transparencyShapesLayer']);
+    }
+    if ('layerMaskHides' in data) {
+      desc2.putBoolean(sTID("layerMaskAsGlobalMask"), data['layerMaskHides']);
+    }
+    if ('vectorMaskHides' in data) {
+      desc2.putBoolean(sTID("vectorMaskAsGlobalMask"), data['vectorMaskHides']);
+    }
+
     desc1.putObject(cTID('T   '), cTID('Lyr '), desc2);
     executeAction(cTID('setd'), desc1, DialogModes.NO);
   } catch (e) {
