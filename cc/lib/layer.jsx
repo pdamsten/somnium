@@ -8,7 +8,7 @@
 
 Document.prototype.activateLayer = function(layer)
 {
-  app.activeDocument.activate();
+  this.activate();
   if (typeof layer !== 'undefined') {
     if (typeof layer === 'string' && layer == 'first') {
       app.activeDocument.activeLayer = app.activeDocument.layers[0];
@@ -140,7 +140,7 @@ LayerSet.prototype.smartObjectInfo = ArtLayer.prototype.smartObjectInfo = functi
 Document.prototype.stampVisible = function(name)
 {
   try {
-    app.activeDocument.activate();
+    this.activate();
     this.addLayer(name); // This way stamnp works also with one layer
     var desc1 = new ActionDescriptor();
     desc1.putBoolean(cTID('Dplc'), true);
@@ -411,29 +411,38 @@ Document.prototype.findLayer = function(name, parent, type)
 
 Document.prototype.checkLayer = function(name, parent)
 {
-  app.activeDocument.activate();
-  var layer = this.findLayer(name, parent);
-  if (layer != null) {
-    var v = layer.visible;
-    app.activeDocument.activeLayer = layer;
-    app.activeDocument.activeLayer.visible = v;
-    return layer;
+  try {
+    this.activate();
+    var layer = this.findLayer(name, parent);
+    if (layer != null) {
+      var v = layer.visible;
+      app.activeDocument.activeLayer = layer;
+      app.activeDocument.activeLayer.visible = v;
+      return layer;
+    }
+  } catch (e) {
+    log(e);
   }
   return null;
 }
 
 Document.prototype.addLayer = function(name, layer, placement)
 {
-  app.activeDocument.activate();
-  name = (name == undefined) ? String.random(8) : name;
-  layer = (layer == undefined) ? app.activeDocument.activeLayer : layer;
-  placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
-  app.activeDocument.activeLayer = layer;
-  var newLayer = app.activeDocument.artLayers.add();
-  newLayer.name = name;
-  app.activeDocument.activeLayer = newLayer;
-  newLayer.move(layer, placement);
-  return newLayer;
+  try {
+    this.activate();
+    name = (name == undefined) ? String.random(8) : name;
+    layer = (layer == undefined) ? app.activeDocument.activeLayer : layer;
+    placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
+    app.activeDocument.activeLayer = layer;
+    var newLayer = app.activeDocument.artLayers.add();
+    newLayer.name = name;
+    app.activeDocument.activeLayer = newLayer;
+    newLayer.move(layer, placement);
+    return newLayer;
+  } catch (e) {
+    log(e);
+  }
+  return null;
 }
 
 Document.prototype.mergeLayers = function(layers)
