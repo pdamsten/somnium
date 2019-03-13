@@ -11,8 +11,10 @@ Styles = (function() {
 return { // public:
 
 Channels: {'red': 'Rd  ', 'green': 'Grn ', 'blue': 'Bl  '},
+GlowTechnique: {'softer': 'SfBL'}
 
 };})();
+
 
 ArtLayer.prototype.setBlendIf = function(data)
 {
@@ -175,6 +177,54 @@ setStroke = function(desc2, data)
   }
 }
 
+setOuterGlow = function(desc2, data)
+{
+  try {
+    desc2.putObject(cTID('OrGl'), cTID('OrGl'), setGlow(data));
+  } catch (e) {
+    log(e);
+  }
+}
+
+setInnerGlow = function(desc2, data)
+{
+  try {
+    desc2.putObject(cTID('IrGl'), cTID('IrGl'), setGlow(data));
+  } catch (e) {
+    log(e);
+  }
+}
+
+setGlow = function(data)
+{
+  try {
+    var desc3 = new ActionDescriptor();
+    desc3.putBoolean(cTID('enab'), true);
+    desc3.putBoolean(sTID("present"), true);
+    desc3.putBoolean(sTID("showInDialog"), true);
+    desc3.putEnumerated(cTID('Md  '), cTID('BlnM'), Photoshop.blendingMode(data['blendingmode']));
+    var desc4 = new ActionDescriptor();
+    desc4.putDouble(cTID('Rd  '), data['color'][0]);
+    desc4.putDouble(cTID('Grn '), data['color'][1]);
+    desc4.putDouble(cTID('Bl  '), data['color'][2]);
+    desc3.putObject(cTID('Clr '), sTID("RGBColor"), desc4);
+    desc3.putUnitDouble(cTID('Opct'), cTID('#Prc'), data['opacity']);
+    desc3.putEnumerated(cTID('GlwT'), cTID('BETE'), cTID(Styles.GlowTechnique[data['technique']]));
+    desc3.putUnitDouble(cTID('Ckmt'), cTID('#Pxl'), data['spread']);
+    desc3.putUnitDouble(cTID('blur'), cTID('#Pxl'), data['size']);
+    desc3.putUnitDouble(cTID('Nose'), cTID('#Prc'), data['noise']);
+    desc3.putUnitDouble(cTID('ShdN'), cTID('#Prc'), data['jitter']);
+    desc3.putBoolean(cTID('AntA'), data['anti-aliased']);
+    var desc5 = new ActionDescriptor();
+    desc5.putString(cTID('Nm  '), data['contour']);
+    desc3.putObject(cTID('TrnS'), cTID('ShpC'), desc5);
+    desc3.putUnitDouble(cTID('Inpr'), cTID('#Prc'), data['range']);
+    return desc3;
+  } catch (e) {
+    log(e);
+  }
+}
+
 ArtLayer.prototype.setStyles = function(data, scale)
 {
   var s = (typeof scale !== 'undefined') ?  scale : 200;
@@ -193,6 +243,10 @@ ArtLayer.prototype.setStyles = function(data, scale)
         setColorOverlay(desc2, data[key]);
       } else if (key == 'stroke') {
         setStroke(desc2, data[key]);
+      } else if (key == 'innerGlow') {
+        setInnerGlow(desc2, data[key]);
+      } else if (key == 'outerGlow') {
+        setOuterGlow(desc2, data[key]);
       }
     }
 
