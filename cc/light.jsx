@@ -126,3 +126,44 @@ onMakeHighlightClick = function()
     log(e);
   }
 }
+
+const GlowStyle = {
+  'outerGlow': {
+    'blendingmode': 'screen',
+    'opacity': 92,
+    'noise': 3,
+    'color': [255, 255, 255],
+    'technique': 'softer',
+    'spread': 3,
+    'size': 6,
+    'contour': "Half Round",
+    'anti-aliased': false,
+    'range': 100,
+    'jitter': 0
+  }
+};
+
+onMakeLightSourceClick = function()
+{
+  try {
+    var advb = {'transparencyShapesLayer': false};
+    var doc = app.activeDocument;
+    var group = doc.addGroup('Light Source');
+    var l1 = doc.addLayer('Light', group, ElementPlacement.INSIDE);
+    l1.setAdvancedBlending(advb);
+    l1.setBlendingMode('color dodge');
+    doc.activeLayer = group; // otherwise empty layer gets replaced by solid color adjustment
+    var l2 = doc.addSolidColorAdjustment('Glow');
+    l2.setAdjustment([234, 213, 168]);
+    l2.invertMask();
+    l2.setBlendingMode('overlay');
+    var l3 = doc.addSolidColorAdjustment('Particles');
+    l3.setAdjustment([249, 219, 128]);
+    l3.invertMask();
+    l3.setBlendingMode('screen');
+    l3.setStyles(GlowStyle);
+    l3.fillOpacity = 50
+  } catch (e) {
+    log(e);
+  }
+}
