@@ -25,6 +25,7 @@ Document.prototype.activateLayer = function(layer)
 
 LayerSet.prototype.activate = ArtLayer.prototype.activate = function()
 {
+  this.parent.activate();
   if (app.activeDocument.activeLayer != this) {
     app.activeDocument.activeLayer = this;
   }
@@ -75,6 +76,7 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
 LayerSet.prototype.duplicateToDoc = ArtLayer.prototype.duplicateToDoc = function(destDoc)
 {
   try {
+    //log(this.name, destDoc, app.activeDocument.name)
     this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
@@ -465,9 +467,9 @@ Document.prototype.findGroup = function(name, parent)
   return this.findLayer(name, parent, 'LayerSet');
 }
 
-ArtLayer.prototype.moveToGroup = function(group)
+LayerSet.prototype.activate = ArtLayer.prototype.moveToGroup = function(group)
 {
-  if (group.typename == 'LayerSet') {
+  if (group && group.typename == 'LayerSet') {
     var before = group.layerSets.add();
     this.move(before, ElementPlacement.PLACEBEFORE); // Does not support ElementPlacement.INSIDE
     before.remove();
@@ -482,9 +484,6 @@ Document.prototype.addGroup = function(name)
   var group = app.activeDocument.layerSets.add();
   group.name = name;
   app.activeDocument.activeLayer = group;
-  if (typeof layer === 'object' &&  layerActive.typename == 'LayerSet') {
-    this.moveToGroup(group, layerActive)
-  }
   return group;
 }
 
