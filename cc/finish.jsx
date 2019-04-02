@@ -16,9 +16,11 @@ onHighPassSharpeningClick = function()
     layer.move(current, ElementPlacement.PLACEBEFORE);
     layer.applyHighPassEx(2.6, false);
     layer.setBlendingMode('hard light');
+    return layer;
   } catch (e) {
     log(e);
   }
+  return null;
 }
 
 onAddNoiseClick = function()
