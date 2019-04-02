@@ -76,8 +76,9 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
 LayerSet.prototype.duplicateToDoc = ArtLayer.prototype.duplicateToDoc = function(destDoc)
 {
   try {
-    //log(this.name, destDoc, app.activeDocument.name)
-    this.activate();
+    this.activate(); // TODO This fails. Why? Hence the two following lines.
+    app.activeDocument = this.parent;
+    app.activeDocument.activeLayer = this;
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
