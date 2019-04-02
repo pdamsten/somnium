@@ -265,7 +265,7 @@ onLightsDialogOK: function(data)
     }
     s = ''
     n = parseInt(data['items']['trigger']['value']);
-    if (n != 2) {
+    if (n != 3) {
       s += '\rTrigger: ' + data['items']['trigger']['values'][n];
     }
     n = parseInt(data['items']['stand']['value']);
