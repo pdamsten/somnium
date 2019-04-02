@@ -169,7 +169,9 @@ onClick: function()
 
     // Sharpening
     if (doc.findLayer('High Pass Sharpening') == null) {
-      onHighPassSharpeningClick();
+      var layer = onHighPassSharpeningClick();
+      layer.addMask(true);
+      layer.opacity = 60;
     }
 
     var l = doc.findLayer('Notes');
