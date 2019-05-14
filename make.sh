@@ -67,7 +67,7 @@ else
   read -p "Versions differ. Tag git? [Y/n]: " yn
   case $yn in
     [Nn]* ) echo "No tagging then...";;
-    * ) echo "Tagging new version: v$version"
-        git tag -a "v$SV" -m "new version $SV";;
+    * ) echo "Tagging new version: $SV"
+        git tag -a "$SV" -m "new version $SV";;
   esac
 fi
