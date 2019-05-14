@@ -57,8 +57,10 @@ onFillEmptyClick = function()
     var doc = app.activeDocument;
     var current = app.activeDocument.activeLayer;
     var stamp = doc.stampCurrentAndBelow();
-    current.alphaToSelection();
-    doc.inverseSelection();
+    if (!doc.hasSelection()) {
+      stamp.alphaToSelection();
+    }
+    doc.selection.invert();
     doc.expandSelection(2);
     stamp.activate();
     doc.contentAwareFill();
