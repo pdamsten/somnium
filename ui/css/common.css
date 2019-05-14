@@ -42,7 +42,6 @@ select {
   flex-grow: 1;
   vertical-align: middle;
   margin-right: 10px;
-  margin-left: 10px;
 }
 
 .greedy {
