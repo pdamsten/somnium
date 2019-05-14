@@ -12,6 +12,11 @@ var Settings = {
     "title": "Match",
     "help": "Make luminosity, saturation and hue check and adjustment layers for matching layer to background (or other way around)."
   },
+  "MakeLuminosity": {
+    "group": "Retouch",
+    "title": "Luminosity",
+    "help": "Make luminosity curve with saturation control."
+  },
   "CombineDocuments": {
     "group": "Retouch",
     "title": "Combine Documents",

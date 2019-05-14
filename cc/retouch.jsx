@@ -99,6 +99,7 @@ onMakeMatchClick = function()
     var lum = doc.addCurveAdjustment('Luminosity');
     lum.deleteMask();
     lum.move(current, ElementPlacement.PLACEBEFORE);
+    lum.setBlendingMode('luminosity');
     lum.grouped = true;
 
     var hue = doc.addSelectiveColorAdjustment('Hue');
@@ -116,6 +117,28 @@ onMakeMatchClick = function()
     onMatchTonesClick();
     onMakeSaturationMapClick();
     app.activeDocument.activeLayer = current;
+  } catch (e) {
+    log(e);
+  }
+}
+
+onMakeLuminosityClick = function()
+{
+  try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+
+    var group = doc.addGroup('Luminosity');
+    group.move(current, ElementPlacement.PLACEBEFORE);
+    group.addMask(true);
+
+    var lum = doc.addCurveAdjustment('Luminosity', group);
+    lum.deleteMask();
+    lum.setBlendingMode('luminosity');
+
+    var sat = doc.addHueSaturationAdjustment('Saturation', group);
+    sat.deleteMask();
+
   } catch (e) {
     log(e);
   }
