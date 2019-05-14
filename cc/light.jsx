@@ -32,12 +32,15 @@ onMakeCookieClick = function()
   }
 }
 
-onMakeVignetteClick = function()
+onMakeVignetteOK = function(data)
 {
   try {
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
     var doc = app.activeDocument;
     var current = doc.activeLayer;
-    var type = settings.value('MakeVignette', 'type');
+    var type = data['items']['type']['value'];
     var p = 0.1;
     var width = app.activeDocument.width.as("px");
     var height = app.activeDocument.height.as("px");
@@ -51,6 +54,34 @@ onMakeVignetteClick = function()
     l.invertMask();
     l.setMaskFeather(width * 0.1);
     l.setBlendingMode('luminosity');
+  } catch (e) {
+    log(e);
+  }
+}
+
+onMakeVignetteClick = function()
+{
+  try {
+    dlgdata = {
+      'title': 'Vignette',
+      "items": {
+        "type": {
+          "title": "Style:",
+          "type": "selection",
+          "value": "0",
+          "values": ["Elliptical", "Rectangular"]
+        }
+      },
+      'callback': 'onMakeVignetteOK'
+    };
+
+    var type = settings.value('MakeVignette', 'type');
+    if (type == 2) {
+      UI.openDialog(dlgdata);
+    } else {
+      dlgdata['items']['type']['value'] = type;
+      onMakeVignetteOK(dlgdata);
+    }
   } catch (e) {
     log(e);
   }
