@@ -16,6 +16,7 @@ rm -f actions/*.jsx
 
 mkdir com.petridamsten.somnium
 cp ../com.petridamsten.somnium/README com.petridamsten.somnium/
+cp ../com.petridamsten.somnium/ChangeLog com.petridamsten.somnium/
 mkdir com.petridamsten.somnium/actions
 cp ../com.petridamsten.somnium/actions/*.jsx com.petridamsten.somnium/actions/
 # Don't use megabyte LUTs...
@@ -24,6 +25,10 @@ cp ../com.petridamsten.somnium/assets/*.ps-lut-data com.petridamsten.somnium/ass
 cp ../com.petridamsten.somnium/assets/*.3DL com.petridamsten.somnium/assets/
 mkdir com.petridamsten.somnium/cc
 cp ../com.petridamsten.somnium/cc/*.js* com.petridamsten.somnium/cc/
+mkdir com.petridamsten.somnium/cc/lib
+cp ../com.petridamsten.somnium/cc/lib/*.jsx com.petridamsten.somnium/cc/lib/
+mkdir com.petridamsten.somnium/cc/libex
+cp ../com.petridamsten.somnium/cc/libex/*.js com.petridamsten.somnium/cc/libex/
 mkdir com.petridamsten.somnium/CSXS
 cp ../com.petridamsten.somnium/CSXS/*.xml com.petridamsten.somnium/CSXS/
 mkdir com.petridamsten.somnium/ui
@@ -49,10 +54,11 @@ ZXPSignCmd -sign com.petridamsten.somnium com.petridamsten.somnium.zxp selfDB.p1
 cd ..
 diff -r com.petridamsten.somnium tmp/com.petridamsten.somnium
 
+cd com.petridamsten.somnium
 echo -n "Latest version is "
 git describe --abbrev=0 --tags
 
-read -p "Do you want to tag new version to git (Enter = No): " version
+read -p "Enter new version for git (No 'v' in front) (Enter = No tag): " version
 if ! [[ -z "$version" ]]; then
    echo -n "Tagging new version: v$version"
    git tag -a "v$version" -m "new version $version"
