@@ -113,6 +113,11 @@ var Settings = {
     "title": "Highlight",
     "help": "Layer which enables you to draw highlights to an image. After applying use soft round brush with 1%-3% flow to paint on the mask."
   },
+  "MakeLightSource": {
+    "group": "Light",
+    "title": "Light Source",
+    "help": "Makes three layers to emulate light source:<ul><li>Light - Light source. Use light round soft brush and tap where the light should be.</li><li>Glow - Optional light glow. Use bigger white round soft brush to layer mask to add glow.</li><li>Particles - Optional particles. Use eg. debrii brush to add dust around the light.</li><ul/>"
+  },
 
   "Color": {
     "help": "Color gradings that I have used in my own images. Can be modified easily."
