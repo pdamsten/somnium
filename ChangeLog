@@ -2,10 +2,11 @@
 - Bug fixes
 - More color themes
 - Suffle mode for random color
-- Light source added to Light Tab
+- Add Light source to Light Tab
 - Use selection when making stamp if present
 - Use selection in Fill Empty if present
 - Add option to ask vignette type on creation
+- Add luminosity curve with saturation control
 
 1.0 2019-01-30
 - Initial release
