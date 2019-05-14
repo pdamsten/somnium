@@ -134,7 +134,7 @@ function json2html(id, items)
       var v = '"' + this.value + '"';
     }
     var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
-    console.log(fn);
+    //console.log(fn);
     csInterface.evalScript(fn);
   });
 
