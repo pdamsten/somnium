@@ -1,5 +1,23 @@
 #/bin/bash
 
+GV=$(git describe --abbrev=0 --tags)
+SV="v"$(cat CSXS/manifest.xml | sed -n 's/.*Version="\([0-9\.]*\)".*/\1/p' | head -1)
+echo "Current version manifext.xml is $SV"
+echo "Latest git version is $GV"
+
+if [ "$GV" == "$SV" ]; then
+    echo "No version pump -> No git tag."
+else
+  read -p "Versions differ [Y/n]: " yn
+  case $yn in
+    [Nn]* ) echo "No tagging then...";;
+    * ) echo "Tagging new version: v$version"
+        git tag -a "v$version" -m "new version $version";;
+  esac
+fi
+
+exit 0
+
 if [ ! -f ~/.pspassword ]; then
   echo "No password file"
   exit 1
@@ -55,11 +73,3 @@ cd ..
 diff -r com.petridamsten.somnium tmp/com.petridamsten.somnium
 
 cd com.petridamsten.somnium
-echo -n "Latest version is "
-git describe --abbrev=0 --tags
-
-read -p "Enter new version for git (No 'v' in front) (Enter = No tag): " version
-if ! [[ -z "$version" ]]; then
-   echo -n "Tagging new version: v$version"
-   git tag -a "v$version" -m "new version $version"
-fi
