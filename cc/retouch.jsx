@@ -149,10 +149,25 @@ onMakeFSClick = function()
   }
 }
 
+stampWithSelection = function()
+{
+  try {
+    var layer = app.activeDocument.stampCurrentAndBelow('Stamp from below');
+    if (app.activeDocument.hasSelection()) {
+      app.activeDocument.selection.invert();
+      app.activeDocument.selection.clear();
+      app.activeDocument.selection.invert();
+    }
+    return layer;
+  } catch (e) {
+    log(e);
+  }
+}
+
 onStampUnderClick = function(type)
 {
   try {
-    app.activeDocument.stampCurrentAndBelow('Stamp from below');
+    stampWithSelection();
   } catch (e) {
     log(e);
   }
@@ -161,7 +176,7 @@ onStampUnderClick = function(type)
 onSmartFromUnderClick = function(type)
 {
   try {
-    var layer = app.activeDocument.stampCurrentAndBelow('Stamp from below');
+    var layer = stampWithSelection();
     layer.convertToSmartObject();
   } catch (e) {
     log(e);
