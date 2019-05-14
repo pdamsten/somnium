@@ -1,4 +1,4 @@
-1.1 2019-05-14
+1.1.0 2019-05-14
 - Bug fixes
 - More color themes
 - Suffle mode for random color
@@ -8,5 +8,5 @@
 - Add option to ask vignette type on creation
 - Add luminosity curve with saturation control
 
-1.0 2019-01-30
+1.0.0 2019-01-30
 - Initial release
