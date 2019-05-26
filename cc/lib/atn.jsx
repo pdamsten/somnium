@@ -236,6 +236,11 @@ writeCommand: function(f, script)
   this.writeDescriptor(f, script);
 },
 
+fileName: function(n)
+{
+  return n.replace(/[^0-9a-zA-Z-_]/gi , '');
+},
+
 writeAction: function(f, setting, actions)
 {
   this.writeShort(f, 0); // Function key
@@ -246,7 +251,7 @@ writeAction: function(f, setting, actions)
   this.writeUnicodeString(f, name); // Name
   this.writeBoolean(f, 0); // Expanded
   this.writeLong(f, 1); // Command count
-  this.writeCommand(f, actions + name.replace(/ /g , '') + '.jsx');
+  this.writeCommand(f, actions + this.fileName(name) + '.jsx');
 },
 
 writeActionSet: function(f, settings, actions)
