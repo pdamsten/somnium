@@ -253,9 +253,17 @@ writeActionSet: function(f, settings, actions)
 {
   this.writeUnicodeString(f, 'Somnium'); // set name
   this.writeBoolean(f, 0); // expanded
-  this.writeLong(f, Object.keys(settings).length); // action count
+  var a = 0;
   for (var key in settings) {
-    this.writeAction(f, settings[key], actions);
+    if (settings[key].group != undefined) {
+      ++a;
+    }
+  }
+  this.writeLong(f, a); // action count
+  for (var key in settings) {
+    if (settings[key].group != undefined) {
+      this.writeAction(f, settings[key], actions);
+    }
   }
 },
 
