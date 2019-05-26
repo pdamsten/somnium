@@ -156,3 +156,50 @@ LayerSet.prototype.invertMask = ArtLayer.prototype.invertMask = function()
   }
   return true;
 }
+
+LayerSet.prototype.maskToSelection = ArtLayer.prototype.maskToSelection = function()
+{
+  try {
+    this.activate();
+    this.activateMask();
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Chnl'), sTID("selection"));
+    desc1.putReference(cTID('null'), ref1);
+    var ref2 = new ActionReference();
+    ref2.putEnumerated(cTID('Chnl'), cTID('Ordn'), cTID('Trgt'));
+    desc1.putReference(cTID('T   '), ref2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+LayerSet.prototype.saveMask = ArtLayer.prototype.saveMask = function(name)
+{
+  try {
+    this.activate();
+    this.maskToSelection();
+    app.activeDocument.saveSelection(name);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+LayerSet.prototype.loadMask = ArtLayer.prototype.loadMask = function(name)
+{
+  try {
+    this.activate();
+    this.deleteMask();
+    app.activeDocument.loadSelection(name);
+    this.addMask();
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
