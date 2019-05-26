@@ -58,6 +58,42 @@ Document.prototype.clearSelection = function()
   }
 }
 
+Document.prototype.saveSelection = function(name)
+{
+  try {
+    this.activate();
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Chnl'), sTID("selection"));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putString(cTID('Nm  '), name);
+    executeAction(cTID('Dplc'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
+Document.prototype.loadSelection = function(name)
+{
+  try {
+    this.activate();
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putProperty(cTID('Chnl'), sTID("selection"));
+    desc1.putReference(cTID('null'), ref1);
+    var ref2 = new ActionReference();
+    ref2.putName(cTID('Chnl'), name);
+    desc1.putReference(cTID('T   '), ref2);
+    executeAction(cTID('setd'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
 ArtLayer.prototype.alphaToSelection = function()
 {
   try {
