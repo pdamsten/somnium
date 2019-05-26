@@ -174,7 +174,7 @@
 
   function initColor()
   {
-    colorThemes = Object.keys(Colors);
+    colorThemes = Object.keys(Colors).sort();
     for (var i = 0; i < colorThemes.length; ++i) {
       $('#colorTheme').append($('<option>', {value: colorThemes[i], text: colorThemes[i]}));
     }
