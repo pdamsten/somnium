@@ -6,6 +6,8 @@ if [ ! -f ~/.pspassword ]; then
 fi
 PASSWORD=$(cat ~/.pspassword)
 
+rm -fR actions &>/dev/null
+mkdir actions
 ./fill_actions.py
 
 mkdir ../tmp &>/dev/null
