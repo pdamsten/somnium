@@ -169,5 +169,27 @@ var Colors = {
       "blendingmode": "color burn"
     },
     "default": 50,
+  },
+  "Contrast Teal": {
+    "Saturation" : {
+      "values": {
+        "master": [0, 0, 0],
+        "ranges": [[0, 30, 0, 315, 345, 15, 45],
+                   [-20, 0, 0, 15, 45, 75, 105],
+                   [-70, -100, 0, 75, 105, 135, 165],
+                   [-20, -30, 0, 195, 225, 265, 285]]
+      },
+      "adjust": "opacity",
+      "blendingmode": "normal"
+    },
+    "Curve" : {
+      "values": {
+        "master": [[10, 0],[64, 58],[160, 195],[255, 255]],
+        "red": [[20, 0],[64, 64],[128, 128],[192, 192],[255, 255]]
+      },
+      "adjust": "opacity",
+      "blendingmode": "normal"
+    },
+    "default": 75,
   }
 }
