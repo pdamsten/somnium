@@ -36,6 +36,11 @@ body {
   display: none;
 }
 
+#colorThemeBox {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
 .sliderbox, .fullwidth {
   width: 100%;
 }

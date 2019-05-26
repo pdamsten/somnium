@@ -20,7 +20,7 @@
     for (var key in evt.data) {
       if ($('#' + key).is('div') || $('#' + key).is('span')) {
         $('#' + key).html(evt.data[key]);
-      } else if ($('#' + key).is('input')) {
+      } else if ($('#' + key).is('input') || $('#' + key).is('select')) {
         $('#' + key).val(evt.data[key]);
       }
     }
@@ -175,8 +175,12 @@
   function initColor()
   {
     colorThemes = Object.keys(Colors);
+    for (var i = 0; i < colorThemes.length; ++i) {
+      $('#colorTheme').append($('<option>', {value: colorThemes[i], text: colorThemes[i]}));
+    }
+    $('#colorTheme').append($('<option>', {value: 'Random', text: 'Random'}));
+    $("#colorTheme").val('&nbsp;');
     $("#color").prop('max', colorThemes.length - 1);
-    $("#colorTheme").html('&nbsp;');
     $("#strength").prop('value', 0);
   }
 
@@ -234,6 +238,12 @@
     $("#color").change(function (e) { // or if users lets go do it immediately
       clearTimeout(delayTimer);
       changeTheme();
+    });
+
+    $("#colorTheme").change(function (e) {
+      clearTimeout(delayTimer);
+      var fn = "setColorTheme('" + $("#colorTheme").val() + "')";
+      callJsx(fn);
     });
 
     $("#strength").on("input", function (e) {

@@ -311,6 +311,10 @@ setColorTheme = function(data, strength)
 {
   try {
     //log('setColorTheme', data, strength);
+    if (data == 'Random') {
+      onRandomColorClick();
+      return;
+    }
     ColorGrading.checkColorThemes();
     var doc = app.activeDocument;
     var group = ColorGrading.checkColorThemeGroup();
