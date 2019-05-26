@@ -6,6 +6,23 @@
 //
 //**************************************************************************
 
+LayerSet.prototype.activateMask = ArtLayer.prototype.activateMask = function()
+{
+  try {
+    this.activate();
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
+    desc1.putReference(cTID('null'), ref1);
+    desc1.putBoolean(cTID('MkVs'), false);
+    executeAction(cTID('slct'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false; // No mask
+  }
+  return true;
+}
+
 LayerSet.prototype.hasMask = ArtLayer.prototype.hasMask = function()
 {
   try {
