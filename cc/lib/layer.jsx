@@ -266,7 +266,7 @@ ArtLayer.prototype.removeSmartFilters = function()
   }
 }
 
-ArtLayer.prototype.convertToSmartObject = function(name)
+LayerSet.prototype.convertToSmartObject = ArtLayer.prototype.convertToSmartObject = function(name)
 {
   try {
     this.activate();
@@ -602,7 +602,7 @@ ArtLayer.prototype.duplicateEx = function(name)
   }
 }
 
-ArtLayer.prototype.activateMask = function()
+LayerSet.prototype.activateMask = ArtLayer.prototype.activateMask = function()
 {
   try {
     this.activate();
