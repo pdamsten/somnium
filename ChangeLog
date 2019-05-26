@@ -1,7 +1,9 @@
-1.1.1 2019-05-14
+1.1.2 2019-05-26
 - Bug fixes
 - More color themes
 - Suffle mode for random color
+- Color theme selectable from combo box
+- Convert to smart object keeping mask
 - Add Light source to Light Tab
 - Use selection when making stamp if present
 - Use selection in Fill Empty if present
