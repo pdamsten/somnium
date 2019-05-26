@@ -241,3 +241,23 @@ onUpdateFromUnderClick = function(type)
     log(e);
   }
 }
+
+onSmartKeepingMaskClick = function(type)
+{
+  try {
+    var doc = app.activeDocument;
+    var layer = doc.activeLayer;
+    var name = layer.name + ' - layer mask';
+    var hasMask = layer.hasMask();
+    if (hasMask) {
+      layer.saveMask(name);
+      layer.deleteMask();
+    }
+    layer = layer.convertToSmartObject();
+    if (hasMask) {
+      layer.loadMask(name);
+    }
+  } catch (e) {
+    log(e);
+  }
+}

@@ -65,6 +65,11 @@ var Settings = {
     "title": "Update Smart Object",
     "help": "Smart object is updated to contents below. Works with 'Stamp Current And Below to Smart Object' (needs psb smart object with only one layer)."
   },
+  "SmartKeepingMask": {
+    "group": "Retouch",
+    "title": "To Smart, Keep Mask",
+    "help": "Convert to smart object keeping mask."
+  },
 
   "Light": {
     "help": "Tools for handling light with vignette, cookie lighting, dodge & burn."
