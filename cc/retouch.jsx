@@ -27,23 +27,31 @@ onMakeCleaningClick = function()
   }
 }
 
+function docsCompare(a, b)
+{
+  return (a.name).localeCompare(b.name);
+}
+
 onCombineDocumentsClick = function()
 {
   try {
     var doc = app.activeDocument;
-    var moved = false;
-    for (var i = app.documents.length - 1; i >= 0; --i) {
+    var docs = [];
+    for (var i = 0; i < app.documents.length; ++i) {
       if (app.documents[i] != doc) {
         if (app.documents[i].layers.length == 1) {
-          app.activeDocument = app.documents[i];
-          app.documents[i].layers[0].duplicateToDoc(doc.name);
-          app.documents[i].close(SaveOptions.DONOTSAVECHANGES);
-          moved = true;
+          docs.push(app.documents[i]);
         }
       }
     }
+    docs.sort(docsCompare);
+    for (var i = 0; i < docs.length; ++i) {
+      app.activeDocument = docs[i];
+      docs[i].layers[0].duplicateToDoc(doc.name);
+      docs[i].close(SaveOptions.DONOTSAVECHANGES);
+    }
     app.activeDocument = doc;
-    if (moved == false) {
+    if (docs.length == 0) {
       return UI.msg(UI.WARNING, 'Combine Documents', 'Could not find any single layer documents.');
     }
   } catch (e) {
