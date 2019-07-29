@@ -179,7 +179,7 @@ checkDir = function()
 // Layer name == file name => +m +s +f +r
 // Other layers => -m -s -f -r
 //
-// example (?ms) => show without maks and open smart object
+// example (?ms) => show without mask and open smart object
 
 default_flags = function(layer)
 {
