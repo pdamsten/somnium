@@ -25,11 +25,23 @@ Document.prototype.activateLayer = function(layer)
 
 LayerSet.prototype.activate = ArtLayer.prototype.activate = function()
 {
-  this.parent.activate();
+  this.document().activate();
   if (app.activeDocument.activeLayer != this) {
     app.activeDocument.activeLayer = this;
   }
   return app.activeDocument.activeLayer;
+}
+
+LayerSet.prototype.document = ArtLayer.prototype.document = function()
+{
+  var p = this;
+  for (i = 0; i < 32; ++i) {
+    if (p.typename == 'Document') {
+      return p;
+    }
+    p = p.parent;
+  }
+  return undefined;
 }
 
 Document.prototype.activate = function()
@@ -76,9 +88,7 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
 LayerSet.prototype.duplicateToDoc = ArtLayer.prototype.duplicateToDoc = function(destDoc)
 {
   try {
-    this.activate(); // TODO This fails. Why? Hence the two following lines.
-    app.activeDocument = this.parent;
-    app.activeDocument.activeLayer = this;
+    this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
