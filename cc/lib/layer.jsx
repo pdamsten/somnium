@@ -478,7 +478,7 @@ Document.prototype.findGroup = function(name, parent)
   return this.findLayer(name, parent, 'LayerSet');
 }
 
-LayerSet.prototype.activate = ArtLayer.prototype.moveToGroup = function(group)
+LayerSet.prototype.moveToGroup = ArtLayer.prototype.moveToGroup = function(group)
 {
   if (group && group.typename == 'LayerSet') {
     var before = group.layerSets.add();
