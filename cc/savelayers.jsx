@@ -94,7 +94,7 @@ onSaveLayersClick = function()
     if (active == newDoc) {
       return UI.msg(UI.ERROR, 'Save Layers', 'Could not make a duplicate.');
     }
-    mainPath = addPathSep(File(addPathSep(path) + docname).fsName);
+    mainPath = addPathSep(File(addPathSep(path) + Path.simplename(docname)).fsName);
     var layers = getFlags(newDoc.listLayers());
     //takeScreenshotsFromLayers(layers);
     pindex = 0;
