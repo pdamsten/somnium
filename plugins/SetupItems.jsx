@@ -114,7 +114,7 @@ dlgdata = {
       "title": "Remote:",
       "type": "selection",
       "value": "0",
-      "values": ["None", "Camranger", "Hähnel Giga T Pro II"]
+      "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote"]
     },
     "trigger": {
       "title": "Trigger:",
