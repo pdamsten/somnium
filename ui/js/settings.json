@@ -408,7 +408,7 @@ var Settings = {
   "SaveLayers": {
     "group": "Finish",
     "title": "Save Layers",
-    "help": "This makes layers animation from bottom to top which shows how editing progresses. I use this to make animations from my editing process to blog, instagram, youtube, ...",
+    "help": "This makes layers animation from bottom to top which shows how editing progresses. I use this to make animations from my editing process to blog, instagram, youtube,...<br>Flags (?msfr) in layer name:<ul><li>m = show with and without mask</li><li>s = open smart object</li> <li>f = show with and without smart filters</li><li>r = Show these first</li></ul>",
     "config": {
       "path": {
         "title": "Save layers output folder:",
