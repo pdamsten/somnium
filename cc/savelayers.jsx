@@ -350,8 +350,7 @@ handleLayers = function(layers, func)
   writeTextFile(d + 'convert.txt', mogrify);
   writeTextFile(d + 'ffmpeg.txt', ffmpeg + ffmpeglast);
 
-  var parts = app.activeDocument.name.split(".");
-  var fname = parts[0];
+  var fname = Path.simplename(docname);
   var fr = 0;
   var n = pindex - 1;
   var insta = '-vf "scale=1080:1080:force_original_aspect_ratio=decrease,pad=1080:1080:(ow-iw)/2:(oh-ih)/2" ';
