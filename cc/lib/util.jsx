@@ -199,7 +199,7 @@ msg: function(type, title, txt)
 };})();
 
 
-Document.prototype.contentAwareFill = function(tool)
+Document.prototype.contentAwareFill = function()
 {
   try {
     app.activeDocument.activate();
@@ -209,6 +209,26 @@ Document.prototype.contentAwareFill = function(tool)
     desc1.putUnitDouble(cTID('Opct'), cTID('#Prc'), 100);
     desc1.putEnumerated(cTID('Md  '), cTID('BlnM'), cTID('Nrml'));
     executeAction(cTID('Fl  '), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+Document.prototype.contentAwareFillDialog = function()
+{
+  try {
+    app.activeDocument.activate();
+    var desc1 = new ActionDescriptor();
+    desc1.putEnumerated(sTID("cafColorAdaptationLevel"), sTID("cafColorAdaptationLevel"),
+                        sTID("cafColorAdaptationDefault"));
+    desc1.putEnumerated(sTID("cafRotationAmount"), sTID("cafRotationAmount"),
+                        sTID("cafRotationAmountNone"));
+    desc1.putBoolean(sTID("cafScale"), false);
+    desc1.putBoolean(sTID("cafMirror"), false);
+    desc1.putEnumerated(sTID("cafOutput"), sTID("cafOutput"), sTID("cafOutputToNewLayer"));
+    executeAction(sTID('cafWorkspace'), desc1, DialogModes.ALL);
   } catch (e) {
     log(e);
     return false;
