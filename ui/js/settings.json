@@ -42,8 +42,16 @@ var Settings = {
   },
   "FillEmpty": {
     "group": "Retouch",
-    "title": "Fill Empty Areas",
-    "help": "If layer has empty (opaque) areas this can fill them with content aware fill quickly."
+    "title": "Content Aware Fill",
+    "help": "Makes a stamp so it works for all underlying layers and RAW. If there is no selection it selects empty areas.",
+    "config": {
+      "style": {
+        "title": "Style:",
+        "type": "selection",
+        "value": "0",
+        "values": ["Auto", "Dialog (CC 2019)"]
+      }
+    }
   },
   "BlendIf2Mask": {
     "group": "Retouch",
