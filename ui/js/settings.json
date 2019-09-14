@@ -43,7 +43,7 @@ var Settings = {
   "FillEmpty": {
     "group": "Retouch",
     "title": "Content Aware Fill",
-    "help": "Makes a stamp so it works for all underlying layers and RAW. If there is no selection it selects empty areas.",
+    "help": "Makes a stamp so it works for all underlying layers and RAW. If there is no selection it selects empty areas. With dialog please leave 'Output To:' to 'New Layer'",
     "config": {
       "style": {
         "title": "Style:",
