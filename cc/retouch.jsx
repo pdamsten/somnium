@@ -62,17 +62,24 @@ onCombineDocumentsClick = function()
 onFillEmptyClick = function()
 {
   try {
+    var type = settings.value('FillEmpty', 'style');
     var doc = app.activeDocument;
     var current = app.activeDocument.activeLayer;
     var stamp = doc.stampCurrentAndBelow();
     if (!doc.hasSelection()) {
       stamp.alphaToSelection();
+      doc.selection.invert();
+      doc.expandSelection(2);
     }
-    doc.selection.invert();
-    doc.expandSelection(2);
     stamp.activate();
-    doc.contentAwareFill();
-    stamp.duplicateEx('Fill');
+    if (type == 0) { // Auto
+      doc.contentAwareFill();
+      stamp.duplicateEx('Fill');
+    } else {
+      UI.msg(UI.INFO, 'Content Aware Fill', 'Please leave "Output To:" to "New Layer"')
+      doc.contentAwareFillDialog();
+      app.activeDocument.activeLayer.name = 'Fill';
+    }
     stamp.remove();
   } catch (e) {
     log(e);
