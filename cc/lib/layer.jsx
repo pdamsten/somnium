@@ -131,7 +131,7 @@ LayerSet.prototype.smartObjectInfo = ArtLayer.prototype.smartObjectInfo = functi
       info['hasFX'] = desc.hasKey(sTID("filterFX"));
 
       fext = info['fileref'].substr(info['fileref'].length - 4).toLowerCase();
-      if (fext == '.psb') {
+      if (fext == '.psb' || fext == '.psd') {
         info['type'] = 'photoshop';
       } else if (RAW.indexOf(fext) > -1) {
         info['type'] = 'raw';
