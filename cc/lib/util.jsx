@@ -74,17 +74,12 @@ simplename: function(filename)
     log(s[i], s.charAt(i), LATIN[i]);
     s[i] = LATIN[i] ? LATIN[i] : s[i];
   }*/
-  log(filename, s);
   for (var i = 0; i < REPLACECHARS.length; ++i) {
     var re = new RegExp(REPLACECHARS[i][0], "g");
     s = s.replace(re, REPLACECHARS[i][1]);
-    log(i, REPLACECHARS[i][0]);
   }
-  log(filename, s);
   s = s.replace(/[^\x00-\x7F]/g, '');
-  log(filename, s);
   s = s.replace(/_{2,}/g, '_');
-  log(filename, s);
   s = s.substring(0, 64);
   return s;
 },
