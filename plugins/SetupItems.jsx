@@ -68,14 +68,15 @@ light = {
     "value": "0",
     "values": ["Godox AD200", "Godox AD600BM", "Godox QS600", "Godox QS300",
                "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX",
-               "Elinchrom RX4", "Elinchrom RX2"]
+               "Elinchrom RX4", "Elinchrom RX2", "Natural Light"]
   },
   "modifier": {
     "title": "Modifier:",
     "type": "selection",
     "value": "0",
     "values": ["18cm Reflector", "90cm Octabox", "120cm Octabox", "150cm Octabox",
-               "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox"]
+               "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox", "Fresnel Head",
+               "Fresnel Lens", "None"]
   },
   "accessory": {
     "title": "Accessory:",
