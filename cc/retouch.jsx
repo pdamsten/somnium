@@ -81,6 +81,7 @@ onFillEmptyClick = function()
       app.activeDocument.activeLayer.name = 'Fill';
     }
     stamp.remove();
+    app.activeDocument.clearSelection();
   } catch (e) {
     log(e);
   }
@@ -198,6 +199,7 @@ stampWithSelection = function()
       app.activeDocument.selection.clear();
       app.activeDocument.selection.invert();
     }
+    app.activeDocument.clearSelection();
     return layer;
   } catch (e) {
     log(e);
