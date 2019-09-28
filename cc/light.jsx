@@ -179,7 +179,9 @@ onMakeLightSourceClick = function()
   try {
     var advb = {'transparencyShapesLayer': false};
     var doc = app.activeDocument;
+    var current = doc.activeLayer;
     var group = doc.addGroup('Light Source');
+    group.move(current, ElementPlacement.PLACEBEFORE);
     var l1 = doc.addLayer('Light', group, ElementPlacement.INSIDE);
     l1.setAdvancedBlending(advb);
     l1.setBlendingMode('color dodge');
