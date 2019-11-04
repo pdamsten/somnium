@@ -92,7 +92,7 @@ light = {
     "title": "Gel:",
     "type": "selection",
     "value": "0",
-    "values": ["None", "102 Primary Red", "106 Light Scarlet",
+    "values": ["None", "Orange", "102 Primary Red", "106 Light Scarlet",
                "201 Deep Purple Rose", "206 Medium Purple Rose",
                "404 Golden Amber", "405 Light Amber",
                "501 Deep Yellow", "503 Yellow",
@@ -115,7 +115,8 @@ dlgdata = {
       "title": "Remote:",
       "type": "selection",
       "value": "0",
-      "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote"]
+      "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
+                 "ControlMyCamera app"]
     },
     "trigger": {
       "title": "Trigger:",
