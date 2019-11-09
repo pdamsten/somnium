@@ -76,7 +76,7 @@ light = {
     "value": "0",
     "values": ["18cm Reflector", "90cm Octabox", "120cm Octabox", "150cm Octabox",
                "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox", "Fresnel Head",
-               "Fresnel Lens", "None"]
+               "Fresnel Lens", "Snoot", "None"]
   },
   "accessory": {
     "title": "Accessory:",
