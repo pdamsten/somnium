@@ -76,7 +76,7 @@ light = {
     "value": "0",
     "values": ["18cm Reflector", "90cm Octabox", "120cm Octabox", "150cm Octabox",
                "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox", "Fresnel Head",
-               "Fresnel Lens", "Snoot", "None"]
+               "Fresnel Lens", "Snoot", "15cm bulb", "None"]
   },
   "accessory": {
     "title": "Accessory:",
@@ -92,7 +92,7 @@ light = {
     "title": "Gel:",
     "type": "selection",
     "value": "0",
-    "values": ["None", "Orange", "102 Primary Red", "106 Light Scarlet",
+    "values": ["None", "#23 Orange", "102 Primary Red", "106 Light Scarlet",
                "201 Deep Purple Rose", "206 Medium Purple Rose",
                "404 Golden Amber", "405 Light Amber",
                "501 Deep Yellow", "503 Yellow",
