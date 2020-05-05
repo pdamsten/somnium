@@ -59,7 +59,7 @@ light = {
     "title": "Role:",
     "type": "selection",
     "value": "0",
-    "values": ["None", "Key Light", "Accent Light", "Hair Light", "Fill Light",
+    "values": ["None", "Key Light", "Rim Light", "Accent Light", "Hair Light", "Fill Light",
                "Background Light"]
   },
   "flash": {
@@ -92,7 +92,8 @@ light = {
     "title": "Gel:",
     "type": "selection",
     "value": "0",
-    "values": ["None", "#23 Orange", "102 Primary Red", "106 Light Scarlet",
+    "values": ["None", "#23 Orange", "#26 Light Red",
+               "102 Primary Red", "106 Light Scarlet",
                "201 Deep Purple Rose", "206 Medium Purple Rose",
                "404 Golden Amber", "405 Light Amber",
                "501 Deep Yellow", "503 Yellow",
