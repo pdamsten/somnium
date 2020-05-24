@@ -149,7 +149,7 @@ uniqueFilename: function(path, name, ext)
 
 };})();
 
-UI = (function() {
+SUI = (function() {
 
 var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
 var LAST_MESSAGE = '';

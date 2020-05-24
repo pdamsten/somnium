@@ -13,7 +13,7 @@ onDefringeMaskClick = function()
     layer.applyGaussianBlurEx(2.0);
     layer.adjustLevelsEx([[180, 255, 1.0], [0, 255]]);
   } else {
-    return UI.msg(UI.WARNING, 'Defringe Mask', 'No Layer mask.');
+    return SUI.msg(SUI.WARNING, 'Defringe Mask', 'No Layer mask.');
   }
 }
 
@@ -52,7 +52,7 @@ onCombineDocumentsClick = function()
     }
     app.activeDocument = doc;
     if (docs.length == 0) {
-      return UI.msg(UI.WARNING, 'Combine Documents', 'Could not find any single layer documents.');
+      return SUI.msg(SUI.WARNING, 'Combine Documents', 'Could not find any single layer documents.');
     }
   } catch (e) {
     log(e);
@@ -76,7 +76,7 @@ onFillEmptyClick = function()
       doc.contentAwareFill();
       stamp.duplicateEx('Fill');
     } else {
-      UI.msg(UI.INFO, 'Content Aware Fill', 'Please leave "Output To:" to "New Layer"')
+      SUI.msg(SUI.INFO, 'Content Aware Fill', 'Please leave "Output To:" to "New Layer"')
       doc.contentAwareFillDialog();
       app.activeDocument.activeLayer.name = 'Fill';
     }

@@ -12,7 +12,7 @@ exportFile = function(key)
     var path = settings.value(key, 'path');
     var filename = Path.uniqueFilename(path, app.activeDocument.name, '.jpg');
     if (filename === false) {
-      return UI.LAST_MESSAGE;
+      return SUI.LAST_MESSAGE;
     }
     var size = settings.value(key, 'maxsize').split('x');
     var minsize = settings.value(key, 'minsize').split('x');
@@ -20,9 +20,9 @@ exportFile = function(key)
     color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
     if (app.activeDocument.saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
                                       parseInt(minsize[0]), parseInt(minsize[1]), color)) {
-      var s = UI.msg(UI.INFO, 'Export', filename + ' saved succesfully.');
+      var s = SUI.msg(SUI.INFO, 'Export', filename + ' saved succesfully.');
     } else {
-      var s = UI.msg(UI.ERROR, 'Export', 'Saving ' + filename + ' failed.');
+      var s = SUI.msg(SUI.ERROR, 'Export', 'Saving ' + filename + ' failed.');
     }
     return s;
   } catch (e) {
@@ -92,7 +92,7 @@ onSaveLayersClick = function()
     var newDoc = app.activeDocument.duplicate(String.random(8));
 
     if (active == newDoc) {
-      return UI.msg(UI.ERROR, 'Save Layers', 'Could not make a duplicate.');
+      return SUI.msg(SUI.ERROR, 'Save Layers', 'Could not make a duplicate.');
     }
     mainPath = addPathSep(File(addPathSep(path) + Path.simplename(docname)).fsName);
     var layers = getFlags(newDoc.listLayers());
@@ -110,11 +110,11 @@ onSaveLayersClick = function()
     var m = Math.floor(t / 1000 / 60);
     var s = (t / 1000.0) % 60;
     log('SaveLayers took:', m, 'minutes', s, 'seconds');
-    return UI.msg(UI.INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
+    return SUI.msg(SUI.INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
   } catch (e) {
     log(e);
   }
-  return UI.msg(UI.ERROR, 'Save Layers', 'Saving layers failed.');
+  return SUI.msg(SUI.ERROR, 'Save Layers', 'Saving layers failed.');
 }
 
 saveLayersAsJpgs = function(layers)

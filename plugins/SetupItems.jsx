@@ -102,7 +102,7 @@ light = {
   }
 };
 
-dlgdata = {
+lightDlg = {
   'title': 'Select Lights',
   "items": {
     "stand": {
@@ -217,10 +217,10 @@ onClick: function()
     for (var i = 0; i < LIGHTS; ++i) {
       light['header']['title'] = 'Light ' + (i + 1);
       for (key in light) {
-        dlgdata['items'][key + (i + 1)] = Object.deepCopy(light[key]);
+        lightDlg['items'][key + (i + 1)] = Object.deepCopy(light[key]);
       }
     }
-    UI.openDialog(dlgdata);
+    SUI.openDialog(lightDlg);
   } catch (e) {
     log(e);
   }

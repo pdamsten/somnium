@@ -14,7 +14,7 @@ return { // public:
 
 sendToConsole: function(txt)
 {
-  UI.dispatchEvent('console', txt);
+  SUI.dispatchEvent('console', txt);
 },
 
 objectToString: function(obj, prefix)

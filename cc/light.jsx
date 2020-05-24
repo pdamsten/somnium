@@ -62,7 +62,7 @@ onMakeVignetteOK = function(data)
 onMakeVignetteClick = function()
 {
   try {
-    dlgdata = {
+    vignetteDlg = {
       'title': 'Vignette',
       "items": {
         "type": {
@@ -77,10 +77,10 @@ onMakeVignetteClick = function()
 
     var type = settings.value('MakeVignette', 'type');
     if (type == 2) {
-      UI.openDialog(dlgdata);
+      SUI.openDialog(vignetteDlg);
     } else {
-      dlgdata['items']['type']['value'] = type;
-      onMakeVignetteOK(dlgdata);
+      vignetteDlg['items']['type']['value'] = type;
+      onMakeVignetteOK(vignetteDlg);
     }
   } catch (e) {
     log(e);

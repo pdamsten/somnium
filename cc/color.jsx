@@ -364,7 +364,7 @@ setColorTheme = function(data, strength)
     }
     app.activeDocument.activeLayer = group;
 
-    UI.setElements({"colorTheme": ColorGrading.themeName(), "color": ColorGrading.themeIndex(),
+    SUI.setElements({"colorTheme": ColorGrading.themeName(), "color": ColorGrading.themeIndex(),
                     "strength": data['strength']});
   } catch (e) {
     log(e);
