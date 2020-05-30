@@ -142,6 +142,39 @@ onMakeDBClick = function()
   }
 }
 
+onQuickDBClick = function()
+{
+  try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+    var layer = doc.stampCurrentAndBelow('Quick Dodge and Burn');
+    layer.desaturate();
+    layer.setBlendingMode('soft light');
+    layer.applyHighPassEx(200, false);
+    layer.opacity = 50;
+    layer.addMask();
+    layer.invertMask();
+    layer.move(current, ElementPlacement.PLACEBEFORE);
+  } catch (e) {
+    log(e);
+  }
+}
+
+onQuickBoostClick = function()
+{
+  try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+    l = doc.addChannelMixer('Quick Boost');
+    l.setChannelMixer([-30, 60, 80], 0, true);
+    l.setBlendingMode('soft light');
+    l.opacity = 30;
+    l.deleteMask(l);
+  } catch (e) {
+    log(e);
+  }
+}
+
 onMakeHighlightClick = function()
 {
   try {
@@ -152,7 +185,7 @@ onMakeHighlightClick = function()
     l.setAdjustment([255, 255, 255]);
     l.setBlendingMode('soft light');
     l.addMask();
-    l.invertMask(l);
+    l.invertMask();
   } catch (e) {
     log(e);
   }

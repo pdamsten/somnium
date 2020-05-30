@@ -113,6 +113,16 @@ var Settings = {
     "title": "Luminosity",
     "help": "Make luminosity curve with saturation control."
   },
+  "QuickBoost": {
+    "group": "Light",
+    "title": "Quick Boost",
+    "help": "Quick boost using channel mixer."
+  },
+  "QuickDB": {
+    "group": "Light",
+    "title": "Quick Dodge and Burn",
+    "help": "Makes layer that you can mask to areas where you need quick dodge and burn."
+  },
   "MakeDB": {
     "group": "Light",
     "title": "Dodge And Burn",
