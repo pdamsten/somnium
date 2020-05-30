@@ -12,11 +12,6 @@ var Settings = {
     "title": "Match",
     "help": "Make luminosity, saturation and hue check and adjustment layers for matching layer to background (or other way around)."
   },
-  "MakeLuminosity": {
-    "group": "Retouch",
-    "title": "Luminosity",
-    "help": "Make luminosity curve with saturation control."
-  },
   "CombineDocuments": {
     "group": "Retouch",
     "title": "Combine Documents",
@@ -112,6 +107,11 @@ var Settings = {
     "group": "Light",
     "title": "Faded and Contrast",
     "help": "Makes contrast/faded look layer."
+  },
+  "MakeLuminosity": {
+    "group": "Light",
+    "title": "Luminosity",
+    "help": "Make luminosity curve with saturation control."
   },
   "MakeDB": {
     "group": "Light",

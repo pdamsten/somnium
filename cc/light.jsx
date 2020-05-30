@@ -200,3 +200,25 @@ onMakeLightSourceClick = function()
     log(e);
   }
 }
+
+onMakeLuminosityClick = function()
+{
+  try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+
+    var group = doc.addGroup('Luminosity');
+    group.move(current, ElementPlacement.PLACEBEFORE);
+    group.addMask(true);
+
+    var lum = doc.addCurveAdjustment('Luminosity', group);
+    lum.deleteMask();
+    lum.setBlendingMode('luminosity');
+
+    var sat = doc.addHueSaturationAdjustment('Saturation', group);
+    sat.deleteMask();
+
+  } catch (e) {
+    log(e);
+  }
+}
