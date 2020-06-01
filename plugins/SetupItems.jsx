@@ -209,7 +209,11 @@ onClick: function()
           'ISO: ' + data['iso'];
       l = doc.findLayer('INFO');
       l.textItem.contents = s;
+      app.activeDocument.info.title = data['title'] + ' -setup';
+      app.activeDocument.info.creationDate = data['creationdate'];
     }
+
+    app.activeDocument.info.keywords = ['setup', 'lighting diagram', 'bts', 'blog'];
 
     // Show dialog for lighting information
 
