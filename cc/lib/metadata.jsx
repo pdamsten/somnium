@@ -46,6 +46,7 @@ get: function(filename)
     data['exposure'] = calc(xmp.getProperty(XMPConst.NS_EXIF, "ExposureTime").toString());
     data['focallength'] = xmp.getProperty(XMPConst.NS_EXIF, "FocalLengthIn35mmFilm").toString();
     data['iso'] = xmp.getProperty(XMPConst.NS_EXIF, "ISOSpeedRatings[1]").toString();
+    data['creationdate'] = xmp.getProperty(XMPConst.NS_XMP, "CreateDate").toString();
   } catch (e) {
     log(e);
   }
