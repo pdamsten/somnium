@@ -144,19 +144,49 @@ onMakeDBClick = function()
   }
 }
 
-onQuickDBClick = function()
+onQuickDBClickOK = function(data)
 {
   try {
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
+    settings.saveDlgValues(data);
     var doc = app.activeDocument;
     var current = doc.activeLayer;
     var layer = doc.stampCurrentAndBelow('Quick Dodge and Burn');
     layer.desaturate();
-    layer.setBlendingMode('soft light');
+    if (data['items']['type']['value'] == 0) {
+      layer.setBlendingMode('soft light');
+    } else {
+      layer.setBlendingMode('vivid light');
+    }
     layer.applyHighPassEx(200, false);
     layer.opacity = 50;
     layer.addMask();
     layer.invertMask();
     layer.move(current, ElementPlacement.PLACEBEFORE);
+  } catch (e) {
+    log(e);
+  }
+}
+
+onQuickDBClick = function()
+{
+  try {
+    dbDlg = {
+      'title': 'Quick Dodge and Burn',
+      "items": {
+        "type": {
+          "title": "Strength:",
+          "type": "selection",
+          "value": 0,
+          "values": ["Normal (Soft Light)", "Strong (Vivid Light)"]
+        }
+      },
+      'callback': 'onQuickDBClickOK'
+    };
+    settings.loadDlgValues(dbDlg);
+    SUI.openDialog(dbDlg);
   } catch (e) {
     log(e);
   }
