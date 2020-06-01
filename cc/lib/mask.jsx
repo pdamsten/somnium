@@ -70,7 +70,7 @@ LayerSet.prototype.addMask = ArtLayer.prototype.addMask = function(hidden)
 LayerSet.prototype.enableMask = ArtLayer.prototype.enableMask = function(enable)
 {
   try {
-    if (!(this.hasMask(layer))) {
+    if (!(this.hasMask())) {
       return false;
     }
     this.activate();
