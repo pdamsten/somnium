@@ -50,6 +50,20 @@ Settings.prototype.value = function(group, key, value)
   }
 }
 
+Settings.prototype.saveDlgValues = function(dlgData)
+{
+  for (var key in dlgData['items']) {
+    this.value(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value']);
+  }
+}
+
+Settings.prototype.loadDlgValues = function(dlgData)
+{
+  for (var key in dlgData['items']) {
+    dlgData['items'][key]['value'] = this.value(dlgData['title'] + '-Dlg', key);
+  }
+}
+
 Settings.prototype.constantData = function()
 {
   return this.constant;
@@ -64,11 +78,13 @@ Settings.prototype.loadConfig = function()
 {
   try {
     var f = File(this.mainPath + 'config.json');
+    f.encoding = "BINARY"; // For proper line ending
     f.open('r');
     var content = f.read();
     f.close();
     this.config = JSON.parse(content);
   } catch (e) {
+    log(e);
   }
 }
 
@@ -76,8 +92,9 @@ Settings.prototype.saveConfig = function()
 {
   try {
     var f = File(this.mainPath + 'config.json');
+    f.encoding = "BINARY"; // For proper line ending
     f.open('w');
-    f.write(JSON.stringify(this.config));
+    f.write(JSON.stringify(this.config, null, 2));
     f.close();
   } catch (e) {
     log(e);

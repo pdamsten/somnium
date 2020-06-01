@@ -2,15 +2,16 @@
 //
 //   Copyright (c) 2018 by Petri Damstén <petri.damsten@gmail.com>
 //
-//   Main javascript file in ui side.
+//   Common javascript funcs.
 //
 //**************************************************************************
 
-function input(id, cls, type)
+function input(id, cls, type, val)
 {
   cls = (cls == undefined) ? '': ' ' + cls;
   type = (type == undefined) ? '': ' data-type="' + type + '" ';
-  return '<input id="' + id + '" class="ccwidget ' + cls + '" value=""' + type + '>';
+  val = (val == undefined) ? '': val;
+  return '<input id="' + id + '" class="ccwidget ' + cls + '" value="' + val + '"' + type + '>';
 }
 
 function html2json(id, items)
@@ -39,12 +40,12 @@ function json2html(id, items)
     if (type == 'text') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
       html += '<div class="column">';
-      html += input(id + '-' + key, 'fullwidth');
+      html += input(id + '-' + key, 'fullwidth', null, items[key]['value']);
       html += '</div>';
     } else if (type == 'folder') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
       html += '<div class="multicolumn"><div class="column greedy">';
-      html += input(id + '-' + key);
+      html += input(id + '-' + key, null, null, items[key]['value']);
       html += '</div><div class="column">';
       html += '<button data-title="' + items[key]['title'] +
               '" data-type="folderBrowse" data-id="' + id + '-' + key +
@@ -52,24 +53,26 @@ function json2html(id, items)
       html += '</div></div>';
     } else if (type == 'text') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
-      html += input(id + '-' + key);
+      html += input(id + '-' + key, null, null, items[key]['value']);
     } else if (type == 'pixelsize') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
-      html += input(id + '-' + key + '_x', 'coordinate', type);
+      html += input(id + '-' + key + '_x', 'coordinate', type, items[key]['value']);
       html += ' x ';
-      html += input(id + '-' + key + '_y', 'coordinate', type);
+      html += input(id + '-' + key + '_y', 'coordinate', type, items[key]['value']);
     } else if (type == 'color') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
       html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker"></div>';
     } else if (type == 'boolean') {
-      html += '<input type="checkbox" data-type="boolean" id="' + id + '-' + key + '">  ' +
-              items[key]['title'] + '<br>';
+      var chk = (i == items[key]['value']) ? 'checked' : '';
+      html += '<input type="checkbox" data-type="boolean" id="' + id + '-' +
+              key + '" ' + chk + '>' + items[key]['title'] + '<br>';
     } else if (type == 'selection') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
       html += '<select id="' + id + '-' + key + '" class="ccwidget ccselect">';
       for (var i in items[key]['values']) {
         var v = items[key]['values'][i];
-        html += '<option value="' + i + '">' + v + '</option>';
+        var sel = (i == items[key]['value']) ? 'selected' : '';
+        html += '<option value="' + i + '" ' + sel + '>' + v + '</option>';
       }
       html += '</select>';
     } else if (type == 'label') {

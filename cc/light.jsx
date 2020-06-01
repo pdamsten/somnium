@@ -37,6 +37,7 @@ onMakeVignetteOK = function(data)
   try {
     if (typeof data == "string") {
       data = JSON.parse(data);
+      settings.saveDlgValues(data);
     }
     var doc = app.activeDocument;
     var current = doc.activeLayer;
@@ -68,12 +69,13 @@ onMakeVignetteClick = function()
         "type": {
           "title": "Style:",
           "type": "selection",
-          "value": "0",
+          "value": 0,
           "values": ["Elliptical", "Rectangular"]
         }
       },
       'callback': 'onMakeVignetteOK'
     };
+    settings.loadDlgValues(vignetteDlg);
 
     var type = settings.value('MakeVignette', 'type');
     if (type == 2) {
