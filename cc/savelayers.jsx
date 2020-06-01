@@ -225,6 +225,10 @@ flags = function(layer)
         v = false;
         ++n;
         continue;
+      } if (layer.name[n] == '+') {
+        v = true;
+        ++n;
+        continue;
       } else if (layer.name[n] == ')') {
         break;
       } else if (layer.name[n] == 'm') {
@@ -236,9 +240,11 @@ flags = function(layer)
       } else if (layer.name[n] == 'r') {
         f.main = v;
       }
+      v = true;
       ++n;
     }
   }
+  //log(layer.name, f);
   return f;
 }
 
