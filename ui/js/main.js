@@ -309,6 +309,12 @@
     $(".tabbtn").click(function () {
       showTab($(this).attr('id'));
     });
+
+    $("body").on('contextmenu', ':not(.iconButton)', function () {
+      //console.log($(this).attr('id'), $(this).hasClass('iconButton'));
+      return false;
+    });
+
   }
 
   init();
