@@ -19,11 +19,11 @@ g = ''
 
 for key in settings:
     if not 'group' in settings[key]:
-        print
-        print key.upper()
-        print
-        print settings[key]['help']
+        print()
+        print(key.upper())
+        print()
+        print(settings[key]['help'])
         continue
-    print u'• ' + settings[key]['title'] + ' - ' + settings[key]['help']
+    print('• ' + settings[key]['title'] + ' - ' + settings[key]['help'])
     with open('./actions/' + name(settings[key]['group']) + '-' + name(settings[key]['title']) + '.jsx', 'w') as f:
         f.write(s1 + key + s2);
