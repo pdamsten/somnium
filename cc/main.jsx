@@ -80,6 +80,7 @@ function init(path)
 
     include(jsxPath + 'libex/json2.js');
     include(jsxPath + 'libex/mozilla.js');
+    include(jsxPath + 'libex/polyfill.js');
 
     // tabs
     include(jsxPath + 'retouch.jsx');

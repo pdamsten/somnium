@@ -1,8 +1,14 @@
-//**************************************************************************
+//************************************************************************************************
 //
 //   Mozilla implementations for features ps js does not have
 //
-//**************************************************************************
+//*************************************************************************************************
+//
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+//
+//*************************************************************************************************
 
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
 if (!String.prototype.repeat) {
@@ -42,24 +48,6 @@ if (!String.prototype.repeat) {
     str += str.substring(0, maxCount - str.length);
     return str;
   }
-}
-
-// https://github.com/uxitten/polyfill/blob/master/string.polyfill.js
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
-if (!String.prototype.padStart) {
-    String.prototype.padStart = function padStart(targetLength, padString) {
-        targetLength = targetLength >> 0; //truncate if number, or convert non-number to 0;
-        padString = String(typeof padString !== 'undefined' ? padString : ' ');
-        if (this.length >= targetLength) {
-            return String(this);
-        } else {
-            targetLength = targetLength - this.length;
-            if (targetLength > padString.length) {
-                padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
-            }
-            return padString.slice(0, targetLength) + String(this);
-        }
-    };
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
