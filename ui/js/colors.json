@@ -34,6 +34,47 @@ var Colors = {
     },
     "default": 50
   },
+  "Masculinity": {
+    "Multi Color Tint" : {
+      "values": {
+        "colors": [[38, 38, 79, 0, 50], [84, 51, 24, 27, 50], [192, 141, 78, 100, 50]],
+      },
+      "adjust": "opacity",
+      "opacity": 30,
+      "blendingmode": "color"
+    },
+    "Saturation" : {
+      "values": {
+        "master": [0, -19, 0]
+      },
+      "adjust": "none",
+      "blendingmode": "normal"
+    },
+    "default": 50
+  },
+  "Black Widow": {
+    "LUT" : {
+      "values": "%PHOTOSHOP%/Presets/3DLUTs/Candlelight.CUBE",
+      "adjust": "opacity",
+      "opacity": 78,
+      "blendingmode": "normal"
+    },
+    "Curve" : {
+      "values": {
+        "blue": [[0, 30],[255, 131]]
+      },
+      "adjust": "values",
+      "blendingmode": "normal"
+    },
+    "Saturation" : {
+      "values": {
+        "master": [0, -35, 0]
+      },
+      "adjust": "none",
+      "blendingmode": "normal"
+    },
+    "default": 50
+  },
   "Heart in a Jar": {
     "Color Balance" : {
       "values": {
