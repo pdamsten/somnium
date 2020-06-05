@@ -130,7 +130,7 @@ lightDlg = {
       "type": "selection",
       "value": "0",
       "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
-                 "ControlMyCamera app"]
+                 "ControlMyCamera app", "Yongnuo YN-622N & YN-622-TX"]
     },
     "trigger": {
       "title": "Trigger:",
