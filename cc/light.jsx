@@ -32,6 +32,31 @@ onMakeCookieClick = function()
   }
 }
 
+onMakeSpotlightClick = function(data)
+{
+  try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+    var p = 0.2;
+    var width = app.activeDocument.width.as("px");
+    var height = app.activeDocument.height.as("px");
+    if (width > height) {
+      v = height / 2;
+    } else {
+      v = width / 2;
+    }
+    var c = [v - v * p, v - v * p, v + v * p, v + v * p];
+    doc.makeSelection('new', 0, c, 0.5);
+    l = doc.addSolidColorAdjustment('Spot Light', [255, 255, 255]);
+    l.move(current, ElementPlacement.PLACEBEFORE);
+    l.setMaskFeather(v * 0.1);
+    l.opacity = 75;
+    l.setBlendingMode('soft light');
+  } catch (e) {
+    log(e);
+  }
+}
+
 onMakeVignetteOK = function(data)
 {
   try {
