@@ -103,6 +103,11 @@ var Settings = {
       }
     }
   },
+  "MakeSpotlight": {
+    "group": "Light",
+    "title": "Spotlight",
+    "help": "Makes layer that works like spotlight that can be moved around the image."
+  },
   "MakeWashOut": {
     "group": "Light",
     "title": "Faded and Contrast",
