@@ -124,7 +124,6 @@ saveLayersAsJpgs = function(layers)
 
 saveJpg = function(layer)
 {
-  layer.visible = true;
   app.activeDocument.saveAsJpeg(output('layer-', '.jpg'), 3840, 2160);
 }
 
@@ -172,12 +171,13 @@ checkDir = function()
 // s = open smart object
 // f = show with and without smart filters
 // r = Show these first
+// p = skip this layer
 //
 // Defaults
-// PSB smart object => -m +s -f -r
-// RAW smart object => -m -s -f -r
-// Layer name == file name => +m +s +f +r
-// Other layers => -m -s -f -r
+// PSB smart object => -m +s -f -r -p
+// RAW smart object => -m -s -f -r -p
+// Layer name == file name => +m +s +f +r -p
+// Other layers => -m -s -f -r -p
 //
 // example (?ms) => show without mask and open smart object
 
@@ -193,21 +193,24 @@ default_flags = function(layer)
       mask: true,
       filter: true,
       smart: true,
-      main: true
+      main: true,
+      skip: false
     };
   } else if (info != false && info['type'] == 'photoshop') {
     var f = {
       mask: false,
       filter: false,
       smart: true,
-      main: false
+      main: false,
+      skip: false
     };
   } else {
     var f = {
       mask: false,
       filter: false,
       smart: false,
-      main: false
+      main: false,
+      skip: false
     };
   }
   return f;
@@ -239,6 +242,8 @@ flags = function(layer)
         f.smart = v;
       } else if (layer.name[n] == 'r') {
         f.main = v;
+      } else if (layer.name[n] == 'p') {
+        f.skip = v;
       }
       v = true;
       ++n;
@@ -267,6 +272,10 @@ handleLayer = function(layers, n, func)
   // layers[n].visible == original visibility
   // layer.visible == already handled
   if (layer.visible || !layers[n].visible) {
+    return;
+  }
+  layer.visible = true;
+  if (layers[n].flags.skip) {
     return;
   }
   //log(layer.name, layers[n].flags.smart, layer.visible, layers[n].visible); return;
@@ -381,7 +390,6 @@ handleLayers = function(layers, func)
 // Experimental
 takeScreenshot = function(layer)
 {
-  layer.visible = true;
   app.activeDocument.activeLayer = layer;
   app.refresh();
   app.system("/usr/sbin/screencapture -x -m -T 0 " + output('screenshot-', '.png'));

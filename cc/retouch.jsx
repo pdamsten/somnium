@@ -143,7 +143,7 @@ onMakeFSClick = function()
   try {
     var doc = app.activeDocument;
     var type = settings.value('MakeFS', 'style');
-    var lo = doc.stampCurrentAndBelow('Low Frequence');
+    var lo = doc.stampCurrentAndBelow('Low Frequence (?+p)');
     var hi = lo.duplicateEx('High Frequence');
     var layers = [];
     hi.visible = false;
@@ -155,7 +155,7 @@ onMakeFSClick = function()
     hi.setBlendingMode('linear light');
     layers.push(hi);
     if (type == 1) { // With helper
-      var lo2 = lo.duplicateEx('Low Frequence Blurred');
+      var lo2 = lo.duplicateEx('Low Frequence Blurred (?+p)');
       lo2.applyGaussianBlurEx(9.0);
       layers.push(lo2);
     }
