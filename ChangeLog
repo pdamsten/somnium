@@ -1,3 +1,13 @@
+1.2.0 2020-06-06
+- Bug fixes
+- Content aware fill that works with RAW and with no premade selections (opaque areas are filled)
+- Luminosity adjustment moved to light tab
+- Quick boost
+- Quick dodge & burn
+- Save dialog selections for the next time
+- Spotlight tool
+- Now under GPL license
+
 1.1.2 2019-05-26
 - Bug fixes
 - More color themes
