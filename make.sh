@@ -48,10 +48,10 @@ cp ../com.petridamsten.somnium/ui/js/libs/*.js com.petridamsten.somnium/ui/js/li
 rm com.petridamsten.somnium.zxp &>/dev/null
 
 if [ ! -f selfDB.p12 ]; then
-  ZXPSignCmd -selfSignedCert FI PS PetriDamsten "Petri Damstén" "$PASSWORD" selfDB.p12
+  ZXPSignCmd-64bit -selfSignedCert FI PS PetriDamsten "Petri Damstén" "$PASSWORD" selfDB.p12
 fi
 
-ZXPSignCmd -sign com.petridamsten.somnium com.petridamsten.somnium.zxp selfDB.p12 "$PASSWORD" -tsa http://timestamp.digicert.com/
+ZXPSignCmd-64bit -sign com.petridamsten.somnium com.petridamsten.somnium.zxp selfDB.p12 "$PASSWORD" -tsa http://timestamp.digicert.com/
 
 cd ..
 diff -r com.petridamsten.somnium tmp/com.petridamsten.somnium
