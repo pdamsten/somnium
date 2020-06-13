@@ -33,9 +33,20 @@ if (typeof Document === 'undefined') {
   Document = function() {};
 }
 
+isDebug = function()
+{
+  var d = new File(pluginPath + 'debug.sh');
+  if (d.exists) { // We are in developing environment
+    return true;
+  }
+  return false;
+}
+
 log = function() // default implementation until we have full log
 {
-  alert(arguments);
+  if (isDebug()) {
+    alert(arguments);
+  }
 }
 
 function include(path)
@@ -66,6 +77,21 @@ addPathSep = function(path)
   return path;
 }
 
+mkdir = function(dir)
+{
+  try {
+    var folder = Folder(dir);
+
+    if(!folder.exists) {
+      folder.create();
+    }
+  } catch(e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
 function init(path)
 {
   try {
@@ -74,13 +100,13 @@ function init(path)
     var jsxPath = addPathSep(pluginPath + 'cc');
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
 
-    include(jsxPath + 'lib/util.jsx');
-    Path.mkdir(userDataPath);
+    mkdir(userDataPath);
 
     include(jsxPath + 'lib/log.jsx');
     Log.init(userDataPath + 'log.txt');
 
     // libs
+    include(jsxPath + 'lib/util.jsx');
     include(jsxPath + 'lib/layer.jsx');
     include(jsxPath + 'lib/mask.jsx');
     include(jsxPath + 'lib/adjustment.jsx');
@@ -119,15 +145,6 @@ function init(path)
 function onLogoClick()
 {
   openURL('http://petridamsten.com/');
-}
-
-isDebug = function()
-{
-  var d = new File(pluginPath + 'debug.sh');
-  if (d.exists) { // We are in developing environment
-    return true;
-  }
-  return false;
 }
 
 onColorPickerClick = function(color)

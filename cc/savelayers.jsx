@@ -175,7 +175,7 @@ output = function(prefix, suffix)
 checkDir = function()
 {
   var s = addPathSep(File(mainPath).fsName);
-  Path.mkdir(s);
+  mkdir(s);
   return s;
 }
 

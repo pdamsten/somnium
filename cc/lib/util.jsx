@@ -125,26 +125,11 @@ removeExt: function(filename)
   return filename.split('.').slice(0, -1).join('.');
 },
 
-mkdir: function(dir)
-{
-  try {
-    var folder = Folder(dir);
-
-    if(!folder.exists) {
-      folder.create();
-    }
-  } catch(e) {
-    log(e);
-    return false;
-  }
-  return true;
-},
-
 uniqueFilename: function(path, name, ext)
 {
   path = addPathSep(File(path).fsName); // absolute path
   name = Path.removeExt(name);
-  if (Path.mkdir(path)) {
+  if (mkdir(path)) {
     var add = '';
     var n = 0;
     while (1) {
