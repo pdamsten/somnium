@@ -18,6 +18,7 @@ rm -f actions/*.jsx
 
 mkdir com.petridamsten.somnium
 cp ../com.petridamsten.somnium/README com.petridamsten.somnium/
+cp ../com.petridamsten.somnium/COPYING com.petridamsten.somnium/
 cp ../com.petridamsten.somnium/ChangeLog com.petridamsten.somnium/
 mkdir com.petridamsten.somnium/actions
 cp ../com.petridamsten.somnium/actions/*.jsx com.petridamsten.somnium/actions/
