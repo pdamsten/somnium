@@ -224,7 +224,7 @@
 
   function init()
   {
-    setTimeout(function() { initJsx(); }, 500); // Getting random undefined errors from ps side
+    initJsx();
     initColor();
     csInterface.evalScript('isDebug()', function(result) {
       if (result == 'true') { // Yes string after eval
