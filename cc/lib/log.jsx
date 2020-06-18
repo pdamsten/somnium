@@ -34,50 +34,6 @@ sendToConsole: function(txt)
   }
 },
 
-objectToString: function(obj, prefix)
-{
-  var s = '';
-  prefix = (typeof prefix === 'undefined') ? '' : prefix;
-  if (prefix.length > 2) return;
-
-  for (var o in obj) {
-    if (obj.hasOwnProperty(o)) {
-      try {
-        s += prefix + o + ' = ' + obj[o] + '\n';
-        if (typeof obj[o] === 'object' && !(obj[o] instanceof Array)) {
-          s += this.objectToString(obj[o], prefix + '  ');
-        }
-      } catch (e) {
-        s += prefix + o + ' = ' + e.message + '\n';
-      }
-    }
-  }
-  return s;
-},
-
-exceptionToString: function(obj)
-{
-  var a = obj.source.split('\n');
-  var fn = '';
-  var line = a[obj.line - 1].replace(/^\s+|\s+$/g, '');
-  for (var i = obj.line; i >= 0; --i) {
-    if (a[i].indexOf('function') >= 0) {
-      fn = a[i];
-      fn = fn.replace('function', '');
-      fn = fn.replace(/[{}=]/g, '');
-      fn = fn.replace(/\(.*\)/, '');
-      fn = fn.replace(/^\s+|\s+$/g, ''); // Trim
-      break;
-    }
-  }
-  return '(' + fn + ':' + (obj.line) + ') ' + line + ' : ' + obj.message;
-},
-
-isException: function(obj)
-{
-  return obj.hasOwnProperty('source') && obj.hasOwnProperty('line');
-},
-
 isoDate: function()
 {
   var date = new Date();
@@ -105,7 +61,7 @@ write: function(arguments)
 {
   try {
     var s = this.isoDate();
-    s += arguments2string(arguments);
+    s += argumentsToString(arguments);
     var f = new File(logFile);
     f.open('a');
     f.encoding = "BINARY"; // For proper line ending

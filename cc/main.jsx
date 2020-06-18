@@ -33,40 +33,6 @@ if (typeof Document === 'undefined') {
   Document = function() {};
 }
 
-isDebug = function()
-{
-  var d = new File(pluginPath + 'debug.sh');
-  if (d.exists) { // We are in developing environment
-    return true;
-  }
-  return false;
-}
-
-arguments2string = function(arguments)
-{
-  var s = '';
-  for (var i = 0; i < arguments.length; ++i) {
-    if (typeof arguments[i] == 'object') {
-      if (this.isException(arguments[i])) {
-        s += ' ' + this.exceptionToString(arguments[i]);
-      } else {
-        s += ' ' + this.objectToString(arguments[i]);
-      }
-    } else {
-      s += ' ' + arguments[i];
-    }
-  }
-  return s;
-}
-
-salert = function()
-{
-  if (isDebug()) {
-    alert(arguments2string(arguments));
-  }
-}
-var log = salert; // default implementation until we have full log
-
 function include(path)
 {
   try {
@@ -114,8 +80,10 @@ function init(path)
 {
   try {
     pluginPath = path;
-
     var jsxPath = addPathSep(pluginPath + 'cc');
+
+    $.evalFile(jsxPath + 'lib/log-basic.jsx');
+
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
     mkdir(userDataPath);
     include(jsxPath + 'lib/log.jsx');
