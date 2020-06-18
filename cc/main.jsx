@@ -42,12 +42,30 @@ isDebug = function()
   return false;
 }
 
-log = function() // default implementation until we have full log
+arguments2string = function(arguments)
+{
+  var s = '';
+  for (var i = 0; i < arguments.length; ++i) {
+    if (typeof arguments[i] == 'object') {
+      if (this.isException(arguments[i])) {
+        s += ' ' + this.exceptionToString(arguments[i]);
+      } else {
+        s += ' ' + this.objectToString(arguments[i]);
+      }
+    } else {
+      s += ' ' + arguments[i];
+    }
+  }
+  return s;
+}
+
+salert = function()
 {
   if (isDebug()) {
-    alert(arguments);
+    alert(arguments2string(arguments));
   }
 }
+var log = salert; // default implementation until we have full log
 
 function include(path)
 {
@@ -99,9 +117,7 @@ function init(path)
 
     var jsxPath = addPathSep(pluginPath + 'cc');
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
-
     mkdir(userDataPath);
-
     include(jsxPath + 'lib/log.jsx');
     Log.init(userDataPath + 'log.txt');
 

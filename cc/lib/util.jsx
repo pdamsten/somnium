@@ -178,7 +178,7 @@ dispatchEvent: function(e, data)
       event.dispatch();
     }
   } catch (e) {
-    //alert(e.message);
+    salert(e);
   }
 },
 

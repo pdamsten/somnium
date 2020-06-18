@@ -27,7 +27,11 @@ return { // public:
 
 sendToConsole: function(txt)
 {
-  SUI.dispatchEvent('console', txt);
+  if (typeof SUI !== 'undefined') {
+    SUI.dispatchEvent('console', txt);
+  } else {
+    salert(txt);
+  }
 },
 
 objectToString: function(obj, prefix)
@@ -101,17 +105,7 @@ write: function(arguments)
 {
   try {
     var s = this.isoDate();
-    for (var i = 0; i < arguments.length; ++i) {
-      if (typeof arguments[i] == 'object') {
-        if (this.isException(arguments[i])) {
-          s += ' ' + this.exceptionToString(arguments[i]);
-        } else {
-          s += ' ' + this.objectToString(arguments[i]);
-        }
-      } else {
-        s += ' ' + arguments[i];
-      }
-    }
+    s += arguments2string(arguments);
     var f = new File(logFile);
     f.open('a');
     f.encoding = "BINARY"; // For proper line ending
@@ -119,7 +113,7 @@ write: function(arguments)
     f.close();
     this.sendToConsole(s);
   } catch (e) {
-    alert(e.message);
+    salert("Log write: ", e);
   }
 }
 

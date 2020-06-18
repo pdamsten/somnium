@@ -90,7 +90,7 @@ var themeManager = (function () {
       addRule(styleId, ":root", "--svg-color: " + brightnessFilter + ";");
       addRule(styleId, ":root", "--svg-color-bg: " + brightnessFilterBg + ";");
     } catch(err) {
-      alert(err.message);
+      alert('updateThemeWithAppSkinInfo: ' + err.message);
     }
   }
 
