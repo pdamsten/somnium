@@ -90,12 +90,15 @@ Settings.prototype.version = function()
 Settings.prototype.loadConfig = function()
 {
   try {
+    this.config = {};
     var f = File(this.mainPath + 'config.json');
     f.encoding = "BINARY"; // For proper line ending
     f.open('r');
     var content = f.read();
     f.close();
-    this.config = JSON.parse(content);
+    if (typeof content == 'string' && content != '') {
+      this.config = JSON.parse(content);
+    }
   } catch (e) {
     log(e);
   }
