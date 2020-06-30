@@ -163,7 +163,7 @@ onMakeFSClick = function()
     lo.applyGaussianBlurEx(7.0);
     layers.push(lo);
     hi.visible = true;
-    var params = ["RGB", "Low Frequence", 'subtract', 2, 128];
+    var params = ["RGB", "Low Frequence (?+p)", 'subtract', 2, 128];
     hi.applyImage(params, false);
     hi.setBlendingMode('linear light');
     layers.push(hi);
