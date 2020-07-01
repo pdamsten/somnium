@@ -166,12 +166,14 @@ onClick: function()
     doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
 
     // NIK Tonal
+    /*
     if (!current.hasSmartFilters()) {
       if (current.kind != LayerKind.SMARTOBJECT) {
         current.convertToSmartObject(current.name);
       }
       nikTonalContrast();
     }
+    */
 
     // Dodge & Burn
     if (doc.findLayer('Dodge & Burn') == null) {
