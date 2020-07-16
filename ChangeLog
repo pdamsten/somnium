@@ -1,3 +1,7 @@
+1.2.3 2020-06-27
+- Frequency separation fixed
+- Save layers infinite loop fixed
+
 1.2.2 2020-06-18
 - Better logging
 - Fix settings reading
