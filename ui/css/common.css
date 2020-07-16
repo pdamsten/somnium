@@ -51,10 +51,18 @@ select {
   align-items: stretch;
 }
 
-.column {
+.column, .column-text {
   flex-grow: 1;
   vertical-align: middle;
   margin-right: 10px;
+}
+
+.column-text {
+  text-transform: uppercase;
+  font-size: 10px;
+  vertical-align: bottom;
+  color: var(--txt-color);
+  padding-top: 10px;
 }
 
 .greedy {

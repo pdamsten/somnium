@@ -27,6 +27,43 @@
   var colorThemes = [];
   var buttonId = null;
   var dialogData = "";
+  var colorPicker = new iro.ColorPicker('#picker', {
+    width: 180,
+    layoutDirection: "horizontal",
+    borderWidth: 2,
+    sliderSize: 20,
+    colors: [
+      'rgb(100%, 0, 0)', // pure red
+      'rgb(0, 100%, 0)', // pure green
+      'rgb(0, 0, 100%)', // pure blue
+    ],
+    layout: [
+      {
+        component: iro.ui.Wheel,
+        options: {
+          borderColor: '#ffffff',
+        }
+      },
+      {
+        component: iro.ui.Slider,
+        options: {
+          sliderType: 'saturation'
+        }
+      },
+      {
+        component: iro.ui.Slider,
+        options: {
+          sliderType: 'saturation'
+        }
+      },
+      {
+        component: iro.ui.Slider,
+        options: {
+          sliderType: 'saturation'
+        }
+      }
+    ]
+  });
 
   csInterface.addEventListener("com.petridamsten.somnium.setui", function(evt) {
     //console.log('Setting UI', evt.data);
