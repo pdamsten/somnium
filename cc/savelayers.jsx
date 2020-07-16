@@ -268,13 +268,15 @@ flags = function(layer)
 
 enableLayerMasks = function(layers, n, enable)
 {
-  i = n;
-  hadMask = false;
-  while (i != -1) {
+  var i = n;
+  var guard = 100;
+  var hadMask = false;
+  while (i != -1 && guard > 0) {
     if (layers[i].layer.enableMask(enable)) {
       hadMask = true;
     }
     i = layers[i].parent;
+    --guard;
   }
   return hadMask;
 }
@@ -291,7 +293,7 @@ handleLayer = function(layers, n, func)
   if (layers[n].flags.skip) {
     return;
   }
-  //log(layer.name, layers[n].flags.smart, layer.visible, layers[n].visible); return;
+  //log(layer.name, layers[n].flags.smart, layer.visible, layers[n].visible, layers[n].flags.mask);
   if (layer.kind == LayerKind.SMARTOBJECT && layers[n].flags.smart) {
     var info = layer.smartObjectInfo();
     if (info) {
