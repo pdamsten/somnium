@@ -149,7 +149,7 @@ uniqueFilename: function(path, name, ext)
 
 SUI = (function() {
 
-var xLib = new ExternalObject("lib:\PlugPlugExternalObject");
+var xLib = null;
 var LAST_MESSAGE = '';
 
 return { // public:
@@ -171,6 +171,9 @@ openDialog: function(data)
 dispatchEvent: function(e, data)
 {
   try {
+    if (!xLib) {
+      xLib = new ExternalObject("lib:\PlugPlugExternalObject");
+    }
     if (xLib) {
       var event = new CSXSEvent();
       event.type = 'com.petridamsten.somnium.' + e;
