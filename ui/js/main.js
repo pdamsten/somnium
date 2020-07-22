@@ -30,12 +30,12 @@
   var colorPicker = new iro.ColorPicker('#picker', {
     width: 180,
     layoutDirection: "horizontal",
-    borderWidth: 2,
+    //borderWidth: 2,
     sliderSize: 20,
     colors: [
-      'rgb(100%, 0, 0)', // pure red
-      'rgb(0, 100%, 0)', // pure green
-      'rgb(0, 0, 100%)', // pure blue
+      'hsl(0, 100%, 45%)',
+      'hsl(120, 100%, 45%)',
+      'hsl(240, 100%, 45%)',
     ],
     layout: [
       {
@@ -47,19 +47,19 @@
       {
         component: iro.ui.Slider,
         options: {
-          sliderType: 'saturation'
+          sliderType: 'alpha'
         }
       },
       {
         component: iro.ui.Slider,
         options: {
-          sliderType: 'saturation'
+          sliderType: 'alpha'
         }
       },
       {
         component: iro.ui.Slider,
         options: {
-          sliderType: 'saturation'
+          sliderType: 'alpha'
         }
       }
     ]
@@ -363,6 +363,14 @@
     $("body").on('contextmenu', ':not(.iconButton)', function () {
       //console.log($(this).attr('id'), $(this).hasClass('iconButton'));
       return false;
+    });
+
+    colorPicker.on('color:change', function(color) {
+      var n = colorPicker.colors.length;
+      for (var i = 1; i < n; ++i) {
+        colorPicker.colors[(color.index + i) % n].setChannel('hsl', 'h',
+                           (color.hsl.h + (i * 120)) % 360);
+      }
     });
 
   }
