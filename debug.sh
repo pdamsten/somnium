@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# remove extension installed from the cloud
+rm -fR /Library/Application\ Support/Adobe/CEP/extensions/com.petridamsten.somnium
+# link to home dir
 ln -nsf "$(pwd)" ~/Library/Application\ Support/Adobe/CEP/extensions/com.petridamsten.somnium
 
 cat > .debug <<EOL
