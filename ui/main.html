@@ -6,11 +6,6 @@
 <title>Somnium</title>
 </head>
 <body>
-  <div id="header" class="ccheader">
-    <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="40">
-    <h1 id="tabTitle"></h1>
-  </div>
-
   <div id="dialog">
     <h1 id="dlgHeader"></h1>
     <img id="closeDlg" class="close" src="img/icon-close.svg">
@@ -44,235 +39,273 @@
       <div id="Helpers" class="tabbtn clickable" data-title="Help Layers">
         <img class="ccsvg" src="img/icon-life-saver.svg" height="32">
       </div>
-    </div>
-
-    <div id="HelpersTab" class="tab">
-      <div class="tabcontent">
-        <div id="MakeAll" class="iconButton">
-          <img src="img/icon-make_all.svg">
-          Make All
-        </div>
-        <div id="MakeMemo" class="iconButton">
-          <img src="img/icon-memo.svg">
-          Memo
-        </div>
-        <div id="MakePerspectiveLines" class="iconButton">
-          <img src="img/icon-perspective.svg">
-          Perspective Lines
-        </div>
-        <div id="MakeSolarisation" class="iconButton">
-          <img src="img/icon-solarisation.svg">
-          Solar- isation
-        </div>
-        <div id="MakeSkinChecker" class="iconButton">
-          <img src="img/icon-skin_checker.svg">
-          Skin Check
-        </div>
-        <div id="MakeLightness" class="iconButton">
-          <img src="img/icon-luminosity.svg">
-          Luminosity Check
-        </div>
-        <div id="MakeSaturationMap" class="iconButton">
-          <img src="img/icon-saturation.svg">
-          Saturation Check
-        </div>
-        <div id="MatchTones" class="iconButton">
-          <img src="img/icon-tones.svg">
-          Hue Check
-        </div>
-        <div id="DeleteAll" class="iconButton">
-          <img src="img/icon-delete.svg">
-          Delete All
-        </div>
-        <div id="BlendIf" class="iconButton">
-          <img src="img/icon-blendif.svg">
-          Blend If
-        </div>
+      <div id="About" class="tabbtn clickable" data-title="About">
+        <img class="ccsvg" src="img/icon-about.svg" height="32">
       </div>
     </div>
 
-    <div id="FinishTab" class="tab">
-      <div class="tabcontent">
-        <div id="HighPassSharpening" class="iconButton">
-          <img src="img/icon-highpass_sharpening.svg">
-          High Pass Sharpening
+    <div id="tabcontent">
+      <div id="header" class="ccheader">
+        <img class="ccsvg" onClick="location.reload()" src="img/somnium-logo.svg" height="40">
+        <h1 id="tabTitle"></h1>
+      </div>
+
+      <div id="HelpersTab" class="tab">
+        <div class="tabcontent">
+          <div id="MakeAll" class="iconButton">
+            <img src="img/icon-make_all.svg">
+            Make All
+          </div>
+          <div id="MakeMemo" class="iconButton">
+            <img src="img/icon-memo.svg">
+            Memo
+          </div>
+          <div id="MakePerspectiveLines" class="iconButton">
+            <img src="img/icon-perspective.svg">
+            Perspective Lines
+          </div>
+          <div id="MakeSolarisation" class="iconButton">
+            <img src="img/icon-solarisation.svg">
+            Solar- isation
+          </div>
+          <div id="MakeSkinChecker" class="iconButton">
+            <img src="img/icon-skin_checker.svg">
+            Skin Check
+          </div>
+          <div id="MakeLightness" class="iconButton">
+            <img src="img/icon-luminosity.svg">
+            Luminosity Check
+          </div>
+          <div id="MakeSaturationMap" class="iconButton">
+            <img src="img/icon-saturation.svg">
+            Saturation Check
+          </div>
+          <div id="MatchTones" class="iconButton">
+            <img src="img/icon-tones.svg">
+            Hue Check
+          </div>
+          <div id="DeleteAll" class="iconButton">
+            <img src="img/icon-delete.svg">
+            Delete All
+          </div>
+          <div id="BlendIf" class="iconButton">
+            <img src="img/icon-blendif.svg">
+            Blend If
+          </div>
         </div>
-        <div id="AddNoise" class="iconButton">
-          <img src="img/icon-noise.svg">
-          Add Noise
+      </div>
+
+      <div id="FinishTab" class="tab">
+        <div class="tabcontent">
+          <div id="HighPassSharpening" class="iconButton">
+            <img src="img/icon-highpass_sharpening.svg">
+            High Pass Sharpening
+          </div>
+          <div id="AddNoise" class="iconButton">
+            <img src="img/icon-noise.svg">
+            Add Noise
+          </div>
+          <br/>
+          <div id="SaveFb" class="iconButton ">
+            <img src="img/icon-fb.svg">
+            Save 2 Facebook
+          </div>
+          <div id="SaveInsta" class="iconButton ">
+            <img src="img/icon-instagram.svg">
+            Save 2 Instagram
+          </div>
+          <div id="SaveTwitter" class="iconButton ">
+            <img src="img/icon-twitter.svg">
+            Save 2 Twitter
+          </div>
+          <div id="Save4K" class="iconButton ">
+            <img src="img/icon-4k.svg">
+            Save 4K
+          </div>
+          <div id="Export1" class="iconButton ">
+            <img src="img/icon-export.svg">
+            <span class="iconButtonTitle">Export 1</span>
+          </div>
+          <div id="Export2" class="iconButton ">
+            <img src="img/icon-export.svg">
+            <span class="iconButtonTitle">Export 2</span>
+          </div>
+          <div id="Export3" class="iconButton ">
+            <img src="img/icon-export.svg">
+            <span class="iconButtonTitle">Export 3</span>
+          </div>
+          <div id="Export4" class="iconButton ">
+            <img src="img/icon-export.svg">
+            <span class="iconButtonTitle">Export 4</span>
+          </div>
+          <div id="SaveLayers" class="iconButton ">
+            <img src="img/icon-save.svg">
+            Save Layers
+          </div>
         </div>
-        <br/>
-        <div id="SaveFb" class="iconButton ">
-          <img src="img/icon-fb.svg">
-          Save 2 Facebook
+      </div>
+
+      <div id="RetouchTab" class="tab">
+        <div class="tabcontent">
+          <h2>Layers</h2>
+          <div id="MakeCleaning" class="iconButton">
+            <img src="img/icon-cleaning.svg">
+            Cleaning Layer
+          </div>
+          <div id="MakeMatch" class="iconButton">
+            <img src="img/icon-match.svg">
+            Match
+          </div>
+          <div id="CombineDocuments" class="iconButton">
+            <img src="img/icon-combine.svg">
+            Combine Documents
+          </div>
+          <h2>Tools</h2>
+          <div id="MakeFS" class="iconButton">
+            <img src="img/icon-frequence_separation.svg">
+            Frequence Separation
+          </div>
+          <div id="DefringeMask" class="iconButton">
+            <img src="img/icon-defringe.svg">
+            Defringe Mask
+          </div>
+          <div id="FillEmpty" class="iconButton">
+            <img src="img/icon-fill.svg">
+            Content Aware Fill
+          </div>
+          <div id="BlendIf2Mask" class="iconButton">
+            <img src="img/icon-blendifmask.svg">
+            Blend If -> Mask
+          </div>
+          <h2>Stamping</h2>
+          <div id="StampUnder" class="iconButton">
+            <img src="img/icon-stamp.svg">
+            Stamp<br/>C &amp; B
+          </div>
+          <div id="SmartFromUnder" class="iconButton">
+            <img src="img/icon-stamp-smart.svg">
+            <br/>C &amp; B -> Smart
+          </div>
+          <div id="UpdateFromUnder" class="iconButton">
+            <img src="img/icon-update-smart.svg">
+            Update Smart
+          </div>
+          <div id="SmartKeepingMask" class="iconButton">
+            <img src="img/icon-smart-keep-mask.svg">
+            To Smart, Keep Mask
+          </div>
         </div>
-        <div id="SaveInsta" class="iconButton ">
-          <img src="img/icon-instagram.svg">
-          Save 2 Instagram
+      </div>
+
+      <div id="LightTab" class="tab">
+        <div class="tabcontent">
+          <div id="MakeCookie" class="iconButton">
+            <img src="img/icon-cookie.svg">
+            Cookie Lighting
+          </div>
+          <div id="MakeSpotlight" class="iconButton">
+            <img src="img/icon-spotlight.svg">
+            Spotlight
+          </div>
+          <div id="MakeVignette" class="iconButton">
+            <img src="img/icon-vignette.svg">
+            Vignette
+          </div>
+          <div id="MakeWashOut" class="iconButton">
+            <img src="img/icon-contrast.svg">
+            Wash Out / Contrast
+          </div>
+          <div id="MakeDB" class="iconButton">
+            <img src="img/icon-dodge_burn.svg">
+            Dodge & Burn
+          </div>
+          <div id="QuickDB" class="iconButton">
+            <img src="img/icon-q_dodge_burn.svg">
+            Quick Dodge & Burn
+          </div>
+          <div id="QuickBoost" class="iconButton">
+            <img src="img/icon-quick-boost.svg">
+            Quick Boost
+          </div>
+          <div id="MakeHighlight" class="iconButton">
+            <img src="img/icon-highlight.svg">
+            Highlight
+          </div>
+          <div id="MakeLightSource" class="iconButton">
+            <img src="img/icon-bulb.svg">
+            Light Source
+          </div>
+          <div id="MakeLuminosity" class="iconButton">
+            <img src="img/icon-luminosity.svg">
+            Luminosity
+          </div>
         </div>
-        <div id="SaveTwitter" class="iconButton ">
-          <img src="img/icon-twitter.svg">
-          Save 2 Twitter
+      </div>
+
+      <div id="ColorTab" class="tab">
+        <div class="tabcontent">
+          <div id="colorThemeBox">
+            <select id="colorTheme" class="ccwidget ccselect">
+            </select>
+          </div>
+          <h2>Effect</h2>
+          <div class="sliderbox">
+            <input type="range" min="0" max="0" value="-1" class="slider" id="color">
+          </div>
+          <h2>Strength</h2>
+          <div class="sliderbox">
+            <input type="range" min="0" max="100" value="50" class="slider" id="strength">
+          </div>
+          <br/>
+          <div id="PrevColor" class="iconButton">
+            <img src="img/icon-prev.svg">
+            Previous
+          </div>
+          <div id="RandomColor" class="iconButton">
+            <img src="img/icon-random.svg">
+            Random
+          </div>
+          <div id="NextColor" class="iconButton">
+            <img src="img/icon-next.svg">
+            Next
+          </div>
         </div>
-        <div id="Save4K" class="iconButton ">
-          <img src="img/icon-4k.svg">
-          Save 4K
+      </div>
+
+      <div id="PluginsTab" class="tab">
+        <div class="tabcontent">
         </div>
-        <div id="Export1" class="iconButton ">
-          <img src="img/icon-export.svg">
-          <span class="iconButtonTitle">Export 1</span>
-        </div>
-        <div id="Export2" class="iconButton ">
-          <img src="img/icon-export.svg">
-          <span class="iconButtonTitle">Export 2</span>
-        </div>
-        <div id="Export3" class="iconButton ">
-          <img src="img/icon-export.svg">
-          <span class="iconButtonTitle">Export 3</span>
-        </div>
-        <div id="Export4" class="iconButton ">
-          <img src="img/icon-export.svg">
-          <span class="iconButtonTitle">Export 4</span>
-        </div>
-        <div id="SaveLayers" class="iconButton ">
-          <img src="img/icon-save.svg">
-          Save Layers
+      </div>
+
+      <div id="AboutTab" class="tab">
+        <div class="tabcontent">
+          </br>
+          <h2>Donate</h2>
+          <p>
+            Sominum is a free photoshop plugin. If you would like support the future development
+            of the plugin you can find the the donate buttons below.
+          </p></br>
+          <img width="140" src="img/img_paypal-button-donate_2x.png" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" class="link" data-link="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=D3R8BWH8WDTVG&currency_code=EUR&source=url"/>&nbsp;&nbsp;
+          <img width="140" src="img/become_a_patron_button@2x.png" class="link" data-link="https://www.patreon.com/bePatron?u=11267246"/>
+          </br></br>
+
+
+
+          <h2>Developer</h2>
+          <img class="ccsvg link" src="img/petridamsten-logo.svg" height="30" data-link="http://petridamsten.com"></br></br></br>
+          <span title="Email" class="icon18email link" id="emailbtn" data-link="mailto:petri.damsten@gmail.com"></span>&nbsp;
+          <span title="Facebook" class="icon18fb link" id="fbbtn" data-link="http://facebook.com/pdamsten/"></span>&nbsp;
+          <span title="Twitter" class="icon18twitter link" id="twbtn" data-link="http://twitter.com/pdamsten/"></span>&nbsp;
+          <span title="Instagram" class="icon18instagram link" id="instabtn" data-link="http://instagram.com/pdamsten/"></span>&nbsp;
+          <span title="Youtube" class="icon18youtube link" id="ytbtn" data-link="http://youtube.com/pdamsten/"></span>&nbsp;
+          <span title="Behance" class="icon18behance link" id="bebtn" data-link="http://behance.com/pdamsten/"></span>&nbsp;
+          </br></br>
+          <p class="link" data-link="http://petridamsten.com">
+            http://petridamsten.com/
+          </p>
         </div>
       </div>
     </div>
-
-    <div id="RetouchTab" class="tab">
-      <div class="tabcontent">
-        <h2>Layers</h2>
-        <div id="MakeCleaning" class="iconButton">
-          <img src="img/icon-cleaning.svg">
-          Cleaning Layer
-        </div>
-        <div id="MakeMatch" class="iconButton">
-          <img src="img/icon-match.svg">
-          Match
-        </div>
-        <div id="CombineDocuments" class="iconButton">
-          <img src="img/icon-combine.svg">
-          Combine Documents
-        </div>
-        <h2>Tools</h2>
-        <div id="MakeFS" class="iconButton">
-          <img src="img/icon-frequence_separation.svg">
-          Frequence Separation
-        </div>
-        <div id="DefringeMask" class="iconButton">
-          <img src="img/icon-defringe.svg">
-          Defringe Mask
-        </div>
-        <div id="FillEmpty" class="iconButton">
-          <img src="img/icon-fill.svg">
-          Content Aware Fill
-        </div>
-        <div id="BlendIf2Mask" class="iconButton">
-          <img src="img/icon-blendifmask.svg">
-          Blend If -> Mask
-        </div>
-        <h2>Stamping</h2>
-        <div id="StampUnder" class="iconButton">
-          <img src="img/icon-stamp.svg">
-          Stamp<br/>C &amp; B
-        </div>
-        <div id="SmartFromUnder" class="iconButton">
-          <img src="img/icon-stamp-smart.svg">
-          <br/>C &amp; B -> Smart
-        </div>
-        <div id="UpdateFromUnder" class="iconButton">
-          <img src="img/icon-update-smart.svg">
-          Update Smart
-        </div>
-        <div id="SmartKeepingMask" class="iconButton">
-          <img src="img/icon-smart-keep-mask.svg">
-          To Smart, Keep Mask
-        </div>
-      </div>
-    </div>
-
-    <div id="LightTab" class="tab">
-      <div class="tabcontent">
-        <div id="MakeCookie" class="iconButton">
-          <img src="img/icon-cookie.svg">
-          Cookie Lighting
-        </div>
-        <div id="MakeSpotlight" class="iconButton">
-          <img src="img/icon-spotlight.svg">
-          Spotlight
-        </div>
-        <div id="MakeVignette" class="iconButton">
-          <img src="img/icon-vignette.svg">
-          Vignette
-        </div>
-        <div id="MakeWashOut" class="iconButton">
-          <img src="img/icon-contrast.svg">
-          Wash Out / Contrast
-        </div>
-        <div id="MakeDB" class="iconButton">
-          <img src="img/icon-dodge_burn.svg">
-          Dodge & Burn
-        </div>
-        <div id="QuickDB" class="iconButton">
-          <img src="img/icon-q_dodge_burn.svg">
-          Quick Dodge & Burn
-        </div>
-        <div id="QuickBoost" class="iconButton">
-          <img src="img/icon-quick-boost.svg">
-          Quick Boost
-        </div>
-        <div id="MakeHighlight" class="iconButton">
-          <img src="img/icon-highlight.svg">
-          Highlight
-        </div>
-        <div id="MakeLightSource" class="iconButton">
-          <img src="img/icon-bulb.svg">
-          Light Source
-        </div>
-        <div id="MakeLuminosity" class="iconButton">
-          <img src="img/icon-luminosity.svg">
-          Luminosity
-        </div>
-      </div>
-    </div>
-
-    <div id="ColorTab" class="tab">
-      <div class="tabcontent">
-        <div id="colorThemeBox">
-          <select id="colorTheme" class="ccwidget ccselect">
-          </select>
-        </div>
-        <h2>Effect</h2>
-        <div class="sliderbox">
-          <input type="range" min="0" max="0" value="-1" class="slider" id="color">
-        </div>
-        <h2>Strength</h2>
-        <div class="sliderbox">
-          <input type="range" min="0" max="100" value="50" class="slider" id="strength">
-        </div>
-        <br/>
-        <div id="PrevColor" class="iconButton">
-          <img src="img/icon-prev.svg">
-          Previous
-        </div>
-        <div id="RandomColor" class="iconButton">
-          <img src="img/icon-random.svg">
-          Random
-        </div>
-        <div id="NextColor" class="iconButton">
-          <img src="img/icon-next.svg">
-          Next
-        </div>
-      </div>
-    </div>
-
-    <div id="PluginsTab" class="tab">
-      <div class="tabcontent">
-      </div>
-    </div>
-
   </div>
 
   <script src="js/libs/CSInterface.js"></script>

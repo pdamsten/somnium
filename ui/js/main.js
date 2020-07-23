@@ -175,6 +175,12 @@
     }
   }
 
+  function openURL(url)
+  {
+    var fn = "openURL('" + url + "')";
+    callJsx(fn);
+  }
+
   function showTab(name)
   {
     $(".tab").hide();
@@ -321,6 +327,10 @@
 
     $(".tabbtn").click(function () {
       showTab($(this).attr('id'));
+    });
+
+    $(".link").click(function () {
+      openURL($(this).attr('data-link'));
     });
 
     $("body").on('contextmenu', ':not(.iconButton)', function () {
