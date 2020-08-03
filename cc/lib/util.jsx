@@ -513,6 +513,7 @@ writeTextFile = function(fname, txt)
 openURL = function(url)
 {
   var link = new File(Folder.temp + '/open.url');
+  link.encoding = "BINARY"; // For proper line ending
   link.open('w');
   link.write('[InternetShortcut]\nURL=' + url + '\n\n');
   link.close();
