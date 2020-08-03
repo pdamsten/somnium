@@ -47,19 +47,22 @@
       {
         component: iro.ui.Slider,
         options: {
-          sliderType: 'alpha'
+          sliderType: 'alpha',
+          activeIndex: 0,
         }
       },
       {
         component: iro.ui.Slider,
         options: {
-          sliderType: 'alpha'
+          sliderType: 'alpha',
+          activeIndex: 1,
         }
       },
       {
         component: iro.ui.Slider,
         options: {
-          sliderType: 'alpha'
+          sliderType: 'alpha',
+          activeIndex: 2,
         }
       }
     ]
