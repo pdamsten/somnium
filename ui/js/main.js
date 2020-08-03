@@ -379,9 +379,13 @@
     });
 
     colorPicker.on('color:change', function(color) {
+
+      // test hiding
+      $(".IroSlider:nth-child(4)").css("visibility", "hidden");
+
       var n = colorPicker.colors.length;
       for (var i = 1; i < n; ++i) {
-        colorPicker.colors[(color.index + i) % n].setChannel('hsl', 'h',
+        colorPicker.colors[(color.index + i) % n].setChannel('hsla', 'h',
                            (color.hsl.h + (i * 120)) % 360);
       }
     });
