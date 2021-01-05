@@ -88,8 +88,9 @@ light = {
     "type": "selection",
     "value": "0",
     "values": ["18cm Reflector", "90cm Octabox", "120cm Octabox", "150cm Octabox",
-               "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox", "Fresnel Head",
-               "Fresnel Lens", "Snoot", "15cm bulb", "Gobo Holder", "Cloudy Sky", "Blue Sky", "None"]
+               "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox",
+               "110cm Shoot Through Umbrella",
+               "Fresnel Head", "Fresnel Lens", "Snoot", "15cm bulb", "Gobo Holder", "Cloudy Sky", "Blue Sky", "None"]
   },
   "accessory": {
     "title": "Accessory:",
@@ -130,7 +131,9 @@ lightDlg = {
       "type": "selection",
       "value": "0",
       "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
-                 "ControlMyCamera app", "Yongnuo YN-622N & YN-622-TX"]
+                 "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX",
+                 "Tethered to Lightroom", "Hähnel Giga T Pro II + Tethered to Lightroom",
+                 "Yongnuo YN-622N & YN-622-TX + Tethered to Lightroom"]
     },
     "trigger": {
       "title": "Trigger:",
