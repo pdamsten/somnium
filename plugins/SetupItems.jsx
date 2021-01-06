@@ -45,6 +45,8 @@ my_lenses = {
   'X': 'Sigma 50mm F1.4 EX DG HSM',
   '35.0 mm f/1.8': 'Nikon AF-S DX Nikkor 35mm f/1.8G',
   '35mm F1.8': 'Nikon AF-S DX Nikkor 35mm f/1.8G',
+  '35.0 mm f/1.4': 'Sigma 35mm f/1.4 Art DG HSM',
+  '35mm F1.4': 'Sigma 35mm f/1.4 Art DG HSM',
   '18.0-200.0 mm f/3.5-5.6': 'Nikon AF-S DX Nikkor 18-200mm f/3.5-5.6G ED VR II',
   '18-200mm F3.5-5.6': 'Nikon AF-S DX Nikkor 18-200mm f/3.5-5.6G ED VR II',
   '0.0 mm f/0': 'Samyang 8mm f/3.5 Fisheye',
