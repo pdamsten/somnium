@@ -307,7 +307,11 @@ handleLayer = function(layers, n, func)
         }
       } else if (info['type'] == 'raw') {
         if (layer.newSmartObjectViaCopy()) {
-          mainCopy = app.activeDocument.activeLayer;
+          //mainCopy = app.activeDocument.activeLayer;
+          // if layer has layers clipped to it they clip to copy so use the org layer
+          mainCopy = layer;
+          layer = app.activeDocument.activeLayer;
+          layers[n].layer = layer;
           // Move out of any groups
           mainCopy.move(activeDocument, ElementPlacement.PLACEATBEGINNING);
           mainCopy.deleteMask();
