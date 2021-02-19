@@ -143,6 +143,12 @@ lightDlg = {
       "value": "0",
       "values": ["Godox Xpro-N", "Elinchrom Skyport Speed", "Godox XT16", "None"]
     },
+    "tethering": {
+      "title": "Tethering:",
+      "type": "selection",
+      "value": "0",
+      "values": ["None", "QDslrDashboard + Ubuntu", "QDslrDashboard + iPad", "Lightroom", "None"]
+    },
   },
   'callback': 'SetupItems.onLightsDialogOK'
 };
@@ -304,6 +310,10 @@ onLightsDialogOK: function(data)
     n = parseInt(data['items']['remote']['value']);
     if (n != 0) {
       s += '\rRemote: ' + data['items']['remote']['values'][n];
+    }
+    n = parseInt(data['items']['tethering']['value']);
+    if (n != 0) {
+      s += '\rTethering: ' + data['items']['tethering']['values'][n];
     }
     l = doc.findLayer('INFO');
     l.textItem.contents = l.textItem.contents + s;
