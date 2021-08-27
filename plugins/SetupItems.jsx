@@ -133,9 +133,7 @@ lightDlg = {
       "type": "selection",
       "value": "0",
       "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
-                 "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX",
-                 "Tethered to Lightroom", "Hähnel Giga T Pro II + Tethered to Lightroom",
-                 "Yongnuo YN-622N & YN-622-TX + Tethered to Lightroom"]
+                 "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX"]
     },
     "trigger": {
       "title": "Trigger:",
