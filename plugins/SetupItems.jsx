@@ -132,7 +132,7 @@ lightDlg = {
       "title": "Remote:",
       "type": "selection",
       "value": "0",
-      "values": ["None", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
+      "values": ["None", "Aodelan Pebble", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
                  "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX"]
     },
     "trigger": {
