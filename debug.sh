@@ -29,4 +29,6 @@ defaults write com.adobe.CSXS.9 PlayerDebugMode 1
 defaults write com.adobe.CSXS.9 LogLevel 6
 defaults write com.adobe.CSXS.10 PlayerDebugMode 1
 defaults write com.adobe.CSXS.10 LogLevel 6
+defaults write com.adobe.CSXS.11 PlayerDebugMode 1
+defaults write com.adobe.CSXS.11 LogLevel 6
 killall -u `whoami` cfprefsd
