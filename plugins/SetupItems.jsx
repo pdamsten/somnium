@@ -89,7 +89,8 @@ light = {
     "title": "Modifier:",
     "type": "selection",
     "value": "0",
-    "values": ["18cm Reflector", "90cm Octabox", "120cm Octabox", "150cm Octabox",
+    "values": ["18cm Reflector", "18cm Reflector + White Wall", "90cm Octabox",
+               "120cm Octabox", "150cm Octabox",
                "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox",
                "110cm Shoot Through Umbrella",
                "Fresnel Head", "Fresnel Lens", "Snoot", "15cm bulb", "Gobo Holder", "Cloudy Sky", "Blue Sky", "None"]
@@ -132,8 +133,8 @@ lightDlg = {
       "title": "Remote:",
       "type": "selection",
       "value": "0",
-      "values": ["None", "Aodelan Pebble", "Camranger", "Hähnel Giga T Pro II", "Nonbrand wire remote",
-                 "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX"]
+      "values": ["None", "Aodelan Pebble", "Camranger", "Hähnel Giga T Pro II",
+                 "Nonbrand wire remote", "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX"]
     },
     "trigger": {
       "title": "Trigger:",
@@ -145,7 +146,7 @@ lightDlg = {
       "title": "Tethering:",
       "type": "selection",
       "value": "0",
-      "values": ["None", "QDslrDashboard + Ubuntu", "QDslrDashboard + iPad", "Lightroom", "None"]
+      "values": ["None", "QDslrDashboard + Ubuntu", "QDslrDashboard + iPad", "Lightroom"]
     },
   },
   'callback': 'SetupItems.onLightsDialogOK'
