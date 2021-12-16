@@ -89,7 +89,7 @@ light = {
     "title": "Modifier:",
     "type": "selection",
     "value": "0",
-    "values": ["18cm Reflector", "18cm Reflector + White Wall", "90cm Octabox",
+    "values": ["18cm Reflector", "90cm Octabox",
                "120cm Octabox", "150cm Octabox",
                "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox",
                "110cm Shoot Through Umbrella",
@@ -99,7 +99,8 @@ light = {
     "title": "Accessory:",
     "type": "selection",
     "value": "0",
-    "values": ["None", "with Grid", "with Diffusor", "without Diffusor", "without Outer Diffusor"]
+    "values": ["None", "with Grid", "with Diffusor", "with White Wall", "with V-Flat", 
+        "without Diffusor", "without Outer Diffusor"]
   },
   "power": {
     "title": "Power:",
