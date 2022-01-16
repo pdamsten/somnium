@@ -98,6 +98,29 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
   return false;
 };
 
+Document.prototype.selectedLayers = function()
+{
+  var result = new Array();
+  try {
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(cTID('Dcmn'), cTID('Ordn'), cTID('Trgt'));
+    var desc1 = executeActionGet(ref1);
+    if (desc1.hasKey(sTID('targetLayers'))) {
+      var desc2 = desc1.getList(sTID('targetLayers'));
+      var add = activeDocument.hasOwnProperty("backgroundLayer") ? 1 : 0;
+      for(var i = desc2.count - 1; i >= 0; --i) {
+        var ref2 = new ActionReference();
+        ref2.putProperty(cTID('Prpr'), cTID('Nm  '));
+        ref2.putIndex(cTID('Lyr '), desc2.getReference(i).getIndex() + add);
+        result.push(executeActionGet(ref2).getString(cTID('Nm  ')));
+      }
+    }
+  } catch (e) {
+    log(e);
+  }
+  return result;
+}
+
 LayerSet.prototype.duplicateToDoc = ArtLayer.prototype.duplicateToDoc = function(destDoc)
 {
   try {
