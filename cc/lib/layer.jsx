@@ -68,6 +68,7 @@ Document.prototype.activate = function()
 LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(transparency, composite, position, artboard)
 {
   try {
+    var visible = this.visible;
     this.activate();
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
@@ -91,6 +92,7 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
     }
     desc1.putObject(sTID("layerLocking"), sTID("layerLocking"), desc2);
     executeAction(sTID('applyLocking'), desc1, DialogModes.NO);
+    this.visible = visible;
     return true;
   } catch (e) {
     log(e);
