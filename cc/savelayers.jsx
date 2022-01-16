@@ -97,6 +97,7 @@ var defaultFps = 3.0
 onSaveLayersClick = function()
 {
   try {
+    var selectedLayers = app.activeDocument.selectedLayers();
     var t0 = Date.now();
     var path = settings.value('SaveLayers', 'path');
     var active = app.activeDocument;
@@ -115,7 +116,7 @@ onSaveLayersClick = function()
     ffmpeg = '';
     ffmpeglast = '';
     handledSmart = [];
-    saveLayersAsJpgs(layers);
+    saveLayersAsJpgs(layers, (selectedLayers.length > 1) ? selectedLayers : null);
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
     app.activeDocument = active;
@@ -130,9 +131,9 @@ onSaveLayersClick = function()
   return SUI.msg(SUI.ERROR, 'Save Layers', 'Saving layers failed.');
 }
 
-saveLayersAsJpgs = function(layers)
+saveLayersAsJpgs = function(layers, selectedLayers)
 {
-  handleLayers(layers, saveJpg);
+  handleLayers(layers, saveJpg, selectedLayers);
 }
 
 saveJpg = function(layer)
@@ -151,13 +152,15 @@ getFlags = function(layers)
   return layers;
 }
 
-hideAllLayers = function(layers)
+hideAllLayers = function(layers, selectedLayers)
 {
   var len = layers.length;
 
   for (var i = 0; i < len; ++i) {
     if (!(layers[i].layer.typename == 'LayerSet')) {
-      layers[i].layer.visible = false;
+      if (!selectedLayers || selectedLayers.indexOf(layers[i].layer.name) > -1) {
+        layers[i].layer.visible = false;
+      }
     }
   }
 }
@@ -366,18 +369,22 @@ findFirst = function(layers, func)
   return result;
 }
 
-handleLayers = function(layers, func)
+handleLayers = function(layers, func, selectedLayers)
 {
   var first = findFirst(layers);
 
-  hideAllLayers(layers);
+  hideAllLayers(layers, selectedLayers);
 
   for (var i = first.length - 1; i >= 0; --i) {
-    handleLayer(layers, first[i], func);
+    if (!selectedLayers || selectedLayers.indexOf(layers[i].layer.name) > -1) {
+      handleLayer(layers, first[i], func);
+    }
   }
 
   for (var i = layers.length - 1; i >= 0; --i) {
-    handleLayer(layers, i, func);
+    if (!selectedLayers || selectedLayers.indexOf(layers[i].layer.name) > -1) {
+      handleLayer(layers, i, func);
+    }
   }
 
   var d = checkDir();
