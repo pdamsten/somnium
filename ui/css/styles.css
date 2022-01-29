@@ -221,6 +221,10 @@ body {
   filter: brightness(var(--svg-color));'
 }
 
+.hidden {
+  display: none;
+}
+
 .experimental {
   display: none;
   background-color: rgba(255, 0, 0, 0.1);
