@@ -80,6 +80,41 @@ LayerSet.prototype.addMask = ArtLayer.prototype.addMask = function(hidden)
 //LayerSet.prototype.addMask = function(h) { _addMask(h); };
 //ArtLayer.prototype.addMask = function(h) { _addMask(h); };
 
+LayerSet.prototype.contractMask = ArtLayer.prototype.contractMask = function(radius)
+{
+  this.minMaxMask('minimum', radius);
+}
+
+LayerSet.prototype.expandMask = ArtLayer.prototype.expandMask = function(radius)
+{
+  this.minMaxMask('maximum', radius);
+}
+
+LayerSet.prototype.minMaxMask = ArtLayer.prototype.minMaxMask = function(type, radius)
+{
+  try {
+    if (radius == null) {
+      radius = 1.0;
+      dm = DialogModes.ALL;
+    } else {
+      dm = DialogModes.NO;
+    }
+    var id = sTID(type);
+    var idradius = sTID("radius");
+    var idpixelsUnit = sTID("pixelsUnit");
+    var desc1 = new ActionDescriptor();
+    desc1.putUnitDouble(idradius, idpixelsUnit, radius);
+    var idpreserveShape = sTID("preserveShape");
+    var idroundness = sTID("roundness");
+    desc1.putEnumerated(idpreserveShape, idpreserveShape, idroundness);
+    executeAction(id, desc1, dm);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
 LayerSet.prototype.enableMask = ArtLayer.prototype.enableMask = function(enable)
 {
   try {
