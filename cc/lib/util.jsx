@@ -467,9 +467,32 @@ selectTool: function(tool)
   try {
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
-    ref1.putClass(tools[tool]);
+    if (tool in tools) {
+      ref1.putClass(tools[tool]);
+    } else {
+      ref1.putClass(sTID(tool));
+    }
     desc1.putReference(cTID('null'), ref1);
     executeAction(cTID('slct'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+},
+
+selectToolPreset: function(tool, preset)
+{
+  try {
+    Photoshop.selectTool(tool);
+    var idselect = sTID("select");
+    var idnull = sTID("null");
+    var idtoolPreset = sTID("toolPreset");
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putName(idtoolPreset, preset);
+    desc1.putReference(idnull, ref1);
+    executeAction(idselect, desc1, DialogModes.NO);
   } catch (e) {
     log(e);
     return false;
@@ -485,6 +508,54 @@ setDefaultColors: function()
     ref1.putProperty(cTID('Clr '), cTID('Clrs'));
     desc1.putReference(cTID('null'), ref1);
     executeAction(cTID('Rset'), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+},
+
+swapColors: function()
+{
+  try {
+    var idexchange = sTID("exchange");
+    var desc1 = new ActionDescriptor();
+    var idnull = sTID("null");
+    var ref1 = new ActionReference();
+    var idcolor = sTID("color");
+    var idcolors = sTID("colors");
+    ref1.putProperty(idcolor, idcolors);
+    desc1.putReference(idnull, ref1);
+    executeAction(idexchange, desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+},
+
+undo: function()
+{
+  return Photoshop._undoRedo(cTID("Prvs"));
+},
+
+redo: function()
+{
+  return Photoshop._undoRedo(cTID("Nxt "));
+},
+
+_undoRedo: function(direction)
+{
+  try {
+    var idslct = cTID("slct");
+    var idnull = cTID("null");
+    var idHstS = cTID("HstS");
+    var idOrdn = cTID("Ordn");
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(idHstS, idOrdn, direction);
+    var desc1 = new ActionDescriptor();
+    desc1.putReference(idnull, ref1);
+    executeAction(idslct, desc1, DialogModes.NO);
   } catch (e) {
     log(e);
     return false;
