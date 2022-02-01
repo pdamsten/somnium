@@ -57,12 +57,12 @@ switch(key) {
   case 68: Photoshop.swapColors(); break;
   case 80: Photoshop.setDefaultColors(); break;
   // Advanced Tools
-  //case 28: app.activeDocument.activeLayer.contractMask(); break;
+  case 28: app.activeDocument.activeLayer.contractMask(); break;
   case 40: onMakeFSClick(); break;
   case 52: onCombineDocumentsClick(); break;
   case 64: onUpdateFromUnderClick(); break;
   case 76: onStampUnderClick(); break;
-  //case 29: app.activeDocument.activeLayer.expandMask(); break;
+  case 29: app.activeDocument.activeLayer.expandMask(); break;
   case 41: onMakeMatchClick(); break;
   case 54: onFillEmptyClick(); break;
   case 65: onSmartKeepingMaskClick(); break;
