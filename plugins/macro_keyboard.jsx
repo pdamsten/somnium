@@ -56,8 +56,26 @@ switch(key) {
   case 56: onMakeCleaningClick(); break;
   case 68: Photoshop.swapColors(); break;
   case 80: Photoshop.setDefaultColors(); break;
-  //case : (); break;
+  // Advanced Tools
+  //case 28: app.activeDocument.activeLayer.contractMask(); break;
+  case 40: onMakeFSClick(); break;
+  case 52: onCombineDocumentsClick(); break;
+  case 64: onUpdateFromUnderClick(); break;
+  case 76: onStampUnderClick(); break;
+  //case 29: app.activeDocument.activeLayer.expandMask(); break;
+  case 41: onMakeMatchClick(); break;
+  case 54: onFillEmptyClick(); break;
+  case 65: onSmartKeepingMaskClick(); break;
+  case 77: onSmartFromUnderClick(); break;
+  // Finishing
+  case 50: onHighPassSharpeningClick(); break;
+  case 62: onMakeWashOutClick(); break;
   case 74: onMakeVignetteClick(); break;
+  case 51: onAddNoiseClick(); break;
+  case 63: onMakeDBClick(); break;
+  case 75: onMakeCookieClick(); break;
+
+  //case : (); break;
   case isNaN(key):
     alert('Invalid key from the macro keyboard.');
     break;
