@@ -424,16 +424,41 @@ blendingMode: function(mode)
   }
 },
 
+zoom: function(percentage)
+{
+  try {
+    var d1 = new ActionDescriptor();
+    var r1 = new ActionReference();
+    r1.putProperty(sTID("property"), sTID("zoom"));
+    r1.putEnumerated(sTID("document"), sTID("ordinal"), sTID("targetEnum"));
+    d1.putReference(sTID("null"), r1);
+    var d2 = new ActionDescriptor();
+    d2.putDouble(stringIDToTypeID("zoom"), percentage / 100);
+    d1.putObject(stringIDToTypeID("to"), stringIDToTypeID("zoom"), d2);
+    executeAction(stringIDToTypeID("set"), d1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+},
+
 fitWindow: function()
 {
-  var idinvokeCommand = sTID("invokeCommand");
-  var desc125 = new ActionDescriptor();
-  var idcommandID = sTID("commandID");
-  desc125.putInteger( idcommandID, 1192);
-  var idkcanDispatchWhileModal = sTID("kcanDispatchWhileModal");
-  desc125.putBoolean( idkcanDispatchWhileModal, true);
-  executeAction(idinvokeCommand, desc125, DialogModes.NO);
-  app.refresh();
+  try {
+    var idinvokeCommand = sTID("invokeCommand");
+    var desc125 = new ActionDescriptor();
+    var idcommandID = sTID("commandID");
+    desc125.putInteger(idcommandID, 1192);
+    var idkcanDispatchWhileModal = sTID("kcanDispatchWhileModal");
+    desc125.putBoolean(idkcanDispatchWhileModal, true);
+    executeAction(idinvokeCommand, desc125, DialogModes.NO);
+    app.refresh();
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
 },
 
 selectTool: function(tool)
