@@ -126,7 +126,8 @@ ArtLayer.prototype.alphaToSelection = function()
   }
 }
 
-Document.prototype.inverseSelection = function() {
+Document.prototype.inverseSelection = function()
+{
   try {
     executeAction(cTID('Invs'), undefined, DialogModes.NO);
     return true;
@@ -136,7 +137,8 @@ Document.prototype.inverseSelection = function() {
   }
 }
 
-Document.prototype.expandSelection = function(pixels) {
+Document.prototype.expandSelection = function(pixels)
+{
   try {
     var desc1 = new ActionDescriptor();
     desc1.putUnitDouble(cTID('By  '), cTID('#Pxl'), pixels);
