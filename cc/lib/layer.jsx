@@ -681,7 +681,8 @@ ArtLayer.prototype.invertEx = function()
 
 ArtLayer.prototype.fill = function(color)
 {
-  colors = {'gray': cTID('Gry ')};
+  colors = {'gray': cTID('Gry '), 'backgroundColor': sTID("backgroundColor"),
+            'foregroundColor': sTID("foregroundColor")};
   try {
     this.activate();
     var desc1 = new ActionDescriptor();
