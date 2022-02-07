@@ -40,19 +40,71 @@ LayerSet.prototype.hasMask = ArtLayer.prototype.hasMask = function()
 {
   try {
     this.activate();
-    var ref1 = new ActionReference();
-    ref1.putProperty(cTID('Prpr'), cTID('UsrM'));
-    ref1.putEnumerated(cTID('Lyr '), cTID('Ordn'), cTID('Trgt'));
-    var desc1 = executeActionGet(ref1);
-    if (desc1.hasKey(cTID('UsrM'))) {
-      return true;
-    }
-  } catch(e) {
+    var ref = new ActionReference();
+    ref.putProperty(charIDToTypeID('Prpr'), sTID("hasUserMask"));
+    ref.putEnumerated(sTID("layer"), sTID("ordinal"), sTID("targetEnum"));
+    return executeActionGet(ref).getBoolean(sTID("hasUserMask"));
+  } catch (e) {
+    log(e);
+    return false;
   }
   return false;
 }
 
-//_addMask = function(hidden)
+LayerSet.prototype.isMaskEnabled = ArtLayer.prototype.isMaskEnabled = function()
+{
+  try {
+    this.activate();
+    log(this.hasMask());
+    if (!this.hasMask()) {
+      return false;
+    }
+    var ref = new ActionReference();
+    ref.putProperty(charIDToTypeID('Prpr'), sTID("userMaskEnabled"));
+    ref.putEnumerated(sTID("layer"), sTID("ordinal"), sTID("targetEnum"));
+    return executeActionGet(ref).getBoolean(sTID("userMaskEnabled"));
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return false;
+}
+
+LayerSet.prototype.enableMask = ArtLayer.prototype.enableMask = function(enable)
+{
+  try {
+    this.activate();
+    if (!this.hasMask()) {
+      return false;
+    }
+    var desc1 = new ActionDescriptor();
+    var desc2 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+
+    ref1.putEnumerated(sTID("layer"), sTID("ordinal"), sTID("targetEnum"));
+    desc1.putReference(sTID("null"), ref1);
+    desc2.putBoolean(sTID("userMaskEnabled"), enable);
+    desc1.putObject(sTID("to"), stringIDToTypeID("layer"), desc2);
+    executeAction(sTID("set"), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+LayerSet.prototype.toggleMaskEnabled = ArtLayer.prototype.toggleMaskEnabled = function(enable)
+{
+  try {
+    log(this.isMaskEnabled());
+    this.enableMask(!this.isMaskEnabled());
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
 LayerSet.prototype.addMask = ArtLayer.prototype.addMask = function(hidden)
 {
   try {
@@ -77,8 +129,6 @@ LayerSet.prototype.addMask = ArtLayer.prototype.addMask = function(hidden)
     return false; // No mask
   }
 }
-//LayerSet.prototype.addMask = function(h) { _addMask(h); };
-//ArtLayer.prototype.addMask = function(h) { _addMask(h); };
 
 LayerSet.prototype.contractMask = ArtLayer.prototype.contractMask = function(radius)
 {
