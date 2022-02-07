@@ -13,6 +13,8 @@ if (conn.open("127.0.0.1:7564")) {
 switch(key) {
   // Save row
   case 1: app.activeDocument.activeLayer.toggleMaskEnabled(); break;
+  case 2: app.activeDocument.activeLayer.showMask(true); break;
+  case 3: app.activeDocument.activeLayer.showMaskOverlay(true); break;
   case 5: onSaveLayersClick(); break;
   case 6: onExport4Click(); break;
   case 7: onExport2Click(); break;
