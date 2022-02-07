@@ -23,6 +23,9 @@ LayerSet.prototype.activateMask = ArtLayer.prototype.activateMask = function()
 {
   try {
     this.activate();
+    if (!this.hasMask()) {
+      return false;
+    }
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('Chnl'), cTID('Chnl'), cTID('Msk '));
@@ -55,7 +58,6 @@ LayerSet.prototype.isMaskEnabled = ArtLayer.prototype.isMaskEnabled = function()
 {
   try {
     this.activate();
-    log(this.hasMask());
     if (!this.hasMask()) {
       return false;
     }
@@ -96,8 +98,50 @@ LayerSet.prototype.enableMask = ArtLayer.prototype.enableMask = function(enable)
 LayerSet.prototype.toggleMaskEnabled = ArtLayer.prototype.toggleMaskEnabled = function(enable)
 {
   try {
-    log(this.isMaskEnabled());
+    this.activate();
+    if (!this.hasMask()) {
+      return false;
+    }
     this.enableMask(!this.isMaskEnabled());
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+LayerSet.prototype.showMask = ArtLayer.prototype.showMask = function(show)
+{
+  try {
+    if (!this.activateMask()) {
+      return false;
+    }
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putEnumerated(sTID("channel"), sTID("ordinal"), sTID("targetEnum"));
+    desc1.putReference(sTID("null"), ref1);
+    desc1.putBoolean(sTID("makeVisible"), show);
+    executeAction(sTID("select"), desc1, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+}
+
+LayerSet.prototype.showMaskOverlay = ArtLayer.prototype.showMaskOverlay = function(show)
+{
+  try {
+    if (!this.activateMask()) {
+      return false;
+    }
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    var list1 = new ActionList();
+    ref1.putEnumerated(sTID("channel"), sTID("ordinal"), sTID("targetEnum"));
+    list1.putReference(ref1);
+    desc1.putList(sTID("null"), list1);
+    executeAction(sTID("show"), desc1, DialogModes.NO);
   } catch (e) {
     log(e);
     return false;
