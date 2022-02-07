@@ -62,25 +62,24 @@ switch(key) {
   case 56: Photoshop.swapColors(); break;
   case 68: Photoshop.setDefaultColors(); break;
   // Advanced Tools
-  case 26: app.activeDocument.activeLayer.contractMask(); break;
-  case 38: onMakeFSClick(); break;
-  case 50: onCombineDocumentsClick(); break;
-  case 62: onUpdateFromUnderClick(); break;
-  case 74: onStampUnderClick(); break;
-  case 27: app.activeDocument.activeLayer.expandMask(); break;
-  case 39: onMakeMatchClick(); break;
-  case 52: onFillEmptyClick(); break;
-  case 63: onSmartKeepingMaskClick(); break;
-  case 75: onSmartFromUnderClick(); break;
+  case 26: onMakeFSClick(); break;
+  case 38: onCombineDocumentsClick(); break;
+  case 50: onUpdateFromUnderClick(); break;
+  case 62: onStampUnderClick(); break;
+  case 27: onMakeMatchClick(); break;
+  case 39: onFillEmptyClick(); break;
+  case 51: onSmartKeepingMaskClick(); break;
+  case 63: onSmartFromUnderClick(); break;
+  case 28: app.activeDocument.activeLayer.expandMask(); break;
+  case 40: app.activeDocument.activeLayer.contractMask(); break;
   // Finishing
-  case 48: onHighPassSharpeningClick(); break;
-  case 60: onMakeWashOutClick(); break;
-  case 72: onMakeVignetteClick(); break;
-  case 49: onAddNoiseClick(); break;
-  case 61: onMakeDBClick(); break;
-  case 73: onMakeCookieClick(); break;
+  case 24: onHighPassSharpeningClick(); break;
+  case 36: onMakeWashOutClick(); break;
+  case 48: onMakeVignetteClick(); break;
+  case 25: onAddNoiseClick(); break;
+  case 37: onMakeDBClick(); break;
+  case 49: onMakeCookieClick(); break;
 
-  //case : (); break;
   case isNaN(key):
     alert('Invalid key from the macro keyboard.');
     break;
