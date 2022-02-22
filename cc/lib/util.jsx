@@ -515,6 +515,17 @@ setDefaultColors: function()
   return true;
 },
 
+invert: function()
+{
+  try {
+    executeAction(sTID("invert"), undefined, DialogModes.NO);
+  } catch (e) {
+    log(e);
+    return false;
+  }
+  return true;
+},
+
 swapColors: function()
 {
   try {
