@@ -1,6 +1,32 @@
 #include "../cc/main.jsx"
 init((new File($.fileName)).parent + '/../');
 
+press_keys = function(keys)
+{
+  if (conn.open("127.0.0.1:7564")) {
+    conn.write('PUT ' + keys + '\n');
+    conn.close();
+  }
+}
+
+customSave = function()
+{
+  try {
+    // This causes exception if not saved before
+    var path = activeDocument.path;
+    // This blocks, send cmd+s instead
+    /*
+    var desc = new ActionDescriptor();
+    desc.putPath(sTID('in'), new File(path));
+    executeAction(sTID("save"), desc, DialogModes.NO);
+    */
+    press_keys('cmd+s');
+  } catch (e) {
+    // work area save.
+    // Poista -1 -Edit nimestä jos lopussa.
+  }
+}
+
 var key = NaN;
 var conn = new Socket;
 
@@ -45,7 +71,7 @@ switch(key) {
   case 57: Photoshop.undo(); break;
   case 59: Photoshop.redo(); break;
   // Arrow Group
-  case 58: Photoshop.selectTool('moveTool'); break;
+  case 80: Photoshop.selectTool('moveTool'); break;
   // Basic Tools
   case 29: Photoshop.selectTool('curvaturePenTool'); break;
   case 41: Photoshop.selectTool('magicStampTool'); break;
@@ -53,14 +79,15 @@ switch(key) {
   case 65: Photoshop.selectTool('spotHealingBrushTool'); break;
   case 77: Photoshop.selectTool('gradientTool'); break;
   case 30: Photoshop.selectTool('typeCreateOrEditTool'); break;
-  case 66: Photoshop.selectToolPreset('paintbrushTool', 'Hardness 95%'); break;
-  case 78: Photoshop.selectToolPreset('paintbrushTool', 'Flow 100%'); break;
-  case 67: Photoshop.selectToolPreset('paintbrushTool', 'Flow 10%'); break;
-  case 79: Photoshop.selectToolPreset('paintbrushTool', 'Flow 3%'); break;
+  case 48: Photoshop.selectToolPreset('paintbrushTool', 'Hardness 95%'); break;
+  case 36: Photoshop.selectToolPreset('paintbrushTool', 'Flow 100%'); break;
+  case 24: Photoshop.selectToolPreset('paintbrushTool', 'Flow 10%'); break;
+  case 12: Photoshop.selectToolPreset('paintbrushTool', 'Flow 3%'); break;
   case 54: onMakeCleaningClick(); break;
   case 55: app.activeDocument.activeLayer.fill('foregroundColor'); break;
-  case 56: Photoshop.swapColors(); break;
-  case 68: Photoshop.setDefaultColors(); break;
+  case 60: Photoshop.swapColors(); break;
+  case 78: Photoshop.invert(); break;
+  case 79: Photoshop.setDefaultColors(); break;
   // Advanced Tools
   case 26: onMakeFSClick(); break;
   case 38: onCombineDocumentsClick(); break;
@@ -73,10 +100,10 @@ switch(key) {
   case 28: app.activeDocument.activeLayer.expandMask(); break;
   case 40: app.activeDocument.activeLayer.contractMask(); break;
   // Finishing
-  case 24: onHighPassSharpeningClick(); break;
-  case 36: onMakeWashOutClick(); break;
-  case 48: onMakeVignetteClick(); break;
-  case 25: onAddNoiseClick(); break;
+  case 56: onHighPassSharpeningClick(); break;
+  case 13: onMakeWashOutClick(); break;
+  case 25: onMakeVignetteClick(); break;
+  case 68: onAddNoiseClick(); break;
   case 37: onMakeDBClick(); break;
   case 49: onMakeCookieClick(); break;
 
