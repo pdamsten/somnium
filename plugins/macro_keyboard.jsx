@@ -1,6 +1,8 @@
 #include "../cc/main.jsx"
 init((new File($.fileName)).parent + '/../');
 
+WORKAREA = '/Users/damu/Pictures/Work Area/'
+
 press_keys = function(keys)
 {
   if (conn.open("127.0.0.1:7564")) {
@@ -22,8 +24,8 @@ customSave = function()
     */
     press_keys('cmd+s');
   } catch (e) {
-    // work area save.
-    // Poista -1 -Edit nimestä jos lopussa.
+    n = Path.uniqueFilename(WORKAREA, Path.simplename(app.activeDocument.name.replace(/-1$/, '').replace(/-Edit$/, '')), '.psb');
+    app.activeDocument.saveAsPSB(n);
   }
 }
 
