@@ -260,6 +260,18 @@ Document.prototype.saveAsFlatPSB = function(filepath)
   executeAction(cTID('save'), desc1, DialogModes.NO);
 }
 
+Document.prototype.saveAsPSB = function(filepath)
+{
+  app.activeDocument.activate();
+  var desc1 = new ActionDescriptor();
+  var desc2 = new ActionDescriptor();
+  desc2.putBoolean(sTID("maximizeCompatibility"), true);
+  desc1.putObject(cTID('As  '), sTID("largeDocumentFormat"), desc2);
+  desc1.putPath(cTID('In  '), new File(filepath));
+  desc1.putBoolean(cTID('LwCs'), true);
+  executeAction(cTID('save'), desc1, DialogModes.NO);
+}
+
 Document.prototype.saveAsJpeg = function(filepath, x, y, minx, miny, color)
 {
   try {
