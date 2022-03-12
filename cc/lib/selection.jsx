@@ -55,6 +55,22 @@ Document.prototype.makeSelection = function(mode, type, coords, feather)
   }
 }
 
+Document.prototype.selectAll = function()
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    var ref1 = new ActionReference();
+    ref1.putProperty(sTID('channel'), sTID('selection'));
+    desc1.putReference(sTID('null'), ref1);
+    desc1.putEnumerated(sTID('to'), sTID('ordinal'), sTID('allEnum'));
+    executeAction(sTID('set'), desc1, DialogModes.NO);
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
 Document.prototype.clearSelection = function()
 {
   try {
