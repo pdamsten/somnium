@@ -253,7 +253,6 @@ Document.prototype.saveAsFlatPSB = function(filepath)
   desc2.putBoolean(sTID("maximizeCompatibility"), false);
   desc1.putObject(cTID('As  '), sTID("largeDocumentFormat"), desc2);
   desc1.putPath(cTID('In  '), new File(filepath));
-  desc1.putInteger(cTID('DocI'), 1077);
   desc1.putBoolean(cTID('Cpy '), true);
   desc1.putBoolean(cTID('LwCs'), true);
   desc1.putBoolean(cTID('Lyrs'), false);
