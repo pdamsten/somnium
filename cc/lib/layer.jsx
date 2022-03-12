@@ -679,7 +679,7 @@ ArtLayer.prototype.invertEx = function()
   return true;
 }
 
-ArtLayer.prototype.fill = function(color)
+LayerSet.prototype.fill = ArtLayer.prototype.fill = function(color)
 {
   colors = {'gray': cTID('Gry '), 'backgroundColor': sTID("backgroundColor"),
             'foregroundColor': sTID("foregroundColor")};
