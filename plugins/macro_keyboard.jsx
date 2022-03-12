@@ -59,37 +59,38 @@ switch(key) {
   case 19: onMakeSaturationMapClick(); break;
   case 20: onMatchTonesClick(); break;
   case 21: onMakeLightnessClick(); break;
-  case 23: Photoshop.zoom(20); break;
+  case 23: Photoshop.zoom(7); break;
   case 47: Photoshop.zoom(200); break;
   // Selection
   case 31: Photoshop.selectTool('cropTool'); break;
   case 32: app.activeDocument.inverseSelection(); break;
   case 34: Photoshop.selectTool('marqueeRectTool'); break;
   case 43: app.activeDocument.clearSelection(); break;
+  case 30: app.activeDocument.selectAll(); break;
   case 44: Photoshop.selectTool('polySelTool'); break;
   case 45: Photoshop.selectTool('lassoTool'); break;
   case 46: Photoshop.selectTool('magicLassoTool'); break;
   // Undo & Redo
   case 57: Photoshop.undo(); break;
   case 59: Photoshop.redo(); break;
-  // Arrow Group
-  case 80: Photoshop.selectTool('moveTool'); break;
   // Basic Tools
   case 29: Photoshop.selectTool('curvaturePenTool'); break;
-  case 41: Photoshop.selectTool('magicStampTool'); break;
+  case 66: Photoshop.selectTool('magicStampTool'); break;
   case 53: Photoshop.selectTool('cloneStampTool'); break;
   case 65: Photoshop.selectTool('spotHealingBrushTool'); break;
   case 77: Photoshop.selectTool('gradientTool'); break;
-  case 30: Photoshop.selectTool('typeCreateOrEditTool'); break;
-  case 48: Photoshop.selectToolPreset('paintbrushTool', 'Hardness 95%'); break;
-  case 36: Photoshop.selectToolPreset('paintbrushTool', 'Flow 100%'); break;
+  case 41: Photoshop.selectTool('typeCreateOrEditTool'); break;
+  case 42: Photoshop.selectTool('eraserTool'); break;
+  case 13: Photoshop.selectToolPreset('paintbrushTool', 'Hardness 95%'); break;
+  case 25: Photoshop.selectToolPreset('paintbrushTool', 'Flow 100%'); break;
   case 24: Photoshop.selectToolPreset('paintbrushTool', 'Flow 10%'); break;
   case 12: Photoshop.selectToolPreset('paintbrushTool', 'Flow 3%'); break;
   case 54: onMakeCleaningClick(); break;
-  case 55: app.activeDocument.activeLayer.fill('foregroundColor'); break;
-  case 60: Photoshop.swapColors(); break;
-  case 78: Photoshop.invert(); break;
-  case 79: Photoshop.setDefaultColors(); break;
+  case 37: app.activeDocument.activeLayer.fill('foregroundColor'); break;
+  case 48: Photoshop.swapColors(); break;
+  case 36: Photoshop.invert(); break;
+  case 49: Photoshop.setDefaultColors(); break;
+  case 61: Photoshop.selectTool('moveTool'); break;
   // Advanced Tools
   case 26: onMakeFSClick(); break;
   case 38: onCombineDocumentsClick(); break;
@@ -103,11 +104,11 @@ switch(key) {
   case 40: app.activeDocument.activeLayer.contractMask(); break;
   // Finishing
   case 56: onHighPassSharpeningClick(); break;
-  case 13: onMakeWashOutClick(); break;
-  case 25: onMakeVignetteClick(); break;
+  case 80: onMakeWashOutClick(); break;
+  case 79: onMakeVignetteClick(); break;
   case 68: onAddNoiseClick(); break;
-  case 37: onMakeDBClick(); break;
-  case 49: onMakeCookieClick(); break;
+  case 67: onMakeDBClick(); break;
+  case 55: onMakeCookieClick(); break;
 
   case isNaN(key):
     alert('Invalid key from the macro keyboard.');
