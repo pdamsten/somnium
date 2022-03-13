@@ -274,7 +274,7 @@
     initColor();
     csInterface.evalScript('isDebug()', function(result) {
       if (result == 'true') { // Yes string after eval
-        $(".experimental").css("display", "inline-block");
+        $(".experimental").css("display", "block");
       }
     });
     themeManager.init();
