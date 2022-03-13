@@ -72,14 +72,17 @@ onMakeSolarisationClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Solarisation', helpGroupName) != null) return;
+    l = doc.checkLayer('Solarisation', helpGroupName)
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     var c = [[0, 0], [26,225], [73,30], [109, 225], [145, 30], [182, 225], [219, 30], [255, 255]];
 
     group = doc.checkGroup(helpGroupName);
     l = doc.addCurveAdjustment('Solarisation');
     l.setAdjustment(c);
     l.deleteMask();
-    l.visible = false;
   } catch (e) {
     log(e);
   }
@@ -89,7 +92,11 @@ onMakeMemoClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Memo', helpGroupName) != null) return;
+    l = doc.checkLayer('Memo', helpGroupName);
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     var group = doc.checkGroup(helpGroupName);
     var layer = doc.addLayer('Memo', group, ElementPlacement.INSIDE);
     layer.setStyles(MemoStyles);
@@ -103,12 +110,15 @@ onMakeSkinCheckerClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Skin Check', helpGroupName) != null) return;
+    l = doc.checkLayer('Skin Checker', helpGroupName);
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     group = doc.checkGroup(helpGroupName);
     l = doc.addChannelMixer('Skin Checker');
     l.setChannelMixer([-46, 4, 200], 0, true);
     l.deleteMask(l);
-    l.visible = false;
   } catch (e) {
     log(e);
   }
@@ -118,7 +128,11 @@ onMakePerspectiveLinesClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Perspective Lines', helpGroupName) != null) return;
+    l = doc.checkLayer('Perspective Lines', helpGroupName);
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     var group = doc.checkGroup(helpGroupName);
     var v = Math.max(app.activeDocument.width, app.activeDocument.height);
     var a = 15;
@@ -133,7 +147,6 @@ onMakePerspectiveLinesClick = function()
       layers.push(l);
     }
     var perspective = doc.groupLayers('Perspective Lines', layers);
-    perspective.visible = false;
   } catch (e) {
     log(e);
   }
@@ -143,7 +156,11 @@ onMakeLightnessClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Luminosity Check', helpGroupName) != null) return;
+    l = doc.checkLayer('Luminosity Check', helpGroupName);
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     var group = doc.checkGroup(helpGroupName);
     var l1 = doc.addSolidColorAdjustment('Luminosity', grey50);
     var l2 = doc.addCurveAdjustment('Enhance');
@@ -153,7 +170,6 @@ onMakeLightnessClick = function()
     l2.deleteMask();
     group = doc.groupLayers('Luminosity Check', [l1, l2]);
     l2.visible = false;
-    group.visible = false;
   } catch (e) {
     log(e);
   }
@@ -163,7 +179,11 @@ onMatchTonesClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Hue Check', helpGroupName) != null) return;
+    l = doc.checkLayer('Hue Check', helpGroupName);
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     var group = doc.checkGroup(helpGroupName);
     var l1 = doc.addSolidColorAdjustment('Hue', grey50);
     var l2 = doc.addHueSaturationAdjustment('Enhance');
@@ -172,7 +192,6 @@ onMatchTonesClick = function()
     l1.deleteMask();
     l2.deleteMask();
     group = doc.groupLayers('Hue Check', [l1, l2]);
-    group.visible = false;
   } catch (e) {
     log(e);
   }
@@ -182,7 +201,11 @@ onMakeSaturationMapClick = function()
 {
   try {
     var doc = app.activeDocument;
-    if (doc.checkLayer('Saturation Check', helpGroupName) != null) return;
+    l = doc.checkLayer('Saturation Check', helpGroupName);
+    if (l != null) {
+      l.visible = !l.visible;
+      return;
+    }
     var group = doc.checkGroup(helpGroupName);
     var l = doc.addSelectiveColorAdjustment('Saturation Check', group);
     var values = {'reds':   [0, 0, 0, -100], 'yellows':  [0, 0, 0, -100],
@@ -192,7 +215,6 @@ onMakeSaturationMapClick = function()
                   'blacks': [0, 0, 0,  100], 'mode': 'absolute'};
     l.setAdjustment(values);
     l.deleteMask();
-    l.visible = false;
   } catch (e) {
     log(e);
   }
