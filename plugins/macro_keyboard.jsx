@@ -72,6 +72,7 @@ switch(key) {
   case 46: Photoshop.selectTool('magicLassoTool'); break;
   // Undo & Redo
   case 57: Photoshop.undo(); break;
+  case 58: app.activeDocument.activeLayer.visible = !app.activeDocument.activeLayer.visible; break;
   case 59: Photoshop.redo(); break;
   // Basic Tools
   case 29: Photoshop.selectTool('curvaturePenTool'); break;
@@ -91,6 +92,8 @@ switch(key) {
   case 36: Photoshop.invert(); break;
   case 49: Photoshop.setDefaultColors(); break;
   case 61: Photoshop.selectTool('moveTool'); break;
+  case 64: app.activeDocument.addCurveAdjustment(); break;
+  case 52: app.activeDocument.addHueSaturationAdjustment(); break;
   // Advanced Tools
   case 26: onMakeFSClick(); break;
   case 38: onCombineDocumentsClick(); break;
