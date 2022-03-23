@@ -194,6 +194,24 @@ msg: function(type, title, txt)
 
 };})();
 
+Document.prototype.uniqueLayerName = function(s)
+{
+  try {
+    d  = app.activeDocument;
+    d.activate();
+    n = 2;
+    us = s;
+    found = d.findLayer(us);
+    while(found != null) {
+      us = s + ' ' + n.toString();
+      found = d.findLayer(us);
+    }
+  } catch (e) {
+    log(e);
+    return String.random(8);
+  }
+  return us;
+}
 
 Document.prototype.contentAwareFill = function()
 {
