@@ -33,7 +33,7 @@ onDefringeMaskClick = function()
 onMakeCleaningClick = function()
 {
   try {
-    var layer = app.activeDocument.addLayer('Cleaning');
+    var layer = app.activeDocument.addLayer(doc.uniqueLayerName('Cleaning'));
     layer.applyLocking(false, false, true, false);
   } catch (e) {
     log(e);
@@ -156,23 +156,24 @@ onMakeFSClick = function()
   try {
     var doc = app.activeDocument;
     var type = settings.value('MakeFS', 'style');
-    var lo = doc.stampCurrentAndBelow('Low Frequence (?+p)');
-    var hi = lo.duplicateEx('High Frequence');
+    var loname = doc.uniqueLayerName('Low Frequence (?+p)');
+    var lo = doc.stampCurrentAndBelow(loname);
+    var hi = lo.duplicateEx(doc.uniqueLayerName('High Frequence'));
     var layers = [];
     hi.visible = false;
     lo.applyGaussianBlurEx(7.0);
     layers.push(lo);
     hi.visible = true;
-    var params = ["RGB", "Low Frequence (?+p)", 'subtract', 2, 128];
+    var params = ["RGB", loname, 'subtract', 2, 128];
     hi.applyImage(params, false);
     hi.setBlendingMode('linear light');
     layers.push(hi);
     if (type == 1) { // With helper
-      var lo2 = lo.duplicateEx('Low Frequence Blurred (?+p)');
+      var lo2 = lo.duplicateEx(loname + ' Blurred');
       lo2.applyGaussianBlurEx(9.0);
       layers.push(lo2);
     }
-    var g = doc.groupLayers('Frequence Separation', layers);
+    var g = doc.groupLayers(doc.uniqueLayerName('Frequence Separation'), layers);
     if (type == 1) {
       g.addMask(true);
     }
