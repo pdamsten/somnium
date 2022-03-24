@@ -418,6 +418,21 @@ Document.prototype.listLayers = function(player, _pindex)
   }
 }
 
+Document.prototype.layerNames = function()
+{
+  try {
+    var layers = this.listLayers();
+    var result = [];
+    for (var i = 0; i < layers.length; ++i) {
+      result[i] = layers[i].layer.name;
+    }
+    return result;
+  } catch (e) {
+    log(e);
+    return [];
+  }
+}
+
 LayerSet.prototype.compare = ArtLayer.prototype.compare = function(layer)
 {
   if (typeof this === 'undefined' || typeof layer === 'undefined') {
@@ -481,7 +496,7 @@ Document.prototype.addLayer = function(name, layer, placement)
 {
   try {
     this.activate();
-    name = (name == undefined) ? String.random(8) : name;
+    name = (name == undefined) ? String.random(8) : app.activeDocument.uniqueLayerName(name);
     layer = (layer == undefined) ? app.activeDocument.activeLayer : layer;
     placement = (placement == undefined) ? ElementPlacement.PLACEBEFORE : placement;
     app.activeDocument.activeLayer = layer;

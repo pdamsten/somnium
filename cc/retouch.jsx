@@ -33,7 +33,7 @@ onDefringeMaskClick = function()
 onMakeCleaningClick = function()
 {
   try {
-    var layer = app.activeDocument.addLayer(doc.uniqueLayerName('Cleaning'));
+    var layer = app.activeDocument.addLayer('Cleaning');
     layer.applyLocking(false, false, true, false);
   } catch (e) {
     log(e);
