@@ -197,20 +197,20 @@ msg: function(type, title, txt)
 Document.prototype.uniqueLayerName = function(s)
 {
   try {
-    d  = app.activeDocument;
-    d.activate();
-    n = 2;
-    us = s;
-    found = d.findLayer(us);
-    while(found != null) {
-      us = s + ' ' + n.toString();
-      found = d.findLayer(us);
+    var doc  = app.activeDocument;
+    doc.activate();
+    var us = s;
+    var layers = doc.layerNames();
+    for (var i = 2; i < 1000; ++i) {
+      if (layers.indexOf(us) == -1) {
+        return us;
+      }
+      us = s + ' ' + i.toString();
     }
   } catch (e) {
     log(e);
-    return String.random(8);
   }
-  return us;
+  return String.random(8);
 }
 
 Document.prototype.contentAwareFill = function()
