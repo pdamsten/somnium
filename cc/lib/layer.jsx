@@ -100,6 +100,18 @@ LayerSet.prototype.applyLocking = ArtLayer.prototype.applyLocking = function(tra
   return false;
 };
 
+var _somniumSavedLayer = null;
+
+Document.prototype.pushLayer = function()
+{
+  _somniumSavedLayer = app.activeDocument.activeLayer;
+}
+
+Document.prototype.popLayer = function()
+{
+  app.activeDocument.activeLayer = _somniumSavedLayer;
+}
+
 Document.prototype.selectedLayers = function()
 {
   var result = new Array();
