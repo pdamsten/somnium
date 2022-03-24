@@ -204,7 +204,7 @@ onMatchTonesClick = function()
       l2.setHueSaturationAdjustment(0, 100, 0);
       l1.deleteMask();
       l2.deleteMask();
-      group = doc.groupLayers('Hue Check', [l1, l2]);
+      l = doc.groupLayers('Hue Check', [l1, l2]);
       l.visible = false;
     }
     if (!l.visible) { l.parent.visible = true; }
