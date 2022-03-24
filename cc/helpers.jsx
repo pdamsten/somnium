@@ -72,6 +72,7 @@ onMakeSolarisationClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Solarisation', helpGroupName)
     if (l == null) {
       var c = [[0, 0], [26,225], [73,30], [109, 225], [145, 30], [182, 225], [219, 30], [255, 255]];
@@ -84,6 +85,7 @@ onMakeSolarisationClick = function()
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
@@ -93,6 +95,7 @@ onMakeMemoClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Memo', helpGroupName);
     if (l == null) {
       var group = doc.checkGroup(helpGroupName);
@@ -103,6 +106,7 @@ onMakeMemoClick = function()
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
@@ -112,6 +116,7 @@ onMakeSkinCheckerClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Skin Checker', helpGroupName);
     if (l == null) {
       group = doc.checkGroup(helpGroupName);
@@ -122,6 +127,7 @@ onMakeSkinCheckerClick = function()
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
@@ -131,6 +137,7 @@ onMakePerspectiveLinesClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Perspective Lines', helpGroupName);
     if (l == null) {
       var group = doc.checkGroup(helpGroupName);
@@ -151,6 +158,7 @@ onMakePerspectiveLinesClick = function()
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
@@ -160,6 +168,7 @@ onMakeLightnessClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Luminosity Check', helpGroupName);
     if (l == null) {
       var group = doc.checkGroup(helpGroupName);
@@ -169,12 +178,13 @@ onMakeLightnessClick = function()
       l2.setAdjustment(Adjustment.scurve(10));
       l1.deleteMask();
       l2.deleteMask();
-      group = doc.groupLayers('Luminosity Check', [l1, l2]);
+      l = doc.groupLayers('Luminosity Check', [l1, l2]);
       l2.visible = false;
       l.visible = false;
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
@@ -184,6 +194,7 @@ onMatchTonesClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Hue Check', helpGroupName);
     if (l == null) {
       var group = doc.checkGroup(helpGroupName);
@@ -198,6 +209,7 @@ onMatchTonesClick = function()
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
@@ -207,6 +219,7 @@ onMakeSaturationMapClick = function()
 {
   try {
     var doc = app.activeDocument;
+    doc.pushLayer();
     l = doc.checkLayer('Saturation Check', helpGroupName);
     if (l == null) {
       var group = doc.checkGroup(helpGroupName);
@@ -222,6 +235,7 @@ onMakeSaturationMapClick = function()
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
+    doc.popLayer();
   } catch (e) {
     log(e);
   }
