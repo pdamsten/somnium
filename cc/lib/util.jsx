@@ -423,7 +423,7 @@ Document.prototype.drawLine = function(name, x1, y1, x2, y2, w)
     desc1.putObject(cTID('Usng'), sTID("contentLayer"), desc2);
     desc1.putInteger(cTID('LyrI'), 44);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);

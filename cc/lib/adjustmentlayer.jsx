@@ -58,7 +58,7 @@ Document.prototype.addVibranceAdjustment = function(name)
     desc2.putClass(cTID('Type'), sTID("vibrance"));
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -70,16 +70,6 @@ ArtLayer.prototype.setVibranceAdjustment = function(values)
 {
   try {
     this.activate();
-    /*
-    var desc1 = new ActionDescriptor();
-    var ref1 = new ActionReference();
-    ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
-    desc1.putReference(cTID('null'), ref1);
-    var desc2 = new ActionDescriptor();
-    desc2.putInteger(cTID('Strt'), values['saturation']);
-    desc1.putObject(cTID('T   '), sTID("vibrance"), desc2);
-    executeAction(cTID('setd'), desc1, DialogModes.NO);
-    */
     var desc1 = new ActionDescriptor();
     var ref1 = new ActionReference();
     ref1.putEnumerated(cTID('AdjL'), cTID('Ordn'), cTID('Trgt'));
@@ -122,7 +112,7 @@ Document.prototype.addColorBalanceAdjustment = function(name)
     desc2.putObject(cTID('Type'), cTID('ClrB'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -174,7 +164,7 @@ Document.prototype.addColorLookup = function(name)
     desc1.putClass(cTID('Type'), sTID("colorLookup"));
     desc0.putObject(cTID('Usng'), cTID('AdjL'), desc1);
     executeAction(cTID('Mk  '), desc0, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -248,7 +238,7 @@ Document.prototype.addCurveAdjustment = function(name)
     desc2.putObject(cTID('Type'), cTID('Crvs'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -319,7 +309,7 @@ Document.prototype.addChannelMixer = function(name)
     desc2.putObject(cTID('Type'), cTID('ChnM'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -371,7 +361,7 @@ Document.prototype.addSolidColorAdjustment = function(name, color)
     desc2.putObject(cTID('Type'), sTID("solidColorLayer"), desc3);
     desc1.putObject(cTID('Usng'), sTID("contentLayer"), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -416,7 +406,7 @@ Document.prototype.addHueSaturationAdjustment = function(name)
     desc2.putObject(cTID('Type'), cTID('HStr'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -490,7 +480,7 @@ Document.prototype.addSelectiveColorAdjustment = function(name)
     desc2.putObject(cTID('Type'), cTID('SlcC'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -558,7 +548,7 @@ Document.prototype.addGradientMapAdjustment = function(name)
     desc2.putObject(cTID('Type'), cTID('GdMp'), desc3);
     desc1.putObject(cTID('Usng'), cTID('AdjL'), desc2);
     executeAction(cTID('Mk  '), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);

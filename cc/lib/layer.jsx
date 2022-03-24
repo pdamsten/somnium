@@ -320,7 +320,7 @@ LayerSet.prototype.convertToSmartObject = ArtLayer.prototype.convertToSmartObjec
     this.activate();
     executeAction(sTID('newPlacedLayer'), undefined, DialogModes.NO);
     if (name !== undefined && name != '') {
-      app.activeDocument.activeLayer.name = name;
+      app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     }
     return app.activeDocument.activeLayer;
   } catch (e) {
@@ -349,7 +349,7 @@ ArtLayer.prototype.newSmartObjectViaCopy = function(name)
     this.activate();
     executeAction(sTID('placedLayerMakeCopy'), undefined, DialogModes.NO);
     if (name !== undefined && name != '') {
-      app.activeDocument.activeLayer.name = name;
+      app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     }
     return app.activeDocument.activeLayer;
   } catch (e) {
@@ -546,7 +546,7 @@ Document.prototype.addGroup = function(name)
   name = (name == undefined) ? String.random(8) : name;
   var layerActive = app.activeDocument.activeLayer;
   var group = app.activeDocument.layerSets.add();
-  group.name = name;
+  group.name = app.activeDocument.uniqueLayerName(name);
   app.activeDocument.activeLayer = group;
   return group;
 }
@@ -589,7 +589,7 @@ Document.prototype.groupSelectedLayers = function(name)
     ref2.putEnumerated(cTID("Lyr "), cTID("Ordn"), cTID("Trgt"));
     desc1.putReference(cTID("From"), ref2);
     executeAction(cTID("Mk  "), desc1, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);
@@ -657,7 +657,7 @@ ArtLayer.prototype.duplicateEx = function(name)
     name = (name == undefined) ? String.random(8) : name;
     this.activate();
     executeAction(sTID('copyToLayer'), undefined, DialogModes.NO);
-    app.activeDocument.activeLayer.name = name;
+    app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName(name);
     return app.activeDocument.activeLayer;
   } catch (e) {
     log(e);

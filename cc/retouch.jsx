@@ -91,7 +91,7 @@ onFillEmptyClick = function()
     } else {
       SUI.msg(SUI.INFO, 'Content Aware Fill', 'Please leave "Output To:" to "New Layer"')
       doc.contentAwareFillDialog();
-      app.activeDocument.activeLayer.name = 'Fill';
+      app.activeDocument.activeLayer.name = app.activeDocument.uniqueLayerName('Fill');
     }
     stamp.remove();
     app.activeDocument.clearSelection();
