@@ -194,25 +194,6 @@ msg: function(type, title, txt)
 
 };})();
 
-Document.prototype.uniqueLayerName = function(s)
-{
-  try {
-    var doc  = app.activeDocument;
-    doc.activate();
-    var us = s;
-    var layers = doc.layerNames();
-    for (var i = 2; i < 1000; ++i) {
-      if (layers.indexOf(us) == -1) {
-        return us;
-      }
-      us = s + ' ' + i.toString();
-    }
-  } catch (e) {
-    log(e);
-  }
-  return String.random(8);
-}
-
 Document.prototype.contentAwareFill = function()
 {
   try {
