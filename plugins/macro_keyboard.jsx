@@ -29,6 +29,12 @@ customSave = function()
   }
 }
 
+solidColorHelper = function()
+{
+  var l = app.activeDocument.addSolidColorAdjustment('Selection Helper', [0, 255, 0])
+  l.opacity = 20;
+}
+
 var key = NaN;
 var conn = new Socket;
 
@@ -94,15 +100,16 @@ switch(key) {
   case 61: Photoshop.selectTool('moveTool'); break;
   case 64: app.activeDocument.addCurveAdjustment(); break;
   case 52: app.activeDocument.addHueSaturationAdjustment(); break;
+  case 63: solidColorHelper(); break;
   // Advanced Tools
   case 26: onMakeFSClick(); break;
   case 38: onCombineDocumentsClick(); break;
   case 50: onUpdateFromUnderClick(); break;
   case 62: onStampUnderClick(); break;
+  case 4062: onSmartFromUnderClick(); break;
   case 27: onMakeMatchClick(); break;
   case 39: onFillEmptyClick(); break;
   case 51: onSmartKeepingMaskClick(); break;
-  case 63: onSmartFromUnderClick(); break;
   case 28: app.activeDocument.activeLayer.expandMask(); break;
   case 40: app.activeDocument.activeLayer.contractMask(); break;
   // Finishing
