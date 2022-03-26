@@ -92,7 +92,7 @@ light = {
     "values": ["18cm Reflector", "90cm Octabox",
                "120cm Octabox", "150cm Octabox",
                "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox",
-               "110cm Shoot Through Umbrella",
+               "110cm Shoot Through Umbrella", "90cm Reflective Umbrella"
                "Fresnel Head", "Fresnel Lens", "Snoot", "15cm bulb", "Gobo Holder", "Cloudy Sky", "Blue Sky", "None"]
   },
   "accessory": {
