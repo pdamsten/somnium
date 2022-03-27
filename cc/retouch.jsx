@@ -255,15 +255,18 @@ onSmartKeepingMaskClick = function(type)
 {
   try {
     var doc = app.activeDocument;
+    var selectedLayers = doc.selectedLayers();
     var layer = doc.activeLayer;
-    var name = layer.name + ' - layer mask';
+    var name = layer.name + ' - layer mask - ' + String.random(4);
     var hasMask = layer.hasMask();
-    if (hasMask) {
+    var multiSel = (selectedLayers.length > 1);
+
+    if (hasMask && !multiSel) {
       layer.saveMask(name);
       layer.deleteMask();
     }
     layer = layer.convertToSmartObject();
-    if (hasMask) {
+    if (hasMask && !multiSel) {
       layer.loadMask(name);
     }
   } catch (e) {
