@@ -601,7 +601,7 @@ String.random = function(length)
 {
   var s = '';
   var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  length = (typeof length !== 'undefined') ? 8 : length;
+  length = (typeof length !== 'undefined') ? length : 8;
 
   for (var i = 0; i < length; ++i) {
     s += chars[Math.floor(Math.random() * chars.length)];
