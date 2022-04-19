@@ -685,10 +685,23 @@ timingStart = function()
   t0 = Date.now();
 }
 
-timingStop = function(msg)
+timingStop = function(msg, csv)
 {
+  csv = (typeof csv !== 'undefined') ?  csv : False;
   var t = Date.now() - t0;
-  var m = Math.floor(t / 1000 / 60);
-  var s = (t / 1000.0) % 60;
-  log(msg + ': ', m, 'minutes', s, 'seconds');
+  if (csv) {
+    log(';' + msg + ';', t);
+  } else {
+    var m = Math.floor(t / 1000 / 60);
+    var s = (t / 1000.0) % 60;
+    log(msg + ': ', m, 'minutes', s, 'seconds');
+  }
+}
+
+logTiming = function(msg, func, csv)
+{
+  csv = (typeof csv !== 'undefined') ?  csv : False;
+  timingStart();
+  func();
+  timingStop(msg, csv);
 }

@@ -21,28 +21,32 @@
 
 TestBench = (function() {
 
-var TEST_FILE = '/Volumes/Volume1/tmp/20220113-101253-00320.psb';
+//var TEST_FILE = '/Volumes/Volume1/tmp/20220113-101253-00320.psb';
+var TEST_FILE = '/Users/damu/tmp/test.psb';
 
 return { // public:
 
 title: 'Test Bench',
 help: 'Time various tasks in Photoshop.',
 
+openPSB: function()
+{
+  var f = new File(TEST_FILE);
+  var bench = app.open(f);
+},
+
 onClick: function()
 {
   try {
     var img = new File(TEST_FILE);
     if (img.exists === true) {
-      timingStart();
-      var f = new File(TEST_FILE);
-      var bench = app.open(f);
-      timingStop('Test file opening took');
+      logTiming('Open PSB', TestBench.openPSB, true);
     } else {
       alert('Test file does not exist: ' + TEST_FILE);
     }
   } catch (e) {
     log(e);
   }
-}
+},
 
 };})();
