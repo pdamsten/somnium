@@ -21,8 +21,9 @@
 
 TestBench = (function() {
 
-//var TEST_FILE = '/Volumes/Volume1/tmp/20220113-101253-00320.psb';
-var TEST_FILE = '/Users/damu/tmp/test.psb';
+var userPath = Folder('~').fsName;
+var TEST_FILE = '/Volumes/Volume1/tmp/20220113-101253-00320.psb';
+//var TEST_FILE = userPath + '/tmp/test.psb';
 
 return { // public:
 
@@ -35,12 +36,39 @@ openPSB: function()
   var bench = app.open(f);
 },
 
+savePSB: function()
+{
+  var filename = Path.uniqueFilename(userPath + '/tmp/', 'test_bench', '.psb');
+  app.activeDocument.saveAsPSB(filename);
+},
+
+surfaceBlur: function()
+{
+  app.activeDocument.activateLayer('first');
+  app.activeDocument.stampCurrentAndBelow('Surface Blur');
+  app.activeDocument.activeLayer.applySurfaceBlur(20, 20, false);
+  app.activeDocument.activeLayer.visible = false;
+},
+
+crop: function()
+{
+  var rc = [200, 200, 3000, 3000];
+  app.activeDocument.crop(rc);
+},
+
 onClick: function()
 {
   try {
     var img = new File(TEST_FILE);
     if (img.exists === true) {
       logTiming('Open PSB', TestBench.openPSB, true);
+      logTiming('Save PSB', TestBench.savePSB, true);
+      logTiming('Save layers', onSaveLayersClick, true);
+      logTiming('Surface Blur', TestBench.surfaceBlur, true);
+      logTiming('Stamp to smart object', onSmartFromUnderClick, true);
+      logTiming('Highpass Sharpening', onHighPassSharpeningClick, true);
+      logTiming('Make all help layers', onMakeAllClick, true);
+      logTiming('Crop', TestBench.crop, true);
     } else {
       alert('Test file does not exist: ' + TEST_FILE);
     }
