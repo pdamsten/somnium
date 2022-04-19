@@ -690,7 +690,7 @@ timingStop = function(msg, csv)
   csv = (typeof csv !== 'undefined') ?  csv : false;
   var t = Date.now() - t0;
   if (csv) {
-    log(';' + msg + ';', t);
+    log(';' + msg + ';', t / 1000.0);
   } else {
     var m = Math.floor(t / 1000 / 60);
     var s = (t / 1000.0) % 60;
