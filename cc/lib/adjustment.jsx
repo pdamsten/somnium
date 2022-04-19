@@ -32,6 +32,20 @@ ArtLayer.prototype.applyGaussianBlurEx = function(value, withDialog)
   }
 }
 
+ArtLayer.prototype.applySurfaceBlur = function(radius, treshold, withDialog)
+{
+  try {
+    this.activate();
+    var dialogMode = (typeof withDialog === 'undefined' || withDialog) ? DialogModes.ALL : DialogModes.NO;
+    var desc1 = new ActionDescriptor();
+    desc1.putUnitDouble(sTID("radius"), sTID("pixelsUnit"), radius);
+    desc1.putInteger(sTID("threshold"), treshold);
+    executeAction(sTID("surfaceBlur"), desc1, dialogMode);
+  } catch (e) {
+    log(e);
+  }
+}
+
 const NoiseTypes = {'gaussian': 'Gsn ', 'uniform': 'Unfr'};
 
 ArtLayer.prototype.applyAddNoiseEx = function(value, type, mono, withDialog)
