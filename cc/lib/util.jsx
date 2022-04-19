@@ -677,3 +677,18 @@ importPlugins = function(pluginPath)
     return {};
   }
 }
+
+var t0 = 0;
+
+timingStart = function()
+{
+  t0 = Date.now();
+}
+
+timingStop = function(msg)
+{
+  var t = Date.now() - t0;
+  var m = Math.floor(t / 1000 / 60);
+  var s = (t / 1000.0) % 60;
+  log(msg + ': ', m, 'minutes', s, 'seconds');
+}

@@ -97,8 +97,8 @@ var defaultFps = 3.0
 onSaveLayersClick = function()
 {
   try {
+    timingStart();
     var selectedLayers = app.activeDocument.selectedLayers();
-    var t0 = Date.now();
     var path = settings.value('SaveLayers', 'path');
     var active = app.activeDocument;
     var parts = active.name.split(".");
@@ -120,10 +120,7 @@ onSaveLayersClick = function()
 
     newDoc.close(SaveOptions.DONOTSAVECHANGES);
     app.activeDocument = active;
-    var t = Date.now() - t0;
-    var m = Math.floor(t / 1000 / 60);
-    var s = (t / 1000.0) % 60;
-    log('SaveLayers took:', m, 'minutes', s, 'seconds');
+    timingStop('SaveLayers took');
     return SUI.msg(SUI.INFO, 'Save Layers', 'Layers saved to: ' + mainPath);
   } catch (e) {
     log(e);

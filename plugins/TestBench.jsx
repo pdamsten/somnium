@@ -33,7 +33,10 @@ onClick: function()
   try {
     var img = new File(TEST_FILE);
     if (img.exists === true) {
-      alert('ok');
+      timingStart();
+      var f = new File(TEST_FILE);
+      var bench = app.open(f);
+      timingStop('Test file opening took');
     } else {
       alert('Test file does not exist: ' + TEST_FILE);
     }
