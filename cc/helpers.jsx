@@ -102,11 +102,14 @@ onMakeMemoClick = function()
       var layer = doc.addLayer('Memo', group, ElementPlacement.INSIDE);
       layer.setStyles(MemoStyles);
       layer.opacity = 66;
-      l.visible = false;
+      layer.visible = false;
+      l = layer;
     }
     if (!l.visible) { l.parent.visible = true; }
     l.visible = !l.visible;
-    doc.popLayer();
+    if (!l.visible) {
+      doc.popLayer();
+    }
   } catch (e) {
     log(e);
   }
