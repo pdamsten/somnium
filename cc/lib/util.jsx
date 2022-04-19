@@ -687,7 +687,7 @@ timingStart = function()
 
 timingStop = function(msg, csv)
 {
-  csv = (typeof csv !== 'undefined') ?  csv : False;
+  csv = (typeof csv !== 'undefined') ?  csv : false;
   var t = Date.now() - t0;
   if (csv) {
     log(';' + msg + ';', t);
