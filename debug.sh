@@ -3,6 +3,8 @@
 # remove extension installed from the cloud
 rm -fR /Library/Application\ Support/Adobe/CEP/extensions/com.petridamsten.somnium
 # link to home dir
+mkdir ~/Library/Application\ Support/Adobe/CEP
+mkdir ~/Library/Application\ Support/Adobe/CEP/extensions
 ln -nsf "$(pwd)" ~/Library/Application\ Support/Adobe/CEP/extensions/com.petridamsten.somnium
 
 cat > .debug <<EOL
