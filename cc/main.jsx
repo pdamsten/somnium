@@ -21,6 +21,7 @@
 
 var pluginPath = '';
 var settings;
+var somnium = "Somnium";
 
 // Load PS DOM classes so we can extend them
 if (typeof LayerSet === 'undefined') {
