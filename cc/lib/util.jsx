@@ -172,7 +172,11 @@ dispatchEvent: function(e, data)
 {
   try {
     if (!xLib) {
-      xLib = new ExternalObject("lib:\PlugPlugExternalObject");
+      try {
+        xLib = new ExternalObject("lib:\PlugPlugExternalObject");
+      } catch(e) {
+        xLib = null;
+      }
     }
     if (xLib) {
       var event = new CSXSEvent();
