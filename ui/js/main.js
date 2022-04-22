@@ -22,7 +22,6 @@
 (function () {
   'use strict';
 
-  var csInterface = new CSInterface();
   var pluginPath = '';
   var colorThemes = [];
   var buttonId = null;
