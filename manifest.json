@@ -1,0 +1,101 @@
+{
+  "id": "com.petridamsten.somnium",
+  "name": "Somnium",
+  "version": "2.0.0",
+  "main": "ui/main.html",
+  "host": [
+    {
+      "app": "PS",
+      "minVersion": "23.0.0"
+    }
+  ],
+  "manifestVersion": 4,
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "vanilla",
+      "minimumSize": {
+        "width": 230,
+        "height": 200
+      },
+      "maximumSize": {
+        "width": 2000,
+        "height": 2000
+      },
+      "preferredDockedSize": {
+        "width": 800,
+        "height": 350
+      },
+      "preferredFloatingSize": {
+        "width": 800,
+        "height": 350
+      },
+      "ui/img": [
+        {
+          "width": 32,
+          "height": 32,
+          "path": "ui/img/iconDarkNormal.png",
+          "scale": [
+            1,
+            2
+          ],
+          "theme": [
+            "dark",
+            "darkest"
+          ],
+          "species": [
+            "generic"
+          ]
+        },
+        {
+          "width": 32,
+          "height": 32,
+          "path": "ui/img/iconNormal.png",
+          "scale": [
+            1,
+            2
+          ],
+          "theme": [
+            "lightest",
+            "light"
+          ],
+          "species": [
+            "generic"
+          ]
+        }
+      ],
+      "label": {
+        "default": "Somnium"
+      }
+    }
+  ],
+  "ui/img": [
+    {
+      "width": 23,
+      "height": 23,
+      "path": "ui/img/iconDarkNormal.png",
+      "scale": [
+        1,
+        2
+      ],
+      "theme": [
+        "darkest",
+        "dark",
+        "medium"
+      ]
+    },
+    {
+      "width": 23,
+      "height": 23,
+      "path": "ui/img/iconNormal.png",
+      "scale": [
+        1,
+        2
+      ],
+      "theme": [
+        "lightest",
+        "light"
+      ]
+    }
+  ]
+}
