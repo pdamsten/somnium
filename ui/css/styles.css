@@ -1,6 +1,6 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-//  Copyright (c) 2018-2020 by Petri Damstén <petri.damsten@gmail.com>
+//  Copyright (c) 2018-2022 by Petri Damstén <petri.damsten@gmail.com>
 //
 //  This file is part of Somnium.
 //
@@ -19,7 +19,70 @@
 //
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300,400');
+/*--uxp-host-font-size: 13px;
+    --uxp-host-font-size-smaller: 12px;
+    --uxp-host-font-size-larger: 14px;
+
+
+                    */
+
+/* dark */
+:root {
+  --background-color: rgb(83, 83 ,83);
+  --background-color-darker: rgb(66, 66 ,66);
+  --txt-color: rgb(221, 221 ,221);
+  --widget-list-color: rgb(240, 240, 240);
+  --widget-background-color: rgb(69, 69 ,69);
+  --widget-txt-color: rgb(125, 125 ,125);
+  --font-size: --uxp-host-font-size;
+  --font-size-widget: calc(--uxp-host-font-size * 1.18);
+  --font-family: -apple-system, system-ui, sans-serif;
+  --border-color: rgb(125, 125 ,125);
+  --svg-color: 87%;
+  --svg-color-bg: 33%;
+}
+
+@media (prefers-color-scheme:darkest) {
+  :root {
+    --background-color: rgb(50, 50 ,50);
+    --background-color-darker: rgb(38, 38 ,38);
+    --txt-color: rgb(214, 214 ,214);
+    --widget-list-color: rgb(225, 225, 225);
+    --widget-background-color: rgb(41, 41 ,41);
+    --widget-txt-color: rgb(125, 125 ,125);
+    --border-color: rgb(125, 125 ,125);
+    --svg-color: 84%;
+    --svg-color-bg: 20%;
+  }
+}
+
+@media (prefers-color-scheme:light) {
+  :root {
+    --background-color: rgb(184, 184 ,184);
+    --background-color-darker: rgb(163, 163 ,163);
+    --txt-color: rgb(37, 37 ,37);
+    --widget-list-color: rgb(15, 15, 15);
+    --widget-background-color: rgb(209, 209 ,209);
+    --widget-txt-color: rgb(135, 135 ,135);
+    --border-color: rgb(135, 135 ,135);
+    --svg-color: 15%;
+    --svg-color-bg: 72%;
+  }
+}
+
+@media (prefers-color-scheme: lightest) {
+  :root {
+    --background-color: rgb(240, 240 ,240);
+    --background-color-darker: rgb(219, 219 ,219);
+    --txt-color: rgb(43, 43 ,43);
+    --widget-list-color: rgb(41, 41, 41);
+    --widget-background-color: rgb(252, 252 ,252);
+    --widget-txt-color: rgb(173, 173 ,173);
+    --border-color: rgb(173, 173 ,173);
+    --svg-color: 17%;
+    --svg-color-bg: 94%;
+  }
+}
 
 * {
   margin: 0;
@@ -35,14 +98,14 @@ body, html {
   color: var(--txt-color);
   border-color: var(--background-color-darker);
   font-size: var(--font-size);
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family);
 }
 
 body {
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  text-align: center;
 }
 
 #Plugins {
@@ -105,7 +168,6 @@ body {
 }
 
 #header {
-  text-align: center;
   flex-grow: auto;
   padding-bottom: 5px;
   padding-top: 2px;
@@ -237,7 +299,6 @@ body {
 
 .tabcontent {
   margin: 10px;
-  text-align: center;
 }
 
 #tabs {
@@ -305,7 +366,6 @@ h1 {
   padding: 0;
   margin: 0;
   font-size: 145%;
-  text-transform: uppercase;
   letter-spacing: 10px;
   font-weight: 300;
 }
@@ -315,7 +375,6 @@ h2 {
   margin-top: 10px;
   margin-bottom: 5px;
   font-size: 125%;
-  text-transform: uppercase;
   letter-spacing: 10px;
   font-weight: 300;
 }
