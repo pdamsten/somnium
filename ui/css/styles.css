@@ -344,8 +344,12 @@ ul {
 
 #AboutTab p {
   font-size: 13px;
-
 }
+
+footer {
+  margin: 0;
+}
+
 /* icons */
 
 .icon18left, .icon18right, .icon18close, .icon18search, .icon18categories,

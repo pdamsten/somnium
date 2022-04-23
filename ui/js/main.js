@@ -21,9 +21,7 @@
 
 const somnium = require('./modules/somnium.js');
 const settings = require('./modules/settings.js');
-
-console.log(settings.value('MakeVignette', 'type'));
-settings.value('Koe', 'Koe', 'Testi');
+const jdialog = require('./modules/jdialog.js');
 
 (function () {
   'use strict';
@@ -284,10 +282,22 @@ settings.value('Koe', 'Koe', 'Testi');
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      var fn; // = $(this).attr('data-call');
-      if (!fn) {
-        fn = 'on' + $(this).attr('id') + 'Click';
-      }
+      var vignetteDlg = {
+        'title': 'Vignette',
+        'width': 350,
+        'height': 5000,
+        "items": {
+          "type": {
+            "title": "Style:",
+            "type": "selection",
+            "value": 0,
+            "values": ["Elliptical", "Rectangular"]
+          }
+        },
+        'callback': 'onMakeVignetteOK'
+      };
+      jdialog.open(vignetteDlg);
+      var fn = 'on' + $(this).attr('id') + 'Click';
       callJsx(fn);
     });
 
