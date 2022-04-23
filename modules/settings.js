@@ -66,7 +66,9 @@ async function value(group, key, value)
     if (!(key in values[group]['config'])) {
       values[group]['config'][key] = {};
     }
-    values[group]['config'][key]['value'] = value;
-    writeConfig(values);
+    if (values[group]['config'][key]['value'] != value) {
+      values[group]['config'][key]['value'] = value;
+      writeConfig(values);
+    }
   }
 }
