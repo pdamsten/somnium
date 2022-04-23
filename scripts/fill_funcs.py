@@ -4,7 +4,7 @@
 import json, re
 from collections import OrderedDict
 
-s1 = '''#include "../cc/main.jsx"
+s1 = '''#include "../main.jsx"
 init((new File($.fileName)).parent + '/../');
 on'''
 s2 = 'Click();\n'
@@ -12,7 +12,7 @@ s2 = 'Click();\n'
 def name(s):
     return re.sub(r'[^a-zA-Z0-9-_]+', '', s)
 
-with open('./ui/js/settings.json', "r") as f:
+with open('../ui/js/settings.json', "r") as f:
   settings = json.loads(f.read()[15:], object_pairs_hook=OrderedDict)
 
 g = ''
@@ -25,5 +25,5 @@ for key in settings:
         print(settings[key]['help'])
         continue
     print('• ' + settings[key]['title'] + ' - ' + settings[key]['help'])
-    with open('./actions/' + name(settings[key]['group']) + '-' + name(settings[key]['title']) + '.jsx', 'w') as f:
+    with open('../cc/funcs/on' + key + 'Click.jsx', 'w') as f:
         f.write(s1 + key + s2);
