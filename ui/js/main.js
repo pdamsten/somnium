@@ -20,8 +20,10 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const somnium = require('./modules/somnium.js');
+const settings = require('./modules/settings.js');
 
-console.log(somnium);
+console.log(settings.value('MakeVignette', 'type'));
+settings.value('Koe', 'Koe', 'Testi');
 
 (function () {
   'use strict';
@@ -165,8 +167,7 @@ console.log(somnium);
 
   function openURL(url)
   {
-    var fn = "openURL('" + url + "')";
-    callJsx(fn);
+    // TODO
   }
 
   function showTab(name)
@@ -196,20 +197,24 @@ console.log(somnium);
 
   function changeStrength()
   {
-    var fn = "setColorThemeStrength(" + $('#strength').prop('value') + ")";
-    callJsx(fn);
+    callJsx("setColorThemeStrength", {'strength': $('#strength').prop('value')});
   }
 
   function changeTheme()
   {
     var theme = colorThemes[$("#color").prop("value")];
-    var fn = "setColorTheme('" + theme + "')";
-    callJsx(fn);
+    callJsx('setColorTheme', {'theme': theme});
   }
 
-  async function callJsx(fn) {
-    fn = fn.replace('()', '');
-    console.log("callJsx " + fn);
+  async function callJsx(fn, params) {
+    let name = fn.replace('on', '').replace('Click', '');
+    console.log("callJsx " + fn + ', ' + name);
+    if (params != undefined) {
+      for (const [key, value] of Object.entries(params)) {
+        console.log(name, key, value);
+        settings.value(name, key, value);
+      }
+    }
     somnium.runScript('jsx/funcs/' + fn + '.jsx');
     //closeDialog();
   }
@@ -249,8 +254,7 @@ console.log(somnium);
 
     $("#colorTheme").change(function (e) {
       clearTimeout(delayTimer);
-      var fn = "setColorTheme('" + $("#colorTheme").val() + "')";
-      callJsx(fn);
+      callJsx("setColorTheme", {'theme': $("#colorTheme").val()[0]});
     });
 
     $("#strength").on("input", function (e) {
@@ -280,18 +284,10 @@ console.log(somnium);
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      /* enable if there is a need for this data
-      var values = {};
-      $("input").each(function() {
-        values[$(this).attr("id")] = $(this).val();
-      });
-      var fn = 'on' + $(this).attr('id') + 'Click(\'' + JSON.stringify(values) + '\')';
-      */
-      var fn = $(this).attr('data-call');
+      var fn; // = $(this).attr('data-call');
       if (!fn) {
         fn = 'on' + $(this).attr('id') + 'Click';
       }
-      fn += '()';
       callJsx(fn);
     });
 
