@@ -1,6 +1,6 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-//  Copyright (c) 2018-2022 by Petri Damstén <petri.damsten@gmail.com>
+//  Copyright (c) 2022 by Petri Damstén <petri.damsten@gmail.com>
 //
 //  This file is part of Somnium.
 //
@@ -31,7 +31,7 @@ module.exports = {
 
 async function _ScriptRun(executionControl, descriptor) {
   jsxFile = descriptor;
-  let pluginFolder = await fs.getPluginFolder()
+  let pluginFolder = await fs.getPluginFolder();
   try {
     let jsxFileObject = await pluginFolder.getEntry(jsxFile);
     var filetoken = await fs.createSessionToken(jsxFileObject);
@@ -55,5 +55,5 @@ async function _ScriptRun(executionControl, descriptor) {
 
 async function runScript(script)
 {
-  core.executeAsModal(_ScriptRun, {"commandName": "User Cancel Test", "descriptor": script});
+  core.executeAsModal(_ScriptRun, {"commandName": "Run JSX Script", "descriptor": script});
 }
