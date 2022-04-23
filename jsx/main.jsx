@@ -85,7 +85,7 @@ function init(path)
 
     $.evalFile(jsxPath + 'lib/log-basic.jsx');
 
-    var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'somnium');
+    var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'Adobe/UXP/PluginsStorage/PHSP/23/Developer/com.petridamsten.somnium/PluginData/');
     mkdir(userDataPath);
     include(jsxPath + 'lib/log.jsx');
     Log.init(userDataPath + 'log.txt');
