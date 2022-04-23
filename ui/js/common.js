@@ -99,8 +99,6 @@ function json2html(id, items)
 (function () {
   'use strict';
 
-  var csInterface = new CSInterface();
-
   // Handle all clickable elements
   $(".jsonWidgets").on("click", ".clickable", function (e) {
     var type = $(this).data("type");
@@ -121,7 +119,7 @@ function json2html(id, items)
 
     fn = 'on' + fn + 'Click(' + params.join(',') + ')';
     console.log(fn);
-
+    /*
     csInterface.evalScript(fn, function(result) {
       console.log(result);
       if (result != 'null') {
@@ -135,6 +133,7 @@ function json2html(id, items)
         csInterface.evalScript(fn);
       }
     });
+    */
     e.stopPropagation();
   });
 
@@ -151,7 +150,7 @@ function json2html(id, items)
     }
     var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
     //console.log(fn);
-    csInterface.evalScript(fn);
+    //csInterface.evalScript(fn);
   });
 
 }());

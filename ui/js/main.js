@@ -19,6 +19,10 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+const app = require("photoshop").app;
+const batchPlay = require("photoshop").action.batchPlay;
+const fs = require("uxp").storage.localFileSystem;
+
 (function () {
   'use strict';
 
@@ -67,63 +71,6 @@
     ]
   });
 
-  csInterface.addEventListener("com.petridamsten.somnium.setui", function(evt) {
-    //console.log('Setting UI', evt.data);
-    for (var key in evt.data) {
-      if ($('#' + key).is('div') || $('#' + key).is('span')) {
-        $('#' + key).html(evt.data[key]);
-      } else if ($('#' + key).is('input') || $('#' + key).is('select')) {
-        $('#' + key).val(evt.data[key]);
-      }
-    }
-  });
-
-  csInterface.addEventListener("com.petridamsten.somnium.console", function(evt) {
-    console.log(evt.data);
-  });
-
-  csInterface.addEventListener("com.petridamsten.somnium.dialoginit", function(evt) {
-    var event = new CSEvent('com.petridamsten.somnium.dialogdata', 'APPLICATION');
-    event.data = dialogData;
-    csInterface.dispatchEvent(event);
-  });
-
-  csInterface.addEventListener("com.petridamsten.somnium.dialogclose", function(evt) {
-    var fn = evt.data['callback'] + "('" + JSON.stringify(evt.data) + "')";
-    callJsx(fn);
-  });
-
-  csInterface.addEventListener("com.petridamsten.somnium.opendialog", function(evt) {
-    var extension_Id = "com.petridamsten.somnium.dialog";
-    var params = {}; // Params don't work, use events...
-    dialogData = JSON.stringify(evt.data);
-    window.__adobe_cep__.requestOpenExtension(extension_Id, params);
-  });
-
-  function initJsx()
-  {
-    pluginPath = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
-    csInterface.evalScript('init("' + pluginPath + '")', function(result) {
-      if (result != 'EvalScript error.') {
-        result = JSON.parse(result);
-        var html = '';
-        for (var i in result) {
-          var id = result[i]['id'];
-          Settings[id] = result[i];
-          html += '<div id="' + id + '" class="iconButton" data-call="' +
-                  Settings[id]['call'] + '">';
-          html += '<img src="' + Settings[id]['icon'] + '">';
-          html += Settings[id]['title'];
-          html += '</div>';
-        }
-        if (html != '') {
-          $('#PluginsTab .tabcontent').html(html);
-          $("#Plugins").css("display", "block");
-        }
-      }
-    });
-  }
-
   const HELP = 0, MSG = 1;
   const INFO = 1, WARNING = 2, ERROR = 3;
   var timer = 0;
@@ -166,11 +113,13 @@
   var setButtonName = function(buttonId) {
     if ('config' in Settings[buttonId] && 'name' in Settings[buttonId]['config']) {
       var fn = 'settings.value("' + buttonId + '","name");';
+      /*
       csInterface.evalScript(fn, function(result, buttonId) {
         if (result != '') {
           $('#' + this.buttonId + ' .iconButtonTitle').html(result);
         }
       }.bind({buttonId: buttonId}));
+      */
     }
   }
 
@@ -226,7 +175,10 @@
     $("#" + name + "Tab").show();
     $(".tabbtnselected").removeClass('tabbtnselected');
     $("#" + name).addClass('tabbtnselected');
-    $("#tabTitle").html($("#" + name).attr('data-title'));
+    var s = $("#" + name).attr('data-title');
+    if (s) {
+      $("#tabTitle").html(s.toUpperCase());
+    }
     localStorage.setItem('currentTab', name);
   }
 
@@ -255,28 +207,52 @@
     callJsx(fn);
   }
 
-  function callJsx(fn) {
-    closeDialog();
-    csInterface.evalScript(fn, function(result) {
-      if (result === "EvalScript error.") {
-        console.log('Error running: ' + fn + ', ' + result);
+  async function callJsx(fn) {
+    fn = fn.replace('()', '');
+    console.log("callJsx " + fn);
+    //closeDialog();
+
+    let pluginFolder = await fs.getPluginFolder();
+    try {
+      let jsxFileObject = await pluginFolder.getEntry('cc/funcs/' + fn + '.jsx');
+      console.log(jsxFileObject);
+      var filetoken = await fs.createSessionToken(jsxFileObject);
+      console.log(fileToken);
+    } catch (e) {
+      result = "File Can't be found: " + jsx;
+      console.log(result);
+      openDlg(MSG, result);
+    }
+    var result = await batchPlay([{
+      "_obj": "AdobeScriptAutomation Scripts",
+      "javaScript": {
+         "_path": filetoken,
+         "_kind": "local"
+      },
+      "javaScriptMessage": "JSM",
+      "_isCommand": true,
+      "_options": {
+         "dialogOptions": "dontDisplay"
       }
-      else if (result != 'undefined') { // Yes string after eval
-        openDlg(MSG, result);
-      }
+    }], {
+      "synchronousExecution": false,
+      "modalBehavior": "fail"
     });
+    console.log(result);
+  }
+
+  function isDebug()
+  {
+    // TODO
+    return true;
   }
 
   function init()
   {
-    initJsx();
     initColor();
-    csInterface.evalScript('isDebug()', function(result) {
-      if (result == 'true') { // Yes string after eval
-        $(".experimental").css("display", "block");
-      }
-    });
-    themeManager.init();
+    if (isDebug() == 'true') { // Yes string after eval
+      $(".experimental").css("display", "block");
+    }
     showTab(localStorage.getItem('currentTab') || 'Retouch');
     for (var key in Settings) {
       setButtonName(key);
@@ -356,7 +332,7 @@
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
           var fn = 'settings.value("' + id + '","' + key + '");'
-          csInterface.evalScript(fn, setValue(id, key, type));
+          //csInterface.evalScript(fn, setValue(id, key, type));
         }
       }
       openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
