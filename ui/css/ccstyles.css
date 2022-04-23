@@ -102,7 +102,6 @@
 .ccwidget {
   background-color: var(--widget-background-color);
   color: var(--txt-color);
-  border-color: var(--border-color);
   font-family: var(--font-family);
 }
 
