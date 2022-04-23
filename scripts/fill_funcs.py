@@ -4,10 +4,12 @@
 import json, re
 from collections import OrderedDict
 
+funcList = ['setColorTheme']
+
 s1 = '''#include "../main.jsx"
 init((new File($.fileName)).parent + '/../../');
-on'''
-s2 = 'Click();\n'
+'''
+s2 = '();\n'
 
 def name(s):
     return re.sub(r'[^a-zA-Z0-9-_]+', '', s)
@@ -26,4 +28,8 @@ for key in settings:
         continue
     print('• ' + settings[key]['title'] + ' - ' + settings[key]['help'])
     with open('../jsx/funcs/on' + key + 'Click.jsx', 'w') as f:
-        f.write(s1 + key + s2);
+        f.write(s1 + 'on' + key + 'Click' + s2);
+
+for v in funcList:
+    with open('../jsx/funcs/' + v + '.jsx', 'w') as f:
+        f.write(s1 + v + s2);
