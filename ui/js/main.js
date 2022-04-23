@@ -1,6 +1,6 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-//  Copyright (c) 2018-2020 by Petri Damstén <petri.damsten@gmail.com>
+//  Copyright (c) 2018-2022 by Petri Damstén <petri.damsten@gmail.com>
 //
 //  This file is part of Somnium.
 //
@@ -19,9 +19,9 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const app = require("photoshop").app;
-const batchPlay = require("photoshop").action.batchPlay;
-const fs = require("uxp").storage.localFileSystem;
+const somnium = require('./modules/somnium.js');
+
+console.log(somnium);
 
 (function () {
   'use strict';
@@ -210,35 +210,8 @@ const fs = require("uxp").storage.localFileSystem;
   async function callJsx(fn) {
     fn = fn.replace('()', '');
     console.log("callJsx " + fn);
+    somnium.runScript('jsx/funcs/' + fn + '.jsx');
     //closeDialog();
-
-    let pluginFolder = await fs.getPluginFolder();
-    try {
-      let jsxFileObject = await pluginFolder.getEntry('jsx/funcs/' + fn + '.jsx');
-      console.log(jsxFileObject);
-      var filetoken = await fs.createSessionToken(jsxFileObject);
-      console.log(fileToken);
-    } catch (e) {
-      result = "File Can't be found: " + jsx;
-      console.log(result);
-      openDlg(MSG, result);
-    }
-    var result = await batchPlay([{
-      "_obj": "AdobeScriptAutomation Scripts",
-      "javaScript": {
-         "_path": filetoken,
-         "_kind": "local"
-      },
-      "javaScriptMessage": "JSM",
-      "_isCommand": true,
-      "_options": {
-         "dialogOptions": "dontDisplay"
-      }
-    }], {
-      "synchronousExecution": false,
-      "modalBehavior": "fail"
-    });
-    console.log(result);
   }
 
   function isDebug()
