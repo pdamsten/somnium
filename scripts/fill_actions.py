@@ -4,7 +4,7 @@
 import json, re
 from collections import OrderedDict
 
-s1 = '''#include "../cc/main.jsx"
+s1 = '''#include "../jsx/main.jsx"
 init((new File($.fileName)).parent + '/../');
 on'''
 s2 = 'Click();\n'

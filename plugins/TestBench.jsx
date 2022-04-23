@@ -80,7 +80,7 @@ onClick: function()
 };})();
 
 if (typeof somnium === 'undefined') { // if not inside somnium run the test
-  #include "../cc/main.jsx"
+  #include "../jsx/main.jsx"
   init((new File($.fileName)).parent + '/../');
   TestBench.onClick();
 }

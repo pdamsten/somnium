@@ -25,5 +25,5 @@ for key in settings:
         print(settings[key]['help'])
         continue
     print('• ' + settings[key]['title'] + ' - ' + settings[key]['help'])
-    with open('../cc/funcs/on' + key + 'Click.jsx', 'w') as f:
+    with open('../jsx/funcs/on' + key + 'Click.jsx', 'w') as f:
         f.write(s1 + key + s2);

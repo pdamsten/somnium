@@ -1,4 +1,4 @@
-#include "../cc/main.jsx"
+#include "../jsx/main.jsx"
 init((new File($.fileName)).parent + '/../');
 
 WORKAREA = '/Users/damu/Pictures/Work Area/'

@@ -214,7 +214,7 @@ const fs = require("uxp").storage.localFileSystem;
 
     let pluginFolder = await fs.getPluginFolder();
     try {
-      let jsxFileObject = await pluginFolder.getEntry('cc/funcs/' + fn + '.jsx');
+      let jsxFileObject = await pluginFolder.getEntry('jsx/funcs/' + fn + '.jsx');
       console.log(jsxFileObject);
       var filetoken = await fs.createSessionToken(jsxFileObject);
       console.log(fileToken);

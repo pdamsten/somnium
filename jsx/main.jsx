@@ -81,7 +81,7 @@ function init(path)
 {
   try {
     pluginPath = path;
-    var jsxPath = addPathSep(pluginPath + 'cc');
+    var jsxPath = addPathSep(pluginPath + 'jsx');
 
     $.evalFile(jsxPath + 'lib/log-basic.jsx');
 
