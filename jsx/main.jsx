@@ -85,6 +85,7 @@ function init(path)
 
     $.evalFile(jsxPath + 'lib/log-basic.jsx');
 
+    // TODO Dev only path does not work
     var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'Adobe/UXP/PluginsStorage/PHSP/23/Developer/com.petridamsten.somnium/PluginData/');
     mkdir(userDataPath);
     include(jsxPath + 'lib/log.jsx');
@@ -130,32 +131,4 @@ function init(path)
 function onLogoClick()
 {
   openURL('http://petridamsten.com/');
-}
-
-onColorPickerClick = function(color)
-{
-  try {
-    var rgb = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
-    var newColor = $.colorPicker(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
-    var r = newColor >> 16;
-    var g = newColor >> 8 & 0xFF;
-    var b = newColor & 0xFF;
-    var s = 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ')';
-    return s;
-  } catch (e) {
-    log(e);
-  }
-  return 'rgb(0,0,0)'
-}
-
-onBrowseFolderClick = function(title, path)
-{
-  try {
-    var save = new Folder(File(path).fsName);
-    var folder = save.selectDlg(title, '', false);
-    return folder;
-  } catch (e) {
-    log(e);
-  }
-  return addPathSep('~');
 }
