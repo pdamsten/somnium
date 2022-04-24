@@ -79,7 +79,6 @@ mkdir = function(dir)
 
 findPath = function(root, path, index)
 {
-  //C:\Users\<username>\AppData\Roaming\Adobe\UXP\PluginsStorage\PHSP\<ps_major_version>\External\6fddf582\PluginData\
   index = (typeof index === 'undefined') ? 0 : index;
   var p = root;
   var folders = path[index];
