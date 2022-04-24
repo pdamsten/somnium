@@ -39,6 +39,7 @@
   outline: none;
   min-width: 100px;
   margin-left: 10px;
+  color: var(--txt-color);
 }
 
 .ccwidget, .ccselect, .ccbuttonsmall {
@@ -78,24 +79,22 @@
 .ccbutton {
   border-color: var(--border-color);
   background: var(--background-color);
-  color: var(--widget-txt-color);
 }
 
-.ccbutton:active {
+.ccbutton:active, .ccbutton:hover {
   border-color: var(--border-color);
   background: var(--border-color);
   color: var(--background-color-darker);
 }
 
 .ccbuttondefault {
-  border-color: var(--widget-txt-color);
+  border-color: var(--txt-color);
   background: var(--background-color);
-  color: var(--widget-txt-color);
 }
 
-.ccbuttondefault:active {
-  border-color: var(--widget-txt-color);
-  background: var(--widget-txt-color);
+.ccbuttondefault:active, .ccbuttondefault:hover {
+  border-color: var(--txt-color);
+  background: var(--txt-color);
   color: var(--background-color-darker);
 }
 
