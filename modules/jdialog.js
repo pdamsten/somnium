@@ -23,22 +23,61 @@ module.exports = {
   open
 }
 
+function onColorPickerClick(color)
+{
+  try {
+    var rgb = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
+    var newColor = $.colorPicker(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+    var r = newColor >> 16;
+    var g = newColor >> 8 & 0xFF;
+    var b = newColor & 0xFF;
+    var s = 'rgb(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ')';
+    return s;
+  } catch (e) {
+    log(e);
+  }
+  return 'rgb(0,0,0)'
+}
+
+function onBrowseFolderClick(title, path)
+{
+  try {
+    var save = new Folder(File(path).fsName);
+    var folder = save.selectDlg(title, '', false);
+    return folder;
+  } catch (e) {
+    log(e);
+  }
+  return addPathSep('~');
+}
+
+function input(id, cls, type, val)
+{
+  cls = (cls == undefined) ? '': ' ' + cls;
+  type = (type == undefined) ? '': ' data-type="' + type + '" ';
+  val = (val == undefined) ? '': val;
+  return '<input id="' + id + '" class="ccwidget ' + cls + '" value="' + val + '"' + type + '>';
+}
+
 function html2json(id, items)
 {
   for (var key in items) {
     var type = items[key]['type'];
     if (type == 'pixelsize') {
-      items[key]['value'] = [$('#' + id + '-' + key + '_x').val(),
-                             $('#' + id + '-' + key + '_y').val()];
+      items[key]['value'] = [document.querySelector('#' + id + '-' + key + '_x').val(),
+                             document.querySelector('#' + id + '-' + key + '_y').val()];
     } else if (type == 'boolean') {
-      items[key]['value'] = $('#' + id + '-' + key).prop('checked');
+      items[key]['value'] = document.querySelector('#' + id + '-' + key).prop('checked');
     } else if (type == 'label') {
       // Do nothing
+    } else if (type == 'selection') {
+      items[key]['value'] = document.getElementById(id + '-' + key).selectedIndex;
     } else {
-      console.log(key, $('#' + id + '-' + key).val());
-      items[key]['value'] = $('#' + id + '-' + key).val();
+      console.log(key, document.querySelector('#' + id + '-' + key).val());
+      items[key]['value'] = document.querySelector('#' + id + '-' + key).val();
     }
   }
+  return items;
 }
 
 function json2html(id, items)
@@ -95,19 +134,75 @@ function json2html(id, items)
 async function open(data)
 {
   var jdlg = document.querySelector("#jdialog");
-  footer = '<footer><button class="ccbuttondefault">OK</button><button class="ccbutton">Cancel</button></footer>';
+  footer = '<footer><button id="jdlgok" class="ccbuttondefault">OK</button><button id="jdlgcancel"  class="ccbutton">Cancel</button></footer>';
   if (jdlg == null) {
     document.querySelector("body").innerHTML = '<dialog id="jdialog"></dialog>' + document.querySelector("body").innerHTML
     jdlg = document.querySelector("#jdialog");
   }
 
-  document.querySelector("#jdialog").innerHTML = '<form>' + json2html('koe', data['items']) + footer + '</form>';
+  jdlg.innerHTML = '<form>' + json2html('koe', data['items']) + footer + '</form>';
 
-  Array.from(document.querySelectorAll("#jdialog button")).forEach(button => {
-    button.onclick = () => document.querySelector("#jdialog").close();
+  document.querySelector("#jdlgok").onclick = function() { jdlg.close('ok'); };
+  document.querySelector("#jdlgcancel").onclick = function() { jdlg.close('cancel'); };
+
+  /*
+  // Handle all clickable elements
+  jdlg.onClick(".clickable", function (e) {
+    var type = document.querySelector(this).data("type");
+    var fn;
+    var id;
+    var params = [];
+
+    if (type == "folderBrowse") {
+      fn = 'BrowseFolder';
+      params.push('"' + document.querySelector(this).data("title") + '"');
+      id = document.querySelector(this).data("id");
+      params.push('"' + document.querySelector('#' + id).val() + '"');
+    } else if (type == "color") {
+      fn = 'ColorPicker';
+      id = document.querySelector(this).attr('id');
+      params.push('"' + document.querySelector(this).css('background-color') + '"');
+    }
+
+    fn = 'on' + fn + 'Click(' + params.join(',') + ')';
+    console.log('TODO ' + fn);
+    */
+    /*
+    csInterface.evalScript(fn, function(result) {
+      console.log(result);
+      if (result != 'null') {
+        var a = id.split('-');
+        if (type == "folderBrowse") {
+          $('#' + id).val(result);
+        } else if (type == "color") {
+          $('#' + id).css('background-color', result)
+        }
+        var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + result + '");'
+        csInterface.evalScript(fn);
+      }
+    });
+    */
+    /*
+    e.stopPropagation();
   });
 
-  document.querySelector("#jdialog").uxpShowModal({
+  jdlg.on('change', "input, select", function(e) {
+    var a = document.querySelector(this).attr('id').split('-');
+    if (document.querySelector(this).data('type') == 'pixelsize') {
+      a[1] = a[1].slice(0, -2);
+      var v = '"' + document.querySelector('#' + a[0] + '-' + a[1] + '_x').val() + 'x' +
+              document.querySelector('#' + a[0] + '-' + a[1] + '_y').val() + '"';
+    } else if (document.querySelector(this).data('type') == 'boolean') {
+      var v = document.querySelector(this).prop('checked');
+    } else {
+      var v = '"' + this.value + '"';
+    }
+    var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
+    console.log('TODO ' + fn);
+    //csInterface.evalScript(fn);
+  });
+  */
+  const res = await jdlg.showModal({
     title: data['title'],
     resize: "none",
     size: {
@@ -115,4 +210,9 @@ async function open(data)
       height: data['height']
     }
   });
+  if (res == 'ok') {
+    html2json('koe', data['items']);
+    return data;
+  }
+  return null;
 }
