@@ -310,11 +310,31 @@ themeIndex: function()
 
 };})();
 
+onSetColorThemeStrength = function()
+{
+  try {
+    strength = settings.value('SetColorThemeStrength', 'strength');
+    setColorThemeStrength(strength);
+  } catch (e) {
+    log(e);
+  }
+}
+
 setColorThemeStrength = function(strength)
 {
   try {
     ColorGrading.checkColorThemes();
     setColorTheme('previous', strength);
+  } catch (e) {
+    log(e);
+  }
+}
+
+onSetColorTheme = function()
+{
+  try {
+    theme = settings.value('SetColorTheme', 'theme');
+    setColorTheme(theme);
   } catch (e) {
     log(e);
   }

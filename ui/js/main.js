@@ -217,13 +217,13 @@ const plugins = require('./modules/plugins.js');
 
   function changeStrength()
   {
-    callJsx("setColorThemeStrength", {'strength': $('#strength').prop('value')});
+    callJsx("onSetColorThemeStrength", {'strength': $('#strength').prop('value')});
   }
 
   function changeTheme()
   {
     var theme = colorThemes[$("#color").prop("value")];
-    callJsx('setColorTheme', {'theme': theme});
+    callJsx('onSetColorTheme', {'theme': theme});
   }
 
   async function callJsx(fn, params) {
@@ -262,20 +262,10 @@ const plugins = require('./modules/plugins.js');
     });
 
     var delayTimer = null;
-    $("#color").on("input", function (e) { // input event on timer. otherwise too many events.
-      clearTimeout(delayTimer);
-      delayTimer = setTimeout(function () {
-        changeTheme();
-      }, 300);
-    });
-    $("#color").change(function (e) { // or if users lets go do it immediately
-      clearTimeout(delayTimer);
-      changeTheme();
-    });
 
     $("#colorTheme").change(function (e) {
       clearTimeout(delayTimer);
-      callJsx("setColorTheme", {'theme': $("#colorTheme").val()[0]});
+      callJsx("onSetColorTheme", {'theme': $("#colorTheme").val()[0]});
     });
 
     $("#strength").on("input", function (e) {
