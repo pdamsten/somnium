@@ -22,6 +22,7 @@
 const somnium = require('./modules/somnium.js');
 const settings = require('./modules/settings.js');
 const jdialog = require('./modules/jdialog.js');
+const light = require('./modules/tab_light.js');
 
 (function () {
   'use strict';
@@ -282,21 +283,8 @@ const jdialog = require('./modules/jdialog.js');
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      var vignetteDlg = {
-        'title': 'Vignette',
-        'width': 350,
-        'height': 5000,
-        "items": {
-          "type": {
-            "title": "Style:",
-            "type": "selection",
-            "value": 0,
-            "values": ["Elliptical", "Rectangular"]
-          }
-        },
-        'callback': 'onMakeVignetteOK'
-      };
-      jdialog.open(vignetteDlg);
+      light.makeVignette();
+      
       var fn = 'on' + $(this).attr('id') + 'Click';
       callJsx(fn);
     });
