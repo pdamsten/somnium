@@ -24,6 +24,7 @@ const settings = require('./modules/settings.js');
 const jdialog = require('./modules/jdialog.js');
 const light = require('./modules/tab_light.js');
 const plugins = require('./modules/plugins.js');
+const shell = require("uxp").shell;
 
 (function () {
   'use strict';
@@ -167,7 +168,7 @@ const plugins = require('./modules/plugins.js');
 
   function openURL(url)
   {
-    // TODO
+    shell.openExternal(url);
   }
 
   function showTab(name)
