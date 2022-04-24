@@ -40,4 +40,6 @@ async function makeVignette()
   };
   var res = await jdialog.open(vignetteDlg);
   console.log(res);
+  // TODO clicks start to vanish after dialog show
+  location.reload();
 }
