@@ -124,8 +124,3 @@ function init()
 }
 
 init();
-
-function onLogoClick()
-{
-  openURL('http://petridamsten.com/');
-}
