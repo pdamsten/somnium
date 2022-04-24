@@ -7,7 +7,6 @@ from collections import OrderedDict
 funcList = ['onSetColorTheme', 'onSetColorThemeStrength']
 
 s1 = '''#include "../main.jsx"
-init((new File($.fileName)).parent + '/../../');
 '''
 s2 = '();\n'
 
@@ -26,7 +25,7 @@ for key in settings:
         print()
         print(settings[key]['help'])
         continue
-    print('• ' + settings[key]['title'] + ' - ' + settings[key]['help'])
+    print('- ' + settings[key]['title'] + ' - ' + settings[key]['help'])
     with open('../jsx/funcs/on' + key + 'Click.jsx', 'w') as f:
         f.write(s1 + 'on' + key + 'Click' + s2);
 

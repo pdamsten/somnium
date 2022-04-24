@@ -297,9 +297,6 @@ const shell = require("uxp").shell;
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      console.log('click iconButton');
-      light.makeVignette();
-
       var fn = 'on' + $(this).attr('id') + 'Click';
       callJsx(fn);
     });

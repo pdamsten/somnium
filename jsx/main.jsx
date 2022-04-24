@@ -77,11 +77,11 @@ mkdir = function(dir)
   return true;
 }
 
-function init(path)
+function init()
 {
   try {
-    pluginPath = path;
-    var jsxPath = addPathSep(pluginPath + 'jsx');
+    var pluginPath = (new File($.fileName)).parent.parent + sep();
+    var jsxPath = pluginPath + 'jsx' + sep();
 
     $.evalFile(jsxPath + 'lib/log-basic.jsx');
 
@@ -122,6 +122,8 @@ function init(path)
     return '{}';
   }
 }
+
+init();
 
 function onLogoClick()
 {
