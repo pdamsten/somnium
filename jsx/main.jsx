@@ -77,6 +77,40 @@ mkdir = function(dir)
   return true;
 }
 
+findPath = function(root, path, index)
+{
+  //C:\Users\<username>\AppData\Roaming\Adobe\UXP\PluginsStorage\PHSP\<ps_major_version>\External\6fddf582\PluginData\
+  index = (typeof index === 'undefined') ? 0 : index;
+  var p = root;
+  var folders = path[index];
+  if (typeof path[index] === 'string') {
+    folders = [path[index]];
+  } else if (path[index] instanceof Array && path[index].length == 1) {
+    var folder = Folder(p);
+    folders = folder.getFiles(path[index][0]);
+    for (var i = 0; i < folders.length; ++i) {
+      folders[i] = folders[i].fsName.split(sep()).reverse()[0];
+    }
+    folders.sort();
+    folders.reverse();
+  }
+  for (var i = 0; i < folders.length; ++i) {
+    p += sep() + folders[i];
+    var folder = Folder(p);
+    if(folder.exists) {
+      if (index < path.length - 1) {
+        r = findPath(p, path, ++index);
+        if (r) {
+          return r;
+        }
+      } else {
+        return p;
+      }
+    }
+  }
+  return null;
+}
+
 function init()
 {
   try {
@@ -85,9 +119,9 @@ function init()
 
     $.evalFile(jsxPath + 'lib/log-basic.jsx');
 
-    // TODO Dev only path does not work
-    var userDataPath = addPathSep(addPathSep(Folder.userData.fsName) + 'Adobe/UXP/PluginsStorage/PHSP/23/Developer/com.petridamsten.somnium/PluginData/');
+    var userDataPath = findPath(Folder.userData.fsName, ['Adobe', 'UXP', 'PluginsStorage', 'PHSP', ['*'], ['Developer', 'External'], 'com.petridamsten.somnium', 'PluginData']) + sep();
     mkdir(userDataPath);
+
     include(jsxPath + 'lib/log.jsx');
     Log.init(userDataPath + 'log.txt');
 
