@@ -23,6 +23,7 @@ const somnium = require('./modules/somnium.js');
 const settings = require('./modules/settings.js');
 const jdialog = require('./modules/jdialog.js');
 const light = require('./modules/tab_light.js');
+const plugins = require('./modules/plugins.js');
 
 (function () {
   'use strict';
@@ -182,6 +183,26 @@ const light = require('./modules/tab_light.js');
     localStorage.setItem('currentTab', name);
   }
 
+  async function loadPlugins()
+  {
+    let result = await plugins.load();
+    console.log(result);
+    let html = '';
+    for (let i in result) {
+      let id = result[i]['id'];
+      Settings[id] = result[i];
+      html += '<div id="' + id + '" class="iconButton" data-call="' +
+              Settings[id]['call'] + '">';
+      html += '<img src="' + Settings[id]['icon'] + '">';
+      html += Settings[id]['title'];
+      html += '</div>';
+    }
+    if (html != '') {
+      $('#PluginsTab .tabcontent').html(html);
+      $("#Plugins").css("display", "block");
+    }
+  }
+
   function initColor()
   {
     colorThemes = Object.keys(Colors).sort();
@@ -226,6 +247,7 @@ const light = require('./modules/tab_light.js');
 
   function init()
   {
+    loadPlugins();
     initColor();
     if (isDebug() == 'true') { // Yes string after eval
       $(".experimental").css("display", "block");
@@ -278,13 +300,15 @@ const light = require('./modules/tab_light.js');
     });
 
     $("#dialog").on("click", "*", function (e) {
+      console.log('click *');
       e.stopPropagation();
     });
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
+      console.log('click iconButton');
       light.makeVignette();
-      
+
       var fn = 'on' + $(this).attr('id') + 'Click';
       callJsx(fn);
     });
@@ -333,6 +357,10 @@ const light = require('./modules/tab_light.js');
     });
 
   }
+
+  $(document).click(function(event) {
+    console.log('click');
+  });
 
   init();
 

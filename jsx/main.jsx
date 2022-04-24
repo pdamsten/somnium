@@ -117,11 +117,6 @@ function init(path)
 
     settings = new Settings(userDataPath, pluginPath);
     Atn.check(userDataPath, pluginPath, settings);
-
-    // Plugins
-    var plugins = importPlugins(addPathSep(userDataPath + 'plugins'));
-
-    return JSON.stringify(plugins);
   } catch (e) {
     log(e);
     return '{}';
