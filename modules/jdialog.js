@@ -82,7 +82,7 @@ function html2json(id, items)
 
 function json2html(id, items)
 {
-  var html = '';
+  var html = '<div class="jdialogcontainer">';
   for (var key in items) {
     var type = items[key]['type'];
     if (type == 'text') {
@@ -128,6 +128,7 @@ function json2html(id, items)
     }
     html += '</select>';
   }
+  html += '</div>'
   return html;
 }
 

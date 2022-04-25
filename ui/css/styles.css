@@ -350,6 +350,14 @@ footer {
   margin: 0;
 }
 
+.jdialogcontainer {
+  max-height: 1000px;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
 /* icons */
 
 .icon18left, .icon18right, .icon18close, .icon18search, .icon18categories,
