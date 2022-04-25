@@ -115,6 +115,8 @@ async function onClick()
   };
   let lightDlg = {
     'title': 'Select Lights',
+    'width': 350,
+    'height': 500,
     "items": {
       "stand": {
         "title": "Stand:",
