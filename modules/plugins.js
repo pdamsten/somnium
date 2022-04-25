@@ -51,11 +51,12 @@ async function load()
       }
       let svg = '';
       if (plugin.icon) {
-        svg = 'plugin/' + plugin.icon;
+        svg = 'plugins/' + plugin.icon;
       } else {
-        svg = 'plugin/' + name + '.svg';
+        svg = 'plugins/' + name + '.svg';
       }
       try {
+        console.log(svg);
         let e = await pluginFolder.getEntry(svg);
         info['icon'] = svg;
       } catch(e) {
