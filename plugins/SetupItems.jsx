@@ -19,11 +19,9 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-SetupItems = (function() {
+#include "../jsx/main.jsx"
 
-var LIGHTS = 5;
-
-my_lenses = {
+var my_lenses = {
   'smc PENTAX-DA 18-55mm F3.5-5.6 AL II': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
   'smc PENTAX-DA L 18-55mm F3.5-5.6': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
   '18-55mm F3.5-5.6': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
@@ -65,94 +63,6 @@ my_lenses = {
   '35mm f/2.8': 'Olympus mju II',
 }
 
-light = {
-  "header": {
-    "title": "Light 1",
-    "type": "label",
-  },
-  "role": {
-    "title": "Role:",
-    "type": "selection",
-    "value": "0",
-    "values": ["None", "Key Light", "Rim Light", "Accent Light", "Hair Light", "Fill Light",
-               "Background Light"]
-  },
-  "flash": {
-    "title": "Flash:",
-    "type": "selection",
-    "value": "0",
-    "values": ["Godox AD200", "Godox AD600BM", "Godox QS600", "Godox QS300",
-               "Yongnuo YN 560", "Yongnuo YN 565EX", "Yongnuo YN 568EX",
-               "Elinchrom RX4", "Elinchrom RX2", "Natural Light"]
-  },
-  "modifier": {
-    "title": "Modifier:",
-    "type": "selection",
-    "value": "0",
-    "values": ["18cm Reflector", "90cm Octabox",
-               "120cm Octabox", "150cm Octabox",
-               "140cm Stripbox", "40cm Beauty Dish", "60x60cm Softbox",
-               "110cm Shoot Through Umbrella", "90cm Reflective Umbrella",
-               "Fresnel Head", "Fresnel Lens", "Snoot", "15cm bulb", "Gobo Holder", "Cloudy Sky", "Blue Sky", "None"]
-  },
-  "accessory": {
-    "title": "Accessory:",
-    "type": "selection",
-    "value": "0",
-    "values": ["None", "with Grid", "with Diffusor", "with White Wall", "with V-Flat",
-        "without Diffusor", "without Outer Diffusor"]
-  },
-  "power": {
-    "title": "Power:",
-    "type": "pixelsize",
-  },
-  "gel": {
-    "title": "Gel:",
-    "type": "selection",
-    "value": "0",
-    "values": ["None", "#23 Orange", "#26 Light Red",
-               "102 Primary Red", "106 Light Scarlet",
-               "201 Deep Purple Rose", "206 Medium Purple Rose",
-               "404 Golden Amber", "405 Light Amber",
-               "501 Deep Yellow", "503 Yellow",
-               "603 Medium Green", "6001 Dark Green",
-               "8002 Deep Blue", "806 Light Blue"]
-  }
-};
-
-lightDlg = {
-  'title': 'Select Lights',
-  "items": {
-    "stand": {
-      "title": "Stand:",
-      "type": "selection",
-      "value": "0",
-      "values": ["None", "Gitzo GT2542T & RRS BH-30", "Manfrotto 055XPROB & 498RC2",
-                 "Manfrotto 055XPROB & 327RC2", "Fotometal M & Manfrotto MHXPRO-3W"]
-    },
-    "remote": {
-      "title": "Remote:",
-      "type": "selection",
-      "value": "0",
-      "values": ["None", "Aodelan Pebble", "Camranger", "Hähnel Giga T Pro II",
-                 "Nonbrand wire remote", "ControlMyCamera iPad app", "Yongnuo YN-622N & YN-622-TX"]
-    },
-    "trigger": {
-      "title": "Trigger:",
-      "type": "selection",
-      "value": "0",
-      "values": ["Godox Xpro-N", "Godox X2T-N", "Elinchrom Skyport Speed", "Godox XT16", "None"]
-    },
-    "tethering": {
-      "title": "Tethering:",
-      "type": "selection",
-      "value": "0",
-      "values": ["None", "QDslrDashboard + Ubuntu", "QDslrDashboard + iPad", "Lightroom"]
-    },
-  },
-  'callback': 'SetupItems.onLightsDialogOK'
-};
-
 nikTonalContrast = function()
 {
   var desc1 = new ActionDescriptor();
@@ -162,164 +72,136 @@ nikTonalContrast = function()
   executeAction(sTID('com.niksoftware.cep4.ps.filter'), desc1, DialogModes.NO);
 };
 
-return { // public:
+try {
+  var doc = app.activeDocument;
+  var current = doc.activeLayer;
 
-title: 'Include Setup Items',
-help: 'Import items for making setup images.',
+  // Resize 30x20cm
+  doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
 
-onClick: function()
-{
-  try {
-    var doc = app.activeDocument;
-    var current = doc.activeLayer;
-
-    // Resize 30x20cm
-    doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
-
-    // NIK Tonal
-    /*
-    if (!current.hasSmartFilters()) {
-      if (current.kind != LayerKind.SMARTOBJECT) {
-        current.convertToSmartObject(current.name);
-      }
-      nikTonalContrast();
+  // NIK Tonal
+  /*
+  if (!current.hasSmartFilters()) {
+    if (current.kind != LayerKind.SMARTOBJECT) {
+      current.convertToSmartObject(current.name);
     }
-    */
-
-    // Dodge & Burn
-    if (doc.findLayer('Dodge & Burn') == null) {
-      onMakeDBClick();
-    }
-
-    // Color
-    if (doc.findLayer('Color') == null) {
-      setColorTheme('Why So Serious?');
-    }
-
-    // Sharpening
-    if (doc.findLayer('High Pass Sharpening') == null) {
-      var layer = onHighPassSharpeningClick();
-      layer.addMask(true);
-      layer.opacity = 60;
-    }
-
-    var l = doc.findLayer('Notes');
-    if (l == null) {
-      // Copy notes layers from setup_items.psd
-      var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psd");
-      var template = app.open(fileRef);
-      var l = template.findLayer('Notes');
-      l.duplicateToDoc(doc.name);
-      template.close(SaveOptions.DONOTSAVECHANGES);
-      app.activeDocument = doc;
-    }
-
-    // Get metadata from jpg
-    var file = File.openDialog("Get metadata");
-    if(file != null) {
-      var data = Metadata.get(file.fsName);
-      //log(data);
-      var l = doc.findLayer('TITLE');
-      l.textItem.contents = '“' + data['title'] + '” setup';
-
-      var lens = data['lens'];
-      if (lens in my_lenses) {
-        lens = my_lenses[lens];
-      }
-
-      var s = data['model'] + "\r" +
-          lens + '\r' +
-          'Focal length: ' + data['focallength'] + 'mm\r' +
-          'Aperture: f/' + data['aperture'] + '\r' +
-          'Exposure: ' + data['exposure'] + 'sec\r' +
-          'ISO: ' + data['iso'];
-      l = doc.findLayer('INFO');
-      l.textItem.contents = s;
-      app.activeDocument.info.title = data['title'] + ' -setup';
-      app.activeDocument.info.creationDate = data['creationdate'];
-    }
-
-    app.activeDocument.info.keywords = ['setup', 'lighting diagram', 'bts', 'blog'];
-
-    // Show dialog for lighting information
-
-    // multiply data for 5 lights
-    for (var i = 0; i < LIGHTS; ++i) {
-      light['header']['title'] = 'Light ' + (i + 1);
-      for (key in light) {
-        lightDlg['items'][key + (i + 1)] = Object.deepCopy(light[key]);
-      }
-    }
-    SUI.openDialog(lightDlg);
-  } catch (e) {
-    log(e);
+    nikTonalContrast();
   }
-},
+  */
 
-onLightsDialogOK: function(data)
-{
-  try {
-    var doc = app.activeDocument;
-    data = JSON.parse(data);
-    for (var i = 0; i < LIGHTS; ++i) {
-      var n = parseInt(data['items']['role' + (i + 1)]['value']);
-      if (n != 0) {
-        var role = data['items']['role' + (i + 1)]['values'][n];
-        var s = role + '\r';
-        n = parseInt(data['items']['flash' + (i + 1)]['value']);
-        s += data['items']['flash' + (i + 1)]['values'][n] + '\r';
-        major = data['items']['power' + (i + 1)]['value'][0];
-        if (major != '') {
-          s += 'Power: ' + major;
-          minor = data['items']['power' + (i + 1)]['value'][1];
-          if (minor != '') {
-            s += ' ' + minor;
-          }
-          s += '\r';
-        }
-        n = parseInt(data['items']['modifier' + (i + 1)]['value']);
-        s += data['items']['modifier' + (i + 1)]['values'][n];
-        n = parseInt(data['items']['accessory' + (i + 1)]['value']);
-        if (n != 0) {
-          s += ' ' + data['items']['accessory' + (i + 1)]['values'][n];
+  // Dodge & Burn
+  if (doc.findLayer('Dodge & Burn') == null) {
+    onMakeDBClick();
+  }
+
+  // Color
+  if (doc.findLayer('Color') == null) {
+    setColorTheme('Why So Serious?');
+  }
+
+  // Sharpening
+  if (doc.findLayer('High Pass Sharpening') == null) {
+    var layer = onHighPassSharpeningClick();
+    layer.addMask(true);
+    layer.opacity = 60;
+  }
+
+  var l = doc.findLayer('Notes');
+  if (l == null) {
+    // Copy notes layers from setup_items.psd
+    var fileRef = new File("/Users/damu/Pictures/Templates/setup_items.psd");
+    var template = app.open(fileRef);
+    var l = template.findLayer('Notes');
+    l.duplicateToDoc(doc.name);
+    template.close(SaveOptions.DONOTSAVECHANGES);
+    app.activeDocument = doc;
+  }
+
+  // Get metadata from jpg
+  var file = File.openDialog("Get metadata");
+  if(file != null) {
+    var data = Metadata.get(file.fsName);
+    //log(data);
+    var l = doc.findLayer('TITLE');
+    l.textItem.contents = '“' + data['title'] + '” setup';
+
+    var lens = data['lens'];
+    if (lens in my_lenses) {
+      lens = my_lenses[lens];
+    }
+
+    var s = data['model'] + "\r" +
+        lens + '\r' +
+        'Focal length: ' + data['focallength'] + 'mm\r' +
+        'Aperture: f/' + data['aperture'] + '\r' +
+        'Exposure: ' + data['exposure'] + 'sec\r' +
+        'ISO: ' + data['iso'];
+    l = doc.findLayer('INFO');
+    l.textItem.contents = s;
+    app.activeDocument.info.title = data['title'] + ' -setup';
+    app.activeDocument.info.creationDate = data['creationdate'];
+  }
+
+  app.activeDocument.info.keywords = ['setup', 'lighting diagram', 'bts', 'blog'];
+
+  var doc = app.activeDocument;
+  data = JSON.parse(data);
+  for (var i = 0; i < LIGHTS; ++i) {
+    var n = parseInt(data['items']['role' + (i + 1)]['value']);
+    if (n != 0) {
+      var role = data['items']['role' + (i + 1)]['values'][n];
+      var s = role + '\r';
+      n = parseInt(data['items']['flash' + (i + 1)]['value']);
+      s += data['items']['flash' + (i + 1)]['values'][n] + '\r';
+      major = data['items']['power' + (i + 1)]['value'][0];
+      if (major != '') {
+        s += 'Power: ' + major;
+        minor = data['items']['power' + (i + 1)]['value'][1];
+        if (minor != '') {
+          s += ' ' + minor;
         }
         s += '\r';
-        n = parseInt(data['items']['gel' + (i + 1)]['value']);
-        if (n > 0) {
-          s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
-        }
-        var l = doc.findLayer('LIGHT');
-        if (l != null) {
-          var dl = l.duplicateEx('Light ' + (i + 1) + ' - ' + role);
-          dl.visible = true;
-          dl.textItem.contents = s;
-          dl.translate((i + 1) * 300, (i + 1) * 300)
-        }
-        l.visible = false;
       }
+      n = parseInt(data['items']['modifier' + (i + 1)]['value']);
+      s += data['items']['modifier' + (i + 1)]['values'][n];
+      n = parseInt(data['items']['accessory' + (i + 1)]['value']);
+      if (n != 0) {
+        s += ' ' + data['items']['accessory' + (i + 1)]['values'][n];
+      }
+      s += '\r';
+      n = parseInt(data['items']['gel' + (i + 1)]['value']);
+      if (n > 0) {
+        s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
+      }
+      var l = doc.findLayer('LIGHT');
+      if (l != null) {
+        var dl = l.duplicateEx('Light ' + (i + 1) + ' - ' + role);
+        dl.visible = true;
+        dl.textItem.contents = s;
+        dl.translate((i + 1) * 300, (i + 1) * 300)
+      }
+      l.visible = false;
     }
-    s = ''
-    n = parseInt(data['items']['trigger']['value']);
-    if (n != 3) {
-      s += '\rTrigger: ' + data['items']['trigger']['values'][n];
-    }
-    n = parseInt(data['items']['stand']['value']);
-    if (n != 0) {
-      s += '\rStand: ' + data['items']['stand']['values'][n];
-    }
-    n = parseInt(data['items']['remote']['value']);
-    if (n != 0) {
-      s += '\rRemote: ' + data['items']['remote']['values'][n];
-    }
-    n = parseInt(data['items']['tethering']['value']);
-    if (n != 0) {
-      s += '\rTethering: ' + data['items']['tethering']['values'][n];
-    }
-    l = doc.findLayer('INFO');
-    l.textItem.contents = l.textItem.contents + s;
-  } catch (e) {
-    log(e);
   }
+  s = ''
+  n = parseInt(data['items']['trigger']['value']);
+  if (n != 3) {
+    s += '\rTrigger: ' + data['items']['trigger']['values'][n];
+  }
+  n = parseInt(data['items']['stand']['value']);
+  if (n != 0) {
+    s += '\rStand: ' + data['items']['stand']['values'][n];
+  }
+  n = parseInt(data['items']['remote']['value']);
+  if (n != 0) {
+    s += '\rRemote: ' + data['items']['remote']['values'][n];
+  }
+  n = parseInt(data['items']['tethering']['value']);
+  if (n != 0) {
+    s += '\rTethering: ' + data['items']['tethering']['values'][n];
+  }
+  l = doc.findLayer('INFO');
+  l.textItem.contents = l.textItem.contents + s;
+} catch (e) {
+  log(e);
 }
-
-};})();
