@@ -4,6 +4,8 @@
 //
 //**************************************************************************
 
+const app = require("photoshop").app;
+
 const title = 'Hello World';
 const help = 'Somnium plugin template.';
 
@@ -15,5 +17,5 @@ module.exports = {
 
 function onClick()
 {
-  alert('Hello World');
+  app.showAlert('Hello World');
 }

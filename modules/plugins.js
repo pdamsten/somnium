@@ -36,8 +36,9 @@ async function load()
 
   for (let i = 0 ;i < fileList.length; i++) {
     const p = '../' + fileList[i].nativePath.replace(mainFolder.nativePath, '');
-    const plugin = require(p);
     const name = path.removeExt(path.basename(fileList[i].nativePath));
+    global[name] = require(p);
+    const plugin = global[name];
     let info = {'id': name, 'group': 'Plugins', 'title': '',
                 'help': 'User defined plugin.', 'icon': '',
                 'call': name + '.onClick'};

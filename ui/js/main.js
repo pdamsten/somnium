@@ -298,7 +298,7 @@ const shell = require("uxp").shell;
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      var cmd = $(this).attr('data-cmd');
+      var cmd = $(this).attr('data-call');
       console.log(cmd);
       if (cmd) {
         eval(cmd + '();');
