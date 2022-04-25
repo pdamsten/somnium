@@ -24,6 +24,7 @@ const settings = require('./modules/settings.js');
 const jdialog = require('./modules/jdialog.js');
 const light = require('./modules/tab_light.js');
 const plugins = require('./modules/plugins.js');
+const tabLight = require('./modules/tab_light.js');
 const shell = require("uxp").shell;
 
 (function () {
@@ -187,7 +188,6 @@ const shell = require("uxp").shell;
   async function loadPlugins()
   {
     let result = await plugins.load();
-    console.log(result);
     let html = '';
     for (let i in result) {
       let id = result[i]['id'];
@@ -236,6 +236,7 @@ const shell = require("uxp").shell;
         settings.value(name, key, value);
       }
     }
+    console.log('jsx/funcs/' + fn + '.jsx');
     somnium.runScript('jsx/funcs/' + fn + '.jsx');
     //closeDialog();
   }
@@ -297,8 +298,15 @@ const shell = require("uxp").shell;
 
     // Handle icon buttons
     $("#content").on('click', '.iconButton', function () {
-      var fn = 'on' + $(this).attr('id') + 'Click';
-      callJsx(fn);
+      var cmd = $(this).attr('data-cmd');
+      console.log(cmd);
+      if (cmd) {
+        eval(cmd + '();');
+      } else {
+        var fn = 'on' + $(this).attr('id') + 'Click';
+        console.log(fn);
+        callJsx(fn);
+      }
     });
 
     // Handle icon button right click

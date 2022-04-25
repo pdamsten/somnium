@@ -212,7 +212,6 @@ async function open(data)
   });
   if (res == 'ok') {
     html2json('koe', data['items']);
-    return data;
   }
-  return null;
+  return res;
 }

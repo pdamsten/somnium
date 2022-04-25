@@ -70,16 +70,13 @@ onMakeSpotlightClick = function(data)
   }
 }
 
-onMakeVignetteOK = function(data)
+onMakeVignetteClick = function()
 {
   try {
-    if (typeof data == "string") {
-      data = JSON.parse(data);
-      settings.saveDlgValues(data);
-    }
+    log('xxx');
     var doc = app.activeDocument;
     var current = doc.activeLayer;
-    var type = data['items']['type']['value'];
+    var type = settings.value('Vignette-Dlg', 'type');
     var p = 0.1;
     var width = app.activeDocument.width.as("px");
     var height = app.activeDocument.height.as("px");
@@ -93,35 +90,6 @@ onMakeVignetteOK = function(data)
     l.invertMask();
     l.setMaskFeather(width * 0.1);
     l.setBlendingMode('luminosity');
-  } catch (e) {
-    log(e);
-  }
-}
-
-onMakeVignetteClick = function()
-{
-  try {
-    vignetteDlg = {
-      'title': 'Vignette',
-      "items": {
-        "type": {
-          "title": "Style:",
-          "type": "selection",
-          "value": 0,
-          "values": ["Elliptical", "Rectangular"]
-        }
-      },
-      'callback': 'onMakeVignetteOK'
-    };
-    settings.loadDlgValues(vignetteDlg);
-
-    var type = settings.value('MakeVignette', 'type');
-    if (type == 2) {
-      SUI.openDialog(vignetteDlg);
-    } else {
-      vignetteDlg['items']['type']['value'] = type;
-      onMakeVignetteOK(vignetteDlg);
-    }
   } catch (e) {
     log(e);
   }

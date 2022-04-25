@@ -22,7 +22,9 @@
 const fs = require("uxp").storage.localFileSystem;
 
 module.exports = {
-  value
+  value,
+  saveDlgValues,
+  loadDlgValues
 }
 
 async function readConfig()
@@ -54,6 +56,7 @@ async function value(group, key, value)
   let values = await readConfig();
 
   if (value == undefined) {
+    // Get value
     return values[group]['config'][key]['value'];
   } else {
     // Set value
@@ -70,5 +73,19 @@ async function value(group, key, value)
       values[group]['config'][key]['value'] = value;
       writeConfig(values);
     }
+  }
+}
+
+async function saveDlgValues(dlgData)
+{
+  for (let key in dlgData['items']) {
+    value(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value']);
+  }
+}
+
+async function loadDlgValues(dlgData)
+{
+  for (let key in dlgData['items']) {
+    dlgData['items'][key]['value'] = value(dlgData['title'] + '-Dlg', key);
   }
 }

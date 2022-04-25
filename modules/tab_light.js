@@ -19,27 +19,44 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+const settings = require('./settings.js');
+const somnium = require('./somnium.js');
+
 module.exports = {
   makeVignette
 }
 
 async function makeVignette()
 {
-  var vignetteDlg = {
-    'title': 'Vignette',
-    'width': 350,
-    'height': 5000,
-    "items": {
-      "type": {
-        "title": "Style:",
-        "type": "selection",
-        "value": 0,
-        "values": ["Elliptical", "Rectangular"]
+  try {
+    let type = await settings.value('MakeVignette', 'type');
+    if (type == 2) {
+      let vignetteDlg = {
+        'title': 'Vignette',
+        'width': 350,
+        'height': 500,
+        "items": {
+          "type": {
+            "title": "Style:",
+            "type": "selection",
+            "value": 0,
+            "values": ["Elliptical", "Rectangular"]
+          }
+        }
+      };
+      settings.loadDlgValues(vignetteDlg);
+      let res = await jdialog.open(vignetteDlg);
+      if (res == 'ok') {
+        await settings.saveDlgValues(vignetteDlg);
+        await somnium.runScript('jsx/funcs/onMakeVignetteClick.jsx');
       }
+      // TODO clicks start to vanish after dialog show
+      setTimeout(function() { location.reload(); }, 1000);
+    } else {
+      await settings.value('Vignette-Dlg', 'type', type);
+      await somnium.runScript('jsx/funcs/onMakeVignetteClick.jsx');
     }
-  };
-  var res = await jdialog.open(vignetteDlg);
-  console.log(res);
-  // TODO clicks start to vanish after dialog show
-  location.reload();
+  } catch (e) {
+    console.log(e);
+  }
 }
