@@ -73,7 +73,6 @@ onMakeSpotlightClick = function(data)
 onMakeVignetteClick = function()
 {
   try {
-    log('xxx');
     var doc = app.activeDocument;
     var current = doc.activeLayer;
     var type = settings.value('Vignette-Dlg', 'type');
