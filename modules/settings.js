@@ -52,14 +52,19 @@ async function writeConfig(values)
   await jf.write(JSON.stringify(values));
 }
 
-async function value(group, key)
+async function value(group, key, type)
 {
   let values = await readConfig();
 
-  return values[group]['config'][key]['value'];
+  if (type != undefined) {
+    type = '-' + type;
+  } else {
+    type = '';
+  }
+  return values[group]['config'][key]['value' + type];
 }
 
-async function setValue(group, key, value)
+async function setValue(group, key, value, type)
 {
   let values = await readConfig();
 
@@ -72,8 +77,13 @@ async function setValue(group, key, value)
   if (!(key in values[group]['config'])) {
     values[group]['config'][key] = {};
   }
-  if (values[group]['config'][key]['value'] != value) {
-    values[group]['config'][key]['value'] = value;
+  if (type != undefined) {
+    type = '-' + type;
+  } else {
+    type = '';
+  }
+  if (values[group]['config'][key]['value' + type] != value) {
+    values[group]['config'][key]['value' + type] = value;
     writeConfig(values);
   }
 }
@@ -83,7 +93,7 @@ async function saveDlgValues(dlgData)
   for (let key in dlgData['items']) {
     setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value']);
     if ('value-string' in dlgData['items'][key]) {
-      //setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value-string'], 'string');
+      setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value-string'], 'string');
     }
   }
 }
