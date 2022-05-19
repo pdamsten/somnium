@@ -206,7 +206,7 @@ const shell = require("uxp").shell;
 
   function initColor()
   {
-    colorThemes = Object.keys(Colors).sort();
+    colorThemes = Object.keys(Colors);
     for (var i = 0; i < colorThemes.length; ++i) {
       $('#colorTheme').append($('<option>', {value: colorThemes[i], text: colorThemes[i]}));
     }
