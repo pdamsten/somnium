@@ -53,7 +53,7 @@ async function makeVignette()
       // TODO clicks start to vanish after dialog show
       setTimeout(function() { location.reload(); }, 1000);
     } else {
-      await settings.value('Vignette-Dlg', 'type', type);
+      await settings.setValue('Vignette-Dlg', 'type', type);
       await somnium.runScript('jsx/funcs/onMakeVignetteClick.jsx');
     }
   } catch (e) {

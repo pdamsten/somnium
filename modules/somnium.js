@@ -65,7 +65,7 @@ async function callJsx(fn, params) {
   if (params != undefined) {
     for (const [key, value] of Object.entries(params)) {
       console.log(name, key, value);
-      settings.value(name, key, value);
+      settings.setValue(name, key, value);
     }
   }
   console.log('jsx/funcs/' + fn + '.jsx');

@@ -23,6 +23,7 @@ const fs = require("uxp").storage.localFileSystem;
 
 module.exports = {
   value,
+  setValue,
   saveDlgValues,
   loadDlgValues
 }
@@ -51,35 +52,39 @@ async function writeConfig(values)
   await jf.write(JSON.stringify(values));
 }
 
-async function value(group, key, value)
+async function value(group, key)
 {
   let values = await readConfig();
 
-  if (value == undefined) {
-    // Get value
-    return values[group]['config'][key]['value'];
-  } else {
-    // Set value
-    if (!(group in values)) {
-      values[group] = {};
-    }
-    if (!('config' in values[group])) {
-      values[group]['config'] = {};
-    }
-    if (!(key in values[group]['config'])) {
-      values[group]['config'][key] = {};
-    }
-    if (values[group]['config'][key]['value'] != value) {
-      values[group]['config'][key]['value'] = value;
-      writeConfig(values);
-    }
+  return values[group]['config'][key]['value'];
+}
+
+async function setValue(group, key, value)
+{
+  let values = await readConfig();
+
+  if (!(group in values)) {
+    values[group] = {};
+  }
+  if (!('config' in values[group])) {
+    values[group]['config'] = {};
+  }
+  if (!(key in values[group]['config'])) {
+    values[group]['config'][key] = {};
+  }
+  if (values[group]['config'][key]['value'] != value) {
+    values[group]['config'][key]['value'] = value;
+    writeConfig(values);
   }
 }
 
 async function saveDlgValues(dlgData)
 {
   for (let key in dlgData['items']) {
-    value(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value']);
+    setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value']);
+    if ('value-string' in dlgData['items'][key]) {
+      //setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value-string'], 'string');
+    }
   }
 }
 
