@@ -33,6 +33,11 @@ Settings = function(path, pluginPath)
   this.loadConfig();
 }
 
+Settings.prototype.getConfig = function(group)
+{
+  return this.config[group]['config'];
+}
+
 Settings.prototype.value = function(group, key, value)
 {
   if (value == undefined) {
