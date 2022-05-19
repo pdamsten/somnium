@@ -49,7 +49,7 @@ async function writeConfig(values)
 {
   let f = await fs.getDataFolder();
   let jf = await f.createFile('config.json', {overwrite: true});
-  await jf.write(JSON.stringify(values));
+  await jf.write(JSON.stringify(values, null, 2));
 }
 
 async function value(group, key, type)
@@ -67,40 +67,64 @@ async function value(group, key, type)
 async function setValue(group, key, value, type)
 {
   let values = await readConfig();
+  let arr;
+  let write = false;
 
-  if (!(group in values)) {
-    values[group] = {};
-  }
-  if (!('config' in values[group])) {
-    values[group]['config'] = {};
-  }
-  if (!(key in values[group]['config'])) {
-    values[group]['config'][key] = {};
-  }
-  if (type != undefined) {
-    type = '-' + type;
+  if (Array.isArray(group)) {
+    arr = group;
   } else {
-    type = '';
+    arr = [[group, key, value, type]];
   }
-  if (values[group]['config'][key]['value' + type] != value) {
-    values[group]['config'][key]['value' + type] = value;
-    writeConfig(values);
+
+  for (let i = 0; i < arr.length; ++i) {
+    [group, key, value, type] = arr[i];
+    console.log('x-x', group, key, value, type);
+
+    if (!(group in values)) {
+      values[group] = {};
+    }
+    if (!('config' in values[group])) {
+      values[group]['config'] = {};
+    }
+    if (!(key in values[group]['config'])) {
+      values[group]['config'][key] = {};
+    }
+    if (type != undefined) {
+      type = '-' + type;
+    } else {
+      type = '';
+    }
+    if (values[group]['config'][key]['value' + type] != value) {
+      console.log('a-x', group, key, value, type);
+      values[group]['config'][key]['value' + type] = value;
+      write = true;
+    }
+  }
+  if (write) {
+    console.log('writeConfig');
+    await writeConfig(values);
   }
 }
 
 async function saveDlgValues(dlgData)
 {
+  let id = dlgData['title'].replace(' ', '');
+  let arr = [];
+
   for (let key in dlgData['items']) {
-    setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value']);
+    arr.push([id + '-Dlg', key, dlgData['items'][key]['value']]);
     if ('value-string' in dlgData['items'][key]) {
-      setValue(dlgData['title'] + '-Dlg', key, dlgData['items'][key]['value-string'], 'string');
+      arr.push([id + '-Dlg', key, dlgData['items'][key]['value-string'], 'string']);
     }
   }
+  setValue(arr);
 }
 
 async function loadDlgValues(dlgData)
 {
+  let id = dlgData['title'].replace(' ', '');
+
   for (let key in dlgData['items']) {
-    dlgData['items'][key]['value'] = value(dlgData['title'] + '-Dlg', key);
+    dlgData['items'][key]['value'] = value(id + '-Dlg', key);
   }
 }
