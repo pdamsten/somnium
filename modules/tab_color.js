@@ -24,19 +24,26 @@ const somnium = require('./somnium.js');
 module.exports = {
   prevColor,
   nextColor,
-  randomColor
+  randomColor,
+  themeChanged,
+  defaultStrength,
+  strengthChanged
 }
 
 async function prevColor()
 {
   try {
     let n = $("#colorTheme").prop('selectedIndex');
+
     if (n <= 0) {
       n = colorThemes.length - 1;
     } else {
       --n;
     }
-    $("#colorTheme").prop('selectedIndex', n)
+
+    $("#colorTheme").prop('selectedIndex', n);
+    $("#strength").prop('value', Colors[colorThemes[n]].default);
+
     somnium.callJsx("onSetColorTheme", {'theme': colorThemes[n]});
   } catch (e) {
     console.log(e);
@@ -47,12 +54,16 @@ async function nextColor()
 {
   try {
     let n = $("#colorTheme").prop('selectedIndex');
+
     if (n >= colorThemes.length - 1) {
       n = 0;
     } else {
       ++n;
     }
+
     $("#colorTheme").prop('selectedIndex', n)
+    $("#strength").prop('value', Colors[colorThemes[n]].default);
+
     somnium.callJsx("onSetColorTheme", {'theme': colorThemes[n]});
   } catch (e) {
     console.log(e);
@@ -63,8 +74,46 @@ async function randomColor()
 {
   try {
     let n = Math.floor(Math.random() * colorThemes.length);
+
     $("#colorTheme").prop('selectedIndex', n)
+    $("#strength").prop('value', Colors[colorThemes[n]].default);
+
     somnium.callJsx("onSetColorTheme", {'theme': colorThemes[n]});
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function themeChanged()
+{
+  try {
+    let n = $("#colorTheme").prop('selectedIndex');
+    $("#strength").prop('value', Colors[colorThemes[n]].default);
+
+    somnium.callJsx("onSetColorTheme", {'theme': colorThemes[n]});
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function strengthChanged()
+{
+  try {
+    let v = $('#strength').prop('value');
+
+    somnium.callJsx("onSetColorThemeStrength", {'strength': v});
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function defaultStrength()
+{
+  try {
+    let n = $("#colorTheme").prop('selectedIndex');
+    $("#strength").prop('value', Colors[colorThemes[n]].default);
+
+    somnium.callJsx("onSetColorThemeStrength", {'strength': Colors[colorThemes[n]].default});
   } catch (e) {
     console.log(e);
   }

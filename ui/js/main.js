@@ -214,19 +214,7 @@ var colorThemes = [];
     }
     $('#colorTheme').append($('<option>', {value: 'Random', text: 'Random'}));
     $("#colorTheme").val('&nbsp;');
-    $("#color").prop('max', colorThemes.length - 1);
     $("#strength").prop('value', 0);
-  }
-
-  function changeStrength()
-  {
-    somnium.callJsx("onSetColorThemeStrength", {'strength': $('#strength').prop('value')});
-  }
-
-  function changeTheme()
-  {
-    var theme = colorThemes[$("#color").prop("value")];
-    somnium.callJsx('onSetColorTheme', {'theme': theme});
   }
 
   function isDebug()
@@ -255,24 +243,17 @@ var colorThemes = [];
 
     $("#colorTheme").change(function (e) {
       clearTimeout(delayTimer);
-      somnium.callJsx("onSetColorTheme", {'theme': $("#colorTheme").val()[0]});
+      tabColor.themeChanged();
     });
-
     $("#strength").on("input", function (e) {
       clearTimeout(delayTimer);
       delayTimer = setTimeout(function () {
-        changeStrength();
+        tabColor.strengthChanged();
       }, 300);
     });
     $("#strength").on("dblclick", function (e) {
       clearTimeout(delayTimer);
-      var theme = colorThemes[$("#color").prop("value")];
-      $("#strength").prop('value', Colors[theme].default);
-      changeStrength();
-    });
-    $("#strength").change(function (e) {
-      clearTimeout(delayTimer);
-      changeStrength();
+      tabColor.defaultStrength();
     });
 
     $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
