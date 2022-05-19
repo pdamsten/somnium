@@ -25,13 +25,15 @@ const jdialog = require('./modules/jdialog.js');
 const light = require('./modules/tab_light.js');
 const plugins = require('./modules/plugins.js');
 const tabLight = require('./modules/tab_light.js');
+const tabColor = require('./modules/tab_color.js');
 const shell = require("uxp").shell;
+
+var colorThemes = [];
 
 (function () {
   'use strict';
 
   var pluginPath = '';
-  var colorThemes = [];
   var buttonId = null;
   var dialogData = "";
   var colorPicker = new iro.ColorPicker('#picker', {
@@ -218,27 +220,13 @@ const shell = require("uxp").shell;
 
   function changeStrength()
   {
-    callJsx("onSetColorThemeStrength", {'strength': $('#strength').prop('value')});
+    somnium.callJsx("onSetColorThemeStrength", {'strength': $('#strength').prop('value')});
   }
 
   function changeTheme()
   {
     var theme = colorThemes[$("#color").prop("value")];
-    callJsx('onSetColorTheme', {'theme': theme});
-  }
-
-  async function callJsx(fn, params) {
-    let name = fn.replace('on', '').replace('Click', '');
-    console.log("callJsx " + fn + ', ' + name);
-    if (params != undefined) {
-      for (const [key, value] of Object.entries(params)) {
-        console.log(name, key, value);
-        settings.value(name, key, value);
-      }
-    }
-    console.log('jsx/funcs/' + fn + '.jsx');
-    somnium.runScript('jsx/funcs/' + fn + '.jsx');
-    //closeDialog();
+    somnium.callJsx('onSetColorTheme', {'theme': theme});
   }
 
   function isDebug()
@@ -267,7 +255,7 @@ const shell = require("uxp").shell;
 
     $("#colorTheme").change(function (e) {
       clearTimeout(delayTimer);
-      callJsx("onSetColorTheme", {'theme': $("#colorTheme").val()[0]});
+      somnium.callJsx("onSetColorTheme", {'theme': $("#colorTheme").val()[0]});
     });
 
     $("#strength").on("input", function (e) {
@@ -305,7 +293,7 @@ const shell = require("uxp").shell;
       } else {
         var fn = 'on' + $(this).attr('id') + 'Click';
         console.log(fn);
-        callJsx(fn);
+        somnium.callJsx(fn);
       }
     });
 

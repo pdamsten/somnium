@@ -26,7 +26,8 @@ const fs = require("uxp").storage.localFileSystem;
 const core = require("photoshop").core;
 
 module.exports = {
-  runScript
+  runScript,
+  callJsx
 }
 
 async function _ScriptRun(executionControl, descriptor) {
@@ -56,4 +57,17 @@ async function _ScriptRun(executionControl, descriptor) {
 async function runScript(script)
 {
   core.executeAsModal(_ScriptRun, {"commandName": "Run JSX Script", "descriptor": script});
+}
+
+async function callJsx(fn, params) {
+  let name = fn.replace('on', '').replace('Click', '');
+  console.log("callJsx " + fn + ', ' + name);
+  if (params != undefined) {
+    for (const [key, value] of Object.entries(params)) {
+      console.log(name, key, value);
+      settings.value(name, key, value);
+    }
+  }
+  console.log('jsx/funcs/' + fn + '.jsx');
+  runScript('jsx/funcs/' + fn + '.jsx');
 }
