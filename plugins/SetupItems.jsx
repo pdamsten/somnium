@@ -124,7 +124,7 @@ try {
   var file = File.openDialog("Get metadata");
   if(file != null) {
     var mdata = Metadata.get(file.fsName);
-    log(mdata);
+    #log(mdata);
     var l = doc.findLayer('TITLE');
     l.textItem.contents = '“' + mdata['title'] + '” setup';
 
