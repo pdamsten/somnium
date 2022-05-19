@@ -21,6 +21,8 @@
 
 #include "../jsx/main.jsx"
 
+const LIGHTS = 5;
+
 var my_lenses = {
   'smc PENTAX-DA 18-55mm F3.5-5.6 AL II': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
   'smc PENTAX-DA L 18-55mm F3.5-5.6': 'Pentax smc PENTAX-DA 18-55mm F3.5-5.6 AL II',
@@ -75,6 +77,7 @@ nikTonalContrast = function()
 try {
   var doc = app.activeDocument;
   var current = doc.activeLayer;
+  var data = settings.getConfig('SelectLights-Dlg');
 
   // Resize 30x20cm
   doc.resizeImage(UnitValue(30, "cm"), UnitValue(20, "cm"), 300, ResampleMethod.BICUBICSHARPER);
@@ -120,58 +123,56 @@ try {
   // Get metadata from jpg
   var file = File.openDialog("Get metadata");
   if(file != null) {
-    var data = Metadata.get(file.fsName);
-    //log(data);
+    var mdata = Metadata.get(file.fsName);
+    log(mdata);
     var l = doc.findLayer('TITLE');
-    l.textItem.contents = '“' + data['title'] + '” setup';
+    l.textItem.contents = '“' + mdata['title'] + '” setup';
 
-    var lens = data['lens'];
+    var lens = mdata['lens'];
     if (lens in my_lenses) {
       lens = my_lenses[lens];
     }
 
-    var s = data['model'] + "\r" +
+    var s = mdata['model'] + "\r" +
         lens + '\r' +
-        'Focal length: ' + data['focallength'] + 'mm\r' +
-        'Aperture: f/' + data['aperture'] + '\r' +
-        'Exposure: ' + data['exposure'] + 'sec\r' +
-        'ISO: ' + data['iso'];
+        'Focal length: ' + mdata['focallength'] + 'mm\r' +
+        'Aperture: f/' + mdata['aperture'] + '\r' +
+        'Exposure: ' + mdata['exposure'] + 'sec\r' +
+        'ISO: ' + mdata['iso'];
     l = doc.findLayer('INFO');
     l.textItem.contents = s;
-    app.activeDocument.info.title = data['title'] + ' -setup';
-    app.activeDocument.info.creationDate = data['creationdate'];
+    doc.info.title = mdata['title'] + ' -setup';
+    doc.info.creationDate = mdata['creationdate'];
   }
 
-  app.activeDocument.info.keywords = ['setup', 'lighting diagram', 'bts', 'blog'];
+  doc.info.keywords = ['setup', 'lighting diagram', 'bts', 'blog'];
 
-  var doc = app.activeDocument;
-  data = JSON.parse(data);
   for (var i = 0; i < LIGHTS; ++i) {
-    var n = parseInt(data['items']['role' + (i + 1)]['value']);
+    var n = parseInt(data['role' + (i + 1)]['value']);
     if (n != 0) {
-      var role = data['items']['role' + (i + 1)]['values'][n];
+      var role = data['role' + (i + 1)]['value-string'];
       var s = role + '\r';
-      n = parseInt(data['items']['flash' + (i + 1)]['value']);
-      s += data['items']['flash' + (i + 1)]['values'][n] + '\r';
-      major = data['items']['power' + (i + 1)]['value'][0];
+      n = parseInt(data['flash' + (i + 1)]['value']);
+      s += data['flash' + (i + 1)]['value-string'] + '\r';
+      major = data['power' + (i + 1)]['value'][0];
       if (major != '') {
         s += 'Power: ' + major;
-        minor = data['items']['power' + (i + 1)]['value'][1];
+        minor = data['power' + (i + 1)]['value'][1];
         if (minor != '') {
           s += ' ' + minor;
         }
         s += '\r';
       }
-      n = parseInt(data['items']['modifier' + (i + 1)]['value']);
-      s += data['items']['modifier' + (i + 1)]['values'][n];
-      n = parseInt(data['items']['accessory' + (i + 1)]['value']);
+      n = parseInt(data['modifier' + (i + 1)]['value']);
+      s += data['modifier' + (i + 1)]['value-string'];
+      n = parseInt(data['accessory' + (i + 1)]['value']);
       if (n != 0) {
-        s += ' ' + data['items']['accessory' + (i + 1)]['values'][n];
+        s += ' ' + data['accessory' + (i + 1)]['value-string'];
       }
       s += '\r';
-      n = parseInt(data['items']['gel' + (i + 1)]['value']);
+      n = parseInt(data['gel' + (i + 1)]['value']);
       if (n > 0) {
-        s += 'Gel: ' + data['items']['gel' + (i + 1)]['values'][n] + '\r';
+        s += 'Gel: ' + data['gel' + (i + 1)]['value-string'] + '\r';
       }
       var l = doc.findLayer('LIGHT');
       if (l != null) {
@@ -184,21 +185,21 @@ try {
     }
   }
   s = ''
-  n = parseInt(data['items']['trigger']['value']);
+  n = parseInt(data['trigger']['value']);
   if (n != 3) {
-    s += '\rTrigger: ' + data['items']['trigger']['values'][n];
+    s += '\rTrigger: ' + data['trigger']['value-string'];
   }
-  n = parseInt(data['items']['stand']['value']);
+  n = parseInt(data['stand']['value']);
   if (n != 0) {
-    s += '\rStand: ' + data['items']['stand']['values'][n];
+    s += '\rStand: ' + data['stand']['value-string'];
   }
-  n = parseInt(data['items']['remote']['value']);
+  n = parseInt(data['remote']['value']);
   if (n != 0) {
-    s += '\rRemote: ' + data['items']['remote']['values'][n];
+    s += '\rRemote: ' + data['remote']['value-string'];
   }
-  n = parseInt(data['items']['tethering']['value']);
+  n = parseInt(data['tethering']['value']);
   if (n != 0) {
-    s += '\rTethering: ' + data['items']['tethering']['values'][n];
+    s += '\rTethering: ' + data['tethering']['value-string'];
   }
   l = doc.findLayer('INFO');
   l.textItem.contents = l.textItem.contents + s;
