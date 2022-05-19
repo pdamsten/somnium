@@ -284,7 +284,7 @@ var colorThemes = [];
       var html = '';
       if ('config' in Settings[id]) {
         $('#settings').show();
-        html = json2html(id, Settings[id]['config']) + '<br/><br/><br/><br/>';
+        html = jdialog.json2html(id, Settings[id]['config']) + '<br/><br/><br/><br/>';
         for (var key in Settings[id]['config']) {
           var type = Settings[id]['config'][key]['type'];
           var fn = 'settings.value("' + id + '","' + key + '");'
