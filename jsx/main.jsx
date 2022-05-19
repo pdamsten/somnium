@@ -113,7 +113,7 @@ findPath = function(root, path, index)
 function init()
 {
   try {
-    var pluginPath = (new File($.fileName)).parent.parent + sep();
+    pluginPath = (new File($.fileName)).parent.parent + sep();
     var jsxPath = pluginPath + 'jsx' + sep();
 
     $.evalFile(jsxPath + 'lib/log-basic.jsx');
