@@ -146,21 +146,19 @@ async function onClick()
       }
     }
   };
-  console.log('a');
   // multiply data for 5 lights
   for (var i = 0; i < LIGHTS; ++i) {
     light['header']['title'] = 'Light ' + (i + 1);
-    console.log('c');
     for (key in light) {
       lightDlg['items'][key + (i + 1)] = Object.deepCopy(light[key]);
-      console.log('d');
     }
   }
-  console.log('b');
   let res = await jdialog.open(lightDlg);
   console.log(res);
   if (res == 'ok') {
     await settings.saveDlgValues(lightDlg);
-    await somnium.runScript('jsx/funcs/onMakeVignetteClick.jsx');
+    await somnium.runScript('plugins/SetupItems.jsx');
+    // TODO clicks start to vanish after dialog show
   }
+  setTimeout(function() { location.reload(); }, 1000);
 }
