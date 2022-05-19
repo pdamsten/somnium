@@ -20,7 +20,9 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 module.exports = {
-  open
+  open,
+  html2json,
+  json2html
 }
 
 function onColorPickerClick(color)
@@ -46,7 +48,7 @@ function onBrowseFolderClick(title, path)
     var folder = save.selectDlg(title, '', false);
     return folder;
   } catch (e) {
-    log(e);
+    console.log(e);
   }
   return addPathSep('~');
 }
@@ -61,21 +63,26 @@ function input(id, cls, type, val)
 
 function html2json(id, items)
 {
-  for (var key in items) {
-    var type = items[key]['type'];
-    if (type == 'pixelsize') {
-      items[key]['value'] = [document.querySelector('#' + id + '-' + key + '_x').val(),
-                             document.querySelector('#' + id + '-' + key + '_y').val()];
-    } else if (type == 'boolean') {
-      items[key]['value'] = document.querySelector('#' + id + '-' + key).prop('checked');
-    } else if (type == 'label') {
-      // Do nothing
-    } else if (type == 'selection') {
-      items[key]['value'] = document.getElementById(id + '-' + key).selectedIndex;
-    } else {
-      console.log(key, document.querySelector('#' + id + '-' + key).val());
-      items[key]['value'] = document.querySelector('#' + id + '-' + key).val();
+  try {
+    for (var key in items) {
+      var type = items[key]['type'];
+      if (type == 'pixelsize') {
+        items[key]['value'] = [$('#' + id + '-' + key + '_x').val(),
+                               $('#' + id + '-' + key + '_y').val()];
+      } else if (type == 'boolean') {
+        items[key]['value'] = $('#' + id + '-' + key).prop('checked');
+      } else if (type == 'label') {
+        // Do nothing
+      } else if (type == 'selection') {
+        items[key]['value'] = parseInt($('#' + id + '-' + key).prop('selectedIndex'));
+        items[key]['value-string'] = items[key]['values'][items[key]['value']];
+      } else {
+        console.log(key, $('#' + id + '-' + key).val());
+        items[key]['value'] = $('#' + id + '-' + key).val();
+      }
     }
+  } catch (e) {
+    console.log(e);
   }
   return items;
 }
@@ -135,13 +142,14 @@ function json2html(id, items)
 async function open(data)
 {
   var jdlg = document.querySelector("#jdialog");
+  let id = data['title'].replace(' ', '');
   footer = '<footer><button id="jdlgok" class="ccbuttondefault">OK</button><button id="jdlgcancel"  class="ccbutton">Cancel</button></footer>';
   if (jdlg == null) {
     document.querySelector("body").innerHTML = '<dialog id="jdialog"></dialog>' + document.querySelector("body").innerHTML
     jdlg = document.querySelector("#jdialog");
   }
 
-  jdlg.innerHTML = '<form>' + json2html('koe', data['items']) + footer + '</form>';
+  jdlg.innerHTML = '<form>' + json2html(id, data['items']) + footer + '</form>';
 
   document.querySelector("#jdlgok").onclick = function() { jdlg.close('ok'); };
   document.querySelector("#jdlgcancel").onclick = function() { jdlg.close('cancel'); };
@@ -212,7 +220,7 @@ async function open(data)
     }
   });
   if (res == 'ok') {
-    html2json('koe', data['items']);
+    html2json(id, data['items']);
   }
   return res;
 }
