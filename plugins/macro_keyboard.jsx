@@ -29,6 +29,23 @@ customSave = function()
   }
 }
 
+customExport = function(path, size, minsize, color)
+{
+  size = (size == undefined) ? "x" : size;
+  minsize = (minsize == undefined) ? "x" : minsize;
+  color = (color == undefined) ? "rgb(0,0,0)" : color;
+
+  var filename = Path.uniqueFilename(path, app.activeDocument.name, '.jpg');
+  size = size.split('x');
+  minsize = minsize.split('x');
+  color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
+  alert(size);
+  if (!app.activeDocument.saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
+                                    parseInt(minsize[0]), parseInt(minsize[1]), color)) {
+    alert('Saving ' + filename + ' failed.');
+  }
+}
+
 solidColorHelper = function()
 {
   var l = app.activeDocument.addSolidColorAdjustment('Selection Helper', [0, 255, 0])
@@ -50,11 +67,11 @@ switch(key) {
   case 2: app.activeDocument.activeLayer.showMask(true); break;
   case 3: app.activeDocument.activeLayer.showMaskOverlay(true); break;
   case 5: onSaveLayersClick(); break;
-  case 6: onExport4Click(); break;
-  case 7: onExport2Click(); break;
-  case 8: onExport3Click(); break;
-  case 9: onSaveFbClick(); break;
-  case 10: onSave4KClick(); break;
+  case 6: customExport("~/Pictures/Processed/"); break;
+  case 7: customExport("~/Pictures/Processed/Setups/"); break;
+  case 8: customExport("~/Pictures/Processed/Extras/"); break;
+  case 9: customExport("~/tmp/", "2048x2048"); break;
+  case 10: customExport("~/tmp/4k/", "3840x2160"); break;
   case 11: customSave(); break;
   // Helpers
   case 14: onMakeMemoClick(); break;
