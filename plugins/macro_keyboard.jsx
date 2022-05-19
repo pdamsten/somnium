@@ -39,7 +39,6 @@ customExport = function(path, size, minsize, color)
   size = size.split('x');
   minsize = minsize.split('x');
   color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
-  alert(size);
   if (!app.activeDocument.saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
                                     parseInt(minsize[0]), parseInt(minsize[1]), color)) {
     alert('Saving ' + filename + ' failed.');
