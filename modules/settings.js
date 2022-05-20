@@ -78,7 +78,6 @@ async function setValue(group, key, value, type)
 
   for (let i = 0; i < arr.length; ++i) {
     [group, key, value, type] = arr[i];
-    console.log('x-x', group, key, value, type);
 
     if (!(group in values)) {
       values[group] = {};
@@ -95,13 +94,11 @@ async function setValue(group, key, value, type)
       type = '';
     }
     if (values[group]['config'][key]['value' + type] != value) {
-      console.log('a-x', group, key, value, type);
       values[group]['config'][key]['value' + type] = value;
       write = true;
     }
   }
   if (write) {
-    console.log('writeConfig');
     await writeConfig(values);
   }
 }
