@@ -222,5 +222,10 @@ async function open(data)
   if (res == 'ok') {
     html2json(id, data['items']);
   }
+  // TODO clicks start to vanish after dialog show
+  setTimeout(function() {
+    console.log('HACK!!! Reloading interface to get clicks working.');
+    location.reload();
+  }, 1000);
   return res;
 }

@@ -158,7 +158,5 @@ async function onClick()
   if (res == 'ok') {
     await settings.saveDlgValues(lightDlg);
     await somnium.runScript('plugins/SetupItems.jsx');
-    // TODO clicks start to vanish after dialog show
   }
-  setTimeout(function() { location.reload(); }, 1000);
 }
