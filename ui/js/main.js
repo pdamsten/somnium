@@ -111,8 +111,8 @@ var colorThemes = [];
       }
       $('#msgText').show();
     }
-    if (!$("#dialog").is(":visible")) {
-      $('#dialog').slideToggle();
+    if ($("#dialog").css("display") == 'none') {
+      $('#dialog').show();
     }
   }
 
@@ -131,8 +131,9 @@ var colorThemes = [];
 
   var closeDialog = function() {
     timer = 0;
-    if ($("#dialog").is(":visible")) {
-      $('#dialog').slideToggle();
+    console.log($("#dialog").css("display"));
+    if ($("#dialog").css("display") != 'none') {
+      $('#dialog').hide();
 
       if (buttonId) {
         setButtonName(buttonId);
@@ -286,9 +287,7 @@ var colorThemes = [];
         $('#settings').show();
         html = jdialog.json2html(id, Settings[id]['config']) + '<br/><br/><br/><br/>';
         for (var key in Settings[id]['config']) {
-          var type = Settings[id]['config'][key]['type'];
-          var fn = 'settings.value("' + id + '","' + key + '");'
-          //csInterface.evalScript(fn, setValue(id, key, type));
+          Settings[id]['config'][key]['value'] = settings.value(id, key);
         }
       }
       openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
