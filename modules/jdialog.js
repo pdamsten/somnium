@@ -149,7 +149,7 @@ async function open(data)
     jdlg = document.querySelector("#jdialog");
   }
 
-  jdlg.innerHTML = '<form>' + json2html(id, data['items']) + footer + '</form>';
+  jdlg.innerHTML = '<form>' + json2html(id, data['config']) + footer + '</form>';
 
   document.querySelector("#jdlgok").onclick = function() { jdlg.close('ok'); };
   document.querySelector("#jdlgcancel").onclick = function() { jdlg.close('cancel'); };
