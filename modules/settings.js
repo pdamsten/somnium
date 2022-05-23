@@ -25,7 +25,9 @@ module.exports = {
   value,
   setValue,
   saveDlgValues,
-  loadDlgValues
+  loadDlgValues,
+  readConfig,
+  writeConfig
 }
 
 async function readConfig()

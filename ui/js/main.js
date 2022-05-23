@@ -153,29 +153,23 @@ async function ColorPicker(executionControl, descriptor) {
     }
   }
 
-  var setButtonName = function(buttonId) {
-    if ('config' in Settings[buttonId] && 'name' in Settings[buttonId]['config']) {
-      var fn = 'settings.value("' + buttonId + '","name");';
-      /*
-      csInterface.evalScript(fn, function(result, buttonId) {
-        if (result != '') {
-          $('#' + this.buttonId + ' .iconButtonTitle').html(result);
-        }
-      }.bind({buttonId: buttonId}));
-      */
+  var setButtonName = async function(buttonId, config) {
+    if ('config' in config[buttonId] && 'name' in config[buttonId]['config']) {
+      $('#' + buttonId + ' .iconButtonTitle').html(config[buttonId]['config']['name']['value']);
     }
   }
 
-  var closeDialog = function() {
+  var closeDialog = async function() {
     timer = 0;
     console.log($("#dialog").css("display"));
     if ($("#dialog").css("display") != 'none') {
       $('#dialog').hide();
 
       if (buttonId) {
+        let Settings = await settings.readConfig();
         jdialog.html2json(buttonId, Settings[buttonId]['config']);
         settings.saveDlgValues(Settings[buttonId]);
-        setButtonName(buttonId);
+        setButtonName(buttonId, Settings);
       }
     }
   }
@@ -231,6 +225,7 @@ async function ColorPicker(executionControl, descriptor) {
   {
     let result = await plugins.load();
     let html = '';
+    let Settings = await settings.readConfig();
     for (let i in result) {
       let id = result[i]['id'];
       Settings[id] = result[i];
@@ -263,7 +258,7 @@ async function ColorPicker(executionControl, descriptor) {
     return true;
   }
 
-  function init()
+  async function init()
   {
     loadPlugins();
     initColor();
@@ -271,8 +266,9 @@ async function ColorPicker(executionControl, descriptor) {
       $(".experimental").css("display", "block");
     }
     showTab(localStorage.getItem('currentTab') || 'Retouch');
+    var Settings = await await settings.readConfig();
     for (var key in Settings) {
-      setButtonName(key);
+      setButtonName(key, Settings);
     }
 
     $('#header, #content').click(function() {
