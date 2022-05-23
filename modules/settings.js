@@ -133,7 +133,6 @@ async function loadDlgValues(dlgData)
   } else {
     id = dlgData['title'].replace(' ', '') + '-Dlg';
   }
-
   for (let key in dlgData['config']) {
     dlgData['config'][key]['value'] = await value(id, key);
     //console.log(id, key, dlgData['config'][key]['value']);

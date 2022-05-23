@@ -39,71 +39,30 @@ var colorThemes = [];
   var pluginPath = '';
   var buttonId = null;
   var dialogData = "";
-  var colorPicker = new iro.ColorPicker('#picker', {
-    width: 180,
-    layoutDirection: "horizontal",
-    //borderWidth: 2,
-    sliderSize: 20,
-    colors: [
-      'hsl(0, 100%, 45%)',
-      'hsl(120, 100%, 45%)',
-      'hsl(240, 100%, 45%)',
-    ],
-    layout: [
-      {
-        component: iro.ui.Wheel,
-        options: {
-          borderColor: '#ffffff',
-        }
-      },
-      {
-        component: iro.ui.Slider,
-        options: {
-          sliderType: 'alpha',
-          activeIndex: 0,
-        }
-      },
-      {
-        component: iro.ui.Slider,
-        options: {
-          sliderType: 'alpha',
-          activeIndex: 1,
-        }
-      },
-      {
-        component: iro.ui.Slider,
-        options: {
-          sliderType: 'alpha',
-          activeIndex: 2,
-        }
-      }
-    ]
-  });
-
   const HELP = 0, MSG = 1;
   const INFO = 1, WARNING = 2, ERROR = 3;
   var timer = 0;
 
-async function ColorPicker(executionControl, descriptor) {
-  try {
-    const openPicker = {
-      _target: { _ref: "application" },
-      _obj: "showColorPicker",
-      context: "Color picker",
-      color: {
-        _obj: 'RGBColor',
-        red: 255,
-        green: 0,
-        blue: 0,
-      },
-    };
-    const res = await batchPlay([openPicker], {});
-    const clr = 'rgb(' + Math.round(res[0].RGBFloatColor.red) + ', ' + Math.round(res[0].RGBFloatColor.grain) + ', ' + Math.round(res[0].RGBFloatColor.blue) + ')';
-    $('#' + descriptor).css('background-color', clr);
-  } catch(e) {
-    console.log(e);
+  async function ColorPicker(executionControl, descriptor) {
+    try {
+      const openPicker = {
+        _target: { _ref: "application" },
+        _obj: "showColorPicker",
+        context: "Color picker",
+        color: {
+          _obj: 'RGBColor',
+          red: 255,
+          green: 0,
+          blue: 0,
+        },
+      };
+      const res = await batchPlay([openPicker], {});
+      const clr = 'rgb(' + Math.round(res[0].RGBFloatColor.red) + ', ' + Math.round(res[0].RGBFloatColor.grain) + ', ' + Math.round(res[0].RGBFloatColor.blue) + ')';
+      $('#' + descriptor).css('background-color', clr);
+    } catch(e) {
+      console.log(e);
+    }
   }
-}
 
   var openDlg = function(type, title, text, arg1, arg2)
   {
@@ -183,6 +142,7 @@ async function ColorPicker(executionControl, descriptor) {
     };
 
     return function(result) {
+      console.log('setValue');
       var id = '#' + data['id'] + '-' + data['key'];
       //console.log(id, result, typeof result);
       if (data['type'] == 'text') {
@@ -252,21 +212,12 @@ async function ColorPicker(executionControl, descriptor) {
     $("#strength").prop('value', 0);
   }
 
-  function isDebug()
-  {
-    // TODO
-    return true;
-  }
-
   async function init()
   {
     loadPlugins();
     initColor();
-    if (isDebug() == 'true') { // Yes string after eval
-      $(".experimental").css("display", "block");
-    }
     showTab(localStorage.getItem('currentTab') || 'Retouch');
-    var Settings = await await settings.readConfig();
+    var Settings = await settings.readConfig();
     for (var key in Settings) {
       setButtonName(key, Settings);
     }
@@ -316,13 +267,19 @@ async function ColorPicker(executionControl, descriptor) {
 
     // Handle icon button right click
     $("#content").on('contextmenu', '.iconButton', async function() {
-      var id = $(this).attr('id');
-      var html = '';
-      if ('config' in Settings[id]) {
-        await settings.loadDlgValues(Settings[id]);
-        html = jdialog.json2html(id, Settings[id]['config']);
-        openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
-        buttonId = id;
+      try {
+        var id = $(this).attr('id');
+        var html = '';
+        var Settings = await settings.readConfig();
+        if ('config' in Settings[id]) {
+          console.log(Settings[id]);
+          await settings.loadDlgValues(Settings[id]);
+          html = jdialog.json2html(id, Settings[id]['config']);
+          openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
+          buttonId = id;
+        }
+      } catch(e) {
+        console.log(e);
       }
       return false;
     });
