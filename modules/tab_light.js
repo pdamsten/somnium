@@ -35,7 +35,7 @@ async function makeVignette()
         'title': 'Vignette',
         'width': 350,
         'height': 500,
-        "items": {
+        "config": {
           "type": {
             "title": "Style:",
             "type": "selection",
@@ -44,7 +44,7 @@ async function makeVignette()
           }
         }
       };
-      settings.loadDlgValues(vignetteDlg);
+      await settings.loadDlgValues(vignetteDlg);
       let res = await jdialog.open(vignetteDlg);
       if (res == 'ok') {
         await settings.saveDlgValues(vignetteDlg);

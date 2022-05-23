@@ -20,6 +20,7 @@ var Settings = {
   "MakeFS": {
     "group": "Retouch",
     "title": "Frequence Separation",
+    "id": "MakeFS",
     "help": "Frequence separation layers. Two options: 'Normal' two layer frequence separation and 'With helper' that already has blurred low frequence layer. At first blur you should select value that hides details from skin. 'With helper' has a second blur that should have value that smoothens the skin. Usually a bit higher than the first one.",
     "config": {
       "style": {
@@ -38,6 +39,7 @@ var Settings = {
   "FillEmpty": {
     "group": "Retouch",
     "title": "Content Aware Fill",
+    "id": "FillEmpty",
     "help": "Makes a stamp so it works for all underlying layers and RAW. If there is no selection it selects empty areas. With dialog please leave 'Output To:' to 'New Layer'",
     "config": {
       "style": {
@@ -80,6 +82,7 @@ var Settings = {
   "MakeCookie": {
     "group": "Light",
     "title": "Cookie Light",
+    "id": "MakeCookie",
     "help": "Cookie light means poking light 'spots' to a image. It can be used to rise certain part of images. After applying use soft round brush to make light spots on the mask.",
     "config": {
       "type": {
@@ -91,6 +94,7 @@ var Settings = {
     }
   },
   "MakeVignette": {
+    "id": "MakeVignette",
     "group": "Light",
     "title": "Vignette",
     "help": "Applies vignette to a image.",
@@ -131,6 +135,7 @@ var Settings = {
   "MakeDB": {
     "group": "Light",
     "title": "Dodge And Burn",
+    "id": "MakeDB",
     "help": "There are two options for dodge and burn. With curves use soft round brush with 1%-10% flow to draw on masks. With neutral grey layer use dodge and burn tools on the grey layer. Both can get you similar results. Use the one that suites your editing style.",
     "config": {
       "type": {
@@ -163,6 +168,7 @@ var Settings = {
   "RandomColor": {
     "group": "Color",
     "title": "Random Color",
+    "id": "RandomColor",
     "help": "Sets random color theme. 'Random theme' swaps to next random theme. 'Themes shuffled' takes random parts from the themes and makes totally new themes.",
     "config": {
       "type": {
@@ -195,6 +201,7 @@ var Settings = {
   "SaveFb": {
     "group": "Finish",
     "title": "Save to Facebook",
+    "id": "SaveFb",
     "help": "Save image with correct size to Facebook.",
     "config": {
       "path": {
@@ -222,6 +229,7 @@ var Settings = {
   "SaveInsta": {
     "group": "Finish",
     "title": "Save to Instagram",
+    "id": "SaveInsta",
     "help": "Save image with correct size for Instagram",
     "config": {
       "path": {
@@ -249,6 +257,7 @@ var Settings = {
   "SaveTwitter": {
     "group": "Finish",
     "title": "Save to Twitter",
+    "id": "SaveTwitter",
     "help": "Save image with correct size to Twitter.",
     "config": {
       "path": {
@@ -276,6 +285,7 @@ var Settings = {
   "Save4K": {
     "group": "Finish",
     "title": "Save in 4K Resolution",
+    "id": "Save4K",
     "help": "",
     "config": {
       "path": {
@@ -303,6 +313,7 @@ var Settings = {
   "Export1": {
     "group": "Finish",
     "title": "Custom Export 1",
+    "id": "Export1",
     "help": "User definable export button.",
     "config": {
       "name": {
@@ -335,6 +346,7 @@ var Settings = {
   "Export2": {
     "group": "Finish",
     "title": "Custom Export 2",
+    "id": "Export2",
     "help": "User definable export button.",
     "config": {
       "name": {
@@ -367,6 +379,7 @@ var Settings = {
   "Export3": {
     "group": "Finish",
     "title": "Custom Export 3",
+    "id": "Export3",
     "help": "User definable export button.",
     "config": {
       "name": {
@@ -399,6 +412,7 @@ var Settings = {
   "Export4": {
     "group": "Finish",
     "title": "Custom Export 4",
+    "id": "Export4",
     "help": "User definable export button.",
     "config": {
       "name": {
@@ -431,6 +445,7 @@ var Settings = {
   "SaveLayers": {
     "group": "Finish",
     "title": "Save Layers",
+    "id": "SaveLayers",
     "help": "This makes layers animation from bottom to top which shows how editing progresses. I use this to make animations from my editing process to blog, instagram, youtube,...<br>Flags (?msfr) in layer name:<ul><li>m = show with and without mask</li><li>s = open smart object</li> <li>f = show with and without smart filters</li><li>r = Show these first</li></ul>",
     "config": {
       "path": {

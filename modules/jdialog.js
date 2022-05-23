@@ -220,7 +220,7 @@ async function open(data)
     }
   });
   if (res == 'ok') {
-    html2json(id, data['items']);
+    html2json(id, data['config']);
   }
   // TODO clicks start to vanish after dialog show
   setTimeout(function() {

@@ -136,6 +136,8 @@ var colorThemes = [];
       $('#dialog').hide();
 
       if (buttonId) {
+        jdialog.html2json(buttonId, Settings[buttonId]['config']);
+        settings.saveDlgValues(Settings[buttonId]);
         setButtonName(buttonId);
       }
     }
@@ -280,18 +282,15 @@ var colorThemes = [];
     });
 
     // Handle icon button right click
-    $("#content").on('contextmenu', '.iconButton', function () {
+    $("#content").on('contextmenu', '.iconButton', async function() {
       var id = $(this).attr('id');
       var html = '';
       if ('config' in Settings[id]) {
-        $('#settings').show();
+        await settings.loadDlgValues(Settings[id]);
         html = jdialog.json2html(id, Settings[id]['config']) + '<br/><br/><br/><br/>';
-        for (var key in Settings[id]['config']) {
-          Settings[id]['config'][key]['value'] = settings.value(id, key);
-        }
+        openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
+        buttonId = id;
       }
-      openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
-      buttonId = id;
       return false;
     });
 

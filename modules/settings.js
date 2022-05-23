@@ -105,23 +105,35 @@ async function setValue(group, key, value, type)
 
 async function saveDlgValues(dlgData)
 {
-  let id = dlgData['title'].replace(' ', '');
+  let id;
+  if ('id' in dlgData) {
+    id = dlgData['id'];
+  } else {
+    id = dlgData['title'].replace(' ', '') + '-Dlg';
+  }
   let arr = [];
 
-  for (let key in dlgData['items']) {
-    arr.push([id + '-Dlg', key, dlgData['items'][key]['value']]);
-    if ('value-string' in dlgData['items'][key]) {
-      arr.push([id + '-Dlg', key, dlgData['items'][key]['value-string'], 'string']);
+  for (let key in dlgData['config']) {
+    arr.push([id, key, dlgData['config'][key]['value']]);
+    if ('value-string' in dlgData['config'][key]) {
+      arr.push([id, key, dlgData['config'][key]['value-string'], 'string']);
     }
+    //console.log(id, key, dlgData['config'][key]['value']);
   }
   setValue(arr);
 }
 
 async function loadDlgValues(dlgData)
 {
-  let id = dlgData['title'].replace(' ', '');
+  let id;
+  if ('id' in dlgData) {
+    id = dlgData['id'];
+  } else {
+    id = dlgData['title'].replace(' ', '') + '-Dlg';
+  }
 
-  for (let key in dlgData['items']) {
-    dlgData['items'][key]['value'] = value(id + '-Dlg', key);
+  for (let key in dlgData['config']) {
+    dlgData['config'][key]['value'] = await value(id, key);
+    //console.log(id, key, dlgData['config'][key]['value']);
   }
 }

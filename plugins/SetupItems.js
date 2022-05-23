@@ -117,7 +117,7 @@ async function onClick()
     'title': 'Select Lights',
     'width': 350,
     'height': 500,
-    "items": {
+    "config": {
       "stand": {
         "title": "Stand:",
         "type": "selection",
