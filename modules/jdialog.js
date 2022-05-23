@@ -76,6 +76,8 @@ function html2json(id, items)
       } else if (type == 'selection') {
         items[key]['value'] = parseInt($('#' + id + '-' + key).prop('selectedIndex'));
         items[key]['value-string'] = items[key]['values'][items[key]['value']];
+      } else if (type == 'color') {
+        items[key]['value'] = $('#' + id + '-' + key).css('background-color');
       } else {
         console.log(key, $('#' + id + '-' + key).val());
         items[key]['value'] = $('#' + id + '-' + key).val();
@@ -110,13 +112,14 @@ function json2html(id, items)
       html += '<div class="label">' + items[key]['title'] + '</div>';
       html += input(id + '-' + key, null, null, items[key]['value']);
     } else if (type == 'pixelsize') {
+      console.log('aa', items[key]['value']);
       html += '<div class="label">' + items[key]['title'] + '</div>';
-      html += input(id + '-' + key + '_x', 'coordinate', type, items[key]['value']);
+      html += input(id + '-' + key + '_x', 'coordinate', type, items[key]['value'][0]);
       html += ' x ';
-      html += input(id + '-' + key + '_y', 'coordinate', type, items[key]['value']);
+      html += input(id + '-' + key + '_y', 'coordinate', type, items[key]['value'][1]);
     } else if (type == 'color') {
       html += '<div class="label">' + items[key]['title'] + '</div>';
-      html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker"></div>';
+      html += '<div data-type="color" id="' + id + '-' + key + '" class="ccwidget clickable colorPicker" style="background-color: ' + items[key]['value'] + '"></div>';
     } else if (type == 'boolean') {
       var chk = (i == items[key]['value']) ? 'checked' : '';
       html += '<input type="checkbox" data-type="boolean" id="' + id + '-' +
@@ -154,63 +157,6 @@ async function open(data)
   document.querySelector("#jdlgok").onclick = function() { jdlg.close('ok'); };
   document.querySelector("#jdlgcancel").onclick = function() { jdlg.close('cancel'); };
 
-  /*
-  // Handle all clickable elements
-  jdlg.onClick(".clickable", function (e) {
-    var type = document.querySelector(this).data("type");
-    var fn;
-    var id;
-    var params = [];
-
-    if (type == "folderBrowse") {
-      fn = 'BrowseFolder';
-      params.push('"' + document.querySelector(this).data("title") + '"');
-      id = document.querySelector(this).data("id");
-      params.push('"' + document.querySelector('#' + id).val() + '"');
-    } else if (type == "color") {
-      fn = 'ColorPicker';
-      id = document.querySelector(this).attr('id');
-      params.push('"' + document.querySelector(this).css('background-color') + '"');
-    }
-
-    fn = 'on' + fn + 'Click(' + params.join(',') + ')';
-    console.log('TODO ' + fn);
-    */
-    /*
-    csInterface.evalScript(fn, function(result) {
-      console.log(result);
-      if (result != 'null') {
-        var a = id.split('-');
-        if (type == "folderBrowse") {
-          $('#' + id).val(result);
-        } else if (type == "color") {
-          $('#' + id).css('background-color', result)
-        }
-        var fn = 'settings.value("' + a[0] + '","' + a[1] + '","' + result + '");'
-        csInterface.evalScript(fn);
-      }
-    });
-    */
-    /*
-    e.stopPropagation();
-  });
-
-  jdlg.on('change', "input, select", function(e) {
-    var a = document.querySelector(this).attr('id').split('-');
-    if (document.querySelector(this).data('type') == 'pixelsize') {
-      a[1] = a[1].slice(0, -2);
-      var v = '"' + document.querySelector('#' + a[0] + '-' + a[1] + '_x').val() + 'x' +
-              document.querySelector('#' + a[0] + '-' + a[1] + '_y').val() + '"';
-    } else if (document.querySelector(this).data('type') == 'boolean') {
-      var v = document.querySelector(this).prop('checked');
-    } else {
-      var v = '"' + this.value + '"';
-    }
-    var fn = 'settings.value("' + a[0] + '","' + a[1] + '",' + v + ');';
-    console.log('TODO ' + fn);
-    //csInterface.evalScript(fn);
-  });
-  */
   const res = await jdlg.showModal({
     title: data['title'],
     resize: "none",

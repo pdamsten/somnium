@@ -27,6 +27,9 @@ const plugins = require('./modules/plugins.js');
 const tabLight = require('./modules/tab_light.js');
 const tabColor = require('./modules/tab_color.js');
 const shell = require("uxp").shell;
+const fs = require('uxp').storage.localFileSystem;
+const batchPlay = require("photoshop").action.batchPlay;
+const core = require("photoshop").core;
 
 var colorThemes = [];
 
@@ -81,6 +84,27 @@ var colorThemes = [];
   const INFO = 1, WARNING = 2, ERROR = 3;
   var timer = 0;
 
+async function ColorPicker(executionControl, descriptor) {
+  try {
+    const openPicker = {
+      _target: { _ref: "application" },
+      _obj: "showColorPicker",
+      context: "Color picker",
+      color: {
+        _obj: 'RGBColor',
+        red: 255,
+        green: 0,
+        blue: 0,
+      },
+    };
+    const res = await batchPlay([openPicker], {});
+    const clr = 'rgb(' + Math.round(res[0].RGBFloatColor.red) + ', ' + Math.round(res[0].RGBFloatColor.grain) + ', ' + Math.round(res[0].RGBFloatColor.blue) + ')';
+    $('#' + descriptor).css('background-color', clr);
+  } catch(e) {
+    console.log(e);
+  }
+}
+
   var openDlg = function(type, title, text, arg1, arg2)
   {
     clearTimeout(timer);
@@ -111,6 +135,19 @@ var colorThemes = [];
       }
       $('#msgText').show();
     }
+    $("#dialog").on('click', '.clickable', async function() {
+      let type = $(this).attr('data-type');
+      console.log(type);
+      if (type == "folderBrowse") {
+        const folder = await fs.getFolder();
+        if (folder != null) {
+          let id = $(this).attr('data-id');
+          $('#' + id).val(folder.nativePath);
+        }
+      } else if (type == "color") {
+        core.executeAsModal(ColorPicker, {"commandName": "Color Picker", "descriptor": $(this).attr('id')});
+      }
+    });
     if ($("#dialog").css("display") == 'none') {
       $('#dialog').show();
     }
@@ -287,7 +324,7 @@ var colorThemes = [];
       var html = '';
       if ('config' in Settings[id]) {
         await settings.loadDlgValues(Settings[id]);
-        html = jdialog.json2html(id, Settings[id]['config']) + '<br/><br/><br/><br/>';
+        html = jdialog.json2html(id, Settings[id]['config']);
         openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
         buttonId = id;
       }
