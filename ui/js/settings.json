@@ -329,12 +329,12 @@ var Settings = {
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "3072x3072"
+        "value": ["3072", "3072"]
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x"
+        "value": ["0", "0"]
       },
       "paddingcolor": {
         "title": "Padding color:",
@@ -362,12 +362,12 @@ var Settings = {
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "4096x4096"
+        "value": ["4096", "4096"]
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x"
+        "value": ["0", "0"]
       },
       "paddingcolor": {
         "title": "Padding color:",
@@ -395,12 +395,12 @@ var Settings = {
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "512x512"
+        "value": ["512", "512"]
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x"
+        "value": ["0", "0"]
       },
       "paddingcolor": {
         "title": "Padding color:",
@@ -428,12 +428,12 @@ var Settings = {
       "maxsize": {
         "title": "Maximum size:",
         "type": "pixelsize",
-        "value": "x"
+        "value": ["0", "0"]
       },
       "minsize": {
         "title": "Minimum Size (with padding):",
         "type": "pixelsize",
-        "value": "x"
+        "value": ["0", "0"]
       },
       "paddingcolor": {
         "title": "Padding color:",
