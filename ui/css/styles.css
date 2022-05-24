@@ -32,8 +32,6 @@
   --font-size-widget: calc(--uxp-host-font-size * 1.18);
   --font-family: -apple-system, system-ui, sans-serif;
   --border-color: rgb(125, 125 ,125);
-  --svg-color: 87%;
-  --svg-color-bg: 33%;
 }
 
 @media (prefers-color-scheme:darkest) {
@@ -45,8 +43,6 @@
     --widget-background-color: rgb(41, 41 ,41);
     --widget-txt-color: rgb(125, 125 ,125);
     --border-color: rgb(125, 125 ,125);
-    --svg-color: 84%;
-    --svg-color-bg: 20%;
   }
 }
 
@@ -59,8 +55,6 @@
     --widget-background-color: rgb(209, 209 ,209);
     --widget-txt-color: rgb(135, 135 ,135);
     --border-color: rgb(135, 135 ,135);
-    --svg-color: 15%;
-    --svg-color-bg: 72%;
   }
 }
 
@@ -73,8 +67,6 @@
     --widget-background-color: rgb(252, 252 ,252);
     --widget-txt-color: rgb(173, 173 ,173);
     --border-color: rgb(173, 173 ,173);
-    --svg-color: 17%;
-    --svg-color-bg: 94%;
   }
 }
 
@@ -211,11 +203,44 @@ body {
   z-index: 1000;
 }
 
-.iconButton img {
+.somnium-logo svg {
+  width: 150px;
+  height: 40px;
+  display: inline-block;
+}
+
+.personal-logo svg {
+  width: 230px;
+  height: 30px;
+  display: inline-block;
+}
+
+.iconButton svg, #tabs svg {
+  height: 32px;
+  width: 32px;
+}
+
+.small-icon {
+  display: inline-block;
+}
+
+.small-icon svg {
+  height: 24px;
+  width: 24px;
+}
+
+.themed-svg-stroke svg {
+  stroke: var(--txt-color);
+}
+
+.themed-svg-fill svg {
+  fill: var(--txt-color);
+}
+
+.icon {
   height: 42px;
   width: 42px;
   border: 5px solid transparent;
-  filter: brightness(var(--svg-color));
 }
 
 .iconButton:hover {
@@ -225,10 +250,6 @@ body {
 .iconButton:active {
   color: var(--txt-color);
   background-color: var(--background-color);
-}
-
-.iconButton:active img {
-  filter: brightness(var(--svg-color));
 }
 
 .hidden {

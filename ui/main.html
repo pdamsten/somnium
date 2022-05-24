@@ -8,7 +8,7 @@
 <body>
   <div id="dialog">
     <h1 id="dlgHeader"></h1>
-    <img id="closeDlg" class="close" src="ui/img/icon-close.svg">
+    <div class="themed-svg-stroke icon" data-svg="ui/img/icon-close.svg" height="16"></div>
     <hr/>
     <p id="msgText"></p>
     <p id="helpText"></p>
@@ -22,77 +22,79 @@
   <div id="content">
     <div id="tabs" class="ccheader">
       <div id="Retouch" class="tabbtn clickable" data-title="Retouch">
-        <img class="ccsvg" src="ui/img/icon-retouch.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-retouch.svg"></div>
       </div>
       <div id="Light" class="tabbtn clickable" data-title="Light">
-        <img class="ccsvg" src="ui/img/icon-bulb.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-bulb.svg"></div>
       </div>
       <div id="Color" class="tabbtn clickable" data-title="Color">
-        <img class="ccsvg" src="ui/img/icon-palette.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-palette.svg"></div>
       </div>
       <div id="ColorWheel" class="tabbtn clickable experimental" data-title="ColorWheel">
-        <img class="ccsvg" src="ui/img/icon-colorwheel.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-colorwheel.svg"></div>
       </div>
       <div id="Finish" class="tabbtn clickable" data-title="Finish">
-        <img class="ccsvg" src="ui/img/icon-finish.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-finish.svg"></div>
       </div>
       <div id="Plugins" class="tabbtn clickable" data-title="Plugins">
-        <img class="ccsvg" src="ui/img/icon-plugins.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-plugins.svg"></div>
       </div>
       <div id="Helpers" class="tabbtn clickable" data-title="Help Layers">
-        <img class="ccsvg" src="ui/img/icon-life-saver.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-life-saver.svg"></div>
       </div>
       <div id="About" class="tabbtn clickable" data-title="About">
-        <img class="ccsvg" src="ui/img/icon-about.svg" height="32">
+        <div class="themed-svg-stroke icon" data-svg="ui/img/icon-about.svg"></div>
       </div>
     </div>
 
     <div id="tabcontent">
       <div id="header" class="ccheader">
-        &nbsp;<img class="ccsvg" onClick="location.reload()" src="ui/img/somnium-logo.svg" height="40">
+        &nbsp;<div onClick="location.reload()">
+        <div class="themed-svg-fill somnium-logo" data-svg="ui/img/somnium-logo.svg"></div>
+        </div>
         <h1 id="tabTitle"></h1>
       </div>
 
       <div id="HelpersTab" class="tab">
         <div class="tabcontent">
           <div id="MakeAll" class="iconButton">
-            <img src="ui/img/icon-make_all.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-make_all.svg"></div>
             Make All
           </div>
           <div id="MakeMemo" class="iconButton">
-            <img src="ui/img/icon-memo.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-memo.svg"></div>
             Memo
           </div>
           <div id="MakePerspectiveLines" class="iconButton">
-            <img src="ui/img/icon-perspective.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-perspective.svg"></div>
             Perspective Lines
           </div>
           <div id="MakeSolarisation" class="iconButton">
-            <img src="ui/img/icon-solarisation.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-solarisation.svg"></div>
             Solar- isation
           </div>
           <div id="MakeSkinChecker" class="iconButton">
-            <img src="ui/img/icon-skin_checker.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-skin_checker.svg"></div>
             Skin Check
           </div>
           <div id="MakeLightness" class="iconButton">
-            <img src="ui/img/icon-luminosity.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-luminosity.svg"></div>
             Luminosity Check
           </div>
           <div id="MakeSaturationMap" class="iconButton">
-            <img src="ui/img/icon-saturation.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-saturation.svg"></div>
             Saturation Check
           </div>
           <div id="MatchTones" class="iconButton">
-            <img src="ui/img/icon-tones.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-tones.svg"></div>
             Hue Check
           </div>
           <div id="DeleteAll" class="iconButton">
-            <img src="ui/img/icon-delete.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-delete.svg"></div>
             Delete All
           </div>
           <div id="BlendIf" class="iconButton">
-            <img src="ui/img/icon-blendif.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-blendif.svg"></div>
             Blend If
           </div>
         </div>
@@ -101,48 +103,48 @@
       <div id="FinishTab" class="tab">
         <div class="tabcontent">
           <div id="HighPassSharpening" class="iconButton">
-            <img src="ui/img/icon-highpass_sharpening.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-highpass_sharpening.svg"></div>
             High Pass Sharpening
           </div>
           <div id="AddNoise" class="iconButton">
-            <img src="ui/img/icon-noise.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-noise.svg"></div>
             Add Noise
           </div>
           <br/>
           <div id="SaveFb" class="iconButton ">
-            <img src="ui/img/icon-fb.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-fb.svg"></div>
             Save 2 Facebook
           </div>
           <div id="SaveInsta" class="iconButton ">
-            <img src="ui/img/icon-instagram.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-instagram.svg"></div>
             Save 2 Instagram
           </div>
           <div id="SaveTwitter" class="iconButton ">
-            <img src="ui/img/icon-twitter.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-twitter.svg"></div>
             Save 2 Twitter
           </div>
           <div id="Save4K" class="iconButton ">
-            <img src="ui/img/icon-4k.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-4k.svg"></div>
             Save 4K
           </div>
           <div id="Export1" class="iconButton ">
-            <img src="ui/img/icon-export.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-export.svg"></div>
             <span class="iconButtonTitle">Export 1</span>
           </div>
           <div id="Export2" class="iconButton ">
-            <img src="ui/img/icon-export.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-export.svg"></div>
             <span class="iconButtonTitle">Export 2</span>
           </div>
           <div id="Export3" class="iconButton ">
-            <img src="ui/img/icon-export.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-export.svg"></div>
             <span class="iconButtonTitle">Export 3</span>
           </div>
           <div id="Export4" class="iconButton ">
-            <img src="ui/img/icon-export.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-export.svg"></div>
             <span class="iconButtonTitle">Export 4</span>
           </div>
           <div id="SaveLayers" class="iconButton ">
-            <img src="ui/img/icon-save.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-save.svg"></div>
             Save Layers
           </div>
         </div>
@@ -152,49 +154,49 @@
         <div class="tabcontent">
           <h2>LAYERS</h2>
           <div id="MakeCleaning" class="iconButton">
-            <img src="ui/img/icon-cleaning.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-cleaning.svg"></div>
             Cleaning Layer
           </div>
           <div id="MakeMatch" class="iconButton">
-            <img src="ui/img/icon-match.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-match.svg"></div>
             Match
           </div>
           <div id="CombineDocuments" class="iconButton">
-            <img src="ui/img/icon-combine.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-combine.svg"></div>
             Combine Documents
           </div>
           <h2>TOOLS</h2>
           <div id="MakeFS" class="iconButton">
-            <img src="ui/img/icon-frequence_separation.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-frequence_separation.svg"></div>
             Frequence Separation
           </div>
           <div id="DefringeMask" class="iconButton">
-            <img src="ui/img/icon-defringe.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-defringe.svg"></div>
             Defringe Mask
           </div>
           <div id="FillEmpty" class="iconButton">
-            <img src="ui/img/icon-fill.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-fill.svg"></div>
             Content Aware Fill
           </div>
           <div id="BlendIf2Mask" class="iconButton">
-            <img src="ui/img/icon-blendifmask.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-blendifmask.svg"></div>
             Blend If -> Mask
           </div>
           <h2>STAMPING</h2>
           <div id="StampUnder" class="iconButton">
-            <img src="ui/img/icon-stamp.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-stamp.svg"></div>
             Stamp<br/>C &amp; B
           </div>
           <div id="SmartFromUnder" class="iconButton">
-            <img src="ui/img/icon-stamp-smart.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-stamp-smart.svg"></div>
             <br/>C &amp; B -> Smart
           </div>
           <div id="UpdateFromUnder" class="iconButton">
-            <img src="ui/img/icon-update-smart.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-update-smart.svg"></div>
             Update Smart
           </div>
           <div id="SmartKeepingMask" class="iconButton">
-            <img src="ui/img/icon-smart-keep-mask.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-smart-keep-mask.svg"></div>
             To Smart, Keep Mask
           </div>
         </div>
@@ -203,43 +205,43 @@
       <div id="LightTab" class="tab">
         <div class="tabcontent">
           <div id="MakeCookie" class="iconButton">
-            <img src="ui/img/icon-cookie.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-cookie.svg"></div>
             Cookie Lighting
           </div>
           <div id="MakeSpotlight" class="iconButton">
-            <img src="ui/img/icon-spotlight.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-spotlight.svg"></div>
             Spotlight
           </div>
           <div id="MakeVignette" class="iconButton" data-call="tabLight.makeVignette">
-            <img src="ui/img/icon-vignette.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-vignette.svg"></div>
             Vignette
           </div>
           <div id="MakeWashOut" class="iconButton">
-            <img src="ui/img/icon-contrast.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-contrast.svg"></div>
             Wash Out / Contrast
           </div>
           <div id="MakeDB" class="iconButton">
-            <img src="ui/img/icon-dodge_burn.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-dodge_burn.svg"></div>
             Dodge & Burn
           </div>
           <div id="QuickDB" class="iconButton">
-            <img src="ui/img/icon-q_dodge_burn.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-q_dodge_burn.svg"></div>
             Quick Dodge & Burn
           </div>
           <div id="QuickBoost" class="iconButton">
-            <img src="ui/img/icon-quick-boost.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-quick-boost.svg"></div>
             Quick Boost
           </div>
           <div id="MakeHighlight" class="iconButton">
-            <img src="ui/img/icon-highlight.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-highlight.svg"></div>
             Highlight
           </div>
           <div id="MakeLightSource" class="iconButton">
-            <img src="ui/img/icon-bulb.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-bulb.svg"></div>
             Light Source
           </div>
           <div id="MakeLuminosity" class="iconButton">
-            <img src="ui/img/icon-luminosity.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-luminosity.svg"></div>
             Luminosity
           </div>
         </div>
@@ -257,15 +259,15 @@
           </div>
           <br/>
           <div id="PrevColor" class="iconButton" data-call="tabColor.prevColor">
-            <img src="ui/img/icon-prev.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-prev.svg"></div>
             Previous
           </div>
           <div id="RandomColor" class="iconButton" data-call="tabColor.randomColor">
-            <img src="ui/img/icon-random.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-random.svg"></div>
             Random
           </div>
           <div id="NextColor" class="iconButton" data-call="tabColor.nextColor">
-            <img src="ui/img/icon-next.svg">
+            <div class="themed-svg-stroke icon" data-svg="ui/img/icon-next.svg"></div>
             Next
           </div>
         </div>
@@ -288,15 +290,16 @@
           </br>
 
           <h2>DEVELOPER</h2>
-          <img class="ccsvg link" src="ui/img/petridamsten-logo.svg" height="30" data-link="http://petridamsten.com"></br></br></br>
-          <span title="Email" class="ccsvg icon18email link" id="emailbtn" data-link="mailto:petri.damsten@gmail.com"></span>&nbsp;
-          <span title="Facebook" class="ccsvg icon18fb link" id="fbbtn" data-link="http://facebook.com/pdamsten/"></span>&nbsp;
-          <span title="Twitter" class="ccsvg icon18twitter link" id="twbtn" data-link="http://twitter.com/pdamsten/"></span>&nbsp;
-          <span title="Instagram" class="ccsvg icon18instagram link" id="instabtn" data-link="http://instagram.com/pdamsten/"></span>&nbsp;
-          <span title="Youtube" class="ccsvg icon18youtube link" id="ytbtn" data-link="http://youtube.com/pdamsten/"></span>&nbsp;
-          <span title="Behance" class="ccsvg icon18behance link" id="bebtn" data-link="http://behance.com/pdamsten/"></span>&nbsp;
-          </br></br>
-          <p class="link" data-link="http://petridamsten.com">
+          <div class="themed-svg-fill personal-logo link" data-svg="ui/img/petridamsten-logo.svg" data-link="https://petridamsten.com"></div>
+          </br>
+          <div class="themed-svg-stroke small-icon link" data-svg="ui/img/icon-mail.svg" data-link="mailto:petri.damsten@gmail.com"></div>&nbsp;
+          <div class="themed-svg-fill small-icon link" data-svg="ui/img/icon-fb-small.svg" data-link="http://facebook.com/pdamsten/"></div>&nbsp;
+          <div class="themed-svg-fill small-icon link" data-svg="ui/img/icon-twitter-small.svg" data-link="http://twitter.com/pdamsten/"></div>&nbsp;
+          <div class="themed-svg-fill small-icon link" data-svg="ui/img/icon-insta.svg" data-link="http://instagram.com/pdamsten/"></div>&nbsp;
+          <div class="themed-svg-fill small-icon link" data-svg="ui/img/icon-youtube.svg" data-link="http://youtube.com/pdamsten/"></div>&nbsp;
+          <div class="themed-svg-fill small-icon link" data-svg="ui/img/icon-behance.svg" data-link="http://behance.com/pdamsten/"></div>&nbsp;
+          </br>
+          <p style="font-size: 12px" class="link" data-link="http://petridamsten.com">
             http://petridamsten.com/
           </p>
         </div>

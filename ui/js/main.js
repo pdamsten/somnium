@@ -181,6 +181,23 @@ var colorThemes = [];
     localStorage.setItem('currentTab', name);
   }
 
+  async function loadButtonImages()
+  {
+    console.log('loadButtonImages');
+    $(".themed-svg-fill, .themed-svg-stroke").each(async function() {
+      try {
+        let svg = $(this).attr('data-svg');
+        console.log(svg);
+        let f = await fs.getPluginFolder();
+        let jf = await f.getEntry(svg);
+        let s = await jf.read();
+        $(this).html(s);
+      } catch(e) {
+        console.log(e);
+      }
+    });
+  }
+
   async function loadPlugins()
   {
     let result = await plugins.load();
@@ -215,6 +232,7 @@ var colorThemes = [];
   async function init()
   {
     loadPlugins();
+    loadButtonImages();
     initColor();
     showTab(localStorage.getItem('currentTab') || 'Retouch');
     var Settings = await settings.readConfig();
