@@ -254,7 +254,7 @@ var colorThemes = [];
       setButtonName(key, Settings);
     }
 
-    $('#header, #content').click(function() {
+    $('#header, #content, #closeDlg').click(function() {
       closeDialog();
     });
 
@@ -275,13 +275,13 @@ var colorThemes = [];
       tabColor.defaultStrength();
     });
 
-    $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
-      closeDialog();
-    });
-
     $("#dialog").on("click", "*", function (e) {
       console.log('click *');
       e.stopPropagation();
+    });
+
+    $("#dialog").on("click", "#dlgHeader, #closeDlg", function (e) {
+      closeDialog();
     });
 
     // Handle icon buttons
@@ -307,9 +307,9 @@ var colorThemes = [];
           console.log(Settings[id]);
           await settings.loadDlgValues(Settings[id]);
           html = jdialog.json2html(id, Settings[id]['config']);
-          openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
-          buttonId = id;
         }
+        openDlg(HELP, Settings[id]['title'], Settings[id]['help'], 'Settings', html);
+        buttonId = id;
       } catch(e) {
         console.log(e);
       }
