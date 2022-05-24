@@ -1,75 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="256"
-   height="256"
-   viewBox="0 0 67.733332 67.733336"
-   version="1.1"
-   id="svg8"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="icon-retouch.svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#525252"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="4.5429688"
-     inkscape:cx="128"
-     inkscape:cy="128"
-     inkscape:document-units="px"
-     inkscape:current-layer="layer1"
-     showgrid="true"
-     units="px">
-    <inkscape:grid
-       type="xygrid"
-       id="grid992"
-       empspacing="8" />
-  </sodipodi:namedview>
-  <metadata
-     id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-229.26665)">
-    <g
-       id="g2769"
-       transform="matrix(0.97219324,0,0,0.96608625,0.94172697,9.1146619)"
-       style="stroke-width:1.03184795">
-      <path
-         sodipodi:nodetypes="cssssssssc"
-         inkscape:connector-curvature="0"
-         id="rect994"
-         d="m 59.013165,246.37846 2.9335,4e-5 c 2.985928,4e-5 5.397869,2.42117 5.389769,5.42867 l -0.106009,39.36722 c -0.0083,3.0075 -2.40384,5.42871 -5.389769,5.42871 H 5.7866548 c -2.9859295,0 -5.39786459,-2.42121 -5.38976444,-5.42871 l 0.10602868,-39.36722 c 0.0081,-3.0075 2.40383476,-5.42867 5.38976436,-5.42867 l 32.3034886,-4e-5"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.73009777;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" />
-      <path
-         sodipodi:nodetypes="sssscsss"
-         inkscape:connector-curvature="0"
-         id="rect996"
-         d="m 57.503439,229.55633 0.948845,0.55191 c 1.051313,0.61149 1.409047,1.9565 0.802072,3.01572 l -22.555108,39.35925 c -0.606989,1.05919 -5.668434,4.37233 -5.668434,4.37233 0,0 0.317227,-6.07275 0.924204,-7.13193 l 22.555121,-39.35925 c 0.606975,-1.05923 1.941982,-1.41956 2.9933,-0.80803 z"
-         style="opacity:1;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.73009777;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers" />
-    </g>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" version="1.1" viewBox="0 0 67.733 67.733" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<dc:title/>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<g transform="translate(0 -229.27)">
+<g transform="matrix(.97219 0 0 .96609 .94173 9.1147)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7301">
+<path d="m59.013 246.38 2.9335 4e-5c2.9859 4e-5 5.3979 2.4212 5.3898 5.4287l-0.10601 39.367c-0.0083 3.0075-2.4038 5.4287-5.3898 5.4287h-56.054c-2.9859 0-5.3979-2.4212-5.3898-5.4287l0.10603-39.367c0.0081-3.0075 2.4038-5.4287 5.3898-5.4287l32.303-4e-5" style="paint-order:stroke fill markers"/>
+<path d="m57.503 229.56 0.94884 0.55191c1.0513 0.61149 1.409 1.9565 0.80207 3.0157l-22.555 39.359c-0.60699 1.0592-5.6684 4.3723-5.6684 4.3723s0.31723-6.0728 0.9242-7.1319l22.555-39.359c0.60698-1.0592 1.942-1.4196 2.9933-0.80803z" style="paint-order:stroke fill markers"/>
+</g>
+</g>
 </svg>
