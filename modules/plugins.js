@@ -57,9 +57,10 @@ async function load()
       }
       try {
         console.log(svg);
-        let e = await pluginFolder.getEntry(svg);
+        let e = await mainFolder.getEntry(svg);
         info['icon'] = svg;
       } catch(e) {
+        console.log(e);
         info['icon'] = 'ui/img/icon-default.svg';
       }
       plugins.push(info);

@@ -200,21 +200,30 @@ var colorThemes = [];
 
   async function loadPlugins()
   {
-    let result = await plugins.load();
-    let html = '';
-    let Settings = await settings.readConfig();
-    for (let i in result) {
-      let id = result[i]['id'];
-      Settings[id] = result[i];
-      html += '<div id="' + id + '" class="iconButton" data-call="' +
-              Settings[id]['call'] + '">';
-      html += '<img src="' + Settings[id]['icon'] + '">';
-      html += Settings[id]['title'];
-      html += '</div>';
-    }
-    if (html != '') {
-      $('#PluginsTab .tabcontent').html(html);
-      $("#Plugins").css("display", "block");
+    try {
+      let result = await plugins.load();
+      let html = '';
+      let Settings = await settings.readConfig();
+      for (let i in result) {
+        let id = result[i]['id'];
+        Settings[id] = result[i];
+        html += '<div id="' + id + '" class="iconButton" data-call="' +
+                Settings[id]['call'] + '">';
+        html += '<div class="themed-svg-stroke icon" data-svg="' + Settings[id]['icon'] + '">';
+        let f = await fs.getPluginFolder();
+        let jf = await f.getEntry(Settings[id]['icon']);
+        let s = await jf.read();
+        html += s;
+        html += '</div>'
+        html += Settings[id]['title'];
+        html += '</div>';
+      }
+      if (html != '') {
+        $('#PluginsTab .tabcontent').html(html);
+        $("#Plugins").css("display", "block");
+      }
+    } catch(e) {
+      console.log(e);
     }
   }
 
