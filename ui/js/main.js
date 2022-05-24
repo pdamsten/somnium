@@ -45,20 +45,25 @@ var colorThemes = [];
 
   async function ColorPicker(executionControl, descriptor) {
     try {
+      let pclr = $('#' + descriptor).css('background-color');
+      pclr = pclr.replace('rgb(', '').replace(')', '');
+      pclr = pclr.split(',');
       const openPicker = {
         _target: { _ref: "application" },
         _obj: "showColorPicker",
         context: "Color picker",
         color: {
           _obj: 'RGBColor',
-          red: 255,
-          green: 0,
-          blue: 0,
+          red: parseInt(pclr[0]),
+          green: parseInt(pclr[1]),
+          blue: parseInt(pclr[2]),
         },
       };
       const res = await batchPlay([openPicker], {});
-      const clr = 'rgb(' + Math.round(res[0].RGBFloatColor.red) + ', ' + Math.round(res[0].RGBFloatColor.grain) + ', ' + Math.round(res[0].RGBFloatColor.blue) + ')';
-      $('#' + descriptor).css('background-color', clr);
+      if (res[0].value) {
+        const clr = 'rgb(' + Math.round(res[0].RGBFloatColor.red) + ', ' + Math.round(res[0].RGBFloatColor.grain) + ', ' + Math.round(res[0].RGBFloatColor.blue) + ')';
+        $('#' + descriptor).css('background-color', clr);
+      }
     } catch(e) {
       console.log(e);
     }
