@@ -63,7 +63,12 @@ async function value(group, key, type)
   } else {
     type = '';
   }
-  return values[group]['config'][key]['value' + type];
+  try {
+    r = values[group]['config'][key]['value' + type];
+  } catch(e) {
+    r = 0;
+  }
+  return r;
 }
 
 async function setValue(group, key, value, type)
