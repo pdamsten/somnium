@@ -23,7 +23,37 @@ const settings = require('./settings.js');
 const somnium = require('./somnium.js');
 
 module.exports = {
-  makeVignette
+  makeVignette,
+  quickDB
+}
+
+async function quickDB()
+{
+  try {
+    let dbDlg = {
+      'title': 'Quick Dodge and Burn',
+      'id': 'quickDB-Dlg',
+      'width': 350,
+      'height': 500,
+      "config": {
+        "type": {
+          "title": "Strength:",
+          "type": "selection",
+          "value": 0,
+          "values": ["Normal (Soft Light)", "Strong (Vivid Light)"]
+        }
+      },
+      'callback': 'onQuickDBClickOK'
+    };
+    await settings.loadDlgValues(dbDlg);
+    let res = await jdialog.open(dbDlg);
+    if (res == 'ok') {
+      await settings.saveDlgValues(dbDlg);
+      await somnium.runScript('jsx/funcs/onQuickDBClick.jsx');
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 async function makeVignette()

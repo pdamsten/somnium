@@ -149,18 +149,15 @@ onMakeDBClick = function()
   }
 }
 
-onQuickDBClickOK = function(data)
+onQuickDBClick = function(data)
 {
   try {
-    if (typeof data == "string") {
-      data = JSON.parse(data);
-    }
-    settings.saveDlgValues(data);
     var doc = app.activeDocument;
     var current = doc.activeLayer;
+    var type = settings.value('quickDB-Dlg', 'type');
     var layer = doc.stampCurrentAndBelow('Quick Dodge and Burn');
     layer.desaturate();
-    if (data['items']['type']['value'] == 0) {
+    if (type == 0) {
       layer.setBlendingMode('soft light');
     } else {
       layer.setBlendingMode('vivid light');
@@ -170,28 +167,6 @@ onQuickDBClickOK = function(data)
     layer.addMask();
     layer.invertMask();
     layer.move(current, ElementPlacement.PLACEBEFORE);
-  } catch (e) {
-    log(e);
-  }
-}
-
-onQuickDBClick = function()
-{
-  try {
-    dbDlg = {
-      'title': 'Quick Dodge and Burn',
-      "items": {
-        "type": {
-          "title": "Strength:",
-          "type": "selection",
-          "value": 0,
-          "values": ["Normal (Soft Light)", "Strong (Vivid Light)"]
-        }
-      },
-      'callback': 'onQuickDBClickOK'
-    };
-    settings.loadDlgValues(dbDlg);
-    SUI.openDialog(dbDlg);
   } catch (e) {
     log(e);
   }
