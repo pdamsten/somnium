@@ -99,6 +99,7 @@ async function onClick()
     "power": {
       "title": "Power:",
       "type": "pixelsize",
+      "value": ["", ""]
     },
     "gel": {
       "title": "Gel:",
@@ -146,17 +147,20 @@ async function onClick()
       }
     }
   };
-  // multiply data for 5 lights
-  for (var i = 0; i < LIGHTS; ++i) {
-    light['header']['title'] = 'Light ' + (i + 1);
-    for (key in light) {
-      lightDlg['items'][key + (i + 1)] = Object.deepCopy(light[key]);
+  try {
+    // multiply data for 5 lights
+    for (var i = 0; i < LIGHTS; ++i) {
+      light['header']['title'] = 'Light ' + (i + 1);
+      for (key in light) {
+        lightDlg['config'][key + (i + 1)] = Object.deepCopy(light[key]);
+      }
     }
-  }
-  let res = await jdialog.open(lightDlg);
-  console.log(res);
-  if (res == 'ok') {
-    await settings.saveDlgValues(lightDlg);
-    await somnium.runScript('plugins/SetupItems.jsx');
+    let res = await jdialog.open(lightDlg);
+    if (res == 'ok') {
+      await settings.saveDlgValues(lightDlg);
+      await somnium.runScript('plugins/SetupItems.jsx');
+    }
+  } catch(e) {
+    console.log(e);
   }
 }
