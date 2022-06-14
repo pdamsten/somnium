@@ -166,39 +166,39 @@ try {
 
   doc.info.keywords = ['setup', 'lighting diagram', 'bts', 'blog'];
 
-  for (var i = 0; i < LIGHTS; ++i) {
-    var n = parseInt(data['role' + (i + 1)]['value']);
+  for (var ili = 0; ili < LIGHTS; ++ili) {
+    var n = parseInt(data['role' + (ili + 1)]['value']);
     if (n != 0) {
-      var role = data['role' + (i + 1)]['value-string'];
+      var role = data['role' + (ili + 1)]['value-string'];
       var s = role + '\r';
-      n = parseInt(data['flash' + (i + 1)]['value']);
-      s += data['flash' + (i + 1)]['value-string'] + '\r';
-      major = data['power' + (i + 1)]['value'][0];
+      n = parseInt(data['flash' + (ili + 1)]['value']);
+      s += data['flash' + (ili + 1)]['value-string'] + '\r';
+      major = data['power' + (ili + 1)]['value'][0];
       if (major != '') {
         s += 'Power: ' + major;
-        minor = data['power' + (i + 1)]['value'][1];
+        minor = data['power' + (ili + 1)]['value'][1];
         if (minor != '') {
           s += ' ' + minor;
         }
         s += '\r';
       }
-      n = parseInt(data['modifier' + (i + 1)]['value']);
-      s += data['modifier' + (i + 1)]['value-string'];
-      n = parseInt(data['accessory' + (i + 1)]['value']);
+      n = parseInt(data['modifier' + (ili + 1)]['value']);
+      s += data['modifier' + (ili + 1)]['value-string'];
+      n = parseInt(data['accessory' + (ili + 1)]['value']);
       if (n != 0) {
-        s += ' ' + data['accessory' + (i + 1)]['value-string'];
+        s += ' ' + data['accessory' + (ili + 1)]['value-string'];
       }
       s += '\r';
-      n = parseInt(data['gel' + (i + 1)]['value']);
+      n = parseInt(data['gel' + (ili + 1)]['value']);
       if (n > 0) {
-        s += 'Gel: ' + data['gel' + (i + 1)]['value-string'] + '\r';
+        s += 'Gel: ' + data['gel' + (ili + 1)]['value-string'] + '\r';
       }
       var l = doc.findLayer('LIGHT');
       if (l != null) {
-        var dl = l.duplicateEx('Light ' + (i + 1) + ' - ' + role);
+        var dl = l.duplicateEx('Light ' + (ili + 1) + ' - ' + role);
         dl.visible = true;
         dl.textItem.contents = s;
-        dl.translate((i + 1) * 300, (i + 1) * 300)
+        dl.translate((ili + 1) * 300, (ili + 1) * 300);
       }
       l.visible = false;
     }
