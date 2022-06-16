@@ -137,7 +137,7 @@ async function onClick()
         "title": "Trigger:",
         "type": "selection",
         "value": "0",
-        "values": ["Godox Xpro-N", "Godox X2T-N", "Elinchrom Skyport Speed", "Godox XT16", "None"]
+        "values": ["Godox X2T-F", "Godox Xpro-N", "Godox X2T-N", "Elinchrom Skyport Speed", "Godox XT16", "None"]
       },
       "tethering": {
         "title": "Tethering:",
