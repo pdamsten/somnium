@@ -27,8 +27,8 @@ exportFile = function(key)
     if (filename === false) {
       return SUI.LAST_MESSAGE;
     }
-    var size = settings.value(key, 'maxsize').split('x');
-    var minsize = settings.value(key, 'minsize').split('x');
+    var size = settings.value(key, 'maxsize');
+    var minsize = settings.value(key, 'minsize');
     var color = settings.value(key, 'paddingcolor');
     color = color.substring(4, color.length - 1).replace(/ /g, '').split(',');
     if (app.activeDocument.saveAsJpeg(filename, parseInt(size[0]), parseInt(size[1]),
