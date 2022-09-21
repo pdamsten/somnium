@@ -151,6 +151,9 @@ try {
     if (camera in my_cameras) {
       camera = my_cameras[camera];
     }
+    if (mdata['model'] == 'GFX 50S') {
+      mdata['focallength'] = Math.round(mdata['focallength'] * 1.264);
+    }
 
     var s = camera + "\r" +
         lens + '\r' +
