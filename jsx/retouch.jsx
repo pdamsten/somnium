@@ -119,6 +119,33 @@ onBlendIf2MaskClick = function()
   }
 }
 
+onRemoveHaloClick = function()
+{
+  try {
+    var doc = app.activeDocument;
+    var current = doc.activeLayer;
+
+    if (!doc.hasSelection()) {
+      alert('Document has no active selection.');
+      return false;
+    }
+    
+    doc.saveSelection('Object edge');
+    doc.clearSelection();
+    var l = stampWithSelection();
+    doc.loadSelection('Object edge');
+    //doc.expandSelection(1);
+    doc.borderSelection(10);
+    l.minMaxMask('minimum', 3);
+    var l2 = stampWithSelection();
+    l2.name = "Halo Removal";
+    l2.addMask();
+    l.remove();
+  } catch (e) {
+    log(e);
+  }
+}
+
 onMakeMatchClick = function()
 {
   try {

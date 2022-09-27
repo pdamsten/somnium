@@ -55,6 +55,11 @@ var Settings = {
     "title": "Blend If -> Mask",
     "help": "Converts Blend if (This layer) to a mask so it can be refined further."
   },
+  "RemoveHalo": {
+    "group": "Retouch",
+    "title": "Remove Halo",
+    "help": "Makes halo removin layer. There should selection around the object before pressing button."
+  },
   "StampUnder": {
     "group": "Retouch",
     "title": "Stamp Current And Below",
