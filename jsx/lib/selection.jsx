@@ -166,3 +166,17 @@ Document.prototype.expandSelection = function(pixels)
     return false;
   }
 }
+
+Document.prototype.borderSelection = function(pixels)
+{
+  try {
+    var desc1 = new ActionDescriptor();
+    desc1.putUnitDouble(sTID("width"), sTID("pixelsUnit"), pixels);
+    executeAction(sTID("border"), desc1, DialogModes.NO );
+    return true;
+  } catch (e) {
+    log(e);
+    return false;
+  }
+}
+
