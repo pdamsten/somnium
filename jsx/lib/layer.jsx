@@ -559,6 +559,7 @@ Document.prototype.addGroup = function(name)
   var layerActive = app.activeDocument.activeLayer;
   var group = app.activeDocument.layerSets.add();
   group.name = app.activeDocument.uniqueLayerName(name);
+  group.move(layerActive, ElementPlacement.PLACEBEFORE)
   app.activeDocument.activeLayer = group;
   return group;
 }
