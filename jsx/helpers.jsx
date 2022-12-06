@@ -104,7 +104,7 @@ onMakeMemoClick = function()
     doc.pushLayer();
     l = doc.checkLayer('Memo', helpGroupName);
     if (l == null) {
-      var group = doc.checkGroup(helpGroupName);
+      var group = checkGroup(helpGroupName);
       var layer = doc.addLayer('Memo', group, ElementPlacement.INSIDE);
       layer.setStyles(MemoStyles);
       layer.opacity = 66;
@@ -128,7 +128,7 @@ onMakeSkinCheckerClick = function()
     doc.pushLayer();
     l = doc.checkLayer('Skin Checker', helpGroupName);
     if (l == null) {
-      group = doc.checkGroup(helpGroupName);
+      group = checkGroup(helpGroupName);
       l = doc.addChannelMixer('Skin Checker');
       l.setChannelMixer([-46, 4, 200], 0, true);
       l.deleteMask(l);
@@ -149,7 +149,7 @@ onMakePerspectiveLinesClick = function()
     doc.pushLayer();
     l = doc.checkLayer('Perspective Lines', helpGroupName);
     if (l == null) {
-      var group = doc.checkGroup(helpGroupName);
+      var group = checkGroup(helpGroupName);
       var v = Math.max(app.activeDocument.width, app.activeDocument.height);
       var a = 15;
       var l;
@@ -180,7 +180,7 @@ onMakeLightnessClick = function()
     doc.pushLayer();
     l = doc.checkLayer('Luminosity Check', helpGroupName);
     if (l == null) {
-      var group = doc.checkGroup(helpGroupName);
+      var group = checkGroup(helpGroupName);
       var l1 = doc.addSolidColorAdjustment('Luminosity', grey50);
       var l2 = doc.addCurveAdjustment('Enhance');
       l1.setBlendingMode('color');
@@ -206,7 +206,7 @@ onMatchTonesClick = function()
     doc.pushLayer();
     l = doc.checkLayer('Hue Check', helpGroupName);
     if (l == null) {
-      var group = doc.checkGroup(helpGroupName);
+      var group = checkGroup(helpGroupName);
       var l1 = doc.addSolidColorAdjustment('Hue', grey50);
       var l2 = doc.addHueSaturationAdjustment('Enhance');
       l1.setBlendingMode('luminosity');
@@ -231,7 +231,7 @@ onMakeSaturationMapClick = function()
     doc.pushLayer();
     l = doc.checkLayer('Saturation Check', helpGroupName);
     if (l == null) {
-      var group = doc.checkGroup(helpGroupName);
+      var group = checkGroup(helpGroupName);
       var l = doc.addSelectiveColorAdjustment('Saturation Check', group);
       var values = {'reds':   [0, 0, 0, -100], 'yellows':  [0, 0, 0, -100],
                     'greens': [0, 0, 0, -100], 'cyans':    [0, 0, 0, -100],
