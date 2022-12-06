@@ -37,6 +37,12 @@ const MemoStyles = {
   }
 }
 
+checkGroup = function(name)
+{
+  var group = app.activeDocument.checkGroup(name);
+  group.move(app.activeDocument.layers[0], ElementPlacement.PLACEBEFORE);
+}
+
 onMakeAllClick = function()
 {
   try {
@@ -77,7 +83,7 @@ onMakeSolarisationClick = function()
     if (l == null) {
       var c = [[0, 0], [26,225], [73,30], [109, 225], [145, 30], [182, 225], [219, 30], [255, 255]];
 
-      group = doc.checkGroup(helpGroupName);
+      group = checkGroup(helpGroupName);
       l = doc.addCurveAdjustment('Solarisation');
       l.setAdjustment(c);
       l.deleteMask();
