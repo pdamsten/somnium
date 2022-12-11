@@ -97,7 +97,7 @@ switch(key) {
   case 58: app.activeDocument.activeLayer.visible = !app.activeDocument.activeLayer.visible; break;
   case 59: Photoshop.redo(); break;
   case 81: app.activeDocument.activeLayer.addMask(); break;
-  case 82: app.activeDocument.addGroup('Group'); break;
+  case 82: app.activeDocument.createGroup('Group'); break;
   case 83: app.activeDocument.addLayer('Layer'); break;
   // Basic Tools
   case 29: Photoshop.selectTool('curvaturePenTool'); break;

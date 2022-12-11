@@ -552,6 +552,16 @@ LayerSet.prototype.moveToGroup = ArtLayer.prototype.moveToGroup = function(group
   }
 }
 
+Document.prototype.createGroup = function(name)
+{
+  var layers = app.activeDocument.selectedLayers();
+  if (layers.length > 1) {
+    this.groupSelectedLayers(name);
+  } else {
+    this.addGroup(name);
+  }
+}
+
 Document.prototype.addGroup = function(name)
 {
   this.activate();
