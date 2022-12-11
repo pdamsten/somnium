@@ -27,8 +27,8 @@ var colors = null;
 var previousTheme = null;
 
 const ColorGroupName = 'Color';
-const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
-                     'Multi Color Tint', 'Color Balance', 'Vibrance'];
+const ColorLayers = ['#Saturation', '#Selective Color', '#LUT', '#Tint', '#Curve',
+                     '#Multi Color Tint', '#Color Balance', '#Vibrance'];
 
 return { // public:
 

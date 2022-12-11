@@ -649,6 +649,9 @@ Document.prototype.selectLayers = function(layers)
 Document.prototype.uniqueLayerName = function(s)
 {
   try {
+    if (s.length > 0 && s[0] == '#') {
+      return s.substr(1);
+    }
     var doc  = app.activeDocument;
     doc.activate();
     var us = s;
