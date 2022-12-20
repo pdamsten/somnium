@@ -117,8 +117,8 @@ switch(key) {
   case 36: Photoshop.invert(); break;
   case 49: Photoshop.setDefaultColors(); break;
   case 61: Photoshop.selectTool('moveTool'); break;
-  case 64: app.activeDocument.addCurveAdjustment(); break;
-  case 52: app.activeDocument.addHueSaturationAdjustment(); break;
+  case 64: app.activeDocument.addCurveAdjustment('Curve'); break;
+  case 52: app.activeDocument.addHueSaturationAdjustment('Saturation'); break;
   case 63: solidColorHelper(); break;
   // Advanced Tools
   case 26: onMakeFSClick(); break;
