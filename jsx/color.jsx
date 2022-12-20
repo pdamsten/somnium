@@ -27,8 +27,8 @@ var colors = null;
 var previousTheme = null;
 
 const ColorGroupName = 'Color';
-const ColorLayers = ['#Saturation', '#Selective Color', '#LUT', '#Tint', '#Curve',
-                     '#Multi Color Tint', '#Color Balance', '#Vibrance'];
+const ColorLayers = ['Saturation', 'Selective Color', 'LUT', 'Tint', 'Curve',
+                     'Multi Color Tint', 'Color Balance', 'Vibrance'];
 
 return { // public:
 
@@ -41,56 +41,56 @@ checkColorThemeGroup: function()
 
   layer = doc.checkLayer(ColorLayers[1], group);
   if (layer == null) {
-    layer = doc.addSelectiveColorAdjustment(ColorLayers[1]);
+    layer = doc.addSelectiveColorAdjustment('#' + ColorLayers[1]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[6], group);
   if (layer == null) {
-    layer = doc.addColorBalanceAdjustment(ColorLayers[6]);
+    layer = doc.addColorBalanceAdjustment('#' + ColorLayers[6]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[2], group);
   if (layer == null) {
-    layer = doc.addColorLookup(ColorLayers[2]);
+    layer = doc.addColorLookup('#' + ColorLayers[2]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[4], group);
   if (layer == null) {
-    layer = doc.addCurveAdjustment(ColorLayers[4]);
+    layer = doc.addCurveAdjustment('#' + ColorLayers[4]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[3], group);
   if (layer == null) {
-    layer = doc.addSolidColorAdjustment(ColorLayers[3]);
+    layer = doc.addSolidColorAdjustment('#' + ColorLayers[3]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[5], group);
   if (layer == null) {
-    layer = doc.addGradientMapAdjustment(ColorLayers[5]);
+    layer = doc.addGradientMapAdjustment('#' + ColorLayers[5]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[0], group);
   if (layer == null) {
-    layer = doc.addHueSaturationAdjustment(ColorLayers[0]);
+    layer = doc.addHueSaturationAdjustment('#' + ColorLayers[0]);
   }
   layer.visible = false;
   layer.deleteMask();
 
   layer = doc.checkLayer(ColorLayers[7], group);
   if (layer == null) {
-    layer = doc.addVibranceAdjustment(ColorLayers[7]);
+    layer = doc.addVibranceAdjustment('#' + ColorLayers[7]);
   }
   layer.visible = false;
   layer.deleteMask();
